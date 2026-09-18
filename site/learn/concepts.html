@@ -259,16 +259,16 @@
     @media (max-width:720px) { .shell{width:min(100% - 24px,1280px)}.top-inner{align-items:flex-start;flex-direction:column;justify-content:center;gap:7px;padding:8px 0}.global-nav{justify-content:flex-start;gap:4px 14px}.doc-meta{text-align:left}.section-head,.talk-intro,.deep-lede,.deep-part-head,.llm-lede,.llm-part-head{grid-template-columns:1fr;gap:10px}.structure-list,.component-grid,.model-cast,.deep-process,.deep-connection,.llm-route,.mechanics-notes{grid-template-columns:1fr}.detail,.talk-stage,.foundation-primer,.deep-situation,.llm-token-board,.llm-attention,.llm-control,.llm-boundaries{grid-template-columns:1fr}.detail-main,.talk-story,.foundation-primer-main,.deep-situation-main,.llm-token-main,.llm-attention-visual,.llm-control-main,.llm-do{border-right:0;border-bottom:1px solid var(--line)}.talk-memory{grid-template-columns:1fr;gap:12px}.llm-route a::after,.llm-route div::after{top:auto;right:16px;bottom:-11px;transform:rotate(90deg)}.deep-step::after{top:auto;right:16px;bottom:-11px;transform:rotate(90deg)}.quick-grid{grid-template-columns:1fr}.nav-list,.component-nav-list{grid-template-columns:1fr 1fr}.component-button{min-height:116px}.llm-choices{grid-template-columns:1fr 1fr} }
     @media print { :root{--paper:#fff;--surface:#fff;--soft:#f5f5f5;--ink:#111;--muted:#555;--line:#bbb}.module-nav{display:none}.layout{display:block;padding-top:20px}.detail,.relation,.component-button{box-shadow:none}.section{padding:24px 0} }
   </style>
-  <script src="../全局搜索.js" defer></script>
+  <script src="../assets/js/site-search.js" defer></script>
 </head>
 <body>
-  <div class="top"><div class="shell top-inner"><a class="back" href="AI智能体知识图谱.html">AI AGENT 学习图谱</a><nav class="global-nav" aria-label="图谱版本导航"><a href="AI智能体知识图谱.html">初学者总览</a><a href="模块下钻.html?topic=foundation" aria-current="page">概念下钻</a><a href="../面向面试/AI智能体面试知识图谱.html">面试图谱</a><a href="../面向面试/面试题下钻.html?topic=foundation">题目下钻</a></nav><span class="doc-meta">版本 3.2 · 更新 2026-09-18 17:26 CST · 工作区状态：非 Git 目录</span><div data-site-search></div></div></div>
+  <div class="top"><div class="shell top-inner"><a class="back" href="index.html">AI AGENT 学习图谱</a><nav class="global-nav" aria-label="图谱版本导航"><a href="../index.html">首页</a><a href="index.html">初学者总览</a><a href="concepts.html?topic=foundation" aria-current="page">概念下钻</a><a href="../interview/index.html">面试图谱</a><a href="../interview/questions.html?topic=foundation">题目下钻</a></nav><span class="doc-meta">站点版本 0.2.0 · 页面版本 3.2 · 更新 2026-09-18 21:51 CST</span><div data-site-search></div></div></div>
   <main class="shell layout">
     <aside class="module-nav" aria-label="一级模块导航"><h2>模块导航</h2><nav class="nav-list" id="moduleNav"></nav></aside>
     <article class="content" id="content"></article>
     <aside class="component-nav" aria-label="当前模块的子模块导航"><h2>子模块导航</h2><nav class="component-nav-list" id="componentNav"></nav></aside>
   </main>
-  <footer class="shell footer">AI Agent 全景知识图谱 · 模块下钻页 · 版本 3.2 · 修改时间 2026-09-18 17:26 CST · 研究资料访问与核验：2026-09-18。</footer>
+  <footer class="shell footer">AI Agent 全景知识图谱 · 模块下钻页 · 页面版本 3.2 · 修改时间 2026-09-18 21:51 CST · 研究资料访问与核验：2026-09-18。</footer>
 
   <script>
     const refs = {
@@ -899,7 +899,7 @@
     topicOrder.forEach(key => {
       const item = topics[key];
       const link = document.createElement('a');
-      link.href = `模块下钻.html?topic=${key}`;
+      link.href = `concepts.html?topic=${key}`;
       link.innerHTML = `${item.no} ${item.title}<small>${item.english}</small>`;
       if (key === topicKey) link.setAttribute('aria-current', 'page');
       nav.append(link);
@@ -924,7 +924,7 @@
     function updateUrl({ preserveHash = false } = {}) {
       const isShareableHash = hash => ['#child-visual', '#llm-visual', '#llm-mechanics'].includes(hash) || hash.startsWith('#mechanics-');
       const hash = preserveHash && isShareableHash(location.hash) ? location.hash : '';
-      history.replaceState({}, '', `模块下钻.html?topic=${topicKey}&child=${activeChild.id}${hash}`);
+      history.replaceState({}, '', `concepts.html?topic=${topicKey}&child=${activeChild.id}${hash}`);
     }
     function renderDeepDive() {
       const container = document.getElementById('llmDeepDive');
@@ -1035,7 +1035,7 @@
       const structure = topic.structure.map(item => `<div><strong>${escapeHtml(item[0])}</strong><span>${escapeHtml(item[1])}</span></div>`).join('');
       componentNav.innerHTML = componentButtons;
       content.innerHTML = `
-        <header><p class="crumb">${topic.no} / ${escapeHtml(topic.english)}</p><h1>${escapeHtml(topic.title)}<span>${escapeHtml(topic.english)}：${escapeHtml(topic.core)}</span></h1><p class="intro">${escapeHtml(topic.intro)}</p><p class="question"><b>本模块要回答的问题：</b>${escapeHtml(topic.question)}</p><p class="counterpart">对应面试练习：<a href="../面向面试/面试题下钻.html?topic=${interviewTopicMap[topicKey]}">进入「${escapeHtml(topic.title)}」高频面试题</a></p></header>
+        <header><p class="crumb">${topic.no} / ${escapeHtml(topic.english)}</p><h1>${escapeHtml(topic.title)}<span>${escapeHtml(topic.english)}：${escapeHtml(topic.core)}</span></h1><p class="intro">${escapeHtml(topic.intro)}</p><p class="question"><b>本模块要回答的问题：</b>${escapeHtml(topic.question)}</p><p class="counterpart">对应面试练习：<a href="../interview/questions.html?topic=${interviewTopicMap[topicKey]}">进入「${escapeHtml(topic.title)}」高频面试题</a></p></header>
         <section class="section"><div class="section-head"><div><h2>它在系统中的位置与关联</h2></div></div>${relationshipSvg()}<div class="structure-list">${structure}</div>${foundationPrimer()}</section>
         <section class="section" id="childExplain"><div class="section-head"><div><h2 id="childHeading">当前子模块：${escapeHtml(activeChild.title)}</h2></div></div><div class="detail" id="childDetail"></div><div id="llmDeepDive"></div></section>
         <section class="section"><div class="section-head"><div><h2>本模块的主要参考</h2></div></div><ul class="refs">${refLinks(topic.refs)}</ul></section>`;

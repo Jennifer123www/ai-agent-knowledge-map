@@ -1,24 +1,45 @@
 # AI Agent Knowledge Map
 
-Interactive Chinese learning and interview guides for the AI Agent knowledge map.
+A static Chinese learning site for the AI Agent knowledge map. It presents one shared topic system through two complementary paths: a beginner guide for concepts and an interview guide for answer practice.
 
-## Contents
+## Structure
 
-- `outputs/面向初学者/` - Beginner overview and concept drill-down pages.
-- `outputs/面向面试/` - Interview overview and question drill-down pages.
-- `outputs/全局搜索.js` - Shared cross-page search for both guide variants.
+```text
+site/
+  index.html                 # Editorial home page
+  learn/
+    index.html               # Beginner overview
+    concepts.html            # Concept diagrams and "大话" explanations
+  interview/
+    index.html               # Interview topic map
+    questions.html           # Interview question drill-down
+  assets/js/
+    site-search.js           # Shared cross-site search
+scripts/
+  check-site.mjs             # Link and syntax validation
+```
+
+The `site/` directory is the publish root for GitHub Pages, Netlify, Vercel, or any ordinary static-file host. The paths use stable English lowercase URLs, while the pages and learning material remain in Chinese.
 
 ## Local Preview
 
 ```sh
-python3 -m http.server 4173 --directory outputs
+npm run serve
 ```
 
-Open `http://127.0.0.1:4173/面向初学者/AI智能体知识图谱.html` in a browser.
+Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/).
+
+## Validation
+
+```sh
+npm run check
+```
+
+The check confirms expected pages, local HTML links, inline script syntax, and the shared search script.
 
 ## Project Metadata
 
-- Version: `0.1.0`
-- Stage: local Git repository prepared for first remote push
-- Git status at migration: initial baseline prepared on `main` for remote push
-- Updated: `2026-09-18 17:26 CST`
+- Version: `0.2.0`
+- Stage: static site restructured for remote hosting
+- Git baseline: `12cd12e` on `main`; working tree contains the pending site-structure refactor
+- Updated: `2026-09-18 21:51 CST`

@@ -1,8 +1,10 @@
 (() => {
-  const decodedPath = decodeURIComponent(location.pathname);
-  const inInterview = decodedPath.includes('/面向面试/');
-  const beginner = inInterview ? '../面向初学者/' : '';
-  const interview = inInterview ? '' : '../面向面试/';
+  const pathParts = decodeURIComponent(location.pathname).split('/').filter(Boolean);
+  const section = pathParts.at(-2);
+  const inLearn = section === 'learn';
+  const inInterview = section === 'interview';
+  const beginner = inLearn ? '' : inInterview ? '../learn/' : 'learn/';
+  const interview = inInterview ? '' : inLearn ? '../interview/' : 'interview/';
 
   const modules = [
     ['foundation', '基础模型与推理', '大语言模型 多模态 向量嵌入 重排序 模型适配 LLM'],
@@ -32,17 +34,17 @@
 
   const interviewTopic = {foundation: 'foundation', context: 'rag', improvement: 'memory', core: 'agent', capabilities: 'tools', orchestration: 'multiagent', evaluation: 'evaluation', governance: 'safety', runtime: 'system', applications: 'project'};
   const entries = [
-    {title: '初学者总览', meta: '初学者 · 全景知识图谱', words: 'AI Agent 智能体 知识图谱 学习地图 总览', href: `${beginner}AI智能体知识图谱.html`},
-    {title: '初学者概念下钻', meta: '初学者 · 子模块图解与大话系列', words: '初学者 下钻 大话 机制加餐 图解', href: `${beginner}模块下钻.html?topic=foundation`},
-    {title: '面试图谱', meta: '面向面试 · 高频主题与答题结构', words: '面试 高频 题库 答题 记忆点', href: `${interview}AI智能体面试知识图谱.html`},
-    {title: '面试题下钻', meta: '面向面试 · 原理、答题点与追问', words: '面试题 原理 追问 图解', href: `${interview}面试题下钻.html?topic=foundation`}
+    {title: '初学者总览', meta: '初学者 · 全景知识图谱', words: 'AI Agent 智能体 知识图谱 学习地图 总览', href: `${beginner}index.html`},
+    {title: '初学者概念下钻', meta: '初学者 · 子模块图解与大话系列', words: '初学者 下钻 大话 机制加餐 图解', href: `${beginner}concepts.html?topic=foundation`},
+    {title: '面试图谱', meta: '面向面试 · 高频主题与答题结构', words: '面试 高频 题库 答题 记忆点', href: `${interview}index.html`},
+    {title: '面试题下钻', meta: '面向面试 · 原理、答题点与追问', words: '面试题 原理 追问 图解', href: `${interview}questions.html?topic=foundation`}
   ];
 
   modules.forEach(([topic, title, words]) => {
-    entries.push({title, meta: '初学者 · 模块下钻', words, href: `${beginner}模块下钻.html?topic=${topic}`});
-    entries.push({title: `${title}面试题`, meta: '面向面试 · 高频练习', words: `${words} 面试 高频 答题`, href: `${interview}面试题下钻.html?topic=${interviewTopic[topic]}`});
+    entries.push({title, meta: '初学者 · 模块下钻', words, href: `${beginner}concepts.html?topic=${topic}`});
+    entries.push({title: `${title}面试题`, meta: '面向面试 · 高频练习', words: `${words} 面试 高频 答题`, href: `${interview}questions.html?topic=${interviewTopic[topic]}`});
   });
-  children.forEach(([topic, child, title, words]) => entries.push({title, meta: '初学者 · 子模块图解、大话与机制加餐', words: `${words} ${modules.find(item => item[0] === topic)[1]}`, href: `${beginner}模块下钻.html?topic=${topic}&child=${child}`}));
+  children.forEach(([topic, child, title, words]) => entries.push({title, meta: '初学者 · 子模块图解、大话与机制加餐', words: `${words} ${modules.find(item => item[0] === topic)[1]}`, href: `${beginner}concepts.html?topic=${topic}&child=${child}`}));
 
   const style = document.createElement('style');
   style.textContent = `
