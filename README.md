@@ -40,6 +40,6 @@ The check confirms expected pages, local HTML links, inline script syntax, and t
 ## Project Metadata
 
 - Version: `0.2.1`
-- Stage: static site restructured for remote hosting
-- Git baseline: `103bba1` on `main`; working tree contains the pending HTML knowledge-map refinement
-- Updated: `2026-09-18 22:15 CST`
+- Stage: GitHub repository linked and initial `main` history pushed
+- Git status before this metadata update: clean; `main` tracked `origin/main` at `c9c366f`
+- Updated: `2026-09-19 00:05 CST`
