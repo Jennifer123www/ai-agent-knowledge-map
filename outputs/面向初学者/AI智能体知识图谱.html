@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向初学者的 AI Agent 全景知识图谱。覆盖模型、推理、知识、记忆、Skill、MCP、多智能体、运行时、安全、评测与生产实践，并附论文、标准、云厂商文档和工程博客来源。">
+  <title>AI Agent 全景知识图谱 | 研究导览</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f5f7f1;
+      --ink: #18231d;
+      --muted: #5f6b63;
+      --line: #ced7ce;
+      --surface: #ffffff;
+      --surface-soft: #eef3ed;
+      --green: #0b725a;
+      --teal: #007f83;
+      --orange: #d9672c;
+      --plum: #7854a3;
+      --blue: #256da3;
+      --rose: #c44b63;
+      --yellow: #e9b949;
+      --shadow: 0 10px 28px rgba(23, 48, 37, .09);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #101713;
+        --ink: #edf4ee;
+        --muted: #aab9ad;
+        --line: #34463a;
+        --surface: #17231c;
+        --surface-soft: #1c2b22;
+        --green: #4cc4a2;
+        --teal: #4ac5c5;
+        --orange: #ff9a62;
+        --plum: #c7a4ff;
+        --blue: #78bbef;
+        --rose: #ff9aae;
+        --yellow: #ffd56a;
+        --shadow: 0 10px 28px rgba(0, 0, 0, .26);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.62;
+    }
+    a { color: inherit; text-underline-offset: 3px; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .shell { width: min(1216px, calc(100% - 36px)); margin: 0 auto; }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .brandmark { flex: 0 0 auto; color: var(--green); font-weight: 800; letter-spacing: .08em; text-decoration: none; }
+    .global-nav { display: flex; flex: 1 1 auto; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 16px; }
+    .global-nav a { color: var(--muted); font-size: 12px; font-weight: 700; text-decoration: none; }
+    .global-nav a:hover, .global-nav a[aria-current="page"] { color: var(--green); text-decoration: underline; text-decoration-thickness: 2px; }
+    .meta { text-align: right; }
+
+    .hero { padding: 50px 0 32px; }
+    .kicker {
+      margin: 0 0 10px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 900px; margin-bottom: 14px; font-size: clamp(34px, 6vw, 64px); line-height: 1.05; letter-spacing: 0; }
+    .lede { max-width: 800px; margin: 0; color: var(--muted); font-size: 17px; }
+    .hero-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 22px;
+      margin-top: 26px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .hero-nav a { color: var(--green); }
+
+    .beginner-strip {
+      display: grid;
+      grid-template-columns: minmax(190px, .9fr) repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .beginner-intro, .route-step { min-height: 124px; padding: 20px; }
+    .beginner-intro { border-right: 1px solid var(--line); }
+    .beginner-intro h2 { margin: 0 0 5px; font-size: 17px; }
+    .beginner-intro p, .route-step p { margin: 0; color: var(--muted); font-size: 13px; }
+    .route-step { position: relative; border-right: 1px solid var(--line); }
+    .route-step:last-child { border-right: 0; }
+    .route-step::before { display: block; margin-bottom: 5px; color: var(--accent); content: attr(data-step); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    .route-step strong { display: block; margin-bottom: 3px; font-size: 15px; }
+
+    section { padding: 58px 0; }
+    section + section { border-top: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 390px); align-items: end; gap: 28px; margin-bottom: 24px; }
+    h2 { margin-bottom: 0; font-size: clamp(25px, 3vw, 36px); line-height: 1.16; letter-spacing: 0; }
+    .section-note { margin: 0; color: var(--muted); font-size: 14px; }
+    .section-note em { color: var(--orange); font-style: normal; font-weight: 700; }
+
+    .agent-loop {
+      display: grid;
+      grid-template-columns: 1fr minmax(240px, 340px) 1fr;
+      align-items: stretch;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .loop-side { display: grid; grid-template-rows: 1fr 1fr; }
+    .loop-node { position: relative; padding: 26px; border-bottom: 1px solid var(--line); }
+    .loop-node:last-child { border-bottom: 0; }
+    .loop-node::after { content: ""; position: absolute; top: 50%; width: 42px; height: 1px; background: var(--accent); }
+    .loop-side.left .loop-node::after { right: -42px; }
+    .loop-side.right .loop-node::after { left: -42px; }
+    .loop-node small { display: block; margin-bottom: 7px; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .loop-node strong { display: block; font-size: 18px; }
+    .loop-node p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .loop-center { position: relative; display: grid; place-items: center; padding: 38px 22px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); background: var(--surface-soft); text-align: center; }
+    .loop-core { display: grid; width: 190px; height: 190px; place-items: center; border: 2px solid var(--green); border-radius: 50%; background: var(--surface); color: var(--green); }
+    .loop-core strong { display: block; font-size: 22px; }
+    .loop-core span { display: block; color: var(--muted); font-size: 12px; }
+    .loop-center::before, .loop-center::after { content: ""; position: absolute; width: 56px; height: 56px; border-color: var(--green); border-style: solid; opacity: .65; }
+    .loop-center::before { top: 28px; right: 28px; border-width: 1px 1px 0 0; }
+    .loop-center::after { bottom: 28px; left: 28px; border-width: 0 0 1px 1px; }
+    .loop-caption { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
+
+    .map-area { overflow: auto; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+    .map-area svg { display: block; min-width: 890px; width: 100%; height: auto; }
+    .map-area .wire { fill: none; stroke: var(--line); stroke-width: 2; }
+    .map-area .wire.active { stroke: var(--green); stroke-width: 3; }
+    .map-area .map-node rect { fill: var(--surface); stroke: var(--accent); stroke-width: 2; rx: 10; }
+    .map-area .map-node text { fill: var(--ink); font-family: Inter, "PingFang SC", sans-serif; font-size: 15px; font-weight: 700; text-anchor: middle; }
+    .map-area .map-node .sub { fill: var(--muted); font-size: 10px; font-weight: 500; }
+    .map-area .map-node:hover rect { fill: var(--surface-soft); stroke-width: 3; }
+    .map-caption { display: flex; justify-content: space-between; gap: 20px; padding: 13px 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+
+    .domain-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .domain {
+      position: relative;
+      min-height: 230px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .domain::before { display: block; margin-bottom: 14px; color: var(--accent); content: attr(data-no); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    .domain h3 { margin-bottom: 7px; font-size: 20px; line-height: 1.2; }
+    .domain p { margin-bottom: 14px; color: var(--muted); font-size: 13px; }
+    .domain ul { margin: 0 0 18px; padding: 0; list-style: none; color: var(--muted); font-size: 12px; }
+    .domain li { display: inline; }
+    .domain li + li::before { content: " · "; color: var(--accent); }
+    .arrow-link { color: var(--accent); font-size: 13px; font-weight: 800; text-decoration: none; }
+    .arrow-link::after { content: "  ->"; }
+    .pair-link { display: inline-block; margin-left: 14px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .pair-link:hover { color: var(--accent); }
+
+    .relation-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 0; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+    .relation-visual { min-height: 420px; padding: 30px; border-right: 1px solid var(--line); }
+    .relation-visual h3, .relation-copy h3 { margin-bottom: 8px; font-size: 21px; }
+    .relation-visual > p, .relation-copy > p { color: var(--muted); font-size: 13px; }
+    .relation-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 36px; }
+    .relation-node { min-width: 104px; padding: 11px 12px; border: 1px solid var(--accent); background: var(--surface-soft); color: var(--ink); font-size: 13px; font-weight: 800; text-align: center; }
+    .relation-node small { display: block; color: var(--muted); font-size: 10px; font-weight: 500; }
+    .relation-arrow { color: var(--accent); font-weight: 800; }
+    .relation-subflow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; }
+    .relation-subflow div { padding: 12px; border-top: 3px solid var(--accent); background: var(--surface-soft); color: var(--muted); font-size: 12px; }
+    .relation-subflow strong { display: block; margin-bottom: 3px; color: var(--ink); font-size: 13px; }
+    .relation-copy { padding: 30px; background: var(--surface-soft); }
+    .relation-copy dl { margin: 20px 0 0; }
+    .relation-copy div { padding: 12px 0; border-top: 1px solid var(--line); }
+    .relation-copy dt { font-size: 14px; font-weight: 800; }
+    .relation-copy dd { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+    .practice-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+    .practice { padding: 18px 0; border-top: 3px solid var(--accent); }
+    .practice h3 { margin-bottom: 5px; font-size: 17px; }
+    .practice p { margin: 0; color: var(--muted); font-size: 13px; }
+    .practice ul { margin: 12px 0 0; padding-left: 17px; color: var(--muted); font-size: 12px; }
+
+    .source-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .source-filter { padding: 6px 0; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--muted); font-size: 13px; }
+    .source-filter[aria-pressed="true"] { border-color: var(--green); color: var(--green); font-weight: 800; }
+    .source-count { margin-left: auto; color: var(--muted); font-size: 12px; }
+    .source-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .source {
+      min-height: 144px;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .source[hidden] { display: none; }
+    .source .tag { display: inline-block; margin-bottom: 7px; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .source a { display: block; font-size: 15px; font-weight: 800; }
+    .source p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .source .why { margin-top: 10px; color: var(--ink); font-size: 12px; }
+    .source .why b { color: var(--orange); }
+
+    .method-note { display: grid; grid-template-columns: auto 1fr; gap: 16px; padding: 18px 0 0; color: var(--muted); font-size: 12px; }
+    .method-note strong { color: var(--ink); }
+    .footer { padding: 26px 0 54px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .footer p { margin: 0; }
+
+    @media (max-width: 920px) {
+      .beginner-strip { grid-template-columns: 1fr 1fr; }
+      .beginner-intro { grid-column: span 2; border-right: 0; border-bottom: 1px solid var(--line); }
+      .route-step:nth-child(3) { border-right: 0; }
+      .agent-loop { grid-template-columns: 1fr 1fr; }
+      .loop-center { order: -1; grid-column: span 2; min-height: 240px; border: 0; border-bottom: 1px solid var(--line); }
+      .loop-side.left .loop-node::after, .loop-side.right .loop-node::after { display: none; }
+      .domain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .practice-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 24px, 1216px); }
+      .topbar-inner { align-items: flex-start; flex-direction: column; justify-content: center; gap: 7px; padding: 8px 0; }
+      .global-nav { justify-content: flex-start; gap: 4px 14px; }
+      .meta { text-align: left; }
+      .hero { padding-top: 34px; }
+      .section-head { grid-template-columns: 1fr; gap: 10px; }
+      .beginner-strip { grid-template-columns: 1fr; }
+      .beginner-intro { grid-column: auto; }
+      .route-step, .route-step:nth-child(3) { border-right: 0; border-bottom: 1px solid var(--line); min-height: 0; }
+      .route-step:last-child { border-bottom: 0; }
+      .agent-loop { grid-template-columns: 1fr; }
+      .loop-center { grid-column: auto; }
+      .loop-side { grid-template-rows: auto; }
+      .loop-node { min-height: 130px; }
+      .domain-grid, .source-list { grid-template-columns: 1fr; }
+      .relation-grid { grid-template-columns: 1fr; }
+      .relation-visual { border-right: 0; border-bottom: 1px solid var(--line); }
+      .relation-subflow { grid-template-columns: 1fr; }
+      .practice-grid { grid-template-columns: 1fr; gap: 0; }
+      .practice { padding: 18px 0; }
+      .source-count { width: 100%; margin-left: 0; }
+    }
+    @media print {
+      :root { --paper: #fff; --surface: #fff; --surface-soft: #f5f5f5; --ink: #111; --muted: #555; --line: #bbb; }
+      .hero-nav, .source-tools { display: none; }
+      section { padding: 26px 0; }
+      .domain, .source, .practice { break-inside: avoid; }
+    }
+  </style>
+  <script src="../全局搜索.js" defer></script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brandmark" href="AI智能体知识图谱.html">AI AGENT 学习图谱</a>
+      <nav class="global-nav" aria-label="图谱版本导航">
+        <a href="AI智能体知识图谱.html" aria-current="page">初学者总览</a>
+        <a href="模块下钻.html?topic=foundation">概念下钻</a>
+        <a href="../面向面试/AI智能体面试知识图谱.html">面试图谱</a>
+        <a href="../面向面试/面试题下钻.html?topic=foundation">题目下钻</a>
+      </nav>
+      <span class="meta">版本 2.5 · 更新 2026-09-18 17:26 CST · 工作区状态：非 Git 目录</span>
+      <div data-site-search></div>
+    </div>
+  </div>
+
+  <header class="shell hero">
+    <p class="kicker">Research-led field guide</p>
+    <h1>AI Agent 全景知识图谱</h1>
+    <p class="lede">把智能体（AI Agent）看成一套会调用模型、知识、工具和流程的“任务操作系统”。这份图谱从研究论文、开放标准、工程框架、云平台与一线技术文章中抽取共同结构，帮助你先搭好地图，再挑一条路走进去。</p>
+    <nav class="hero-nav" aria-label="页面导航">
+      <a href="#map">全景地图</a>
+      <a href="#domains">十个领域</a>
+      <a href="#relations">概念关系</a>
+      <a href="#practice">生产实践</a>
+      <a href="#sources">来源库</a>
+      <a href="模块下钻.html?topic=foundation">基础模型下钻</a>
+      <a href="模块下钻.html?topic=foundation&child=llm#llm-visual">大话大语言模型</a>
+    </nav>
+  </header>
+
+  <div class="beginner-strip">
+    <div class="beginner-intro">
+      <h2>给初学者的阅读顺序</h2>
+      <p>先理解 Agent 做什么，再理解它靠什么做；不要一开始就把协议名和框架名当作咒语背下来。</p>
+    </div>
+    <div class="route-step" data-step="01 / 先看任务"><strong>模型与上下文</strong><p>大语言模型负责生成，检索增强生成和记忆负责补充资料。</p></div>
+    <div class="route-step" data-step="02 / 再看行动"><strong>工具、技能与协议</strong><p>技能（Skill）和模型上下文协议（MCP）把“会回答”变成“能把事做完”。</p></div>
+    <div class="route-step" data-step="03 / 学会组织"><strong>编排与协作</strong><p>工作流保证秩序，多 Agent 处理复杂分工。</p></div>
+    <div class="route-step" data-step="04 / 最后上线"><strong>安全、评测、运营</strong><p>生产系统需要证据、边界和可回放的记录。</p></div>
+  </div>
+
+  <main>
+    <section class="shell" id="what-is-agent">
+      <div class="section-head">
+        <div><p class="kicker">A practical definition</p><h2>Agent 不是“会聊天的模型”</h2></div>
+        <p class="section-note">更准确地说，它是一个以目标为中心、能<em>观察、判断、行动、复盘</em>的系统。模型负责生成候选方案，系统负责把方案变成可控的执行。</p>
+      </div>
+      <div class="agent-loop" aria-label="Agent 感知、决策、行动、反馈循环图">
+        <div class="loop-side left">
+          <article class="loop-node" style="--accent:var(--blue)"><small>01 Observe</small><strong>感知任务</strong><p>读取用户目标、环境状态、文件、网页或传感器信号。</p></article>
+          <article class="loop-node" style="--accent:var(--teal)"><small>02 Ground</small><strong>补齐依据</strong><p>检索知识、读取记忆、调用数据接口，减少“凭感觉回答”。</p></article>
+        </div>
+        <div class="loop-center"><div class="loop-core"><div><strong>Agent Loop</strong><span>规划 · 推理 · 路由</span></div></div></div>
+        <div class="loop-side right">
+          <article class="loop-node" style="--accent:var(--orange)"><small>03 Act</small><strong>调用能力</strong><p>选择 Skill、工具或远程 Agent，执行可验证的动作。</p></article>
+          <article class="loop-node" style="--accent:var(--plum)"><small>04 Learn</small><strong>记录与评估</strong><p>保留轨迹、检查结果、写入适当记忆，并为下一轮提供反馈。</p></article>
+        </div>
+      </div>
+      <p class="loop-caption">一个实用判断：如果系统只能“回答”，它更像助手；如果它能围绕目标循环使用上下文和工具，并在边界内完成任务，它才接近 Agent。</p>
+    </section>
+
+    <section id="map">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="kicker">System map</p><h2>一张图看清体系如何合拢</h2></div>
+          <p class="section-note">横向是任务从输入到结果的流动；纵向是贯穿全程的治理。点击节点可进入对应主题，下钻页不是另一张孤岛地图，而是把一条线放大来看。</p>
+        </div>
+        <div class="map-area">
+          <svg viewBox="0 0 1150 560" role="img" aria-label="AI Agent 从模型、上下文、执行到运营治理的体系关系图">
+            <path class="wire active" d="M175 170H260M445 170H520M705 170H785M970 170H1050" />
+            <path class="wire" d="M352 230V345M612 230V345M878 230V345" />
+            <path class="wire" d="M352 400H612M612 400H878" />
+            <path class="wire" d="M1050 170V400H978" />
+            <text x="575" y="62" text-anchor="middle" fill="var(--muted)" font-family="Inter, PingFang SC, sans-serif" font-size="13">任务目标、用户偏好、环境信号</text>
+            <g class="map-node" style="--accent:var(--plum)"><a href="模块下钻.html?topic=foundation"><rect x="30" y="122" width="145" height="100"/><text x="102" y="161">基础模型</text><text class="sub" x="102" y="186">语言 · 多模态 · 向量</text></a></g>
+            <g class="map-node" style="--accent:var(--teal)"><a href="模块下钻.html?topic=context"><rect x="260" y="122" width="185" height="100"/><text x="352" y="161">知识与上下文</text><text class="sub" x="352" y="186">检索 · 记忆 · 压缩</text></a></g>
+            <g class="map-node" style="--accent:var(--green)"><a href="模块下钻.html?topic=core"><rect x="520" y="112" width="185" height="120"/><text x="612" y="157">智能体核心</text><text class="sub" x="612" y="183">推理 · 规划 · 路由</text><text class="sub" x="612" y="202">反思</text></a></g>
+            <g class="map-node" style="--accent:var(--orange)"><a href="模块下钻.html?topic=capabilities"><rect x="785" y="122" width="185" height="100"/><text x="878" y="161">能力扩展</text><text class="sub" x="878" y="186">技能 · 工具 · MCP</text></a></g>
+            <g class="map-node" style="--accent:var(--blue)"><a href="模块下钻.html?topic=applications"><rect x="1050" y="122" width="80" height="100"/><text x="1090" y="161">业务</text><text class="sub" x="1090" y="186">结果</text></a></g>
+            <g class="map-node" style="--accent:var(--rose)"><a href="模块下钻.html?topic=orchestration"><rect x="260" y="345" width="185" height="100"/><text x="352" y="383">编排与协作</text><text class="sub" x="352" y="408">工作流 · 多智能体</text></a></g>
+            <g class="map-node" style="--accent:var(--blue)"><a href="模块下钻.html?topic=runtime"><rect x="520" y="345" width="185" height="100"/><text x="612" y="383">运行基础设施</text><text class="sub" x="612" y="408">运行时 · 沙箱 · 智能体协作</text></a></g>
+            <g class="map-node" style="--accent:var(--orange)"><a href="模块下钻.html?topic=governance"><rect x="785" y="345" width="185" height="100"/><text x="878" y="383">安全、评测与运营</text><text class="sub" x="878" y="408">护栏 · 追踪 · 评测</text></a></g>
+            <text x="575" y="505" text-anchor="middle" fill="var(--muted)" font-family="Inter, PingFang SC, sans-serif" font-size="12">治理层不是上线前最后贴上的胶带：它需要从模型、工具到运行时全程参与。</text>
+          </svg>
+          <div class="map-caption"><span>实线：主要任务流</span><span>竖线：给上层能力提供执行与约束</span><span>点击彩色节点进入主题</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="domains">
+      <div class="section-head">
+        <div><p class="kicker">Knowledge map</p><h2>十个与面试版一一对应的领域</h2></div>
+        <p class="section-note">初学者版解释“它是什么、怎么连接”；面试版练习“如何讲清原理、取舍和生产判断”。两套内容使用相同编号和主题，便于来回学习。</p>
+      </div>
+      <div class="domain-grid">
+        <article class="domain" data-no="01 / Model" style="--accent:var(--plum)"><h3>基础模型与推理</h3><p>模型怎样表示信息、理解上下文、生成结果；也是质量、时延与成本的起点。</p><ul><li>大语言模型</li><li>多模态</li><li>注意力</li><li>采样</li></ul><a class="arrow-link" href="模块下钻.html?topic=foundation">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=foundation">面试练习</a></article>
+        <article class="domain" data-no="02 / Retrieval" style="--accent:var(--teal)"><h3>知识检索与检索增强生成</h3><p>从文档、数据库或知识图谱中取得当前所需证据，再生成有来源的回答。</p><ul><li>知识源</li><li>知识图谱</li><li>切分</li><li>召回与重排序</li></ul><a class="arrow-link" href="模块下钻.html?topic=context">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=rag">面试练习</a></article>
+        <article class="domain" data-no="03 / Context" style="--accent:var(--plum)"><h3>记忆与上下文工程</h3><p>区分任务状态、经验、事实与用户偏好，只把相关、可信、必要的信息交给模型。</p><ul><li>任务状态</li><li>记忆类型</li><li>用户画像</li><li>保留期</li></ul><a class="arrow-link" href="模块下钻.html?topic=improvement">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=memory">面试练习</a></article>
+        <article class="domain" data-no="04 / Agent" style="--accent:var(--green)"><h3>智能体与工作流</h3><p>把目标变成下一步行动，区分模型动态决策与程序确定性流程。</p><ul><li>指令</li><li>规划</li><li>ReAct</li><li>停止条件</li></ul><a class="arrow-link" href="模块下钻.html?topic=core">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=agent">面试练习</a></article>
+        <article class="domain" data-no="05 / Action" style="--accent:var(--orange)"><h3>工具、技能与协议</h3><p>Skill 复用做事方法，受控工具执行动作，MCP 规范客户端与外部能力如何连接。</p><ul><li>API、代码与浏览器</li><li>技能</li><li>MCP Client / Server</li><li>Tools / Resources / Prompts</li></ul><a class="arrow-link" href="模块下钻.html?topic=capabilities">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=tools">面试练习</a></article>
+        <article class="domain" data-no="06 / Collaboration" style="--accent:var(--rose)"><h3>多智能体协作</h3><p>仅在职责可分、交付可验收时引入多个 Agent，并由主管调度、交接与验收。</p><ul><li>角色分工</li><li>主管调度</li><li>结构化通信</li><li>交接与验收</li></ul><a class="arrow-link" href="模块下钻.html?topic=orchestration">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=multiagent">面试练习</a></article>
+        <article class="domain" data-no="07 / Evidence" style="--accent:var(--teal)"><h3>评测、可观测性与持续优化</h3><p>用轨迹、离线评测、线上指标和反馈闭环判断质量，并将版本与实验纳入发布决策。</p><ul><li>链路追踪</li><li>离线评测</li><li>版本与实验</li><li>灰度回滚</li></ul><a class="arrow-link" href="模块下钻.html?topic=evaluation">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=evaluation">面试练习</a></article>
+        <article class="domain" data-no="08 / Trust" style="--accent:var(--orange)"><h3>安全、权限与治理</h3><p>将身份、最小权限、内容与动作护栏、审批和审计放在模型外的执行边界。</p><ul><li>身份认证</li><li>授权</li><li>安全护栏</li><li>审批与审计</li></ul><a class="arrow-link" href="模块下钻.html?topic=governance">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=safety">面试练习</a></article>
+        <article class="domain" data-no="09 / System" style="--accent:var(--blue)"><h3>系统设计、运行时与成本</h3><p>让 Agent 可持续运行、故障可恢复、模型服务可治理，并把版本安全地交付到生产。</p><ul><li>运行时与沙箱</li><li>模型网关</li><li>定时与事件</li><li>部署与扩缩容</li></ul><a class="arrow-link" href="模块下钻.html?topic=runtime">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=system">面试练习</a></article>
+        <article class="domain" data-no="10 / Practice" style="--accent:var(--green)"><h3>应用落地与项目实践</h3><p>按业务责任、交付物和个人贡献组织真实项目，覆盖研究、编码、分析和面向客户的日常协作。</p><ul><li>办公与客服</li><li>销售协作</li><li>人机协同</li><li>项目复盘</li></ul><a class="arrow-link" href="模块下钻.html?topic=applications">初学者说明</a><a class="pair-link" href="../面向面试/面试题下钻.html?topic=project">面试练习</a></article>
+      </div>
+    </section>
+
+    <section id="relations">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="kicker">Frequently confused</p><h2>知识库、Skill、MCP：不是同一类东西</h2></div>
+          <p class="section-note">记住这个区分就够用：知识库告诉 Agent <em>知道什么</em>；Skill 规定 <em>怎么做</em>；MCP 处理 <em>怎么连</em>。</p>
+        </div>
+        <div class="relation-grid">
+          <div class="relation-visual">
+            <h3>一次“查合同并更新系统”的旅程</h3>
+            <p>以下是一个执行图，而不是产品架构图。每一块可以替换，职责不要混淆。</p>
+            <div class="relation-flow">
+              <div class="relation-node" style="--accent:var(--green)">用户目标<small>查合同</small></div><span class="relation-arrow">-></span>
+              <div class="relation-node" style="--accent:var(--plum)">Skill<small>审阅 SOP</small></div><span class="relation-arrow">-></span>
+              <div class="relation-node" style="--accent:var(--teal)">RAG<small>检索条款</small></div><span class="relation-arrow">-></span>
+              <div class="relation-node" style="--accent:var(--orange)">MCP / Tool<small>写入 CRM</small></div>
+            </div>
+            <div class="relation-subflow">
+              <div style="--accent:var(--teal)"><strong>知识库</strong>文档、数据库、图谱等可检索资料的所在地。</div>
+              <div style="--accent:var(--plum)"><strong>Memory</strong>跨轮或跨会话留下的、与该用户或任务有关的经验。</div>
+              <div style="--accent:var(--blue)"><strong>Runtime</strong>保管状态、执行隔离、重试、日志和权限的操作底座。</div>
+            </div>
+          </div>
+          <div class="relation-copy">
+            <h3>用一句话分辨</h3>
+            <dl>
+              <div><dt>RAG</dt><dd>一种把外部资料取回来放进当前上下文的方法。它不是知识库本身。</dd></div>
+              <div><dt>Skill</dt><dd>可复用的任务包：说明、流程、模板、脚本和资源。它可以规定何时检索、何时调用工具。</dd></div>
+              <div><dt>MCP</dt><dd>开放协议，标准化应用与外部工具、资源和提示词的连接；它不替代业务 API。</dd></div>
+              <div><dt>A2A</dt><dd>让不同 Agent 之间通信、委派和协作的协议。简单说，MCP 偏“接工具”，A2A 偏“找同事”。</dd></div>
+              <div><dt>Workflow 与 Agent</dt><dd>Workflow 的步骤主要由代码预先规定；Agent 会在边界内动态决定下一步。实际系统常混用两者。</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="practice">
+      <div class="section-head">
+        <div><p class="kicker">From research to production</p><h2>研究结论如何落到工程里</h2></div>
+        <p class="section-note">论文提供机制和可比实验，工程框架提供实现形态，云平台提供运行和治理能力。三者缺一块，系统就容易偏科。</p>
+      </div>
+      <div class="practice-grid">
+        <article class="practice" style="--accent:var(--plum)"><h3>推理与规划</h3><p>ReAct 把“思考”和“行动”交替，Tree of Thoughts 处理需要搜索和回溯的问题。</p><ul><li>生产上先从短循环和明确停止条件开始</li><li>规划不是越长越好，先保证可执行和可验证</li></ul></article>
+        <article class="practice" style="--accent:var(--teal)"><h3>检索与记忆</h3><p>RAG、Self-RAG、MemGPT 提醒我们：上下文不是越长越可靠，选择与压缩同样重要。</p><ul><li>检索结果要有引用和新鲜度</li><li>记忆需区分事实、偏好和暂态执行信息</li></ul></article>
+        <article class="practice" style="--accent:var(--orange)"><h3>工具与协议</h3><p>Toolformer 研究“何时调用工具”；MCP 和 A2A 把连接与协作变成可互操作的接口。</p><ul><li>工具描述、参数校验、权限范围同等重要</li><li>对有副作用的动作设置审批或确认</li></ul></article>
+        <article class="practice" style="--accent:var(--blue)"><h3>可观测与评测</h3><p>AgentBench、GAIA、WebArena、SWE-bench 说明：最终要评的是在环境中完成任务，而不是单次回答像不像。</p><ul><li>记录轨迹、工具输入输出和版本</li><li>离线样本集 + 线上人工反馈形成闭环</li></ul></article>
+      </div>
+    </section>
+
+    <section class="shell" id="sources">
+      <div class="section-head">
+        <div><p class="kicker">Evidence library</p><h2>研究与实践来源库</h2></div>
+        <p class="section-note">资料按“能支撑哪类判断”整理，而非按品牌堆叠。链接指向原始论文、标准、官方文档或工程文章；访问日期为 2026-09-17。</p>
+      </div>
+      <div class="source-tools" aria-label="来源筛选">
+        <button class="source-filter" type="button" data-filter="all" aria-pressed="true">全部</button>
+        <button class="source-filter" type="button" data-filter="paper" aria-pressed="false">论文与期刊</button>
+        <button class="source-filter" type="button" data-filter="standard" aria-pressed="false">协议与标准</button>
+        <button class="source-filter" type="button" data-filter="practice" aria-pressed="false">工程与云实践</button>
+        <button class="source-filter" type="button" data-filter="blog" aria-pressed="false">工程博客</button>
+        <span class="source-count" id="sourceCount"></span>
+      </div>
+      <div class="source-list" id="sourceList">
+        <article class="source" data-kind="paper" style="--accent:var(--plum)"><span class="tag">Paper · 2017</span><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noreferrer">Attention Is All You Need</a><p>Vaswani et al. Transformer 的基础论文。</p><p class="why"><b>用在图谱：</b>解释 LLM 的注意力骨架。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--teal)"><span class="tag">Paper · 2020</span><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noreferrer">Retrieval-Augmented Generation</a><p>Lewis et al. 把参数记忆与外部非参数记忆结合。</p><p class="why"><b>用在图谱：</b>RAG 与知识库的关系。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--green)"><span class="tag">Survey · 2025 rev.</span><a href="https://arxiv.org/abs/2308.11432" target="_blank" rel="noreferrer">A Survey on LLM-based Autonomous Agents</a><p>Wang et al. 对 Agent 构建、应用、评测的系统综述。</p><p class="why"><b>用在图谱：</b>全景分层的学术参照。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--orange)"><span class="tag">Paper · 2022</span><a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noreferrer">ReAct</a><p>Yao et al. 交替生成推理轨迹和行动，使用外部信息修正过程。</p><p class="why"><b>用在图谱：</b>Agent Loop 的经典机制。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--orange)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2302.04761" target="_blank" rel="noreferrer">Toolformer</a><p>Schick et al. 研究语言模型何时、如何调用 API。</p><p class="why"><b>用在图谱：</b>Tool Calling 的研究起点。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--plum)"><span class="tag">NeurIPS · 2023</span><a href="https://arxiv.org/abs/2305.10601" target="_blank" rel="noreferrer">Tree of Thoughts</a><p>Yao et al. 通过分支探索、自评、回溯支持更审慎的求解。</p><p class="why"><b>用在图谱：</b>Planning 与搜索。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--rose)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noreferrer">Reflexion</a><p>Shinn et al. 用文字形式的反馈和情景记忆促进下一轮改进。</p><p class="why"><b>用在图谱：</b>Reflection 与执行反馈。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--teal)"><span class="tag">TACL · 2023</span><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noreferrer">Lost in the Middle</a><p>Liu et al. 发现长上下文中间位置的信息常被有效利用得更差。</p><p class="why"><b>用在图谱：</b>Context Engineering 不能只堆 Token。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--teal)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2310.11511" target="_blank" rel="noreferrer">Self-RAG</a><p>Asai et al. 在检索、生成、批评之间自适应切换。</p><p class="why"><b>用在图谱：</b>检索质量与自检。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--plum)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2310.08560" target="_blank" rel="noreferrer">MemGPT</a><p>Packer et al. 用分层虚拟上下文管理缓解窗口限制。</p><p class="why"><b>用在图谱：</b>长期记忆的操作系统类比。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--green)"><span class="tag">CHI · 2023</span><a href="https://arxiv.org/abs/2304.03442" target="_blank" rel="noreferrer">Generative Agents</a><p>Park et al. 把经验记录、反思和动态检索用于行为规划。</p><p class="why"><b>用在图谱：</b>记忆、反思、计划的组合。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--blue)"><span class="tag">ICLR · 2024</span><a href="https://arxiv.org/abs/2308.03688" target="_blank" rel="noreferrer">AgentBench</a><p>Liu et al. 以八类交互环境评估 LLM Agent 的推理与决策。</p><p class="why"><b>用在图谱：</b>从回答评测走向环境任务评测。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--blue)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2311.12983" target="_blank" rel="noreferrer">GAIA</a><p>Mialon et al. 评估推理、多模态、浏览与工具使用的真实任务。</p><p class="why"><b>用在图谱：</b>通用助手的现实能力缺口。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--blue)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2310.06770" target="_blank" rel="noreferrer">SWE-bench</a><p>Jimenez et al. 基于真实 GitHub issue 与 PR 评估软件工程任务。</p><p class="why"><b>用在图谱：</b>Coding Agent 的端到端评测。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--blue)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2307.13854" target="_blank" rel="noreferrer">WebArena</a><p>Zhou et al. 在可复现实网站中评估长程网页任务。</p><p class="why"><b>用在图谱：</b>Browser / Computer Use 的评测环境。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--rose)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2308.08155" target="_blank" rel="noreferrer">AutoGen</a><p>Wu et al. 以可对话 Agent 和多种交互模式构建应用。</p><p class="why"><b>用在图谱：</b>Multi-Agent 编排范式。</p></article>
+        <article class="source" data-kind="paper" style="--accent:var(--rose)"><span class="tag">Paper · 2023</span><a href="https://arxiv.org/abs/2308.00352" target="_blank" rel="noreferrer">MetaGPT</a><p>Hong et al. 将标准操作流程编码为多 Agent 协作中的提示序列。</p><p class="why"><b>用在图谱：</b>Skill/SOP 与角色分工。</p></article>
+        <article class="source" data-kind="standard" style="--accent:var(--orange)"><span class="tag">Open Protocol · 2025-06</span><a href="https://modelcontextprotocol.io/specification/2025-06-18" target="_blank" rel="noreferrer">Model Context Protocol Specification</a><p>定义 LLM 应用与外部数据、工具的标准连接方式，含 tools、resources、prompts 等能力。</p><p class="why"><b>用在图谱：</b>MCP 的边界与对象模型。</p></article>
+        <article class="source" data-kind="standard" style="--accent:var(--blue)"><span class="tag">Open Protocol</span><a href="https://a2a-protocol.org/latest/" target="_blank" rel="noreferrer">Agent2Agent Protocol</a><p>面向不同框架、不同供应商 Agent 的通信与协作互操作协议。</p><p class="why"><b>用在图谱：</b>Agent 间协作，而非工具连接。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--green)"><span class="tag">Framework · LangChain</span><a href="https://docs.langchain.com/oss/python/langgraph/overview" target="_blank" rel="noreferrer">LangGraph Overview</a><p>强调长运行、有状态 Agent 的图编排、持久化、容错、中断和可观测性。</p><p class="why"><b>用在图谱：</b>运行时与工作流的工程形态。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--rose)"><span class="tag">Framework · Microsoft</span><a href="https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/index.html" target="_blank" rel="noreferrer">AutoGen Core</a><p>采用 Actor 模型的事件驱动、可分布式 Agent 运行机制，并覆盖 handoff、debate、reflection 等模式。</p><p class="why"><b>用在图谱：</b>多 Agent Runtime。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--green)"><span class="tag">SDK · OpenAI</span><a href="https://openai.github.io/openai-agents-js/" target="_blank" rel="noreferrer">OpenAI Agents SDK</a><p>围绕 Agent、工具、Guardrail、Handoff、会话、MCP、Tracing 和 Testing 的小型原语集合。</p><p class="why"><b>用在图谱：</b>端到端应用的能力清单。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--orange)"><span class="tag">Cloud · AWS</span><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html" target="_blank" rel="noreferrer">Amazon Bedrock AgentCore</a><p>覆盖安全运行、工具与数据权限、生产监控和质量运营，兼容多框架和模型。</p><p class="why"><b>用在图谱：</b>云端运行与治理的组合。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--blue)"><span class="tag">Cloud · Google</span><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview" target="_blank" rel="noreferrer">Gemini Enterprise Agent Platform</a><p>提供托管运行时、会话与记忆、沙盒、可观测性、评估和访问控制等生产能力。</p><p class="why"><b>用在图谱：</b>“运行—改进—治理”平台化。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--blue)"><span class="tag">Cloud · Microsoft</span><a href="https://learn.microsoft.com/en-us/azure/ai-foundry/agents/overview" target="_blank" rel="noreferrer">Microsoft Foundry Agent Service</a><p>提供托管 Agent Runtime、Toolboxes、MCP 端点、可观测性、优化和 Entra/RBAC 安全能力。</p><p class="why"><b>用在图谱：</b>集中化工具治理与企业身份。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--orange)"><span class="tag">Cloud · 火山方舟</span><a href="https://www.volcengine.com/docs/82379/1330692" target="_blank" rel="noreferrer">火山方舟 Managed Agents</a><p>官方文档的 Agent 章节涵盖定义、运行环境配置、委派任务与上下文管理等主题。</p><p class="why"><b>用在图谱：</b>国内托管 Agent 产品的能力视角。</p></article>
+        <article class="source" data-kind="practice" style="--accent:var(--orange)"><span class="tag">Cloud · 阿里云百炼</span><a href="https://help.aliyun.com/zh/model-studio/user-guide/agent-orchestration" target="_blank" rel="noreferrer">百炼 Agent 编排文档</a><p>官方产品文档入口，面向 Agent 编排与工作流构建；具体能力以访问时产品文档为准。</p><p class="why"><b>用在图谱：</b>国内云服务的编排实践入口。</p></article>
+        <article class="source" data-kind="blog" style="--accent:var(--green)"><span class="tag">Engineering Blog · Anthropic</span><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noreferrer">Building Effective AI Agents</a><p>将预定义代码路径的 workflow 与动态选择工具的 agent 区分，并倡导简单可组合的模式。</p><p class="why"><b>用在图谱：</b>从小、可验证架构开始的实践原则。</p></article>
+        <article class="source" data-kind="blog" style="--accent:var(--teal)"><span class="tag">Industry Report · LangChain</span><a href="https://www.langchain.com/state-of-agent-engineering" target="_blank" rel="noreferrer">State of Agent Engineering</a><p>基于行业调研观察生产落地中的质量、可观测性、评测和多模型使用情况。</p><p class="why"><b>用在图谱：</b>生产关注点从“能否做”转向“能否稳定运行”。</p></article>
+      </div>
+      <aside class="method-note"><strong>使用说明</strong><span>本页不是完整文献综述，也不把厂商文档视为中立标准。论文用于理解机制与评测，协议用于确定边界，官方文档用于了解当前产品能力，博客用于提炼工程取舍。产品文档会变化，请以原链接的最新版本为准。</span></aside>
+    </section>
+  </main>
+
+  <footer class="shell footer"><p>AI Agent 全景知识图谱 · 版本 2.5 · 修改时间 2026-09-18 17:26 CST · 工作区：非 Git 目录。研究资料访问与核验：2026-09-17。</p></footer>
+
+  <script>
+    const filters = document.querySelectorAll('.source-filter');
+    const sources = document.querySelectorAll('.source');
+    const sourceCount = document.getElementById('sourceCount');
+    function filterSources(kind) {
+      let visible = 0;
+      sources.forEach(source => {
+        const show = kind === 'all' || source.dataset.kind === kind;
+        source.hidden = !show;
+        if (show) visible += 1;
+      });
+      sourceCount.textContent = `显示 ${visible} 条来源`;
+      filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === kind)));
+    }
+    filters.forEach(button => button.addEventListener('click', () => filterSources(button.dataset.filter)));
+    filterSources('all');
+  </script>
+</body>
+</html>

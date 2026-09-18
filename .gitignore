@@ -1,0 +1,12 @@
+# macOS Finder metadata
+.DS_Store
+
+# Local web-server and editor artifacts
+*.log
+.vscode/
+.idea/
+
+# Dependency and build directories
+node_modules/
+dist/
+build/

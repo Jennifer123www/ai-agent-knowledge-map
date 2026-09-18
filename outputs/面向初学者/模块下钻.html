@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI Agent 知识图谱的模块下钻页。每个模块含概述、结构关系、子模块图解、术语解释和研究来源。">
+  <title>AI Agent 模块下钻</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f5f7f1; --ink: #18231d; --muted: #5f6b63; --line: #ced7ce;
+      --surface: #ffffff; --soft: #eef3ed; --green: #0b725a; --teal: #007f83;
+      --orange: #d9672c; --plum: #7854a3; --blue: #256da3; --rose: #c44b63;
+      --shadow: 0 10px 28px rgba(23, 48, 37, .09);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper:#101713; --ink:#edf4ee; --muted:#aab9ad; --line:#34463a; --surface:#17231c; --soft:#1c2b22; --green:#4cc4a2; --teal:#4ac5c5; --orange:#ff9a62; --plum:#c7a4ff; --blue:#78bbef; --rose:#ff9aae; --shadow:0 10px 28px rgba(0,0,0,.26); }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; min-width:320px; background:var(--paper); color:var(--ink); font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.62; }
+    a { color:inherit; text-underline-offset:3px; }
+    button { font:inherit; cursor:pointer; }
+    .shell { width:min(1280px,calc(100% - 36px)); margin:0 auto; }
+    .top { border-bottom:1px solid var(--line); background:var(--surface); }
+    .top-inner { display:flex; align-items:center; justify-content:space-between; min-height:52px; gap:16px; color:var(--muted); font-size:12px; }
+    .back { flex:0 0 auto; color:var(--green); font-weight:800; text-decoration:none; }
+    .global-nav { display:flex; flex:1 1 auto; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px 16px; }
+    .global-nav a { color:var(--muted); font-size:12px; font-weight:700; text-decoration:none; }
+    .global-nav a:hover,.global-nav a[aria-current="page"] { color:var(--green); text-decoration:underline; text-decoration-thickness:2px; }
+    .doc-meta { text-align:right; }
+    .layout { display:grid; grid-template-columns:218px minmax(0,1fr) 210px; gap:28px; padding:34px 0 64px; }
+    .module-nav { position:sticky; top:20px; align-self:start; padding-right:18px; border-right:1px solid var(--line); }
+    .module-nav h2 { margin:0 0 10px; font-size:14px; }
+    .module-nav p { margin:0 0 14px; color:var(--muted); font-size:12px; }
+    .nav-list { margin:0; padding:0; list-style:none; }
+    .nav-list a { display:block; padding:8px 8px 8px 10px; border-left:3px solid transparent; color:var(--muted); font-size:13px; text-decoration:none; }
+    .nav-list a:hover, .nav-list a[aria-current="page"] { border-color:var(--accent); background:var(--soft); color:var(--ink); font-weight:800; }
+    .nav-list small { display:block; color:var(--muted); font-size:10px; font-weight:400; }
+    .component-nav { position:sticky; top:20px; align-self:start; padding-left:16px; border-left:1px solid var(--line); }
+    .component-nav h2 { margin:0 0 8px; font-size:14px; }
+    .component-nav p { margin:0 0 12px; color:var(--muted); font-size:12px; }
+    .component-nav-list { display:grid; gap:6px; }
+    .component-nav-button { width:100%; min-height:68px; padding:10px 11px; border:1px solid transparent; border-left:3px solid transparent; background:transparent; color:var(--muted); text-align:left; }
+    .component-nav-button:hover,.component-nav-button:focus-visible,.component-nav-button[aria-pressed="true"] { border-color:var(--line); border-left-color:var(--accent); background:var(--soft); color:var(--ink); outline:0; }
+    .component-nav-button span { display:block; margin-bottom:2px; color:var(--accent); font-size:10px; font-weight:800; }
+    .component-nav-button strong { display:block; font-size:13px; line-height:1.24; }
+    .component-nav-button small { display:block; margin-top:2px; color:var(--muted); font-size:10px; }
+    .content { min-width:0; }
+    .crumb { margin:0 0 12px; color:var(--accent); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { max-width:860px; margin-bottom:13px; font-size:clamp(32px,5vw,54px); line-height:1.08; letter-spacing:0; }
+    h1 span { display:block; margin-top:7px; color:var(--muted); font-size:14px; font-weight:500; letter-spacing:0; }
+    .intro { max-width:850px; margin:0; color:var(--muted); font-size:16px; }
+    .question { margin:20px 0 0; padding:12px 14px; border-left:4px solid var(--accent); background:var(--soft); font-size:13px; }
+    .question b { color:var(--accent); }
+    .counterpart { margin:12px 0 0; color:var(--muted); font-size:13px; }
+    .counterpart a { color:var(--accent); font-weight:800; }
+    .section { padding:38px 0; border-top:1px solid var(--line); }
+    .section:first-of-type { margin-top:34px; }
+    .section-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,360px); align-items:end; gap:20px; margin-bottom:20px; }
+    .eyebrow { margin:0 0 6px; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .section h2 { margin:0; font-size:clamp(23px,3.3vw,34px); line-height:1.16; }
+    .section-note { margin:0; color:var(--muted); font-size:13px; }
+    .relation { overflow:auto; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .relation svg { display:block; min-width:700px; width:100%; height:auto; }
+    .rel-link { fill:none; stroke:var(--line); stroke-width:2; }
+    .rel-link.main { stroke:var(--accent); stroke-width:3; }
+    .rel-node rect { fill:var(--surface); stroke:var(--accent); stroke-width:2; rx:10; }
+    .rel-node.center rect { fill:var(--soft); stroke-width:3; }
+    .rel-node text { fill:var(--ink); font-family:Inter,"PingFang SC",sans-serif; font-size:14px; font-weight:800; text-anchor:middle; }
+    .rel-node .minor { fill:var(--muted); font-size:10px; font-weight:500; }
+    .relation-caption { padding:12px 16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+    .structure-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:16px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .structure-list div { padding:14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface); }
+    .structure-list strong { display:block; margin-bottom:3px; color:var(--accent); font-size:12px; }
+    .structure-list span { color:var(--muted); font-size:12px; }
+    .component-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .component-button { min-height:150px; padding:18px; border:0; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface); color:var(--ink); text-align:left; }
+    .component-button:hover, .component-button:focus-visible, .component-button[aria-pressed="true"] { background:var(--soft); outline:0; }
+    .component-button[aria-pressed="true"] { box-shadow:inset 4px 0 var(--accent); }
+    .component-number { display:block; margin-bottom:9px; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.08em; }
+    .component-button strong { display:block; margin-bottom:4px; font-size:17px; line-height:1.2; }
+    .component-button small { display:block; color:var(--muted); font-size:11px; }
+    .detail { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr); border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .detail-main { padding:30px; border-right:1px solid var(--line); }
+    .detail-side { padding:30px; background:var(--soft); }
+    .detail-label { margin:0 0 8px; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .detail h3 { margin-bottom:9px; font-size:28px; line-height:1.15; }
+    .term { color:var(--muted); font-size:14px; font-weight:500; }
+    .definition { margin-bottom:18px; color:var(--muted); font-size:14px; }
+    .visual-title { margin:18px 0 9px; font-size:13px; }
+    .pipeline { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .step { min-width:110px; flex:1 1 120px; padding:12px; border-top:3px solid var(--accent); background:var(--soft); font-size:12px; font-weight:800; }
+    .step small { display:block; margin-top:3px; color:var(--muted); font-size:10px; font-weight:500; }
+    .flow-arrow { color:var(--accent); font-weight:900; }
+    .quick-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; }
+    .quick { padding:12px; border-left:3px solid var(--accent); background:var(--soft); }
+    .quick b { display:block; margin-bottom:3px; font-size:12px; }
+    .quick span { color:var(--muted); font-size:12px; }
+    .detail-side h4 { margin:0 0 10px; font-size:16px; }
+    .detail-side p { margin:0 0 18px; color:var(--muted); font-size:13px; }
+    .detail-side p b { color:var(--ink); }
+    .side-block { padding-top:14px; border-top:1px solid var(--line); }
+    .side-block + .side-block { margin-top:14px; }
+    .side-block strong { display:block; margin-bottom:4px; font-size:13px; }
+    .side-block span { color:var(--muted); font-size:12px; }
+    .refs { display:flex; flex-wrap:wrap; gap:8px 14px; margin:0; padding:0; list-style:none; }
+    .refs a { color:var(--accent); font-size:12px; font-weight:800; }
+    .other-link { display:inline-block; margin-top:18px; color:var(--accent); font-size:13px; font-weight:800; }
+    .foundation-primer { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr); border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .foundation-primer-main,.foundation-primer-side { padding:26px; }
+    .foundation-primer-main { border-right:1px solid var(--line); }
+    .foundation-primer h3 { margin:0 0 8px; font-size:22px; }
+    .foundation-primer p { margin:0; color:var(--muted); font-size:13px; }
+    .model-cast { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); margin-top:20px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .model-cast div { padding:13px 10px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface); }
+    .model-cast b { display:block; margin-bottom:4px; color:var(--accent); font-size:12px; }
+    .model-cast span { display:block; color:var(--muted); font-size:11px; line-height:1.45; }
+    .foundation-primer-side { background:var(--soft); }
+    .foundation-primer-side ol { margin:12px 0 0; padding-left:18px; color:var(--muted); font-size:13px; }
+    .foundation-primer-side li + li { margin-top:8px; }
+    .talk-deep-dive { margin-top:38px; padding-top:38px; border-top:1px solid var(--line); scroll-margin-top:18px; }
+    .talk-intro { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,320px); gap:20px; padding:24px; border-left:4px solid var(--accent); background:var(--soft); }
+    .talk-kicker { margin:0 0 6px; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .talk-intro h3 { margin:0 0 7px; font-size:26px; line-height:1.14; }
+    .talk-intro p { margin:0; color:var(--muted); font-size:13px; }
+    .talk-backlink { align-self:end; color:var(--accent); font-size:13px; font-weight:800; }
+    .talk-stage { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); margin-top:20px; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .talk-story { padding:26px; border-right:1px solid var(--line); }
+    .talk-story h4,.talk-console h4,.talk-memory h4 { margin:0 0 10px; font-size:18px; }
+    .talk-bubble { margin:14px 0; padding:13px 15px; border-left:3px solid var(--accent); background:var(--soft); color:var(--ink); font-size:14px; font-weight:700; }
+    .talk-cast { display:grid; grid-template-columns:34px minmax(0,1fr); gap:10px; align-items:start; padding:14px 0; border-top:1px solid var(--line); }
+    .talk-badge { display:grid; width:34px; height:34px; place-items:center; border:1px solid var(--accent); color:var(--accent); font-size:12px; font-weight:800; }
+    .talk-cast strong { display:block; margin-bottom:2px; font-size:14px; }
+    .talk-cast span { display:block; color:var(--muted); font-size:12px; }
+    .talk-console { padding:26px; background:var(--soft); }
+    .talk-switch { display:grid; gap:8px; margin-top:15px; }
+    .talk-switch button { min-height:46px; padding:10px 12px; border:1px solid var(--line); border-left:3px solid transparent; background:var(--surface); color:var(--muted); text-align:left; font-size:12px; font-weight:800; }
+    .talk-switch button:hover,.talk-switch button:focus-visible,.talk-switch button[aria-pressed="true"] { border-left-color:var(--accent); color:var(--ink); outline:0; }
+    .talk-answer { min-height:96px; margin:14px 0 0; padding:13px; border-top:3px solid var(--accent); background:var(--surface); color:var(--muted); font-size:13px; }
+    .talk-answer b { display:block; margin-bottom:4px; color:var(--ink); }
+    .talk-memory { display:grid; grid-template-columns:150px minmax(0,1fr); gap:22px; align-items:center; margin-top:18px; padding:20px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .talk-memory-tag { padding:14px; border-top:3px solid var(--accent); background:var(--soft); color:var(--ink); font-size:16px; font-weight:800; text-align:center; }
+    .talk-memory p { margin:0; color:var(--muted); font-size:13px; }
+    .talk-footnote { margin:14px 0 0; color:var(--muted); font-size:12px; }
+    .llm-route { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:20px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .llm-route a,.llm-route div { position:relative; min-height:82px; padding:13px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface); color:var(--muted); text-decoration:none; }
+    .llm-route a::after,.llm-route div::after { content:"->"; position:absolute; right:-10px; top:50%; z-index:2; color:var(--plum); font-weight:900; }
+    .llm-route > :last-child::after { display:none; }
+    .llm-route a:hover { background:var(--soft); color:var(--ink); }
+    .llm-route .current { border-top:3px solid var(--plum); background:var(--soft); color:var(--ink); }
+    .llm-route span { display:block; margin-bottom:4px; color:var(--plum); font-size:11px; font-weight:800; }
+    .llm-route strong { display:block; font-size:13px; line-height:1.3; }
+    .deep-dive { margin-top:38px; padding-top:38px; border-top:1px solid var(--line); scroll-margin-top:18px; }
+    .deep-lede { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,360px); gap:20px; padding:22px; border-left:4px solid var(--accent); background:var(--soft); }
+    .deep-lede h3 { margin:0 0 7px; font-size:25px; line-height:1.16; }
+    .deep-lede p,.deep-note,.deep-situation p { margin:0; color:var(--muted); font-size:13px; }
+    .deep-backlink { align-self:end; color:var(--accent); font-size:13px; font-weight:800; }
+    .deep-part { padding:32px 0; border-top:1px solid var(--line); }
+    .deep-part-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,360px); align-items:end; gap:20px; margin-bottom:18px; }
+    .deep-part-head h3 { margin:0; font-size:24px; line-height:1.16; }
+    .deep-kicker { margin:0 0 6px; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .deep-process { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .deep-step { position:relative; min-height:126px; padding:17px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface); }
+    .deep-step::after { content:"->"; position:absolute; right:-11px; top:50%; z-index:2; color:var(--accent); font-weight:900; }
+    .deep-step:last-child::after { display:none; }
+    .deep-step span { display:block; margin-bottom:7px; color:var(--accent); font-size:11px; font-weight:800; }
+    .deep-step strong { display:block; font-size:14px; line-height:1.25; }
+    .deep-connection { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:16px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .deep-connection div { padding:15px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--soft); }
+    .deep-connection b { display:block; margin-bottom:4px; color:var(--accent); font-size:12px; }
+    .deep-connection span { color:var(--muted); font-size:12px; }
+    .deep-situation { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,.8fr); border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .deep-situation-main,.deep-situation-side { padding:24px; }
+    .deep-situation-main { border-right:1px solid var(--line); }
+    .deep-situation-side { background:var(--soft); }
+    .deep-situation h4 { margin:0 0 7px; font-size:19px; }
+    .deep-situation b { color:var(--accent); }
+    .llm-deep-dive { margin-top:32px; padding-top:32px; border-top:1px solid var(--line); scroll-margin-top:18px; }
+    .mechanics-map { display:flex; flex-wrap:wrap; gap:8px 16px; padding:12px 0 0; border-top:1px solid var(--line); }
+    .mechanics-map span { color:var(--plum); font-size:12px; font-weight:800; }
+    .llm-lede { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,360px); gap:20px; padding:22px; border-left:4px solid var(--plum); background:var(--soft); }
+    .llm-lede h3 { margin:0 0 7px; font-size:25px; line-height:1.16; }
+    .llm-lede p { margin:0; color:var(--muted); font-size:13px; }
+    .llm-backlink { align-self:end; color:var(--plum); font-size:13px; font-weight:800; }
+    .llm-part { padding:32px 0; border-top:1px solid var(--line); }
+    .llm-part-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,360px); align-items:end; gap:20px; margin-bottom:18px; }
+    .llm-part-head h3 { margin:0; font-size:24px; line-height:1.16; }
+    .llm-note { margin:0; color:var(--muted); font-size:13px; }
+    .llm-kicker { margin:0 0 6px; color:var(--plum); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .llm-token-board,.llm-attention,.llm-control,.llm-boundaries { display:grid; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .llm-token-board { grid-template-columns:minmax(0,1fr) minmax(240px,.75fr); }
+    .llm-token-main,.llm-token-side,.llm-attention-visual,.llm-attention-copy,.llm-control-main,.llm-control-side,.llm-do,.llm-dont { padding:26px; }
+    .llm-token-main,.llm-attention-visual,.llm-control-main,.llm-do { border-right:1px solid var(--line); }
+    .llm-token-side,.llm-attention-copy,.llm-control-side { background:var(--soft); }
+    .llm-token-main h4,.llm-token-side h4,.llm-attention h4,.llm-control h4 { margin:0 0 7px; font-size:19px; }
+    .llm-token-main p,.llm-token-side p,.llm-attention p,.llm-control p { color:var(--muted); font-size:13px; }
+    .llm-tokens { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:23px; }
+    .llm-token { padding:9px 12px; border-top:3px solid var(--plum); background:var(--soft); font-size:17px; font-weight:800; }
+    .llm-token small { display:block; color:var(--muted); font-size:10px; font-weight:500; }
+    .llm-arrow { color:var(--plum); font-weight:900; }
+    .llm-fact { padding:11px 0; border-top:1px solid var(--line); }
+    .llm-fact:first-of-type { border-top:0; }
+    .llm-fact b { display:block; font-size:13px; }
+    .llm-fact span { display:block; margin-top:3px; color:var(--muted); font-size:12px; }
+    .llm-pipeline { overflow:auto; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .llm-pipeline-inner { display:flex; min-width:820px; align-items:stretch; }
+    .llm-pipe { position:relative; flex:1; padding:20px 17px; border-right:1px solid var(--line); }
+    .llm-pipe:last-child { border-right:0; }
+    .llm-pipe::after { content:"->"; position:absolute; right:-11px; top:50%; z-index:2; color:var(--plum); font-weight:900; }
+    .llm-pipe:last-child::after { display:none; }
+    .llm-pipe .number { display:block; margin-bottom:8px; color:var(--plum); font-size:11px; font-weight:800; }
+    .llm-pipe strong { display:block; margin-bottom:5px; font-size:15px; }
+    .llm-pipe p { margin:0; color:var(--muted); font-size:12px; }
+    .llm-attention { grid-template-columns:1fr .92fr; }
+    .llm-sentence { position:relative; display:flex; flex-wrap:wrap; gap:10px; margin:48px 0 34px; padding-top:58px; }
+    .llm-word { position:relative; padding:9px 12px; border:1px solid var(--line); background:var(--surface); font-size:14px; font-weight:800; }
+    .llm-word.active { border-color:var(--plum); background:var(--soft); }
+    .llm-word.active::before { content:"当前要处理的位置"; position:absolute; bottom:calc(100% + 8px); left:50%; width:130px; transform:translateX(-50%); color:var(--plum); font-size:11px; font-weight:700; text-align:center; }
+    .llm-attention-line { position:absolute; top:29px; height:1px; background:var(--plum); transform-origin:left center; }
+    .llm-line-one { left:36px; width:160px; transform:rotate(23deg); }
+    .llm-line-two { left:105px; width:110px; transform:rotate(5deg); }
+    .llm-line-three { left:177px; width:75px; transform:rotate(-17deg); }
+    .llm-list { margin:14px 0 0; padding-left:17px; color:var(--muted); font-size:13px; }
+    .llm-agent-loop { overflow:auto; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .llm-agent-loop svg { display:block; min-width:720px; width:100%; height:auto; }
+    .llm-node rect { fill:var(--surface); stroke:var(--accent); stroke-width:2; rx:10; }
+    .llm-node text { fill:var(--ink); font-family:Inter,"PingFang SC",sans-serif; font-size:14px; font-weight:800; text-anchor:middle; }
+    .llm-node .minor { fill:var(--muted); font-size:10px; font-weight:500; }
+    .llm-wire { fill:none; stroke:var(--line); stroke-width:2; }
+    .llm-wire.main { stroke:var(--accent); stroke-width:3; }
+    .llm-caption { padding:12px 16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+    .llm-control { grid-template-columns:1fr 1fr; }
+    .llm-range { width:100%; accent-color:var(--plum); }
+    .llm-range-read { display:flex; justify-content:space-between; margin:10px 0 18px; color:var(--muted); font-size:12px; }
+    .llm-choices { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .llm-choice { padding:10px; border-top:3px solid var(--line); background:var(--soft); color:var(--muted); font-size:12px; }
+    .llm-choice.active { border-color:var(--plum); color:var(--ink); font-weight:800; }
+    .llm-boundaries { grid-template-columns:1fr 1fr; }
+    .llm-do h4 { color:var(--green); }
+    .llm-dont h4 { color:var(--orange); }
+    .llm-do ul,.llm-dont ul { margin:0; padding-left:18px; color:var(--muted); font-size:13px; }
+    .mechanics-flow { overflow:auto; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow); }
+    .mechanics-flow-inner { display:flex; min-width:760px; align-items:stretch; }
+    .mechanics-stage { position:relative; flex:1; padding:20px 17px; border-right:1px solid var(--line); }
+    .mechanics-stage:last-child { border-right:0; }
+    .mechanics-stage::after { content:"->"; position:absolute; right:-11px; top:50%; z-index:2; color:var(--plum); font-weight:900; }
+    .mechanics-stage:last-child::after { display:none; }
+    .mechanics-stage span { display:block; margin-bottom:8px; color:var(--plum); font-size:11px; font-weight:800; }
+    .mechanics-stage strong { display:block; margin-bottom:5px; font-size:15px; line-height:1.25; }
+    .mechanics-stage p { margin:0; color:var(--muted); font-size:12px; }
+    .mechanics-notes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:16px; border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .mechanics-notes div { padding:15px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--soft); }
+    .mechanics-notes b { display:block; margin-bottom:4px; color:var(--plum); font-size:12px; }
+    .mechanics-notes span { display:block; color:var(--muted); font-size:12px; }
+    .footer { padding:22px 0 50px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+    @media (max-width:1100px) { .layout{grid-template-columns:1fr;gap:24px}.module-nav,.component-nav{position:static;padding:0;border:0}.module-nav{order:1}.component-nav{order:2}.content{order:3}.nav-list{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.nav-list a{height:100%;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.nav-list a[aria-current="page"]{box-shadow:inset 3px 0 var(--accent)}.component-nav-list{grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}.component-nav-button{height:100%;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line)} }
+    @media (max-width:720px) { .shell{width:min(100% - 24px,1280px)}.top-inner{align-items:flex-start;flex-direction:column;justify-content:center;gap:7px;padding:8px 0}.global-nav{justify-content:flex-start;gap:4px 14px}.doc-meta{text-align:left}.section-head,.talk-intro,.deep-lede,.deep-part-head,.llm-lede,.llm-part-head{grid-template-columns:1fr;gap:10px}.structure-list,.component-grid,.model-cast,.deep-process,.deep-connection,.llm-route,.mechanics-notes{grid-template-columns:1fr}.detail,.talk-stage,.foundation-primer,.deep-situation,.llm-token-board,.llm-attention,.llm-control,.llm-boundaries{grid-template-columns:1fr}.detail-main,.talk-story,.foundation-primer-main,.deep-situation-main,.llm-token-main,.llm-attention-visual,.llm-control-main,.llm-do{border-right:0;border-bottom:1px solid var(--line)}.talk-memory{grid-template-columns:1fr;gap:12px}.llm-route a::after,.llm-route div::after{top:auto;right:16px;bottom:-11px;transform:rotate(90deg)}.deep-step::after{top:auto;right:16px;bottom:-11px;transform:rotate(90deg)}.quick-grid{grid-template-columns:1fr}.nav-list,.component-nav-list{grid-template-columns:1fr 1fr}.component-button{min-height:116px}.llm-choices{grid-template-columns:1fr 1fr} }
+    @media print { :root{--paper:#fff;--surface:#fff;--soft:#f5f5f5;--ink:#111;--muted:#555;--line:#bbb}.module-nav{display:none}.layout{display:block;padding-top:20px}.detail,.relation,.component-button{box-shadow:none}.section{padding:24px 0} }
+  </style>
+  <script src="../全局搜索.js" defer></script>
+</head>
+<body>
+  <div class="top"><div class="shell top-inner"><a class="back" href="AI智能体知识图谱.html">AI AGENT 学习图谱</a><nav class="global-nav" aria-label="图谱版本导航"><a href="AI智能体知识图谱.html">初学者总览</a><a href="模块下钻.html?topic=foundation" aria-current="page">概念下钻</a><a href="../面向面试/AI智能体面试知识图谱.html">面试图谱</a><a href="../面向面试/面试题下钻.html?topic=foundation">题目下钻</a></nav><span class="doc-meta">版本 3.2 · 更新 2026-09-18 17:26 CST · 工作区状态：非 Git 目录</span><div data-site-search></div></div></div>
+  <main class="shell layout">
+    <aside class="module-nav" aria-label="一级模块导航"><h2>模块导航</h2><nav class="nav-list" id="moduleNav"></nav></aside>
+    <article class="content" id="content"></article>
+    <aside class="component-nav" aria-label="当前模块的子模块导航"><h2>子模块导航</h2><nav class="component-nav-list" id="componentNav"></nav></aside>
+  </main>
+  <footer class="shell footer">AI Agent 全景知识图谱 · 模块下钻页 · 版本 3.2 · 修改时间 2026-09-18 17:26 CST · 研究资料访问与核验：2026-09-18。</footer>
+
+  <script>
+    const refs = {
+      transformer: ['Transformer', 'https://arxiv.org/abs/1706.03762'],
+      survey: ['LLM Agent 综述', 'https://arxiv.org/abs/2308.11432'],
+      react: ['ReAct', 'https://arxiv.org/abs/2210.03629'],
+      toolformer: ['Toolformer', 'https://arxiv.org/abs/2302.04761'],
+      tot: ['Tree of Thoughts', 'https://arxiv.org/abs/2305.10601'],
+      reflexion: ['Reflexion', 'https://arxiv.org/abs/2303.11366'],
+      rag: ['RAG', 'https://arxiv.org/abs/2005.11401'],
+      selfrag: ['Self-RAG', 'https://arxiv.org/abs/2310.11511'],
+      middle: ['Lost in the Middle', 'https://arxiv.org/abs/2307.03172'],
+      memgpt: ['MemGPT', 'https://arxiv.org/abs/2310.08560'],
+      genagents: ['Generative Agents', 'https://arxiv.org/abs/2304.03442'],
+      mcp: ['MCP 规范', 'https://modelcontextprotocol.io/specification/2025-06-18'],
+      a2a: ['A2A 规范', 'https://a2a-protocol.org/latest/'],
+      langgraph: ['LangGraph 文档', 'https://docs.langchain.com/oss/python/langgraph/overview'],
+      autogen: ['AutoGen Core 文档', 'https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/index.html'],
+      agentsdk: ['OpenAI Agents SDK', 'https://openai.github.io/openai-agents-js/'],
+      agentbench: ['AgentBench', 'https://arxiv.org/abs/2308.03688'],
+      gaia: ['GAIA', 'https://arxiv.org/abs/2311.12983'],
+      swebench: ['SWE-bench', 'https://arxiv.org/abs/2310.06770'],
+      webarena: ['WebArena', 'https://arxiv.org/abs/2307.13854'],
+      anthropic: ['Anthropic 工程文章', 'https://www.anthropic.com/engineering/building-effective-agents'],
+      aws: ['AWS AgentCore', 'https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html'],
+      google: ['Google Agent Platform', 'https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview'],
+      azure: ['Microsoft Foundry Agent', 'https://learn.microsoft.com/en-us/azure/ai-foundry/agents/overview'],
+      clip: ['CLIP：语言监督的视觉模型', 'https://arxiv.org/abs/2103.00020'],
+      flamingo: ['Flamingo：少样本视觉语言模型', 'https://arxiv.org/abs/2204.14198'],
+      llava: ['LLaVA：视觉指令微调', 'https://arxiv.org/abs/2304.08485'],
+      sbert: ['Sentence-BERT：句向量模型', 'https://arxiv.org/abs/1908.10084'],
+      mteb: ['MTEB：嵌入模型评测基准', 'https://arxiv.org/abs/2210.07316'],
+      hnsw: ['HNSW：近似近邻索引', 'https://arxiv.org/abs/1603.09320'],
+      bertRerank: ['BERT 段落重排序', 'https://arxiv.org/abs/1901.04085'],
+      colbert: ['ColBERT：上下文化后期交互检索', 'https://arxiv.org/abs/2004.12832'],
+      lora: ['LoRA：低秩模型适配', 'https://arxiv.org/abs/2106.09685'],
+      qlora: ['QLoRA：量化低秩微调', 'https://arxiv.org/abs/2305.14314'],
+      autogenPaper: ['AutoGen：多智能体对话框架', 'https://arxiv.org/abs/2308.08155'],
+      webgpt: ['WebGPT：浏览器辅助问答', 'https://arxiv.org/abs/2112.09332'],
+      ds1000: ['DS-1000：数据科学代码基准', 'https://arxiv.org/abs/2211.11501'],
+      rt2: ['RT-2：视觉语言动作模型', 'https://arxiv.org/abs/2307.15818'],
+      nist: ['NIST AI 风险管理框架', 'https://www.nist.gov/itl/ai-risk-management-framework'],
+      owasp: ['OWASP 生成式 AI 项目', 'https://genai.owasp.org/'],
+      temporal: ['Temporal Durable Execution', 'https://docs.temporal.io/'],
+      opentelemetry: ['OpenTelemetry 追踪规范', 'https://opentelemetry.io/docs/concepts/signals/traces/'],
+      oauth: ['OAuth 2.0 安全最佳实践', 'https://www.rfc-editor.org/rfc/rfc9700'],
+      vault: ['HashiCorp Vault 文档', 'https://developer.hashicorp.com/vault/docs'],
+      docker: ['Docker 容器安全', 'https://docs.docker.com/engine/security/'],
+      kafka: ['Apache Kafka 设计文档', 'https://kafka.apache.org/documentation/#design'],
+      redis: ['Redis 缓存文档', 'https://redis.io/docs/latest/develop/use/'],
+      openaiEval: ['OpenAI 评测设计指南', 'https://platform.openai.com/docs/guides/evals'],
+      openaiSafety: ['OpenAI Agent 安全实践', 'https://platform.openai.com/docs/guides/agent-builder-safety']
+    };
+    const C = (id, title, english, definition, steps, output, confusion, example) => ({id,title,english,definition,steps,output,confusion,example});
+    const topics = {
+      foundation: {
+        no:'01', title:'基础模型与推理', english:'Foundation Models and Inference', color:'var(--plum)',
+        intro:'基础模型是 Agent 的认知引擎。它把文本、图像、音频或结构化信号变成可计算的表示，并输出文本、向量、排序分数或受约束的结构化结果。不同模型不是互相替代，而是像不同工种：生成、理解、检索和排序各有专长。',
+        question:'如何为 Agent 选择“脑力组合”，并让生成、检索和排序各自做擅长的事？', inbound:'文本、图像、音频、结构化输入', core:'表示学习与生成推断', outbound:'文本、向量、相关性分数、函数参数', guard:'模型选择、数据质量、延迟与成本',
+        structure:[['输入表征','分词、视觉/音频编码，把原始信号转成模型可处理的数字表示。'],['神经网络计算','Transformer 等网络在上下文中计算关联，形成下一步预测或表征。'],['任务适配','用提示、检索、微调或输出约束让模型符合具体任务。']],
+        refs:['transformer','survey','rag'],
+        children:[
+          C('llm','大语言模型','Large Language Model, LLM','以海量文本训练的生成模型。它根据前文预测下一个“词元”（token，模型处理的文本小单位），从而生成连贯文本、代码或结构化调用意图。',['文本与指令','分词：转为词元','Transformer：计算上下文关系','概率分布与采样'], '回答、摘要、计划草案、工具调用参数','它不是实时事实数据库；需要检索、工具或人工核验来处理最新、精确、可执行的信息。','把它想成一位阅读量极大、表达能力很强的起草员：擅长组织语言，但不会自动知道你桌上那份刚更新的合同。'),
+          C('multimodal','多模态模型','Vision-Language Model, VLM','能联合处理图像、文本、音频等多种输入的模型。常见做法是先把非文本信号编码，再与语言模型的表示空间对齐。',['图像、语音或视频','专用编码器提取特征','跨模态对齐','语言模型理解与生成'], '图片问答、界面识别、语音交互、文档图表理解','多模态不等于“看得和人一样准确”；小字、遮挡、图表比例和复杂界面都要专门验证。','报销 Agent 读发票时，多模态模型负责看图和识别文字，规则与工具负责校验金额和报销政策。'),
+          C('embedding','向量嵌入模型','Embedding Model','把文本、图片或其他对象编码为一串数字向量，使语义相近的内容在向量空间中更接近。它通常不负责长篇生成。',['文档或查询','编码为向量','向量索引近邻搜索','返回语义候选'], '语义检索、聚类、去重、推荐候选','向量相似不等于答案正确；它只负责召回候选，还需重排序、过滤和生成阶段核验。','问“差旅标准”时，嵌入模型能找出“出差住宿报销规定”，即使两句话没有完全相同的字。'),
+          C('reranker','重排序模型','Reranker','接收“查询 + 若干候选资料”，更细致地判断哪一份最相关，再对候选重新排序。通常精度更高、计算也更贵。',['用户查询','召回的多个候选','逐对相关性判断','排序后的少量证据'], '高相关检索结果','它不是检索库，也不会生成答案；它是在“先广泛找、再精挑选”中的第二道筛子。','把 50 份制度文档先交给向量检索找候选，再由重排序模型挑出最能回答当前问题的 5 份。'),
+          C('adaptation','模型适配','Model Adaptation','让通用模型更适合某个任务的组合手段，包括提示词、检索增强、输出约束、少量示例、微调和蒸馏。',['通用模型','任务数据与规则','选择适配方式','线上评测与迭代'], '更稳定、更符合领域的行为','微调不是默认答案。若问题主要是知识更新、工具使用或流程控制，先检查 RAG、提示词和工作流是否足够。','客服政策每周变动，应优先更新知识与检索；只有稳定而重复的语言风格或分类任务才更像微调候选。')
+        ]
+      },
+      core: {
+        no:'04', title:'智能体与工作流', english:'Agents and Workflows', color:'var(--green)',
+        intro:'智能体核心能力负责把“目标”变成“下一步可执行的选择”。它并不等同于模型的一次回答，而是由角色、指令、推理、计划、路由和反思共同构成的控制层。核心原则是：让不确定的判断留在模型侧，让确定的规则留在程序侧。',
+        question:'面对一个任务，系统如何决定下一步该查资料、调用工具、交给人，还是停止？', inbound:'用户目标、当前状态、证据与工具结果', core:'目标分解、决策、路由与反思', outbound:'下一步行动、子任务、停止或交接', guard:'边界条件、预算、停止规则、人工确认',
+        structure:[['角色与指令','定义职责、范围、输出格式和不可做的事，是行为边界而非人设装饰。'],['决策与计划','将长目标变成小步骤，并根据结果调整。'],['复盘与路由','判断质量、选择模型/工具/子 Agent，避免盲目循环。']], refs:['survey','react','tot','reflexion','anthropic'],
+        children:[
+          C('persona','角色与职责设定','Role Definition','明确 Agent 的服务对象、可处理范围、成功标准、不能做什么以及何时交接。角色要服务于责任边界，而不是只写一段个性化台词。',['业务目标','职责范围与限制','输入输出契约','交接条件'], '稳定的任务边界','角色设定不是“假装专家”就能获得专业知识；专业依据仍应来自知识库、工具和验证规则。','财务审阅 Agent 的职责可定义为“提取异常并给出证据，不直接批准付款”。'),
+          C('prompt','系统指令与提示词','System Instruction and Prompt','系统指令定义长期行为约束；提示词承载当前任务输入。好的指令把目标、规则、可用工具、输出格式和失败处理写清楚。',['系统约束','当前任务','上下文与工具说明','结构化输出要求'], '可控的模型请求','提示词不是数据库，也不是安全边界；敏感权限和关键校验必须由系统机制强制执行。','让 Agent 输出 JSON 前，同时规定字段定义、枚举值和无法判断时的写法，比只说“输出 JSON”可靠。'),
+          C('reasoning','基于证据的推理','Evidence-grounded Reasoning','模型结合任务、已知事实和工具结果进行判断。工程上更重要的是要求它引用证据、展示可验证的中间产物，而不是索取不可验证的内部思维过程。',['目标与约束','检索证据或工具结果','比较与判断','可验证结论'], '带依据的下一步判断','“推理能力强”不代表永远正确；缺少事实、工具失败或问题含糊时，应追问、检索或停止。','在判断合同是否允许自动续约时，要求输出条款原文位置和置信依据，而不是只给“是/否”。'),
+          C('planning','任务规划','Planning','将一个多步骤目标拆成依赖明确、可执行、可检查的小任务。计划可以是固定流程，也可以由模型动态提出，再受状态和规则约束。',['任务目标','子任务拆分','依赖与顺序','执行与修订'], '任务图或行动序列','计划不是最终答案；每一步必须能执行、能观察结果、能因失败而重排。','“做竞品研究”可拆为：定义范围 -> 搜集来源 -> 取证 -> 比较 -> 形成结论 -> 人工复核。'),
+          C('routing','模型与能力路由','Model and Capability Routing','根据任务类型、风险、成本、语言、时延或上下文长度，选择合适的模型、工具、知识源或专门 Agent。',['请求特征','路由规则或分类','选择模型/工具/子 Agent','回收结果'], '更合适的执行路径','路由不是随机换模型；需要可解释的策略、回退路径和效果评测。','简单分类走低成本模型，复杂合同分析走强模型并启用检索，付款动作转人工确认。'),
+          C('reflection','反思与纠错','Reflection','在观察到工具返回、测试结果或外部反馈后，检查刚才的计划或产物是否应修正。它是“基于反馈的再决策”，不是无限自我对话。',['执行结果','失败信号或评测','定位原因','修订计划或终止'], '更稳健的下一轮尝试','反思会消耗时间和 Token；应有次数上限，并优先使用客观反馈，如测试、规则校验或人工标注。','代码 Agent 跑测试失败后读取报错、缩小修改范围、重跑；连续失败则提交给开发者。'),
+          C('loop','智能体执行循环','Agent Loop','把观察、判断、行动和结果检查组织成循环。循环的价值不在于“自动转得久”，而在于每一圈都向可验证目标靠近。',['读取状态','决定下一步','执行动作','观察与记录'], '完成、交接或安全停止','循环不是自主性的证明。没有停止条件、预算和权限约束的循环，只是更昂贵的迷路。','旅行助手反复查询航班，直到满足价格与时间约束；若无合适方案，返回候选而不是继续查到天亮。')
+        ]
+      },
+      context: {
+        no:'02', title:'知识检索与检索增强生成', english:'Knowledge Retrieval and RAG', color:'var(--teal)',
+        intro:'这一层解决“模型怎样找到当前问题所需的外部事实”。知识库保存可共享的业务资料；检索增强生成把少量相关、最新、可引用的资料送入当前请求。记忆与上下文工程作为独立模块处理跨会话信息与窗口管理。',
+        question:'怎样让 Agent 在需要时拿到正确资料，而不是把全部资料硬塞进提示词？', inbound:'文档、数据库、用户历史、当前对话', core:'解析、检索、选择、压缩、引用', outbound:'当前任务需要的有限证据与状态', guard:'权限过滤、时效性、引用、上下文预算',
+        structure:[['知识库','业务事实的来源地；可以是文档、表、数据库、知识图谱或 API。'],['检索与重排序','从大量资料中先召回候选，再挑选最相关、权限正确的证据。'],['RAG','把少量证据连同来源送入模型，生成可追溯的回答。']], refs:['rag','selfrag','middle'],
+        children:[
+          C('knowledgebase','知识库','Knowledge Base','为检索或查询准备的业务资料集合。关键工作包括数据授权、解析、元数据、版本、分段、质量和更新流程。',['原始资料','解析、清洗、分段','索引与权限元数据','供查询与检索使用'], '可被正确检索的业务资料','把 PDF 堆进文件夹不等于知识库；若没有解析、来源、更新和访问控制，Agent 很难可靠使用。','制度文档按版本和生效日期入库，查询时先过滤部门与权限，再检索内容。'),
+          C('knowledgegraph','知识源、知识图谱与 GraphRAG','Knowledge Sources, Knowledge Graph and GraphRAG','知识可以来自文档与 Wiki、业务数据库、数据仓库、向量索引或知识图谱。知识图谱用“实体 - 关系 - 证据”保留结构；GraphRAG 是在检索时结合这类关系结构和文本证据的方法。',['明确知识源与权限','抽取实体、关系与出处','按问题检索文本和相关子图','回到原始证据回答'], '带关系和出处的结构化证据','向量数据库擅长找语义相近片段，知识图谱擅长表达谁和谁有什么关系；GraphRAG 不是所有 RAG 都必须引入的组件。','查“某产品受哪份合规政策影响”时，图谱可沿“产品 -> 地区 -> 政策 -> 条款”找到关系，再回到条款原文确认。'),
+          C('rag','检索增强生成','Retrieval-Augmented Generation, RAG','先从外部资料中检索与问题相关的内容，再将其连同来源提供给模型生成回答。它让知识更新和回答依据从模型参数中部分外移。',['用户问题','检索与重排序','选择少量证据','生成带引用的回答'], '基于来源的回答','RAG 不是保证正确的魔法。错分段、错检索、过期资料和模型误读都可能导致错误。','员工问报销额度：系统检索最新制度的相关条款，给出额度、适用条件和原文链接。'),
+          C('chunking','分段与元数据','Chunking and Metadata','将原始资料按语义、标题、表格或段落切分为可检索单元，并附上来源、更新时间、权限和业务标签。分段决定召回粒度，是 RAG 质量的基础。',['原始资料','解析与语义分段','附加来源、权限、时间元数据','建立索引'], '可定位、可过滤的证据单元','只按固定字数切分容易拆散表格、定义和例外条款；分段策略必须随文档结构和评测结果调整。','报销制度按章节和条款切分，并保留部门、生效日期和原文链接。'),
+          C('retrieval','召回、重排序与引用','Retrieval, Reranking and Citation','检索先从索引中广泛召回候选，再用关键词、向量、过滤或重排序筛选少量证据；最终回答应能回到具体来源。',['用户问题','混合召回与权限过滤','重排序、去重、选择证据','生成带引用的回答'], '可验证的资料选择','只看向量相似度可能召回“看起来像”但不适用的条款；时效、权限、版本和引用完整性都要评测。','员工询问差旅额度时，系统优先选择其部门当前生效的原文条款，而不是相似的旧制度。')
+        ]
+      },
+      capabilities: {
+        no:'05', title:'工具、技能与协议', english:'Tools, Skills and Protocols', color:'var(--orange)',
+        intro:'语言模型会说明“想做什么”，能力扩展层负责安全、准确地把意图变成真实操作。技能封装可复用方法；工具调用执行函数或操作；MCP 统一应用与工具/资源的连接；连接器适配具体系统。',
+        question:'如何让 Agent 真正办事，同时避免把每个外部系统接成一团难以维护的线？', inbound:'任务意图、结构化参数、权限上下文', core:'技能选择、参数校验、连接与执行', outbound:'工具结果、状态变化、证据与错误', guard:'模式校验、最小权限、确认、超时与幂等性',
+        structure:[['技能','任务方法的可复用封装，通常含说明、步骤、模板和资源。'],['工具调用','执行某个明确动作，如查询、计算、写入或浏览。'],['互操作协议','MCP 标准化模型应用与工具资源的连接；连接器落地到具体系统。']], refs:['toolformer','mcp','agentsdk','anthropic'],
+        children:[
+          C('skill','技能','Skill','围绕一类任务封装的可复用能力单元，通常包括适用条件、步骤、提示模板、脚本、资料和输出要求。技能更像标准作业包，而不是单个 API。',['任务类型识别','读取技能说明','执行步骤与资源','产出标准结果'], '可重复的任务方法','技能不等于模型微调，也不等于一个按钮；它可以调用多项工具并包含业务判断流程。','“月度对账”技能规定：收集账单、清洗、计算、异常解释、生成报告和人工复核。'),
+          C('toolcalling','工具调用','Tool Calling / Function Calling','模型输出符合预定模式的函数名与参数，由应用执行真实函数，再把结果返回模型或流程。关键是工具契约，而不是模型随意写一段命令。',['工具定义与参数模式','模型提出调用','应用校验并执行','返回结构化结果'], '可观察的外部动作','工具调用不等于让模型直接拥有系统权限；执行层必须验证参数、身份和业务规则。','查询库存工具只读；创建采购单工具需要金额上限和审批令牌。'),
+          C('execution','API、代码与浏览器执行','API, Code and Browser Execution','Agent 的动作可落在业务 API、代码运行环境或浏览器操作上。三者都应通过受控工具执行：明确参数、限制权限、观察真实结果，并区分只读与有副作用的动作。',['选择执行通道','校验目标、参数与权限','在受控 API 或沙箱中执行','读取结果并确认真实状态'], '可验证的外部动作','浏览器自动化不等于可以绕过页面权限；代码执行也不等于可以读取宿主机文件或网络。','数据 Agent 在沙箱中运行统计代码；客服 Agent 用浏览器读取工单，再由审批后的 API 提交退款。'),
+          C('mcp','模型上下文协议','Model Context Protocol, MCP','一种开放协议，用于让模型应用以标准方式发现和调用外部工具、读取资源、使用提示模板等。它定义连接和交互约定，不替代业务系统自身。',['MCP 客户端','能力发现','调用 Tools / 读取 Resources','返回标准化结果'], '可互换的工具与资源接入','MCP 不是“所有 AI 都自动互通”，也不是安全授权本身；服务器和客户端仍要处理身份、授权与信任。','IDE 通过 MCP 连接代码仓库、数据库或内部服务，不必为每个客户端各写一套私有接入协议。'),
+          C('mcpobjects','MCP Client、Server 与三类能力','MCP Client, Server, Tools, Resources and Prompts','MCP Client 是发起连接并消费能力的模型应用；MCP Server 是暴露能力的一方。Server 可提供 Tools（可调用动作）、Resources（可读取内容）和 Prompts（可复用提示模板）；具体启用哪些能力取决于实现与授权。',['Client 建立受认证连接','Server 声明可用能力','Client 按模式读取或调用','Server 返回受控结果'], '可发现、可区分的外部能力','Tools 会产生或查询动作，Resources 提供数据，Prompts 提供模板；它们不是同一种对象，也都不能绕过业务授权。','桌面助手作为 Client 连到文件服务 Server：读文件走 Resource，写入审批单走 Tool，常用审阅格式可由 Prompt 提供。'),
+          C('connector','连接器与插件','Connector and Plugin','面向某个具体系统的适配层。它把系统的认证方式、对象模型、API 限制和错误语义包装为 Agent 可理解的能力。',['系统 API 与鉴权','适配对象与错误','工具或资源暴露','Agent 使用'], '对外系统的可靠接口','连接器不是业务流程；它负责“连得上、看得懂、报错说得清”，流程仍由 Skill 或编排层负责。','CRM 连接器提供“查客户、更新联系人”，销售跟进流程由上层技能决定。')
+        ]
+      },
+      orchestration: {
+        no:'06', title:'多智能体协作', english:'Multi-Agent Collaboration', color:'var(--rose)',
+        intro:'编排决定系统如何把多个步骤、工具和 Agent 组织起来。工作流适合稳定、可预测的路径；动态 Agent 适合开放式判断；多 Agent 适合职责可分、交付物可验收的复杂任务。',
+        question:'什么时候该用固定流程，什么时候让 Agent 自主选择，什么时候值得引入多个 Agent？', inbound:'任务、状态、规则、可用能力', core:'流程控制、任务图、委派与交接', outbound:'有序的执行轨迹与可验收交付物', guard:'状态一致性、重试、超时、人工节点、成本预算',
+        structure:[['工作流','程序事先规定主路径，适合合规、重复、依赖明确的任务。'],['状态与任务图','把任务拆成节点和依赖，使中断、恢复、并行和审计变得清楚。'],['多智能体协作','以明确角色、输入输出契约和验收标准分工，而不是让多个模型闲聊。']], refs:['anthropic','langgraph','autogen','survey'],
+        children:[
+          C('workflow','工作流','Workflow','由程序预先编排的步骤链或分支图。模型可以参与某些节点，但控制路径主要由工程逻辑决定。',['触发事件','固定步骤与条件分支','模型或工具节点','结果与归档'], '稳定、可预测的任务执行','工作流不是“低级 Agent”。对于规则清晰的流程，它通常更便宜、可测、可审计。','发票处理：上传 -> OCR -> 规则校验 -> 异常审核 -> 入账。'),
+          C('stategraph','状态与任务图','State Machine and Task Graph','用显式状态、节点和边描述任务进度与依赖。它使系统知道“现在在哪、下一步允许去哪、失败后从哪恢复”。',['状态对象','节点与转移条件','持久化检查点','恢复或终止'], '可恢复、可审计的执行过程','任务图不是画图工具；每条边都应代表可以执行和验证的转移条件。','研究任务在“资料收集”失败后可重试该节点，而不是从“明确问题”重新开始。'),
+          C('multiagent','多智能体协作','Multi-Agent System','让多个有不同职责或不同工具权限的 Agent 协同完成任务。常见模式有主管-专家、顺序交接、并行评审和辩论。',['总任务','分派子任务','共享最小必要产物','集成与验收'], '复杂任务的分工','多 Agent 不是能力加法。沟通、重复检索和错误传递会增加成本；简单问题先用单 Agent。','产品研究可分为市场搜集、技术评估、财务测算，最后由整合 Agent 生成带证据的对比。'),
+          C('supervisor','主管调度与 Agent 通信','Supervisor and Agent Communication','主管（Supervisor）负责拆分目标、选择合适的子 Agent、设定交付格式与预算，并对结果做汇总或退回。Agent 通信应传递结构化任务、证据、状态和限制，而非只交换长段自然语言。',['总目标与约束','主管分派任务与交付契约','子 Agent 回传证据、状态和置信度','主管验收、追问或升级'], '可控的协作闭环','主管不等于“最强模型”；它需要明确的权限、预算、停止条件和验收标准，不能成为无边界的转发器。','市场、技术、财务三个 Agent 分别交付表格和引用；主管发现证据冲突时要求补证，而不是把三段结论直接拼在一起。'),
+          C('handoff','交接与人工参与','Handoff and Human-in-the-loop','将任务、上下文、证据和责任从一个 Agent 转给另一个 Agent 或人。好的交接说明“已做什么、依据什么、还缺什么、为何升级”。',['升级条件','打包状态与证据','交给专责 Agent 或人','记录决定并继续'], '明确的责任转移','人工参与不是 Agent 失败；涉及高风险判断、例外情形或不可逆动作时，人工是系统设计的一部分。','退款金额超过阈值时，客服 Agent 提供摘要和证据，由人工批准后才执行。')
+        ]
+      },
+      runtime: {
+        no:'09', title:'系统设计、运行时与成本', english:'System Design, Runtime and Cost', color:'var(--blue)',
+        intro:'系统设计把模型、知识、工具、状态和治理组合为可交付服务。运行时承载会话状态、工具执行、沙箱和异步消息；成本与时延则要求按任务选择模型、上下文和执行路径。',
+        question:'怎样设计一个可持续运行、可恢复、可控成本且不扰乱生产系统的 Agent？', inbound:'请求、事件、任务状态、凭据与资源配额', core:'执行调度、状态保存、隔离、通信与成本控制', outbound:'可恢复运行、结构化日志、事件与结果', guard:'资源配额、网络隔离、身份、审计、故障恢复',
+        structure:[['运行时','管理 Agent 生命周期、会话和工具调用，提供状态与并发控制。'],['执行隔离','在受控环境执行代码、浏览器或命令，限制文件、网络和资源。'],['通信与存储','事件队列、数据库、缓存和 A2A 等协议支撑异步协作与恢复。']], refs:['langgraph','autogen','a2a','aws','google','azure'],
+        children:[
+          C('runtime','智能体运行时','Agent Runtime','负责启动、暂停、恢复、终止 Agent，并管理会话、状态、工具调用和并发。它类似服务运行的调度器，而不是语言模型本身。',['请求或事件','加载状态与配置','执行 Agent 循环','保存检查点与结果'], '可持续的 Agent 生命周期','运行时不是某个框架的专有名词；无论自建还是托管，都需要处理状态、失败和资源。','长时间研究任务在网页抓取完成后保存检查点，稍后可从“证据归档”继续。'),
+          C('sandbox','沙箱执行环境','Sandbox','将代码执行、浏览器操作或文件修改放入隔离环境，限制它能访问的网络、磁盘、凭据和计算资源。',['受限凭据与资源','执行脚本或浏览器','捕获输出与副作用','清理或快照'], '可控的外部执行','沙箱不是绝对安全；仍需最小权限、网络控制、命令策略、资源限制和人工审批。','数据分析 Agent 在临时容器中运行 Python，只挂载授权数据集，不可直接访问生产数据库。'),
+          C('gateway','模型网关与流量治理','Model Gateway and Traffic Governance','模型网关在应用和多个模型服务之间统一处理鉴权、模型路由、配额、限流、重试、缓存、版本记录与用量统计。它让业务流程不必直接依赖每个模型供应方的私有接口。',['请求与身份进入','策略选择模型、区域或版本','限流、配额与失败回退','记录用量、质量与审计'], '受控的模型服务访问','模型网关不替代 Agent 的任务路由；网关管服务访问和治理，Agent 路由管当前任务应该使用什么能力。','同一摘要请求按租户配额走不同模型版本；某个服务限流时网关切换备用模型并记录降级。'),
+          C('schedule','定时任务与事件触发','Scheduling and Event Triggers','定时任务按时间表启动周期性工作；事件触发器在文件入库、审批完成或状态变更后启动后续流程。两者都要避免重复执行，并能记录一次触发最终推进了哪条任务。',['时间表或业务事件','去重并创建任务','交给运行时或队列执行','记录结果、重试或人工处理'], '可追踪的自动启动','定时器不是可靠交付保证；任务执行仍需要持久状态、超时、幂等和失败告警。','每天凌晨检查制度是否有新版本；检测到更新后创建解析、索引和回归评测任务。'),
+          C('event','事件与消息队列','Event and Message Queue','把任务提交、工具完成、人工回复等变成异步事件，帮助系统解耦、重试、削峰和追踪长任务。',['事件产生','排队与持久化','消费者处理','确认、重试或死信'], '可靠的异步任务推进','消息队列不负责业务正确性；消费者仍要处理重复消息、顺序和幂等性。','文件解析完成后发布事件，检索索引服务订阅处理，完成后再触发评测任务。'),
+          C('storage','状态存储与缓存','State Storage and Cache','将会话、任务状态、检查点、工具结果和临时上下文保存到合适介质；缓存减少重复模型调用和检索。',['状态与结果','分类存储','过期与权限策略','按需读取或缓存命中'], '连续性与成本控制','缓存不能绕过权限或使用过期关键数据；必须把身份、版本、时效性纳入缓存键和失效策略。','同一政策问题的检索结果可短期缓存，但政策更新后立即失效。'),
+          C('delivery','部署、扩缩容与发布','Deployment, Scaling and Release','把 Agent 从开发环境交付到生产，需要打包配置、管理依赖和密钥、按负载扩缩容，并通过灰度、回滚和变更记录控制发布风险。',['构建与配置校验','部署到受控环境','灰度放量与容量监测','回滚、复盘与版本归档'], '可恢复的生产交付','把代码部署成功不表示任务质量安全；发布门槛还需要评测、权限检查、容量预案与回滚条件。','先让 5% 的客服会话使用新检索版本，监测引用正确率和升级率，超过阈值即回滚。'),
+          C('a2a','智能体对智能体协议','Agent2Agent Protocol, A2A','用于不同 Agent 或 Agent 系统之间发现能力、发送任务、流式返回进度、协作和交接的开放协议。',['发现远程 Agent','发送任务与上下文','进度与结果交换','完成、取消或升级'], '跨框架的 Agent 协作','A2A 不是 MCP 的替代：MCP 更常用于 Agent 接工具和资源，A2A 更常用于 Agent 找另一个 Agent 协作。','内部研究 Agent 通过 A2A 委派翻译任务给语言专长 Agent，并收到可跟踪的任务状态。')
+        ]
+      },
+      governance: {
+        no:'08', title:'安全、权限与治理', english:'Safety, Authorization and Governance', color:'var(--orange)',
+        intro:'当 Agent 能读数据、调用工具、修改系统时，安全与治理不再是上线前的检查表，而是每一步的约束。关键目标是：身份可识别、权限可限制、敏感信息可保护、危险行为可阻断、过程可审计。',
+        question:'怎样让 Agent 有足够权限把事做完，又不会拥有超过任务所需的权限？', inbound:'用户身份、策略、敏感数据、行动意图', core:'认证、授权、校验、过滤、审批与审计', outbound:'被允许且可追溯的行动', guard:'最小权限、默认拒绝、人工审批、撤销与监控',
+        structure:[['身份与授权','确认是谁在请求，并将其转换为最小必要的资源访问权限。'],['执行前防护','对工具参数、数据流、输出和高风险动作设置规则与审批。'],['事后审计','记录谁在何时用什么依据做了什么，以支持复盘、申诉和改进。']], refs:['mcp','agentsdk','aws','azure','google'],
+        children:[
+          C('identity','身份认证','Authentication','确认用户、服务和 Agent 的身份。常见实现包括企业单点登录、服务账号、短期令牌和多因素认证。',['身份凭证','认证服务验证','签发会话或令牌','调用方身份进入策略'], '可信的调用主体','认证只回答“你是谁”；是否允许访问某资源，要由授权策略决定。','员工通过企业账号登录，Agent 代表该员工检索其有权查看的项目文档。'),
+          C('authorization','授权与最小权限','Authorization and Least Privilege','根据身份、任务、资源和上下文判断是否允许某动作，并只授予完成当前任务所需的最小权限。',['身份与任务上下文','策略判断','临时、受限权限','允许、拒绝或要求审批'], '受限的行动能力','“Agent 有 API Key”不等于合理授权；长效、全局权限是常见风险来源。','报表 Agent 可读订单汇总，但不能读取客户身份证号，也不能执行退款。'),
+          C('approval','审批机制与人类把关','Approval and Human Oversight','审批机制把高风险、低置信、例外或不可逆的动作送到有责任和权限的人手中。它需要明确触发条件、待审材料、可选决定、超时策略和审计记录。',['识别高风险或例外','冻结动作并生成审批包','人工批准、修改或拒绝','回写决定并继续或终止'], '有责任的自动化边界','审批不是把所有任务都交给人；应把关口放在金额、影响范围、法律合规或置信度真正需要人判断的位置。','采购 Agent 准备好订单草稿和供应商比价，但金额超过额度时必须由预算负责人批准后才能下单。'),
+          C('secrets','密钥与凭据管理','Secrets Management','安全保存、轮换和按需注入 API 密钥、令牌、数据库凭据等敏感信息，避免其出现在提示词、日志或代码中。',['密钥库','按身份申请短期凭据','受控注入执行环境','轮换与撤销'], '不暴露的服务凭据','不要让模型在文本中看到或生成真实密钥；工具层应持有凭据，模型只发起受控请求。','浏览器 Agent 调用 CRM 时由连接器获取短期令牌，模型只知道“更新联系人”工具。'),
+          C('guardrail','安全护栏','Guardrail','对输入、输出、工具调用和流程状态施加规则，例如内容过滤、敏感信息识别、参数约束、预算和风险分级。',['输入与行动意图','规则或分类器检查','允许、改写、拒绝或升级','记录决策'], '风险受控的交互与行动','护栏不是只审查文本；真正高风险往往发生在工具调用和数据流转。','转账工具拒绝超过阈值的金额，并要求匹配收款人白名单和人工批准。'),
+          C('audit','隐私与审计','Privacy and Audit','规定数据最小化、保留期限、访问记录、删除权和审计轨迹。审计关注“发生了什么”，隐私关注“哪些信息可以被收集和使用”。',['数据分类','最小化收集与脱敏','记录访问与行动','保留、导出或删除'], '合规的数据与可回放过程','日志越全不一定越好；日志本身也可能携带敏感提示词、检索片段或工具结果。','只记录任务标识、决策和脱敏摘要；对敏感原文设置独立访问控制与保留期。')
+        ]
+      },
+      evaluation: {
+        no:'07', title:'评测、可观测性与持续优化', english:'Evaluation, Observability and Improvement', color:'var(--teal)',
+        intro:'Agent 的质量不能只靠“回答看起来不错”判断。需要将任务成功、过程质量、工具正确性、安全、时延、成本和用户反馈一起观察，并把问题定位到模型、提示词、检索、工具还是流程。',
+        question:'如何证明 Agent 在真实场景中完成了任务，并在出错时知道问题出在哪里？', inbound:'测试样本、线上请求、执行轨迹、用户反馈', core:'记录、评估、监控、归因与实验', outbound:'质量结论、告警、改进优先级', guard:'代表性样本、指标定义、隐私脱敏、版本可比性',
+        structure:[['链路追踪','串联模型调用、检索、工具、状态和耗时，回答“这次是怎么发生的”。'],['离线评测','在固定样本和环境中比较不同版本的任务成功率、引用、工具准确率与安全性。'],['线上运营','观察真实分布、成本、时延、失败类型和人工反馈，发现离线没有覆盖的问题。']], refs:['agentbench','gaia','swebench','webarena','agentsdk','langgraph'],
+        children:[
+          C('trace','链路追踪','Trace','为一次任务分配统一标识，记录输入摘要、模型调用、检索证据、工具参数、状态转移、输出和耗时，使过程可回放、可定位。',['任务开始','跨组件记录 Span','关联模型与工具结果','形成可检索轨迹'], '端到端可观测过程','追踪不是把所有敏感内容原样存下；需要脱敏、采样、访问控制和保留策略。','用户说“结果不对”时，工程师可查看是检索到了旧制度、重排序失误，还是工具写入失败。'),
+          C('offlineeval','离线评测','Offline Evaluation','在固定或版本化的数据集和沙盒环境中，批量运行 Agent，对任务完成、事实依据、工具调用、安全和成本做可比测试。',['代表性样本与标注','固定环境运行','按指标评分','比较版本差异'], '发布前的质量证据','离线高分不等于线上可靠；样本应覆盖常见、边界、对抗和高风险情形。','更新提示词前，在 300 个历史工单上比较解决率、升级率、引用正确率和平均成本。'),
+          C('monitoring','线上监控','Online Monitoring','持续观察真实流量中的成功率、错误率、时延、Token、工具失败、人工接管和安全事件，并设置阈值和告警。',['线上指标与日志','聚合与分组','异常检测','告警、降级或回滚'], '生产运行健康度','监控不是只看平均值；按客户、语言、工具版本和任务类型分组才容易发现局部退化。','某搜索 API 变慢时，Agent 延迟突然升高，系统自动启用缓存或降级为只给出待确认结果。'),
+          C('release','版本、实验与发布管理','Version, Experiment and Release Management','把模型、提示词、检索索引、工具契约、工作流和评测集当作可追踪版本；用离线对比、灰度、A/B 实验和回滚，将改动与质量结果建立因果联系。',['定义候选版本与假设','离线回归与安全检查','灰度或对照实验','采纳、回滚并沉淀样本'], '可归因的持续改进','只记录“线上效果变好了”不够；若不记录版本、样本和流量分配，就无法知道是哪项改动造成了变化。','比较两种检索切分策略时，同时固定模型和题集；灰度后再按相同任务分布比较引用正确率与成本。'),
+          C('feedback','反馈与实验','Feedback and Experiment','将用户评分、人工纠正、失败案例和业务结果沉淀为改进信号，通过 A/B 测试或受控发布验证优化是否真有效。',['收集反馈','归类失败原因','形成候选改动','对照实验与回滚'], '有证据的持续改进','只追求点赞率可能让 Agent 更会迎合，而非更准确；要同时看任务完成、事实性、安全和业务结果。','用户经常修改摘要中的数字，就把该类案例加入评测集，优先检查数据抽取与引用逻辑。')
+        ]
+      },
+      applications: {
+        no:'10', title:'应用落地与项目实践', english:'Applications and Project Practice', color:'var(--green)',
+        intro:'Agent 不应按“用了哪个模型”来定义，而应按它承担的业务责任、允许的行动和验收方式来定义。研究、编码、数据分析和流程自动化看似不同，但都需要清楚的输入、工具、证据、权限和交接。',
+        question:'怎样从一个业务问题开始设计 Agent，而不是从某个流行框架开始？', inbound:'业务目标、角色、数据、权限、风险等级', core:'任务专用流程与能力组合', outbound:'可验收的业务产物或行动', guard:'人机分工、领域规则、验收指标、责任归属',
+        structure:[['任务定义','先定义交付物、允许行动、失败后果和验收方式。'],['能力组合','按任务选择模型、检索、工具、技能和流程，而非平均堆叠。'],['人机协同','把高风险、低置信或需要价值判断的步骤交给人。']], refs:['gaia','swebench','webarena','survey'],
+        children:[
+          C('researchagent','研究型智能体','Research Agent','围绕一个问题搜集、比较、引用和综合信息的 Agent。质量核心不是写得像报告，而是来源覆盖、证据可追溯、结论与证据匹配。',['研究问题','检索与来源筛选','摘取证据与比较','生成带引用结论'], '可复核的研究产物','研究 Agent 不是搜索结果拼贴机；必须区分事实、推断、观点和不确定性。','比较三家云厂商时，按运行时、记忆、安全、评测、定价等维度引用官方资料。'),
+          C('codingagent','编程智能体','Coding Agent','在代码仓库和执行环境中理解问题、修改文件、运行测试、检查差异并提交可审阅结果的 Agent。',['Issue 与代码库','定位相关文件','修改与运行测试','差异、证据与交接'], '经测试的代码变更','能生成代码不等于能解决真实问题；仓库上下文、测试、依赖和安全边界决定可靠性。','修复 bug 时，Agent 先复现失败测试，再最小化修改，最后报告测试结果和改动范围。'),
+          C('dataagent','数据分析智能体','Data Analysis Agent','以自然语言协助查询、清洗、分析和解释数据。它需要受控的数据访问、可重现代码、指标口径和可视化核验。',['分析问题','数据权限与查询','计算与可视化','解释、引用口径、复核'], '可追溯的分析结论','图表好看不代表口径正确；日期范围、去重、缺失值和单位必须明确。','销售额下降分析需要先确认筛选条件和数据刷新时间，再展示计算过程与图表。'),
+          C('processagent','业务流程智能体','Business Process Agent','在工单、客户关系管理、采购、报销等系统中读取状态、执行规则、发起受控操作并升级例外的 Agent。',['业务事件','检索规则与当前状态','执行受限动作','通知、记录或人工审批'], '有边界的流程推进','自动化不等于无审批。不可逆、高金额、合规敏感动作应保留人类签核。','售后 Agent 可自动分类和补全工单，退款或修改合同须转人工。'),
+          C('officeagent','办公、客服与销售智能体','Office, Customer Service and Sales Agent','面向日常办公、客户服务和销售跟进的 Agent，常处理邮件、会议纪要、知识问答、工单、客户记录和下一步建议。它的重点是减少重复整理，同时避免替人做承诺、报价或关键决策。',['请求、会话或业务事件','检索资料与读取受限系统','生成草稿、分类或行动建议','人工确认或受控写入'], '可审阅的业务协助','自动回复不等于可以代表公司承诺；价格、合同、退款和客户敏感信息需要规则、权限与人工关口。','销售 Agent 汇总客户会前资料并起草跟进邮件，客户经理确认后再发送并写入 CRM。'),
+          C('embodied','具身智能体','Embodied Agent','通过传感器观察物理或模拟环境，并以机器人、设备或游戏中的动作影响环境的 Agent。它更强调感知误差、物理安全和实时控制。',['传感器状态','任务与环境模型','行动规划','执行与反馈'], '在环境中闭环行动','语言模型不能单独保证物理安全；低层控制、碰撞检测和安全停机必须独立可靠。','仓储机器人可用语言理解任务，但移动、抓取和避障应由经过验证的控制系统约束。')
+        ]
+      },
+      improvement: {
+        no:'03', title:'记忆与上下文工程', english:'Memory and Context Engineering', color:'var(--plum)',
+        intro:'这一层解决“模型在这一轮该看到什么，以及跨轮该记住什么”。记忆保存经过筛选的状态、偏好、事实或经验；上下文工程在有限窗口中选择、排序、压缩和隔离信息。它们都不是聊天记录的无限堆积。',
+        question:'怎样让 Agent 既能延续任务和用户偏好，又不把过期、无关或敏感信息带进当前回答？', inbound:'对话、工具结果、任务状态、用户偏好与候选资料', core:'写入判断、分类、检索、压缩与上下文构造', outbound:'当前任务所需的可信状态与信息', guard:'来源、时效、权限、保留期、删除与上下文预算',
+        structure:[['短期状态','保存当前任务的进度、工具结果和临时变量，任务结束后归档或过期。'],['长期记忆','保存可复用的偏好、稳定事实或经验，并附来源、时间与更新规则。'],['上下文构造','按权限、相关性和 token 预算选择当前要放入模型输入的内容。']], refs:['memgpt','middle','rag','genagents'],
+        children:[
+          C('shortterm','短期状态','Short-term State','保存当前会话或任务正在进行的事实，例如已完成步骤、工具结果、待确认参数和检查点。它服务于连续执行，不应被默认当成长久记忆。',['当前任务','记录工具结果与进度','任务内按需读取','完成后归档或过期'], '连续而可恢复的任务过程','短期状态过期后不应被模型当作永久事实；长任务还需要检查点与版本信息。','报销流程记住“已完成票据识别，等待费用政策校验”，恢复后从对应节点继续。'),
+          C('longterm','长期记忆','Long-term Memory','保留未来任务仍有价值的信息，例如用户语言偏好、稳定业务事实或验证过的经验。每条信息应有来源、时间、置信度、权限和保留规则。',['候选信息','必要性与权限判断','分类、附来源和保留期','按相关性检索'], '适度的个性化与连续性','长期记忆不是聊天记录备份；一次性内容、敏感数据和未经证实的推断不应轻易写入。','用户多次明确选择“中文、简洁、先给结论”可成为偏好；一次临时出差城市通常不该长期保存。'),
+          C('memorytypes','记忆类型与用户画像','Memory Types and User Profile','按用途区分工作记忆、情景记忆、语义记忆和用户画像。工作记忆服务当前任务；情景记忆保留曾发生的过程；语义记忆保存经过验证的稳定事实；用户画像只保存经允许且确有必要的偏好或约束。',['候选信息','判断用途、来源与敏感性','选择记忆类型与保留期','按任务最小化读取'], '有边界的连续性与个性化','用户画像不是“尽量多收集个人信息”；它必须有明确用途、授权、删除入口和跨用户隔离。','用户反复要求中文和简洁输出，可作为受控偏好；“上次报销卡住在什么步骤”应留在任务状态而非写进画像。'),
+          C('memorywrite','记忆写入与更新','Memory Write and Update','判断什么信息值得写入、何时更新或覆盖旧信息、冲突如何处理。写入应由来源可靠性、稳定性、用户意图和业务规则共同决定。',['新信息或反馈','校验来源与稳定性','合并、更新或拒绝写入','记录版本与删除入口'], '可管理的长期信息','“越记越聪明”是误区；错误或过期记忆会污染后续任务，必须支持更正、撤销和过期。','用户修改常用称呼时，用新偏好覆盖旧偏好并保留变更时间，而不是叠加互相矛盾的两条。'),
+          C('contextbuild','上下文构造','Context Construction','按任务目标、权限、相关性、时效、可信度和 token 预算，把系统规则、当前状态、检索证据和必要记忆组织成模型输入。',['候选信息','过滤与去重','排序、压缩、格式化','模型生成与引用'], '高信息密度的当前输入','上下文越长不一定越好；不可信网页和工具返回应被当作数据，而不能覆盖系统规则。','先放任务与硬约束，再放当前状态和高相关证据；长文档只保留必要片段与原文引用。'),
+          C('memorygovernance','记忆治理','Memory Governance','为记忆设置访问控制、保留期、删除、导出、审计和多租户隔离。它让个性化与连续性不以牺牲隐私和合规为代价。',['数据分类','最小化写入与脱敏','受控读取与保留','删除、导出与审计'], '可解释的记忆边界','把全部对话永久保存既增加成本，也制造隐私与权限风险；不同用户和租户的记忆必须隔离。','用户提出删除偏好后，系统删除相应记录并使缓存失效，而非只在界面上隐藏它。')
+        ]
+      }
+    };
+
+    const T = (role, ask, move, partner, trap, memory) => ({role, ask, move, partner, trap, memory});
+    const talkTracks = {
+      llm: T('文稿起草员', '“把这段客服记录写成给主管看的三行摘要。”', '根据眼前材料组织语言、归纳重点，并提出下一步建议。', '最新数字、制度原文和真实动作，交给检索、数据库和工具执行层。', '说得顺不等于内容已核实；它不会自动知道刚更新的事实。', '会写，不等于会查'),
+      multimodal: T('带眼睛的阅读员', '“这张模糊发票里，金额和日期分别是什么？”', '同时看文字、版式和图像特征，先把画面变成可供语言理解的线索。', '金额是否合规、票据是否有效，交给规则和业务系统核对。', '看见字不等于看对字；小字、遮挡和表格关系都可能出错。', '能看图，仍要核图'),
+      embedding: T('语义坐标员', '“找一份讲差旅住宿额度的制度，标题不必完全一样。”', '把问题和资料分别放到语义地图上，找距离更近的候选。', '候选里谁最适用，交给重排序和引用校验。', '语义相近不代表答案适用，更不代表结论已经成立。', '找相近，不下结论'),
+      reranker: T('终选编辑', '“这 50 份候选资料里，哪 5 份最能回答当前问题？”', '把问题与每份候选细比一遍，挑出真正贴题的少数资料。', '资料从哪里来，先由召回器广泛寻找。', '它不会凭空找资料，也不会替你写最终回答。', '先广找，再精选'),
+      adaptation: T('量体裁衣师', '“客服回答总是口径不一，到底该改提示、知识还是模型？”', '先给通用模型加任务说明、例子、检索和输出约束，再判断是否需要训练。', '效果是否真的变稳，交给评测集和线上数据说话。', '一遇到问题就微调，通常成本高且把知识更新问题误当成模型问题。', '先调外，再动脑'),
+      persona: T('岗位说明书', '“这个财务助手究竟能建议什么，绝不能批准什么？”', '把服务对象、责任范围、成功标准和升级条件写成明确职责。', '具体事实依据和权限判断，交给知识、规则与授权系统。', '写一个很像专家的人设，不会自动获得专业知识或权限。', '先定职责，再谈能力'),
+      prompt: T('任务说明书', '“每次都要输出统一 JSON，缺信息时也不能编。”', '把目标、输入、规则、可用工具和输出格式交代给模型。', '敏感操作的强制限制，交给程序化校验而非一句提示词。', '提示词不是数据库，也不是不可绕过的安全墙。', '说清任务，不替安全'),
+      reasoning: T('证据律师', '“合同是否允许自动续约？请给出条款位置。”', '把已知事实逐项比较，形成能回到证据的判断。', '缺少事实时，交给检索、追问或人工复核。', '流畅的解释不是证明；没有证据就应保留不确定性。', '先摆证据，再下判断'),
+      planning: T('项目拆解师', '“两天内完成竞品研究，第一步该做什么？”', '把大目标拆成有先后关系、可检查的小任务。', '每一步的真实执行与结果，交给工具、状态和反馈。', '列出清单不等于计划可执行；没有检查点的计划容易空转。', '先拆路，再赶路'),
+      routing: T('任务分诊台', '“这条请求该用便宜模型、强模型，还是直接转人工？”', '根据难度、风险、时延和成本把任务送到合适能力。', '路由是否划算，交给评测和运行数据持续校正。', '随意换模型不是路由；没有回退路径会让失败更难处理。', '看任务，再选路'),
+      reflection: T('复盘员', '“测试又失败了，是改代码、重跑工具，还是停止？”', '读取客观反馈，定位刚才哪一步不成立，再决定修正或结束。', '测试、规则和人工反馈提供可依赖的复盘依据。', '反复自言自语不会自然变正确，必须有限次且有外部信号。', '看反馈，再重来'),
+      loop: T('任务计时员', '“机票没找到合适的，它还要继续查多久？”', '让系统在观察、行动和检查之间循环，并在满足条件时结束或升级。', '预算、停止条件和权限边界决定这条循环能跑到哪里。', '循环久不代表聪明；没有终点只会持续消耗资源。', '每一圈，都要更接近终点'),
+      knowledgebase: T('档案管理员', '“新差旅制度已经发布，系统如何确保以后能找到它？”', '把资料解析、标注版本和权限，整理成可查询的业务档案。', '用户问题如何从档案中取证，交给检索和重排序。', '文件堆在文件夹里不叫知识库；不知道来源和版本的资料不可靠。', '先管资料，才谈问答'),
+      rag: T('带引文的答题员', '“我部门的住宿额度是多少？请给原文依据。”', '先取回少量相关资料，再依据这些资料组织回答并附上来源。', '资料是否新、是否有权限、是否找全，交给检索链路和校验。', '检索到内容不等于答案正确；过期条款和误读仍会造成错误。', '先找依据，再开口'),
+      chunking: T('切书师', '“一份 80 页制度该怎样切，才能不把例外条款切丢？”', '按标题、段落、表格和语义边界切成带来源标签的小片段。', '片段怎样被找到，交给索引和检索策略。', '只按固定字数切，会把定义、表格和例外条件拆散。', '切得完整，找得准确'),
+      retrieval: T('寻证导航员', '“在当前部门、当前生效版本里，找最相关的一条制度。”', '先广泛找候选，再过滤权限和版本，最后挑出可引用的证据。', '用这些证据回答问题，交给生成模型；相关性细比，交给重排序。', '只看相似度会选到看似相近却不适用的旧资料。', '找得到，还要找对'),
+      skill: T('标准作业手册', '“每月对账这件事，能不能每次都按同一套方法完成？”', '把适用条件、步骤、工具、资料和验收要求打包成可重复做法。', '具体的查询、计算和写入，交给手册里调用的工具。', '技能不是一个按钮，也不是模型训练；它是一整套可复用做事方法。', '会做一次，不如会做一类'),
+      toolcalling: T('受控遥控器', '“查库存可以，创建采购单时谁来拦住超额金额？”', '模型只提出函数名和参数，应用先验参数、权限和规则后才执行。', '真实系统动作和返回结果，交给工具执行层。', '模型写出命令不等于已经有权限，更不等于动作已发生。', '模型提议，系统执行'),
+      mcp: T('统一插座', '“编辑器、聊天助手和桌面应用，怎样接同一批工具？”', '用统一约定描述可发现的工具、资源和提示模板，让不同客户端按同一方式接入。', '具体系统的认证、数据和业务规则，仍由连接器与服务端负责。', '协议让接法一致，不会自动解决信任、权限或业务正确性。', '统一接法，不代替治理'),
+      connector: T('系统翻译器', '“Agent 想查 CRM 客户，怎么理解那个系统的字段和错误？”', '把外部系统的认证、对象、限制和报错翻译成可调用能力。', '多个能力如何编成业务流程，交给技能或工作流。', '连接器负责连通和翻译，不替业务决定何时该更新客户。', '连得上，还要说得明'),
+      workflow: T('流水线班长', '“发票来了以后，哪几步必须按顺序做？”', '按预设步骤和条件分支推进任务，让规则清晰的流程稳定运行。', '需要理解文字或处理例外的节点，才交给模型或人工。', '固定流程不是低级方案；规则清楚时，它往往更省、更容易审计。', '规则清楚，走流水线'),
+      stategraph: T('地图和书签', '“研究任务查资料时失败，恢复后该从哪一格继续？”', '把任务当前位置、可走路径和检查点明确记录下来。', '每个节点真正做什么，交给工具、模型或人工角色。', '只画一张图不是任务图；每条转移都要有可验证的条件。', '知道在哪，才知道往哪走'),
+      multiagent: T('项目小组', '“市场、技术、财务要一起做竞品研究，怎么不互相打架？”', '把不同专长的子任务分给不同角色，只交换必要的中间成果。', '最后的取舍和验收，交给统筹角色与共同标准。', '人多不一定更快；重复检索、沟通和错误传递都会放大成本。', '分工要少，交接要清'),
+      handoff: T('交接班报告', '“退款超过阈值时，人工接手前需要看见什么？”', '把已做的事、依据、剩余风险和待确认项打包交给下一个责任人。', '最终批准或例外决定，交给具有责任和权限的人。', '转人工不是失败；高风险动作本来就该有明确的人类关口。', '交清来龙，接清责任'),
+      runtime: T('任务调度员', '“长时间研究任务断了，明天能从证据归档继续吗？”', '管理任务何时启动、暂停、恢复、并发和保存状态。', '模型回答什么、工具做什么，交给上层 Agent 逻辑。', '运行时不是语言模型；它解决的是任务如何活下去。', '让任务能停、能续、能查'),
+      sandbox: T('隔离实验室', '“让 Agent 跑一段 Python，怎样不碰生产数据库？”', '把代码、浏览器或文件操作关在受限环境，控制网络、磁盘和凭据。', '真正的权限审批和风险判断，交给策略与人工关口。', '隔离不是绝对安全；过宽网络和凭据仍会让边界失效。', '先圈范围，再放执行'),
+      event: T('接力信使', '“文件解析完了，怎样通知索引和评测任务继续做？”', '把发生的事情放进可靠队列，让后续服务异步接力处理。', '每个消费者如何处理重复、失败和业务结果，交给幂等与重试设计。', '消息送到了不代表业务正确；重复和乱序都必须被处理。', '事发生，信要到'),
+      storage: T('带标签仓库', '“昨天已经查过的政策，今天还能复用又不泄露吗？”', '把状态、结果和缓存按身份、版本、时效分类保存和失效。', '是否允许读取某份内容，交给权限策略。', '缓存若不看身份和版本，会把旧数据或他人数据带回来。', '存得住，也要过期'),
+      a2a: T('跨团队任务单', '“研究 Agent 想请翻译 Agent 帮忙，怎样知道进度和结果？”', '用统一任务单描述能力、上下文、进度、取消和交接。', '单个 Agent 要接数据库或工具时，交给 MCP 一类工具协议。', 'A2A 和 MCP 分工不同：一个找协作伙伴，一个接工具资源。', '找伙伴，用任务单'),
+      identity: T('门禁识别员', '“这个请求是员工本人、服务账号，还是冒名调用？”', '核验调用方身份，再签发可追踪的会话或短期令牌。', '身份确认后能做什么，交给授权策略继续判断。', '知道是谁，不等于知道他可以看什么、做什么。', '先验身份，再谈权限'),
+      authorization: T('权限门卫', '“同是员工，为什么一个能看报表，另一个不能退款？”', '结合身份、任务和资源判断是否放行，并只给完成当前动作所需的权限。', '短期凭据从哪里来，交给认证和密钥管理。', '拿到 API Key 不等于该拥有全局、长期或高风险权限。', '能做多少，只给多少'),
+      secrets: T('钥匙柜管理员', '“Agent 调 CRM 时，真实令牌应该出现在哪？”', '把敏感凭据留在受控密钥库，按身份短期注入执行环境。', '模型只表达想调用什么，不应看到真实密钥。', '把密钥写进提示词、日志或代码，会让一次泄露变成长期风险。', '钥匙不进对话'),
+      guardrail: T('安全检查站', '“转账参数看起来合理，为什么还要拦一次？”', '在输入、输出和工具动作前后检查风险，决定放行、改写、拒绝或升级。', '高风险的最终批准，交给业务规则和人工审批。', '只过滤文本不够；真正危险的常是带参数的外部动作。', '先过关，再出门'),
+      audit: T('飞行记录仪', '“三个月后有人问：这次数据为什么被访问？”', '保留必要的访问、决策和行动记录，同时控制数据最小化与保留期。', '敏感原文是否可看，交给独立的访问控制。', '日志越多不一定越安全；日志本身也可能装着敏感信息。', '记得住，也要藏得住'),
+      trace: T('任务侦探', '“这次答案错在检索、模型，还是工具写入？”', '把同一任务里的模型调用、资料、参数和状态串成可回放线索。', '具体修复方案，交给工程师、评测和产品判断。', '追踪不是原样收集一切内容；敏感字段应脱敏并受控访问。', '一条线索，串起全程'),
+      offlineeval: T('模拟考场', '“改了提示词后，质量真变好还是只是感觉更顺？”', '在固定题集和沙盒里让旧版、新版做同一套题，再比较指标。', '真实用户场景里的变化，交给线上监控和灰度发布验证。', '离线高分不代表上线安全；边界题和对抗题必须在考卷里。', '先考试，再上线'),
+      monitoring: T('健康监护仪', '“为什么今天延迟突然变高，哪些用户受影响？”', '持续看成功率、耗时、成本、工具失败和人工接管，发现异常就告警或降级。', '异常根因的细查，交给链路追踪和工程排查。', '平均值好看会掩盖局部故障；要按任务、语言、客户分开看。', '盯趋势，不只盯均值'),
+      feedback: T('纠错信箱', '“用户总把摘要里的数字改掉，下一步该优化哪里？”', '把评分、改动和失败案例归类，变成可验证的改进假设。', '改动是否有效，交给对照实验和评测集。', '只追求点赞会鼓励迎合；准确性、安全和完成率也要一起看。', '把抱怨，变成题目'),
+      researchagent: T('带脚注的研究助理', '“比较三家云厂商，结论里每句话能追到来源吗？”', '搜集、筛选和对照多方材料，把事实、推断和不确定性分开写。', '最终业务选择，交给决策者结合成本和上下文判断。', '报告写得像样不等于研究可靠；没有出处的结论不能当事实。', '先摆来源，再讲结论'),
+      codingagent: T('配对程序员', '“修一个 bug 前，怎样避免改到不相关的地方？”', '先定位相关代码和失败测试，再做小范围修改并运行验证。', '合并、发布和高风险变更，交给代码审查与部署流程。', '能写代码不等于能修系统；仓库上下文、测试和依赖才是约束。', '先复现，再最小改'),
+      dataagent: T('数据分析台', '“销售额下降了，到底是口径变了还是业务真的变了？”', '在授权数据上查询、清洗和计算，并把口径与过程说清楚。', '关键结论的业务解释，交给数据负责人和复核流程。', '图表好看不代表口径正确；时间范围、去重和单位必须核验。', '先对口径，再看图表'),
+      processagent: T('流程专员', '“售后工单能自动补全，退款为什么要转人工？”', '读取当前状态和规则，执行低风险动作，把例外升级出去。', '不可逆、高金额或合规敏感决定，交给有权限的人签核。', '自动化不等于无人审批；越难回退的动作越要保留关口。', '能自动的自动，该签的要签'),
+      embodied: T('带手脚的执行员', '“仓储机器人收到搬箱任务后，怎样不撞到人？”', '结合传感器观察和环境反馈，执行受约束的移动、抓取或模拟动作。', '低层控制、碰撞检测和急停，交给专门的安全控制系统。', '语言理解不能替代物理安全；现实世界的误差会直接变成风险。', '会理解，更要会刹车'),
+      shortterm: T('任务便利贴', '“报销处理到一半，系统现在究竟已做完哪几步？”', '暂存当前任务的进度、工具结果和待确认项，让中断后可以继续。', '真正长期有价值的信息，交给长期记忆的写入规则。', '当前状态不该默认永久保存，过期后继续相信会造成误判。', '记住这次，不代表记住以后'),
+      longterm: T('可更新的档案卡', '“用户总是要中文、简洁、先给结论，系统该记住吗？”', '保存稳定、可复用且有来源的偏好或事实，并附时间和权限。', '每次任务的临时进展，交给短期状态。', '聊天记录不是长期记忆；一次性、敏感或未经证实的信息不应随便存。', '该记才记，记了能改'),
+      memorywrite: T('记忆编辑', '“用户换了常用称呼，旧称呼该保留还是覆盖？”', '检查来源、稳定性和用户意图，再决定新增、合并、更新或拒绝写入。', '存储、删除和权限边界，交给记忆治理。', '记得越多不一定越好；错误和过期信息会污染以后每一次回答。', '写前判断，旧的会退'),
+      contextbuild: T('行李打包员', '“模型窗口有限，任务规则、资料和历史该带哪一些？”', '按任务、权限、相关性和预算挑选并压缩最有用的信息放进当前输入。', '外部资料的查找和长期保留，交给检索与记忆系统。', '上下文越长不等于越好；无关或不可信内容会挤掉关键约束。', '带得少，带得准'),
+      memorygovernance: T('隐私管理员', '“用户要求删除偏好后，缓存和导出副本怎么办？”', '规定记忆能否写入、谁能读取、保留多久，以及如何删除、导出和审计。', '每一条具体记忆是否值得保存，交给写入判断。', '把所有对话永久保存会同时带来隐私、成本和跨用户混用风险。', '能记住，也能忘掉')
+    };
+
+    Object.assign(talkTracks, {
+      knowledgegraph: T('关系档案员', '“这款产品涉及哪些地区、政策和例外条款？它们彼此怎么连？”', '把名称相同但身份不同的对象分开登记，再把产品、地区、政策和原文出处连成可追溯关系。', '每个关系能否成立、条款是否仍有效，交给原始文档、权限过滤和引用核验。', '画出节点和箭头不等于事实正确；没有出处、时间和来源的关系只会把错误结构化。', '既找段落，也查关系'),
+      memorytypes: T('分类收纳员', '“用户喜欢中文简洁输出，和这次报销卡在哪一步，应该放进同一个抽屉吗？”', '先分清当前任务进度、曾发生的过程、稳定事实和受控偏好，再决定是否需要保存。', '能否长期保留、谁可以读取，交给写入规则、隐私治理和用户控制。', '把所有聊天都叫记忆，会让临时状态、敏感信息和过期偏好混在一起。', '先分用途，再谈记住'),
+      execution: T('受控执行台', '“查一条工单可以，为什么点击退款按钮要多几道关？”', '根据动作选择 API、代码或浏览器通道，把目标和参数交给执行层核验后才真正操作。', '环境隔离、身份授权和高风险审批，交给沙箱、权限策略和人工关口。', '看见网页按钮不等于有权点击；模型生成代码也不等于代码可以接触真实数据。', '会提请求，不等于能执行'),
+      mcpobjects: T('能力目录管理员', '“文件服务能读文件、写审批单、给审阅模板，客户端怎样分清这些能力？”', '让 Client 先问 Server 有哪些能力，再分别按 Tool、Resource 或 Prompt 的规则使用。', '真实文件权限、审批规则和令牌，仍由 Server 后面的业务系统负责。', '把 Tool、Resource、Prompt 都当作同一种插件，会模糊“执行动作、读取内容、提供模板”的边界。', '先认对象，再接能力'),
+      supervisor: T('项目总控', '“三位专家给出互相矛盾的结论，谁来决定下一步？”', '把总目标拆成带交付格式和时限的子任务，收齐证据后要求补证、整合或升级。', '每个专家真正的专业判断和外部查询，交给对应 Agent 与工具完成。', '主管不是把消息转来转去的聊天群管理员；没有验收标准只会放大矛盾。', '先定交付，再派任务'),
+      gateway: T('模型服务总闸', '“同样是摘要请求，为什么有人走快模型，有人走强模型，还不能超预算？”', '在模型服务入口识别身份、配额和版本策略，再把请求送到允许的模型与区域。', '这次任务究竟该找知识、用工具还是交人，仍由 Agent 的业务路由负责。', '网关不是更聪明的 Agent；它解决的是服务访问、流量和用量治理。', '管服务，不替做事'),
+      schedule: T('值班钟', '“新制度半夜更新了，第二天上班前怎样自动完成解析和索引？”', '在约定时间或业务事件发生时创建一条可追踪任务，并交给运行时和队列接力。', '实际解析、索引和评测的成败，交给各自执行节点与重试策略。', '定时触发不代表任务一定完成；重复触发、超时和失败必须有幂等与告警。', '该响时响，响后可追'),
+      delivery: T('发布指挥台', '“新版本答得更好，为什么不能立刻让所有客户都用？”', '先把评测通过的版本小范围放量，观察质量、延迟和安全信号，再决定扩大或回滚。', '具体模型、检索和工具的质量证据，交给评测、监控与业务负责人共同判断。', '部署成功只是代码能运行，不等于答案质量、权限和容量都已准备好。', '先小流量，再大承诺'),
+      approval: T('责任签核台', '“订单已经准备好了，为什么 Agent 还要停下来等一个人点确认？”', '命中金额、风险或例外规则后，冻结动作并递交包含证据、影响和可选决定的审批包。', '最终授权与业务责任，交给具备相应权限的人承担。', '审批不是系统没做好；它是把不可逆决定留给有责任主体的设计。', '机器备材料，人来担责任'),
+      release: T('实验记录员', '“新版检索看上去更好，怎样证明不是因为今天的用户问题刚好简单？”', '固定比较条件、记录候选版本和流量分配，再用离线回归与灰度数据判断改动是否真正有效。', '失败样本该怎样修、下一版要改哪里，交给评测归因和工程方案。', '只看一次上线后的平均分，无法区分模型、索引、提示词还是用户分布带来的变化。', '改了什么，要能说清'),
+      officeagent: T('业务助理', '“客户会后要跟进邮件和 CRM 记录，哪些能自动做，哪些必须由客户经理确认？”', '先整理会议信息、查找受权资料、起草邮件和更新建议，把可审阅结果交给责任人。', '价格承诺、合同条款、退款和最终客户沟通，交给规则与客户经理确认。', '写得像人不等于可以代表公司做承诺；自动化必须保留业务责任边界。', '先备好稿，再由人承诺')
+    });
+
+    const M = (intro, map, parts, refs) => ({intro, map, parts, refs});
+    const MP = (kicker, title, note, stages, notes) => ({kicker, title, note, stages, notes});
+    const foundationMechanics = {
+      llm: M('', ['词元','生成','注意力','Agent 分工','采样','边界'], [], ['transformer','rag','middle','toolformer','agentsdk']),
+      multimodal: M(
+        '“带眼睛的阅读员”是任务现场里的比喻；机制加餐把这双眼睛拆开：图像如何变成视觉特征，特征如何与文字对齐，又在哪些地方必须交给 OCR、规则或人工复核。',
+        ['视觉编码','图文对齐','信息融合','文档结构','可靠性'],
+        [
+          MP('01 / Visual encoding', '先把像素变成可计算的视觉标记', '模型需要先把图像压缩成一组带位置含义的数字表示。不同架构可以使用图像分块、卷积特征或其他视觉编码方式；共同目标是保留文字、物体与布局线索。', [['原始图片','发票、截图或表格页面'],['视觉编码器','提取局部形状、颜色与空间关系'],['视觉特征','每个区域变成一段向量表示'],['视觉标记','送给后续跨模态模块']], [['分辨率','小字和密集表格首先受输入尺寸限制。'],['裁剪','整页、局部裁剪和多页拆分会改变模型看到的信息。'],['位置','视觉标记保留相对位置，但不等于已精确识别坐标或表格字段。']]),
+          MP('02 / Alignment', '图和文字为何能指向同一件事', '图文对齐让“差旅发票”和对应图片在表示空间中更接近。CLIP 一类方法用大量配对图文学习匹配关系，因此它能把视觉内容与自然语言查询联系起来。', [['图文配对','同一张图片及其描述'],['图像编码','得到图片向量'],['文本编码','得到描述向量'],['匹配训练','拉近对应对，拉远不对应对']], [['它学到什么','更像“这张图和哪段文字相配”，而不是逐字 OCR。'],['为何有用','自然语言可以直接查询视觉内容，也能为后续视觉语言模型提供先验。'],['仍会偏差','训练数据的语言、场景与标签覆盖会影响它的理解范围。']]),
+          MP('03 / Fusion', '视觉信息怎样进入语言推理', '视觉语言模型通常把视觉特征经投影层、重采样器或交叉注意力等机制接入语言模型。Flamingo、LLaVA 等路线的连接方式不同，但都要解决“视觉向量如何成为语言模型可使用的上下文”。', [['视觉特征','来自图像或音频编码器'],['连接层','投影、重采样或交叉注意力'],['语言上下文','视觉标记与文字指令共同出现'],['生成结果','回答、描述或结构化提取']], [['融合不是拼贴','接入层决定语言模型怎样读取视觉信号。'],['多图输入','多页单据或前后截图应标明顺序，避免把不同页面混成一张图。'],['输出格式','金额、日期等字段应交给模式校验，不只依赖自然语言回答。']]),
+          MP('04 / Document understanding', '读票据时，文字、版式和业务字段是三层问题', '文档理解不能只问“识别出哪些字”。同一串数字在标题、税额、合计或附件编号的位置，业务含义不同。复杂票据常把视觉语言模型、OCR、版面分析和字段规则组合使用。', [['页面图像','文字、表格、印章与布局'],['文字与版面','识别字符并保留行列、区域关系'],['字段映射','把金额、日期、抬头映射到业务字段'],['规则核验','总额、税率、日期范围与制度比对']], [['OCR 的位置','需要精确字符或坐标时，专门 OCR 往往更可控。'],['表格的难点','跨行、合并单元格和脚注会让“看见”与“理解列关系”分离。'],['业务核验','模型读到的金额不是审批结论，仍需对账和制度规则。']]),
+          MP('05 / Reliability', '把“看到了”变成“可交付”的证据', '多模态输出应保留页面、区域、字段和置信信号，并对高影响字段做交叉核验。对模糊、遮挡、冲突或低置信内容，系统应请求更清晰材料或转人工。', [['模型提取','候选字段与说明'],['证据回链','页码、截图区域或原始 OCR 结果'],['规则与交叉核验','金额求和、格式、主数据比对'],['处理结果','通过、追问或人工复核']], [['适合自动化','低风险的分类、摘要和候选提取。'],['需要核验','付款金额、票据真伪、法律或医疗判断。'],['常见误解','视觉语言模型能描述画面，不意味着它具备可审计的精确读数能力。']])
+        ],
+        ['clip','flamingo','llava']
+      ),
+      embedding: M(
+        '“语义坐标员”不是替人回答问题，而是为查询和资料安排位置。机制加餐解释这个位置如何形成、如何被近邻索引快速找到，以及为什么还要把候选交给重排序模型。',
+        ['向量表示','相似度','近邻索引','召回链路','评测与版本'],
+        [
+          MP('01 / Representation', '一句话怎样变成语义坐标', '嵌入模型把文本编码为固定长度向量。Sentence-BERT 一类双塔模型分别编码查询和资料，适合预先计算文档向量并在查询时快速比较。', [['查询','“住宿额度怎么报销”'],['查询编码器','输出查询向量 q'],['资料编码器','输出每个条款的向量 d'],['向量空间','q 与相近 d 的距离更近']], [['双塔的价值','文档向量可提前离线计算，查询速度快。'],['向量维度','向量的每一维通常没有可直接命名的业务含义。'],['输入一致性','查询和资料应使用同一模型、同一预处理与同一语言策略。']]),
+          MP('02 / Similarity', '“相近”是一种数学比较，不是事实判断', '常见做法是在归一化后用余弦相似度或点积比较查询向量与资料向量。得分越高，表示模型认为二者在训练出的表示空间中越接近。', [['向量归一化','控制向量长度影响'],['相似度计算','q 与 d 的余弦或点积'],['得分排序','从高到低形成候选'],['人工含义','再检查版本、权限和适用条件']], [['语义匹配','能跨越同义表达，例如“住宿标准”和“酒店报销上限”。'],['不等于适用','相近的旧制度可能比当前制度得分更高。'],['分数不可跨库硬比','不同模型、不同索引配置的分数尺度未必可直接比较。']]),
+          MP('03 / ANN index', '资料很多时，为什么不用逐条比较', '如果有百万级资料，逐一计算相似度会很慢。HNSW 等近似近邻索引用多层图结构快速跳到附近候选，以少量精度损失换取明显的检索速度。', [['文档向量','离线写入索引'],['多层近邻图','高层快速跳转，低层精细搜索'],['查询向量','从入口逐层寻找近邻'],['近似候选','返回 Top-K 供后续筛选']], [['近似的含义','索引追求“足够接近”，不承诺每次找到绝对最近的全部向量。'],['可调参数','构建和查询时的搜索范围影响速度、内存与召回率。'],['删改资料','制度更新后要同步更新向量、元数据与索引，不能只替换原文件。']]),
+          MP('04 / Retrieval handoff', '嵌入模型负责广找，重排序模型负责细挑', '向量检索适合从大量资料中快速召回几十到几百条候选；后续用权限、版本过滤和重排序模型精细判断，才得到可放入提示词的少量证据。', [['用户查询','附带身份、部门、时间条件'],['向量召回','快速得到语义候选'],['过滤与重排','权限、版本、关键词和相关性细比'],['证据集','交给 LLM 生成带出处回答']], [['先过滤','把权限和生效日期尽量前置，避免不该见的内容进入候选。'],['Top-K 不是越大越好','候选太多会增加重排序时延与模型上下文噪声。'],['检索与生成分离','嵌入模型只给相近资料，不负责把资料写成答案。']]),
+          MP('05 / Evaluation and versioning', '嵌入模型换了，索引与评测也要一起换', '嵌入质量必须在真实查询、语言和文档形态上验证。MTEB 提供多类嵌入任务基准，但生产系统还要检查自己的制度问答、召回覆盖和版本迁移表现。', [['标注查询集','问题与正确资料或判定规则'],['离线检索','比较 Recall@K、MRR、nDCG 等指标'],['版本对照','旧模型与新模型在同一索引规则下比较'],['上线监控','观察零结果、点击、追问和人工纠正']], [['版本不能混用','更换嵌入模型后，通常需要重算资料向量，避免新旧空间混杂。'],['难例最有价值','同名制度、旧版本、短查询、多语言和表格条款应进入评测集。'],['最终责任','“召回到了”不等于“回答正确”，仍需检查引用与生成结果。']])
+        ],
+        ['sbert','hnsw','mteb']
+      ),
+      reranker: M(
+        '“终选编辑”接住的是已经召回的一叠候选，而不是整个知识库。机制加餐说明它如何逐对阅读“问题 + 文档”，为何精度更高却更慢，以及怎样与召回模型形成两段式检索。',
+        ['候选集','联合相关性判断','打分排序','精度与时延','标注评测'],
+        [
+          MP('01 / Candidate set', '它先有候选，才谈“排第几”', '重排序模型通常不遍历全库，而是接收向量检索、关键词检索或混合检索给出的 Top-K 候选。候选里没有正确资料时，重排序也无法把它排到前面。', [['用户问题','“北京出差酒店限额”'],['第一段召回','广泛找回 50 至 200 条候选'],['查询与候选配对','为每份候选准备一个判断单元'],['重排序输入','准备逐对计算相关性']], [['它依赖召回','第一段的召回率决定了正确资料能否进入复赛。'],['候选深度','K 太小会漏掉正确资料；K 太大则会拖慢后续计算。'],['元数据先行','部门、版本、权限等硬条件应在进入重排序前过滤。']]),
+          MP('02 / Joint scoring', '为什么它更细：问题和资料一起读', '典型交叉编码器把查询与候选段落拼在一起输入 Transformer，让词元之间直接交互，再输出一个相关性分数。BERT 段落重排序正是这种思路的代表。', [['查询 + 段落','共同输入同一个编码器'],['词元交互','模型关注问题中的条件与段落中的细节'],['相关性头','输出单个相关性分数'],['重新排序','按分数保留少量证据']], [['精度来源','联合阅读能区分“都提住宿”与“确实回答北京限额”的差别。'],['成本来源','每个候选都要单独计算一次，不能像双塔那样预存完整文档向量。'],['得分含义','相关性分数不是事实可信度、权限许可或法律效力。']]),
+          MP('03 / Architecture trade-off', '双塔、交叉编码器与后期交互各自换什么', '双塔模型快，适合大规模召回；交叉编码器细，适合少量候选终排；ColBERT 一类后期交互方法保留更细的 token 表示，在速度和细粒度匹配之间取折中。', [['双塔召回','一条向量对一条向量，快'],['后期交互','保留多个词元向量，做细粒度匹配'],['交叉编码器','完整联合阅读，通常最细'],['系统选择','按候选量、延迟和效果组合']], [['没有通用最优','知识库规模、查询长度、语种与预算会改变选择。'],['常见组合','关键词或向量召回 -> 重排序 -> LLM 依据少量证据回答。'],['延迟预算','高并发场景可减少 K 或改用更轻的模型，但要重新评测。']]),
+          MP('04 / Ranking policy', '排到前面的资料，仍要经过业务筛子', '相关性排序解决“像不像在回答这个问题”，不能替代生效日期、组织范围、权限、来源质量等确定性约束。工程上应把硬过滤和模型排序的职责分开。', [['原始候选','不同来源、不同版本的资料'],['硬约束过滤','身份、部门、生效期、文档状态'],['模型重排序','比较剩余候选与问题的语义贴合度'],['证据选择','去重、控制上下文数量并保留来源']], [['规则优先','已废止的制度再相关也不应进入最终证据。'],['去重','相邻段落或同一文档的重复内容会浪费上下文。'],['引用粒度','最好返回段落、页码或条款，而不是只给一个文档标题。']]),
+          MP('05 / Evaluation', '评重排序，不只看“第一名看起来不错”', '需要用带相关性标注的查询集检查排序质量。nDCG 衡量靠前位置的相关性质量，MRR 关注第一个正确结果的位置；同时要观察延迟、候选覆盖和失败类型。', [['标注样本','问题、候选与相关性等级'],['固定候选集','隔离重排序本身的效果'],['排序指标','nDCG、MRR、Recall@K'],['端到端检查','引用正确率、回答成功率和时延']], [['硬负例很关键','标题相似但版本错误、范围不符的资料最能暴露排序弱点。'],['分开诊断','若正确资料没召回，应先修第一段；若召回了却排后面，再修重排序。'],['上线观察','用户追问、点开出处后返回、人工改正都是有价值信号。']])
+        ],
+        ['bertRerank','colbert','mteb']
+      ),
+      adaptation: M(
+        '“量体裁衣师”做的不是“把模型重新训练一遍”。机制加餐从问题诊断开始：哪些情况改知识、改提示或加规则就够，哪些稳定行为才值得用 LoRA、QLoRA 等参数高效微调，并如何评测后再放量。',
+        ['问题诊断','提示与约束','LoRA','QLoRA','评测发布'],
+        [
+          MP('01 / Diagnose', '先判断缺的是知识、流程，还是稳定行为', '模型回答不稳的原因不同，处理方式也不同。新制度或频繁变化的事实更适合更新数据与检索；确定的计算和审批条件应由规则或工具执行；重复且稳定的任务行为才是微调候选。', [['失败样本','收集具体输入、输出和正确答案'],['原因分类','知识缺失、检索失败、指令不清、规则缺失或能力不足'],['适配选择','RAG、提示、模式约束、工作流或微调'],['对照评测','确认改动真正修复了目标问题']], [['知识更新','优先更新来源、分段与检索，而非把新事实写进参数。'],['确定性规则','金额计算、权限与格式校验优先交给程序。'],['微调对象','适合相对稳定、可重复且有足够高质量样本的行为。']]),
+          MP('02 / Prompt and constraint', '很多“适配”发生在参数之外', '系统指令、少量示例、检索证据、JSON Schema 和工具参数校验都能约束输出。这些方法修改快、可追溯，往往是建立稳定行为的第一步。', [['任务说明','目标、边界、可用证据'],['少量示例','展示输入与合格输出'],['结构约束','字段、枚举、必填项和错误处理'],['程序校验','拒绝无效结果并反馈重试或升级']], [['示例的作用','让模型看到目标格式和边界案例，但不替代规则执行。'],['结构化输出','模式校验能发现漏字段或类型错误，不能验证字段的业务真实性。'],['可回滚','提示与检索策略通常能快速版本化和撤回。']]),
+          MP('03 / LoRA', 'LoRA：冻结大模型，只训练一小组“增量”', '低秩适配把原权重 W 保持不动，只学习两个较小矩阵 A、B 形成的增量。推理时可把这部分增量加到指定层，让训练显存和可保存参数大幅减少。', [['基础权重 W','通用模型参数保持冻结'],['低秩矩阵 A、B','只训练较小的适配器'],['权重增量 ΔW','由 A 与 B 的组合近似'],['任务模型','W + ΔW 产生特定行为']], [['为什么省','训练的参数远少于全量微调，适合多个任务分别保存适配器。'],['秩的取舍','秩越高，适配容量通常越大，训练成本也随之增加。'],['不是知识库','LoRA 可能记住训练模式，但不适合承载频繁更新、需要引用的业务事实。']]),
+          MP('04 / QLoRA', 'QLoRA：让大基座更省显存地配合 LoRA 训练', 'QLoRA 通常以低比特量化方式保存冻结的基础模型，再训练 LoRA 适配器，从而降低微调的显存门槛。它解决的是训练资源问题，不自动保证任务质量。', [['基础模型量化','以更低位宽存放冻结权重'],['计算与反量化','在计算路径中恢复需要的表示'],['LoRA 适配器','保持可训练的低秩增量'],['任务评测','确认压缩与适配后仍满足指标']], [['资源收益','可以在更有限的硬件上做较大模型的适配实验。'],['质量风险','量化、数据质量和训练设置都可能影响最终表现，需要和基线对照。'],['部署选择','适配器可独立加载或合并；不同方式影响启动、存储和回滚策略。']]),
+          MP('05 / Evaluate and release', '训练完成不等于可以替换线上模型', '适配版本需要在固定评测集、红队样本和真实流量的受控阶段逐步验证。每个版本应能追溯到基础模型、训练数据版本、适配器、提示词和评测结果。', [['离线评测','任务正确率、格式合规、拒答与安全边界'],['影子或小流量','不影响真实决策地观察新旧差异'],['灰度放量','按风险和人群逐步扩大'],['监控与回滚','异常时回到已验证版本']], [['数据治理','训练样本要检查授权、敏感信息、重复和错误标签。'],['回归测试','新模型不应只优化新任务而破坏原有关键能力。'],['版本清单','基础模型、适配器、提示、检索与规则需一起记录，才能解释差异。']])
+        ],
+        ['lora','qlora','rag']
+      )
+    };
+
+    const mechanicsProfiles = {
+      persona: M('“岗位说明书”只有落到权限、输入输出和升级条件上，才会成为可靠的 Agent 边界。这里拆开一份职责设定怎样约束后续计划、工具调用和人工交接。', ['职责范围','输入输出契约','升级条件'], [
+        MP('01 / Scope', '先把能做与不能做的事写成边界', '角色不是一段自我介绍，而是系统允许它处理的任务集合。范围必须同时说明对象、动作、风险阈值和不可越过的决定。', [['服务对象','财务、客服或研发等明确用户'],['允许动作','可读、可建议、可草拟的事项'],['禁止动作','批准付款、删库或法律定论等禁区'],['升级条件','超出范围时转给专责人或系统']], [['范围可测','能否用测试题判断“该做”还是“该升级”。'],['动作分级','阅读、建议、写入与不可逆操作应有不同边界。'],['事实来源','角色不提供知识，事实仍要从资料和工具取得。']]),
+        MP('02 / Contract', '把交接说清楚：收什么，交什么，凭什么', '每个角色应有可检查的输入输出契约。没有输入约束会接到不完整任务；没有输出约束会让下游无法验证或继续执行。', [['输入','任务、上下文、身份与允许工具'],['处理','按职责检索、判断或执行'],['输出','结论、证据、置信与待确认项'],['验收','规则、测试或下一角色检查']], [['证据字段','高风险建议应带来源、时间和依据。'],['失败表达','缺信息时输出追问或升级，不用猜测填满。'],['版本管理','职责变更要和提示词、工具权限一起发布。']]),
+        MP('03 / Escalation', '把例外送到真正能承担责任的位置', '复杂或高风险任务不能只靠“请谨慎”处理。系统需要检测例外，携带当前状态和证据，并让有权限的人作出最终决定。', [['异常信号','金额超阈值、证据冲突或低置信'],['整理交接包','已做步骤、来源、失败原因'],['责任主体','专家 Agent、人工审核或业务系统'],['回写结果','记录决定并继续或终止任务']], [['转人工不是失败','它是把责任和权限放在正确位置。'],['避免重复','交接包应防止下一位重新做同一轮检索。'],['可审计','升级原因与最终决定都应留下记录。']])
+      ], ['agentsdk','anthropic','react']),
+      prompt: M('“任务说明书”把模型的语言能力接到当前任务上。机制重点不是堆砌提示词技巧，而是指令层级、结构化约束和注入防护怎样共同发挥作用。', ['指令层级','示例与模式','注入防护'], [
+        MP('01 / Instruction layers', '系统规则、任务输入与外部资料不能混在一个层级', '系统指令定义长期边界；用户输入承载目标；检索片段和工具返回只是待分析的数据。分层能防止外部文本伪装成新的系统命令。', [['系统指令','职责、禁止项、工具边界'],['开发者配置','产品规则、输出模式和路由'],['用户任务','当前目标、参数与偏好'],['外部内容','文档、网页、工具结果，按数据处理']], [['优先级清楚','冲突时不能让网页片段覆盖系统规则。'],['引用分隔','对外部资料标记来源和边界，减少误把数据当命令。'],['最小上下文','只放完成任务所需内容，降低无关指令干扰。']]),
+        MP('02 / Examples and schema', '示例教格式，模式负责拦住不合格输出', '少量示例能展示分类口径或语气；JSON Schema、枚举和应用侧校验则把字段、类型和必填项变成可执行约束。', [['任务与样例','展示输入和合格答案'],['模型生成','产出自然语言或结构化对象'],['模式校验','字段、类型、枚举和长度检查'],['处理分支','通过、要求修正或升级人工']], [['示例不等于训练','它只在当前上下文中提供参照。'],['结构不等于真实','格式合法的金额仍要对照数据源和规则。'],['失败需可见','不要悄悄丢弃解析失败，应记录并选择重试策略。']]),
+        MP('03 / Prompt injection', '把不可信文本当内容，不当权限来源', '检索资料、网页和邮件都可能包含诱导模型泄露信息或调用工具的文字。真正的防线在于数据隔离、工具权限和执行前校验，而非只加一句“忽略恶意提示”。', [['外部内容进入','标记来源与信任级别'],['模型分析','提取事实，不继承其中的命令'],['工具请求','由应用检查身份、参数和政策'],['安全结果','拒绝、脱敏、继续或升级']], [['权限在系统侧','模型读到“导出全部数据”不代表系统可以执行。'],['高危动作复核','写入、支付、发送前应有确定性规则或审批。'],['红队样本','把注入和越权文本加入持续评测。']])
+      ], ['agentsdk','mcp','owasp']),
+      reasoning: M('“证据律师”关注的是能被外部检查的判断链，而不是要求模型暴露不可验证的内部思维。机制加餐展示任务如何和证据、工具观察及不确定性管理连在一起。', ['证据收集','行动与观察','不确定性'], [
+        MP('01 / Grounding', '先把要判断的命题拆成可找证据的问题', '合同是否自动续约、订单是否异常等问题，必须先明确判断条件，再检索原文、查询数据或调用规则。模型的结论应可回到这些输入。', [['待判断命题','明确对象、时间和条件'],['证据请求','检索条款、查询数据或追问'],['证据比较','检查条件是否同时满足'],['结论输出','结论、出处、例外与置信说明']], [['结论要带依据','至少可定位到条款、数据行或工具返回。'],['事实与推断分开','资料原文、模型解释和业务建议应有不同标记。'],['缺证据时停下','正确输出可以是“无法判断，需要补充”。']]),
+        MP('02 / Act and observe', '推理不是一次长回答，而是带观察的闭环', 'ReAct 等方法把“基于当前信息提出下一步”与“获得工具或环境反馈”交替起来。关键在于每次行动都有明确目的和可观察结果。', [['当前状态','目标、证据缺口与可用工具'],['提出行动','查询、检索、计算或追问'],['外部观察','得到结构化结果或失败信息'],['更新判断','补证、改计划或结束']], [['工具结果优先','最新数值与权限状态应由可信系统提供。'],['不要空转','没有新观察的重复推理通常不会提高正确性。'],['轨迹可评估','可以检查每一步是否真的缩小了证据缺口。']]),
+        MP('03 / Uncertainty', '不确定性要改变下一步动作，而非藏在措辞里', '遇到冲突来源、低质量输入或模型无法判断的情况，应根据风险决定追问、扩大检索、交叉验证、转人工或明确拒答。', [['识别信号','来源冲突、低置信、工具失败'],['风险分级','错误后果与可逆性'],['补救路径','追问、核验、降级或交接'],['记录边界','说明已知、未知和下一步']], [['流畅不是置信','表达得肯定不能代替证据充分。'],['高风险更保守','付款、医疗、法律等领域应收紧阈值和审批。'],['评测看行为','检查不确定时是否正确停下，比看长解释更有价值。']])
+      ], ['react','tot','reflexion']),
+      planning: M('“项目拆解师”把目标变成可执行的任务图。机制加餐关注依赖、检查点与计划修订，避免把一张事项清单误当成可落地的计划。', ['目标分解','依赖图','检查点'], [
+        MP('01 / Decompose', '把交付物倒推成可验证的小任务', '计划从最终交付物和验收标准开始，拆出每一步需要的输入、工具、产物和失败处理，而不是只罗列看起来合理的行动。', [['最终交付','例如带出处的竞品报告'],['子任务','取证、比较、计算、撰写'],['输入输出','每项任务的依赖与产物'],['验收点','是否具备继续下一步的证据']], [['粒度合适','过大无法诊断失败，过小会制造大量协调成本。'],['先定义完成','没有验收条件的“继续研究”无法自然停止。'],['固定与动态','确定性环节宜固化，开放性判断才交给模型。']]),
+        MP('02 / Dependencies', '顺序不是装饰：它决定何时能并行，何时必须等待', '任务图表达前置条件和可并行节点。例如资料范围确定后可并行收集多家信息，但比较结论必须等待证据归档完成。', [['节点','可执行任务与负责人'],['边','数据依赖、审批或时间约束'],['并行分支','互不依赖的资料搜集'],['汇合节点','统一检查证据并生成结论']], [['状态可恢复','节点完成或失败都应写入状态，而不只留在对话里。'],['并行有成本','共享资源、重复检索和汇合标准需要预先设计。'],['依赖要真实','不要为了画图而连边，每条边都应对应具体前置条件。']]),
+        MP('03 / Replan', '计划遇到新证据时，应局部修订而不是整盘重来', '工具失败、资料缺失或约束变化后，系统应判断影响范围，替换或重试受影响节点，并保留已验证结果。', [['观察异常','缺资料、超预算或工具报错'],['影响分析','哪些后续节点依赖该结果'],['局部修订','重试、换源、降级或升级'],['再次验收','确认新路径仍满足原目标']], [['保留已证实产物','不要因一个失败把完成的取证全部丢掉。'],['设置重试上限','重复失败应改变策略或转人工。'],['计划也要评测','查看成功率、步数、成本和无效循环。']])
+      ], ['tot','react','langgraph']),
+      routing: M('“任务分诊台”通过可解释的特征选择模型、工具、知识源或人工处理路径。机制加餐说明路由决策怎样在质量、延迟、成本和风险之间取舍。', ['请求特征','策略选择','回退与评测'], [
+        MP('01 / Classify', '先提取会影响执行路径的信号', '路由不应只看用户写了什么，还需识别任务类型、语言、上下文大小、所需工具、风险等级、截止时间和调用方权限。', [['请求进入','目标、身份、附件与上下文'],['特征提取','任务类别、复杂度、风险、语言'],['策略匹配','选择模型、检索、工具或人工'],['记录理由','保留命中的规则或分类结果']], [['特征可审计','出错时能知道是识别错还是策略错。'],['避免敏感推断','只收集路由必需的数据，不把不相关个人信息当特征。'],['边界优先','高风险和权限限制应先于成本优化生效。']]),
+        MP('02 / Select', '不同路径服务不同的能力与预算', '简单分类可以走低成本模型；需要图像理解时调用多模态模型；涉及最新制度时接检索；不可逆动作则进入审批流。', [['能力清单','模型、工具、知识源和人工队列'],['策略规则','条件、优先级与预算'],['执行路径','选定的组合与参数'],['结果回收','质量、时延与失败信号']], [['不是随机换模型','每条路径要有使用条件和预期指标。'],['能力组合','强模型不一定替代检索、规则和工具。'],['成本可控','设置最大 token、工具次数和时间预算。']]),
+        MP('03 / Fallback', '主路径失败时，回退也要有边界', 'API 故障、超时、低置信或预算耗尽时，系统要决定重试、换能力、返回待确认结果或转人工。回退策略同样需要评测，不能临时拼接。', [['失败信号','超时、空结果、低置信或安全拦截'],['回退规则','重试、降级、换源或交接'],['用户反馈','说明已完成与待确认部分'],['效果分析','按路径比较成功率与成本']], [['降级不等于静默变差','要让用户知道证据或能力发生了什么变化。'],['防止循环','每种回退设次数和总预算上限。'],['持续校正','基于真实样本调整阈值，而非只凭直觉改规则。']])
+      ], ['agentsdk','anthropic','agentbench']),
+      reflection: M('“复盘员”依赖测试、规则或人工反馈来修正行动；它不是模型无限自言自语。机制加餐聚焦外部反馈、错误定位与带上限的修订循环。', ['外部反馈','错误归因','修订上限'], [
+        MP('01 / Feedback signal', '先获得能证伪刚才结果的外部信号', '代码测试、工具返回、规则校验、检索缺失和人工评分都能说明某一步是否成立。没有新证据的“再想一遍”很难可靠纠错。', [['执行产物','回答、代码或工具动作'],['外部检查','测试、规则、比较或人工反馈'],['失败信号','差异、异常、拒绝或低评分'],['状态更新','记录失败位置与可用证据']], [['反馈越具体越好','测试断言比“看起来不太对”更易修复。'],['保留原始结果','便于比较修订前后到底改变了什么。'],['区分系统错误','工具故障与模型判断错误应走不同修复路径。']]),
+        MP('02 / Diagnose', '定位是哪一个假设、工具或约束出了错', '把失败映射到计划节点、输入数据、工具参数、检索证据或输出格式，才能选择有针对性的补救，而不是重跑整个任务。', [['失败定位','关联轨迹中的具体节点'],['原因分类','事实缺失、参数错、逻辑错或环境错'],['修订选择','补检索、改参数、换计划或升级'],['验证修订','用同类检查确认问题消失']], [['一次只改关键变量','多处同时修改会让效果难以归因。'],['错误可复用','把典型失败沉淀进评测集和规则。'],['避免自证','不要只用模型自己的解释作为唯一归因依据。']]),
+        MP('03 / Stop', '反思要会结束：有次数、预算和升级门槛', '连续失败、证据不足或高风险场景下，系统应停止尝试并交接。终止条件让反思保持在可控成本与可审计范围内。', [['循环计数','记录尝试次数与总开销'],['阈值判断','成功、失败、预算或风险阈值'],['结束动作','返回部分结果、交接或终止'],['复盘归档','保留失败模式供后续改进']], [['停止是正确行为','不能解决时明确边界比编造答案更可靠。'],['人可接手','交接包应包括失败尝试和已验证事实。'],['离线验证','用固定失败样本测试是否会无效循环。']])
+      ], ['reflexion','agentsdk','langgraph']),
+      loop: M('“任务计时员”管理一次 Agent 执行从观察到行动再到停止的节奏。机制加餐强调状态、预算和终止条件，防止循环只是在消耗 Token。', ['观察','行动','停止条件'], [
+        MP('01 / Observe', '每一轮先读取真实的当前状态', '状态包括目标、已完成步骤、工具结果、待确认参数、错误和剩余预算。它是下一步决策的依据，不能只依赖模型记忆上一次回答。', [['任务状态','目标、进度和约束'],['外部信息','检索证据和工具结果'],['状态压缩','保留继续执行所需事实'],['下一步输入','交给决策节点']], [['状态有版本','避免重试时使用已经过期的工具结果。'],['敏感最小化','不把无关私人数据无限带入每轮上下文。'],['可恢复','中断后能从明确状态重新开始。']]),
+        MP('02 / Act', '一次行动必须有目标、参数和可观察结果', '模型可以提出查询、计算、写入或追问，但应用负责检查参数和权限，执行后把结构化结果写回状态。', [['决策','选择一个最能推进目标的行动'],['参数','明确对象、范围和约束'],['受控执行','校验、授权、超时与幂等'],['观察结果','成功、失败或需要补充信息']], [['单步可验证','避免一次提出无法检查的长串操作。'],['工具结果可信','外部系统返回比模型猜测更适合作为状态事实。'],['副作用分级','写入和不可逆动作需要更高门槛。']]),
+        MP('03 / Stop', '完成、交接和安全停止都是循环的合法出口', '终止应由交付物验收、无法继续、预算耗尽、风险升级或用户取消触发。停止后要给出明确的完成情况和下一步。', [['检查条件','验收、风险、预算与取消信号'],['选择出口','完成、部分完成、交接或终止'],['生成交付','结果、证据与未完成项'],['保存轨迹','供恢复、审计和评测使用']], [['不要只看最大轮数','轮数上限必要，但应配合目标完成条件。'],['部分结果有价值','无法订票时可返回已验证候选和限制条件。'],['行为可测试','评测应覆盖成功、失败、超时和取消路径。']])
+      ], ['react','langgraph','agentsdk']),
+      knowledgebase: M('“档案管理员”处理的是资料从原始文件到可检索证据的完整生命周期。机制关键在于解析、元数据、权限与版本，而不是单纯把 PDF 放进一个目录。', ['解析入库','元数据与权限','更新质量'], [
+        MP('01 / Ingest', '原始资料先要变成结构化、可定位的内容', '扫描件、网页、表格和数据库记录需要分别解析。正文、标题、表格、附件关系和来源位置应被保留，才能支持后续分段和引用。', [['来源接入','文件、网页、表或业务系统'],['解析转换','提取正文、结构与附件'],['质量检查','乱码、缺页、重复和解析失败'],['可检索单元','进入分段和索引流程']], [['来源标识必留','每条内容要能回到原文件或记录。'],['格式差异大','扫描 PDF 常需要 OCR；表格需保留行列含义。'],['解析失败可见','不能把空文本当作已入库。']]),
+        MP('02 / Metadata', '文档“是什么、对谁有效、何时生效”要变成字段', '标题相近的制度可能适用于不同组织或时间。版本、生效期、部门、密级、所有者和来源链接应在检索前就可以过滤。', [['内容片段','正文与结构化字段'],['业务元数据','版本、范围、生效期与标签'],['权限策略','角色、租户和资源级授权'],['检索过滤','先排除不适用和无权内容']], [['元数据不是装饰','它决定相似资料能否被正确排除。'],['权限前置','不要先把无权资料送进模型再试图隐藏。'],['字段需治理','枚举、日期和组织名称要有统一口径。']]),
+        MP('03 / Lifecycle', '制度更新后，旧证据不能悄悄继续回答', '资料应有发布、修订、废止、归档与删除流程。更新后同步处理分段、向量、缓存和引用，使系统能区分当前有效与历史记录。', [['版本事件','新建、修订、废止或删除'],['受影响内容','定位文档、片段、向量和缓存'],['索引更新','重算、失效或保留历史版本'],['上线核验','用代表性问题检查新旧切换']], [['历史可查不等于默认可答','需要明确历史查询入口和提示。'],['更新可追溯','保留谁在何时变更了哪份资料。'],['质量持续测','零结果、错误引用和用户纠正都应反馈到入库流程。']])
+      ], ['rag','selfrag','middle']),
+      rag: M('“带引文的答题员”把回答建立在当前检索到的证据上。机制加餐依次拆开证据选择、上下文注入和回答核验，说明 RAG 不是把几段文本拼进提示词就结束。', ['检索证据','上下文构造','引用核验'], [
+        MP('01 / Retrieve', '先从全库缩小到少量可用证据', '问题进入后，系统按权限、时间和业务范围过滤，再用关键词、向量或混合检索召回候选，并通过重排序选出最能支撑回答的片段。', [['问题与身份','目标、组织和时间条件'],['召回候选','关键词、向量或混合检索'],['选择证据','过滤、重排序、去重'],['证据包','片段、来源、版本和定位信息']], [['召回与答案分离','找到了资料不代表模型一定会正确使用。'],['控制数量','证据过多会挤占上下文并增加冲突。'],['优先一手来源','制度原文、数据库记录通常优于转述。']]),
+        MP('02 / Augment', '把证据放到模型输入中，也要安排顺序和格式', '上下文应先给任务和硬约束，再给带来源的证据片段。长文档需要选择、压缩或分层，而非把整库硬塞进窗口。', [['系统规则','回答范围、引用与拒答要求'],['当前任务','问题和所需输出格式'],['证据片段','有编号、来源和生效信息'],['模型生成','依据证据组织回答']], [['证据要可辨','让模型知道哪些是引用内容，哪些是任务规则。'],['位置会影响使用','长上下文中间的信息可能被忽略，需要评测排序。'],['不要藏冲突','不同版本相矛盾时应说明并请求澄清或按规则选择。']]),
+        MP('03 / Verify', '最后检查回答是否真的由引用支撑', '生成后可检查引用是否存在、是否指向正确片段、数值是否与证据一致，以及是否遗漏适用条件。高风险问题还需要规则或人工复核。', [['草稿回答','结论、条件与引用标记'],['引用对齐','每项关键主张回到证据'],['规则核验','数值、版本、权限和业务条件'],['交付或升级','给出答案、追问或转人工']], [['不能只看文风','带了链接也可能引用错段或错误概括。'],['回答可拒答','证据不足时应明确说无法从现有资料确认。'],['端到端评测','同时测检索覆盖、引用正确率和最终任务成功率。']])
+      ], ['rag','selfrag','middle']),
+      chunking: M('“切书师”决定知识在索引中的最小可检索单位。机制加餐解释语义边界、结构保留与检索回填，避免把固定字数切分误当成通用答案。', ['语义边界','结构与元数据','检索回填'], [
+        MP('01 / Boundary', '先按文档意义切，再考虑长度限制', '标题、条款、段落、问答对和表格行列通常比固定字符数更接近业务语义。超长单元再按自然边界拆分，并保留必要上下文。', [['原始结构','标题、条款、表格与脚注'],['候选边界','章节、段落、定义和例外'],['长度控制','超限时在自然位置切开'],['检索单元','正文加相邻必要上下文']], [['例外不能断开','“除非”“不适用”等条件需和主规则在同一证据范围。'],['表格单独处理','行列标题往往决定一个数值的含义。'],['重叠有成本','少量重叠可保上下文，过多会造成重复召回。']]),
+        MP('02 / Metadata', '每个片段都要带回自己的来处和适用范围', '分段后若丢了文档标题、章节路径、页码、生效期或权限，片段就会变成无法判断适用性的孤立文字。', [['片段正文','可被向量或关键词索引'],['定位信息','文档、章节、页码或行号'],['业务字段','版本、部门、时间与权限'],['父子关系','片段与原文、相邻片段的关联']], [['引用需要定位','最终答案应能回到用户可打开的来源。'],['过滤依赖字段','权限和有效期必须在片段层或可继承层生效。'],['避免标签漂移','自动提取的标签需要抽样核验。']]),
+        MP('03 / Fit', '分段好不好，要在真实问题上测试', '理想片段既能被问题召回，又包含回答所需的完整条件。用标注问题检查正确条款是否进入 Top-K，再调整边界、长度和重叠。', [['代表性问题','常见、边界和多条件查询'],['检索结果','观察命中片段是否完整'],['错误归因','漏召回、拆断、重复或版本错'],['策略迭代','调整规则并重建索引']], [['不要只看平均长度','同样长度的条款、表格和 FAQ 需要不同策略。'],['和重排序联测','分段改变候选内容，也会改变重排序和生成效果。'],['版本一并更新','规则变化后旧片段和向量应同步失效。']])
+      ], ['rag','selfrag','middle']),
+      retrieval: M('“寻证导航员”负责从大量资料中选出可引用证据。机制加餐把召回、硬过滤、重排序和出处回链串成一条链，解释为什么单看相似度不够。', ['混合召回','过滤重排','证据回链'], [
+        MP('01 / Recall', '不同检索方式擅长不同的匹配', '关键词检索擅长精确术语、编号和字段；向量检索擅长同义表达；混合检索把两类候选合并，增加正确资料进入候选集的机会。', [['用户问题','自然语言、编号或筛选条件'],['关键词通道','精确术语和稀有词'],['语义通道','同义表达和概念相近'],['合并候选','去重并保留来源与得分']], [['不能迷信一种分数','关键词分与向量分尺度不同，融合策略要验证。'],['查询改写需谨慎','扩展词可提高召回，也可能改变业务含义。'],['召回看覆盖','重点是正确资料能否进入后续候选集。']]),
+        MP('02 / Select', '先用硬规则缩范围，再用模型排相关性', '部门、生效期、密级和文档状态是确定性条件，应先过滤；重排序模型再比较问题和剩余资料的语义贴合度。', [['候选资料','来自一个或多个召回通道'],['规则过滤','权限、版本、组织和状态'],['相关性重排','查询与候选逐对细比'],['上下文选择','去重后保留少量证据']], [['废止资料不参与','再相关也不能回答当前政策问题。'],['候选深度可调','过浅漏资料，过深会拖慢重排序并制造噪声。'],['分层诊断','先看是否召回，再看是否排序正确。']]),
+        MP('03 / Cite', '答案中的关键结论要能回到证据单元', '检索服务不只返回文本，还应返回来源、版本、定位、访问权限和用于排序的必要信息，使生成和审计都能追溯。', [['证据单元','正文及其唯一标识'],['来源定位','链接、页码、条款或数据行'],['生成引用','把主张与证据绑定'],['事后核验','检查引用是否存在且适用']], [['引用粒度要小','只给文档标题不利于核对具体条件。'],['权限贯穿全程','生成层不应泄露检索时被过滤的资料。'],['评测端到端','同时检查来源正确、结论正确和用户能否理解。']])
+      ], ['sbert','colbert','rag'])
+    };
+
+    const K = (intro, map, parts, refs) => M(intro, map, parts.map((part, index) => MP(`${String(index + 1).padStart(2, '0')} / ${part[0]}`, part[1], part[2], part[3], part[4])), refs);
+    Object.assign(mechanicsProfiles, {
+      shortterm: K('“任务便利贴”保存的是这一次工作走到了哪里。机制加餐说明短期状态怎样被写入、压缩、检查点化，并在任务结束后归档或过期。', ['状态结构','检查点','过期恢复'], [
+        ['State','把当前任务写成机器可读状态','状态不是完整聊天记录，而是目标、已完成步骤、工具结果、待确认项、错误和预算等继续执行必需的信息。',[['任务进入','生成任务标识与初始目标'],['执行更新','写入节点结果和外部观察'],['状态读取','下一步只取相关字段'],['结束处理','完成、归档或过期']],[['区分事实与草稿','工具返回、用户确认和模型建议要有不同状态。'],['版本并发','并行节点写入时要防止旧状态覆盖新结果。'],['敏感最小化','只保留恢复任务所需的个人信息。']]],
+        ['Checkpoint','检查点让长任务能停、能续、能回放','在关键节点保存状态快照和版本，失败或暂停后从最近已验证位置恢复，而不是重新执行全部步骤。',[['节点完成','产物通过该节点验收'],['原子保存','状态与下一步位置一起提交'],['中断事件','超时、进程退出或等待人工'],['恢复执行','加载版本并检查外部条件']],[['外部动作防重','支付、发信等副作用需幂等键，避免恢复后重复执行。'],['恢复前重验','票价、库存和权限等会变化的事实应重新查询。'],['轨迹关联','检查点要能连接对应的模型与工具调用。']]],
+        ['Expiry','短期状态也需要保留期与清理规则','会话结束不等于所有数据永久保留。根据任务风险、复核窗口和法规设置过期、归档、删除与用户可见性。',[['状态分类','临时变量、证据、审计记录'],['保留策略','按类别设置时限与访问权限'],['到期处理','删除、脱敏或转入受控归档'],['恢复失败','向用户说明过期并重新确认']],[['缓存不是事实源','命中旧状态前仍要检查版本和时效。'],['审计另行设计','必要审计记录可比会话状态保留更久，但应脱敏。'],['用户可控制','涉及个人偏好或数据时提供查看和删除入口。']]]
+      ], ['langgraph','temporal','memgpt']),
+      longterm: K('“可更新的档案卡”只保存未来仍有价值的信息。机制加餐拆开候选记忆的筛选、按需检索和冲突更新，避免把全部聊天历史误当成长久记忆。', ['筛选写入','按需读取','冲突更新'], [
+        ['Selection','先判断这条信息是否值得长期保存','长期记忆应稳定、可复用、来源明确且经用户允许。一次性行程、未经证实的推断或敏感原文通常不该默认写入。',[['候选信息','用户明确偏好或验证过的事实'],['写入判断','稳定性、必要性、敏感性与权限'],['结构化记录','内容、来源、时间、置信与保留期'],['用户控制','可查看、更正和删除']],[['明确优于推断','“请一直用中文”比从一次对话猜偏好更可靠。'],['事实带来源','业务事实应链接权威系统或证据。'],['租户隔离','不同用户与组织的记忆绝不能混用。']]],
+        ['Retrieval','长期记忆不是整本塞回上下文，而是按任务取回','当前任务只检索与目标、身份、时间和权限相关的记忆，并与最新业务事实、系统规则一起构造上下文。',[['当前任务','目标与用户身份'],['记忆检索','按相关性、类型和时间过滤'],['冲突检查','与当前输入和权威数据比对'],['上下文使用','只注入必要摘要与来源']],[['偏好不能覆盖规则','用户习惯不能改变安全或业务约束。'],['少而相关','大量陈旧记忆会挤占窗口并制造错误关联。'],['可解释','系统应能说明某项个性化来自哪条记忆。']]],
+        ['Update','新旧信息冲突时，不能简单叠加','记忆需要版本、有效期和合并规则。用户明确修改偏好时覆盖旧值；外部事实变化时以权威来源和时间决定替换或保留历史。',[['新信息到达','带来源和时间'],['查找旧记录','按对象与字段定位'],['冲突决策','覆盖、并存、拒绝或请求确认'],['索引与缓存更新','使旧值不再默认召回']],[['删除要彻底','主存储、向量索引和缓存应一起失效。'],['历史与当前分开','保留审计历史不代表继续作为当前事实使用。'],['定期复核','对高影响记忆设置重新确认或过期。']]]
+      ], ['memgpt','genagents','middle']),
+      memorywrite: K('“记忆编辑”决定什么进入长期存储，以及旧信息怎样退出。机制加餐关注写入门槛、冲突合并与可撤销性。', ['写入门槛','冲突合并','删除撤销'], [
+        ['Gate','每次写入前先过必要性、来源和隐私三道门','候选信息只有在未来复用价值明确、来源可信且符合用户授权时才进入长期记忆。',[['候选抽取','从明确陈述或可靠工具结果中识别'],['必要性判断','未来任务是否反复需要'],['隐私与权限','敏感类别、用途和保留期'],['写入记录','内容、来源、时间和置信度']],[['默认克制','不确定时不写比错误永久化更安全。'],['模型推断降权','对性格、健康等推断不得当作用户确认事实。'],['写入可审计','记录是谁、基于什么触发了保存。']]],
+        ['Merge','冲突不是“保留两条”这么简单','系统先定位同一对象和字段的既有记忆，再依据来源、时间、用户确认和业务规则选择覆盖、版本化或请求澄清。',[['新旧对照','同字段、同对象与有效期'],['可信度排序','用户确认或权威系统优先'],['合并动作','覆盖、并存、拒绝或待确认'],['读取规则','默认只使用当前有效版本']],[['时间敏感','“当前城市”与“常住城市”更新频率不同。'],['范围敏感','工作偏好和私人偏好可能适用不同场景。'],['冲突可见','无法自动解决时应向用户确认。']]],
+        ['Undo','记忆必须能更正、撤销和传播删除','删除不能只隐藏界面记录，还要处理索引、缓存、副本和后续生成上下文中的残留。',[['更正或删除请求','定位目标记录和衍生项'],['授权确认','确认请求人有权操作'],['传播失效','主库、索引和缓存同步更新'],['完成证明','记录范围、时间与无法删除的法定例外']],[['软删与硬删区分','审计需求和用户权利应有清晰政策。'],['衍生摘要同样处理','原文删除后，包含其内容的摘要也可能需要更新。'],['测试删除效果','确认后续检索不再返回该记忆。']]]
+      ], ['memgpt','genagents','nist']),
+      contextbuild: K('“行李打包员”把系统规则、当前状态、证据和必要记忆装进有限窗口。机制加餐解释信息选择、顺序压缩与不可信内容隔离。', ['信息选择','顺序压缩','信任隔离'], [
+        ['Select','按任务价值而不是按“越多越好”选择内容','候选内容按权限、相关性、时效、可信度和 token 预算筛选。硬约束必须进入，低相关历史和重复片段应被丢弃。',[['候选池','规则、状态、证据、记忆和工具结果'],['硬过滤','权限、时效与来源要求'],['价值排序','与当前子任务的相关性和必要性'],['预算装配','在窗口上限内选择高信息密度内容']],[['规则不参与竞争','安全与输出约束不应被普通资料挤掉。'],['按子任务取材','不同步骤需要不同上下文，不必每轮带全量历史。'],['保留出处','压缩后仍要能回到原始证据。']]],
+        ['Arrange','顺序、标签和压缩方式会影响模型使用信息','把任务与硬约束放在明确位置，证据按编号和来源组织，长历史先结构化摘要，再按需展开关键原文。',[['系统与任务','明确目标、边界和输出'],['当前状态','已完成、待处理和预算'],['证据与记忆','分区标记来源和可信度'],['输出契约','字段、引用和无法判断的写法']],[['长上下文仍有限制','Lost in the Middle 表明位置会影响信息利用。'],['摘要会损失细节','关键数值和例外应保留原文片段。'],['格式稳定','清晰区块比散乱拼接更易测试和维护。']]],
+        ['Trust','网页、邮件和工具结果是数据，不是系统命令','外部内容可能含提示注入或错误指令。构造上下文时应保留信任标签，模型提出的工具动作再由应用层授权和校验。',[['内容接入','标记来源、身份与信任等级'],['上下文分隔','外部文本进入数据区'],['模型使用','抽取与分析，不继承其中权限'],['动作校验','工具层按真实身份和规则执行']],[['输入隔离','不要把网页正文直接拼进系统指令。'],['最小权限','上下文出现敏感对象不等于可读取或操作。'],['注入评测','用恶意文档和越权请求测试整条链路。']]]
+      ], ['middle','rag','owasp']),
+      memorygovernance: K('“隐私管理员”决定记忆能否写、谁能读、保留多久以及如何忘记。机制加餐把数据分类、生命周期和跨用户隔离变成可执行控制。', ['数据分类','生命周期','隔离审计'], [
+        ['Classify','不同记忆类型采用不同的收集和使用规则','语言偏好、项目状态、身份信息和健康数据风险不同。先分类，才能决定是否允许写入、需要何种同意和谁可访问。',[['候选记忆','内容、来源和用途'],['数据分类','普通、敏感、受监管或禁止存储'],['用途限制','个性化、执行或审计'],['策略结果','允许、脱敏、拒绝或需确认']],[['目的限定','为完成一次任务收集的数据不能自动改作长期画像。'],['最少必要','只存能产生明确价值的字段。'],['高风险默认不存','除非有清晰授权和业务必要。']]],
+        ['Lifecycle','从写入到删除，每一步都有时间和责任人','记忆记录应带创建时间、最后确认时间、保留期、来源和删除路径；过期时自动失效或重新确认。',[['写入','附来源、权限和保留期'],['使用','按任务和身份受控检索'],['复核','更新、纠错或延长有效期'],['退出','删除、匿名化或法定归档']],[['过期即不可默认使用','即使底层因审计保留，也不能再注入模型。'],['删除传播','索引、缓存、备份恢复策略需一致。'],['导出可理解','用户拿到的是可解释记录，不是内部向量。']]],
+        ['Isolation','多租户记忆要在检索前隔离','身份、租户、项目和资源级策略应进入存储与检索键。审计记录谁在何时因何任务读取或修改了哪类记忆。',[['身份上下文','用户、Agent 与代表关系'],['授权过滤','租户、项目和字段级策略'],['受控访问','只返回当前任务需要的记忆'],['审计告警','异常跨域读取或批量导出触发检查']],[['不能靠提示词隔离','真正隔离必须由存储和授权层强制执行。'],['日志也需脱敏','审计不应复制全部敏感正文。'],['定期测试','用跨用户、越权和删除后召回场景验证。']]]
+      ], ['nist','memgpt','owasp'])
+    });
+
+    Object.assign(mechanicsProfiles, {
+      skill: K('“标准作业手册”把一类任务的做法、资源与验收标准封装起来。机制加餐说明技能如何被匹配、执行和版本化，以及它与单个工具的边界。', ['技能发现','步骤执行','版本验收'], [
+        ['Discovery','先判断哪本手册适用于当前任务','技能需要清晰描述适用条件、输入要求、禁用情形和预期产物。Agent 根据任务类型和上下文选择，而不是只按名字模糊匹配。',[['任务请求','目标、对象和约束'],['技能目录','名称、说明、适用与禁用条件'],['匹配判断','选择一个或组合少量技能'],['参数准备','补齐输入或向用户追问']],[['描述要可区分','多个技能不能都写成“帮助处理数据”。'],['缺输入先追问','不要让技能用猜测填充关键参数。'],['权限另行判断','能发现技能不等于有权执行其中工具。']]],
+        ['Execution','技能编排方法，工具完成具体动作','技能可包含说明、模板、脚本和多步工具调用。运行时记录当前步骤与产物，失败时按技能规则重试、回退或交接。',[['读取说明','目标、步骤、资源和验收'],['执行步骤','检索、计算、调用工具或生成文档'],['检查中间产物','格式、证据和业务规则'],['完成交付','标准结果与执行记录']],[['手册和遥控器不同','技能说明怎么做，工具负责真正查询或写入。'],['步骤可观察','每一步应留下可检查产物。'],['高风险关口','不可逆动作在技能内也必须审批。']]],
+        ['Versioning','技能改了方法，也要重新考试','每个技能版本应绑定依赖、模板、脚本和评测用例。更新后用代表性任务验证质量、成本和安全，再逐步发布。',[['版本变更','说明、脚本、资源或工具契约'],['离线评测','正确、完整、格式与安全'],['受控发布','小范围试用并监控失败'],['回滚归档','保留稳定版本和迁移说明']],[['依赖要锁定','外部 API 或模板变化可能破坏旧技能。'],['结果可复现','记录使用的技能版本与输入来源。'],['不是模型训练','技能可快速更新流程，而无需改变基础模型参数。']]]
+      ], ['agentsdk','anthropic','mcp']),
+      toolcalling: K('“受控遥控器”把模型的调用意图变成应用可验证的函数请求。机制加餐拆开工具模式、执行边界和失败恢复。', ['工具契约','受控执行','失败恢复'], [
+        ['Schema','先把工具能做什么写成明确契约','工具定义包括名称、用途、参数类型、必填项、枚举、返回结构和副作用。模型据此提出调用，应用仍需独立校验。',[['工具描述','用途与适用条件'],['参数模式','字段、类型、范围和枚举'],['模型提议','函数名与结构化参数'],['模式校验','接受、要求修正或拒绝']],[['描述影响选择','含糊工具名会导致误调用。'],['参数模式不验证权限','格式正确仍可能越权或违反业务规则。'],['读写要区分','查询和修改最好使用不同工具与审批等级。']]],
+        ['Execution','真正的执行发生在模型之外','应用结合调用者身份、业务规则和当前状态检查请求，注入受控凭据后调用真实系统，再返回结构化结果。',[['调用请求','工具名、参数和任务上下文'],['执行前检查','身份、权限、风险、幂等与预算'],['外部调用','超时、重试和凭据隔离'],['结果回传','成功数据、错误码和证据']],[['模型看不到密钥','凭据保留在连接器或执行层。'],['不可逆动作确认','付款、删除、发送等在执行前设置人工或规则关口。'],['返回不要含糊','用明确错误码和可重试信息帮助下一步判断。']]],
+        ['Recovery','失败后不能只把报错再喂给模型','超时、限流、参数错误和业务拒绝需要不同处理。系统按错误类别决定重试、修正、换路径或停止，并防止重复副作用。',[['错误分类','网络、认证、参数、业务或未知'],['恢复策略','指数退避、修参、刷新凭据或升级'],['幂等控制','同一动作使用稳定请求标识'],['状态记录','保留尝试次数和最终结果']],[['重试有上限','权限拒绝不应通过反复调用解决。'],['副作用先查状态','超时不代表未执行，重试前查询真实结果。'],['工具也要评测','检查选择正确率、参数正确率和业务成功率。']]]
+      ], ['toolformer','agentsdk','mcp']),
+      mcp: K('“统一插座”解决模型应用怎样发现并调用工具、读取资源和使用提示模板。机制加餐解释客户端、服务器与传输边界，以及协议为何不等于授权。', ['能力发现','请求交换','信任边界'], [
+        ['Discovery','客户端先向服务器询问有哪些能力','MCP 服务器以标准结构公开工具、资源和提示模板；客户端决定展示哪些能力给模型，并保留自己的产品和权限策略。',[['客户端连接','建立会话并协商协议能力'],['服务器列举','Tools、Resources 与 Prompts'],['客户端筛选','按配置、用户与任务暴露能力'],['模型使用','在可见能力中选择调用或读取']],[['发现不等于允许','服务端和客户端仍需认证、授权与审计。'],['描述要准确','工具说明和参数模式直接影响模型选择。'],['能力可变化','客户端需处理列表更新与服务器不可用。']]],
+        ['Exchange','标准消息让不同客户端和服务端按同一方式交互','客户端发送结构化请求，服务器执行并返回内容或错误。协议统一交互形状，但具体数据库、文件和业务逻辑仍属于服务器实现。',[['模型提出意图','选择工具或资源'],['客户端请求','附参数和会话上下文'],['服务器处理','校验、访问后端并生成结果'],['标准响应','内容、结构化数据或错误']],[['传输可替换','本地进程与远程服务可采用不同传输方式。'],['错误要可处理','返回明确的协议和业务错误，而非混成自然语言。'],['内容仍不可信','读取到的网页或文档不能反过来获得系统权限。']]],
+        ['Trust','协议统一接法，不替代安全治理','部署者要决定信任哪些服务器、允许它访问哪些数据、是否能产生副作用，以及用户何时确认。连接远程 MCP 服务也意味着数据可能离开当前环境。',[['服务器来源','官方、自建或第三方'],['权限范围','文件、网络、账号和工具副作用'],['执行确认','高风险调用前展示对象与影响'],['审计撤销','记录访问并支持断开和轮换凭据']],[['最小权限','不要给通用服务器整个文件系统或长期令牌。'],['数据去向透明','发送提示、文件或结果前知道目的服务。'],['供应链风险','服务器代码和依赖更新需要评审与锁定。']]]
+      ], ['mcp','openaiSafety','owasp']),
+      connector: K('“系统翻译器”把具体产品的认证、对象和错误包装成稳定能力。机制加餐说明连接器如何适配外部 API、处理速率与一致性，并向上层暴露可用的工具。', ['系统适配','可靠调用','契约演进'], [
+        ['Adapt','先把外部系统语言翻译成领域能力','连接器处理登录方式、分页、字段名、对象关系和供应商错误码，再以业务可理解的工具或资源提供给 Agent。',[['外部 API','认证、端点和供应商对象'],['适配映射','字段、枚举、分页和错误转换'],['领域能力','查客户、建工单等清晰动作'],['上层使用','技能、工作流或 MCP 服务暴露']],[['不要泄漏供应商细节','上层不必了解每个原始字段和错误文本。'],['保留原始标识','结果要能回到源系统记录。'],['只做适配','何时更新客户属于业务流程，不属于连接器决定。']]],
+        ['Reliability','外部系统有速率、超时和部分成功','连接器统一处理限流、重试、分页、游标、幂等和熔断，并把可重试与不可重试错误区分开。',[['请求进入','身份、动作和参数'],['策略检查','限速、超时、幂等和配额'],['供应商调用','分页或批量执行'],['标准结果','数据、状态、来源与分类错误']],[['重试前看副作用','写入超时可能已经成功。'],['批量部分成功','逐项返回结果，不能只给整体失败。'],['凭据隔离','连接器持有受控令牌，模型不接触秘密。']]],
+        ['Evolution','供应商接口变化不能悄悄改变 Agent 行为','连接器用版本化契约隔离上游 API 变化。升级前进行兼容测试，必要时同时支持新旧字段并提供迁移期。',[['变化发现','字段、权限、限额或错误语义'],['影响分析','哪些工具和技能依赖旧契约'],['兼容适配','映射、版本或功能开关'],['回归发布','沙盒验证、灰度与回滚']],[['能力声明要更新','不可用字段不能继续写在工具描述里。'],['监控供应商错误','按端点和错误码观察退化。'],['测试真实边界','空页、时区、重复记录和权限变化常是故障点。']]]
+      ], ['mcp','agentsdk','anthropic'])
+    });
+
+    Object.assign(mechanicsProfiles, {
+      workflow: K('“流水线班长”把确定性强的业务路径固化为步骤、条件和补偿动作。机制加餐解释模型节点怎样嵌入工作流，以及为什么固定流程往往比完全自主更可靠。', ['节点与分支','模型嵌入','失败补偿'], [
+        ['Graph','每个节点做一件可执行、可检查的事','工作流把触发、任务、条件分支和结束状态显式连接。节点输入输出有模式，边由程序条件或经过约束的判断驱动。',[['触发事件','上传、定时或业务状态变化'],['处理节点','解析、查询、校验或生成'],['条件分支','通过、拒绝、补充或人工审核'],['结束状态','完成、失败、取消或待处理']],[['规则明确就写代码','金额阈值和权限判断不必交给模型猜。'],['状态要持久化','长流程不能只存在一次进程内。'],['每条边可解释','知道为什么从当前节点走到下一节点。']]],
+        ['Model node','模型只放在需要语义判断的位置','分类、摘要和文本理解可作为工作流节点；节点前后仍用输入模式、工具权限和结果校验收紧不确定性。',[['准备上下文','任务、证据和允许输出'],['模型节点','理解、提取或提出候选'],['结构校验','字段、引用和置信门槛'],['后续节点','规则执行、人工确认或外部工具']],[['不要让模型控制全部分支','确定性条件由流程引擎判断。'],['节点可替换','保持输入输出契约后可升级模型而不改全图。'],['节点级评测','分别测分类、提取和工具选择，便于定位问题。']]],
+        ['Compensation','失败不仅要重试，还要知道怎样撤回已完成动作','跨系统流程很难使用单一数据库事务。对已发送、已写入或已预订动作设计补偿、对账和人工处置。',[['动作执行','带幂等标识写入外部系统'],['失败检测','超时、拒绝或下游异常'],['状态确认','查询动作是否实际发生'],['补偿路径','撤销、反向操作或人工处理']],[['补偿不是回滚时间','某些动作如邮件发送无法真正撤回。'],['重试需幂等','防止恢复流程重复扣款或建单。'],['异常可见','进入人工队列时带全量状态和证据。']]]
+      ], ['anthropic','langgraph','temporal']),
+      stategraph: K('“地图和书签”用显式状态、节点和边表达任务现在在哪、还能去哪。机制加餐覆盖状态模式、转移条件和持久化恢复。', ['状态模式','转移条件','检查点恢复'], [
+        ['State schema','先定义哪些信息属于任务状态','状态应包含任务输入、节点产物、错误、重试次数和人工等待等字段，并区分可覆盖值与追加事件。',[['初始状态','目标、身份和约束'],['节点读取','只消费所需字段'],['节点写入','结果、错误与下一步信号'],['状态归并','处理并行分支和版本冲突']],[['状态不是提示词','它是应用数据，之后才按需构造模型上下文。'],['字段有所有者','避免多个节点随意覆盖同一结果。'],['大对象外置','文件和长证据存引用，不必塞入每个检查点。']]],
+        ['Transition','边代表可验证的转移条件','节点完成后，根据规则、模型结构化判断或人工决定选择下一条边。高风险转移应由确定性策略或审批控制。',[['节点结果','成功、失败、评分或业务状态'],['条件判断','规则优先，模型用于语义分类'],['选择边','下一节点、重试、等待或结束'],['记录原因','保存触发条件和输入版本']],[['避免隐式跳转','只在代码中到处调用会让路径难审计。'],['循环有出口','回边必须同时定义计数和停止条件。'],['人工是节点','等待审批可作为可恢复状态。']]],
+        ['Checkpoint','书签必须与外部副作用保持一致','保存检查点时记录已完成动作及其幂等标识；恢复时先确认外部系统状态，再继续下一个节点。',[['关键节点完成','产物验收且副作用状态明确'],['持久化检查点','状态版本、位置和关联轨迹'],['进程恢复','加载快照与最新配置'],['一致性检查','查询外部动作后继续或补偿']],[['代码版本变化','旧检查点恢复到新流程需要迁移策略。'],['长时间等待','资源和令牌可能过期，恢复时重新授权。'],['回放用于诊断','但不能重复执行真实副作用。']]]
+      ], ['langgraph','temporal','react']),
+      multiagent: K('“项目小组”只有在角色确实需要不同知识、工具或并行路径时才值得建立。机制加餐拆开任务分派、消息契约和最终验收。', ['角色拓扑','消息契约','集成验收'], [
+        ['Topology','先选最小可用的协作结构','主管-专家适合集中分派；顺序交接适合流水处理；并行评审适合独立比较。结构应由任务依赖决定，不因“多 Agent”本身增加角色。',[['总任务','拆出专业或可并行子任务'],['角色定义','职责、工具、权限与成功标准'],['协作拓扑','主管、顺序、并行或有限辩论'],['停止规则','完成、冲突升级或预算用尽']],[['单 Agent 优先','若任务没有真实分工，多角色只增加成本。'],['权限按角色分配','研究角色不应拥有付款工具。'],['并行不是免费','重复检索和汇总会增加时延与 token。']]],
+        ['Messages','Agent 之间交换成果，不交换无边界的聊天历史','交接消息应包含任务、结构化产物、证据、置信、未解决项和版本。接收方按契约验收，再决定继续或退回。',[['子任务派发','目标、输入和截止条件'],['角色执行','使用专属工具产生产物'],['结构化交接','结果、证据、错误和待确认'],['接收验收','通过、补充或升级冲突']],[['共享最少信息','减少隐私扩散和上下文噪声。'],['来源随成果传递','汇总 Agent 必须能追到原始证据。'],['冲突不能投票了事','高风险分歧应按证据或人工责任解决。']]],
+        ['Integration','最终答案需要统一标准，而非简单拼接','统筹角色或程序汇总多个产物，检查覆盖、重复、冲突和验收指标，再生成一个有来源的交付物。',[['收集产物','来自各角色的结构化结果'],['一致性检查','范围、口径、证据和冲突'],['合并决策','去重、补证或退回重做'],['最终验收','质量、安全、成本和责任确认']],[['错误会级联','早期角色的错误可能被后续写得更流畅。'],['端到端追踪','每个结论关联产生它的角色和工具轨迹。'],['分别评测','既测单角色能力，也测交接与集成质量。']]]
+      ], ['autogenPaper','anthropic','a2a']),
+      handoff: K('“交接班报告”把状态、证据与责任从一个执行者转给另一个 Agent 或人。机制加餐说明触发、交接包和恢复执行如何避免信息断层。', ['触发条件','交接包','接管闭环'], [
+        ['Trigger','什么时候必须交接，应由风险和能力边界决定','权限不足、金额超阈值、证据冲突、用户明确要求或连续失败都可以触发交接。条件应可测试，而非只让模型自行感觉。',[['当前状态','任务进度、风险和失败次数'],['条件判断','权限、阈值、置信和用户选择'],['选择接收方','专责 Agent、业务队列或具体角色'],['暂停当前执行','冻结副作用并保存检查点']],[['高风险前交接','应发生在付款或发布之前，而非出错之后。'],['接收方要匹配','不同问题进入不同专业和权限队列。'],['紧急程度明确','截止时间和服务等级随交接传递。']]],
+        ['Package','交接包回答四件事：要做什么、做过什么、依据什么、还缺什么','结构化交接减少接收方重新询问和重复操作，并保留关键证据与风险。',[['任务摘要','目标、对象与期望结果'],['已完成步骤','工具结果、检查点和版本'],['证据与理由','来源、冲突和升级原因'],['待办与权限','下一步、截止时间和所需决定']],[['不要只转聊天记录','长对话不能替代明确状态。'],['敏感数据最少化','接收方只得到履职必需信息。'],['副作用标记','必须说明哪些真实动作可能已经发生。']]],
+        ['Resume','接收方确认责任后，流程才真正完成交接','接收方检查信息是否足够、接受或退回任务，并把决定写回同一状态和审计轨迹。',[['接收确认','角色、时间与责任范围'],['完整性检查','缺参数或证据时退回补充'],['继续执行','从检查点调用允许的工具'],['结果回写','完成、再次升级或关闭']],[['防止无人认领','队列和通知都要有超时与升级机制。'],['用户看得到状态','说明任务由谁处理以及预计下一步。'],['交接质量可量化','看退回率、重复劳动、处理时长和最终成功率。']]]
+      ], ['a2a','agentsdk','anthropic'])
+    });
+
+    Object.assign(mechanicsProfiles, {
+      trace: K('“任务侦探”把一次请求跨越模型、检索、工具和状态的全过程串成可回放轨迹。机制加餐解释 Trace、Span 与数据治理怎样协同。', ['Trace 与 Span','关联诊断','采样脱敏'], [
+        ['Spans','用一个 Trace 标识串起多个组件的工作','一次用户任务生成 Trace；模型调用、检索、工具执行和工作流节点各形成 Span，记录父子关系、耗时、状态与必要属性。',[['任务入口','创建 Trace ID 与任务摘要'],['组件调用','为模型、检索、工具创建 Span'],['上下文传播','跨服务携带关联标识'],['结束汇总','形成完整时间线和最终状态']],[['Span 要有边界','一个 Span 对应一次明确操作，不能把整个系统塞成一条日志。'],['统一时钟与标识','否则跨服务时间线无法可靠拼接。'],['业务字段克制','只记录诊断需要的标签，避免复制敏感正文。']]],
+        ['Diagnosis','沿时间线定位错误发生在哪一段','从最终失败向上查相关 Span，对比输入摘要、检索来源、工具错误和状态转移，区分是资料、模型、工具还是流程问题。',[['用户反馈','答案错、动作失败或延迟高'],['锁定 Trace','按任务标识找到全过程'],['比较 Span','状态、耗时、版本和错误码'],['根因归类','形成修复假设与回归样本']],[['相关不等于因果','耗时最长的 Span 未必是错误根因。'],['版本必须记录','模型、提示、索引和工具版本影响复现。'],['轨迹接评测','典型失败应转成可重复测试用例。']]],
+        ['Governance','追踪数据本身也是需要治理的数据','根据风险采样，敏感字段脱敏或只存哈希与引用，并对轨迹访问设置权限和保留期。',[['采集策略','全量、抽样或仅错误任务'],['字段处理','删除、遮蔽、摘要或加密'],['受控存储','访问角色、保留期与租户隔离'],['审计使用','记录谁查看或导出了轨迹']],[['不能为排错复制全部数据','提示词和工具结果可能含个人或商业信息。'],['高风险事件保真','安全事故需保留足够证据，但仍要限制访问。'],['删除请求联动','相关轨迹和索引应按政策处理。']]]
+      ], ['opentelemetry','agentsdk','nist']),
+      offlineeval: K('“模拟考场”让新旧 Agent 在相同题目和环境中可比。机制加餐拆开数据集、评分器与回归门槛，避免只看一个总分。', ['评测集','评分器','发布门槛'], [
+        ['Dataset','题目要覆盖真实分布、边界和高风险场景','从历史任务、专家设计和故障案例建立版本化数据集，每题记录输入、允许工具、环境快照和合格标准。',[['任务采样','常见、长尾、对抗和高风险'],['去敏标注','清除不必要个人数据并由专家给标准'],['环境固定','知识版本、工具模拟和时间条件'],['数据集版本','记录新增、修订和淘汰原因']],[['防止训练污染','评测题不应被直接混入优化数据后仍当独立测试。'],['分层报告','按任务、语言、风险和客户类型查看结果。'],['失败样本优先','每次线上事故都应考虑加入回归集。']]],
+        ['Scoring','不同目标需要不同评分器','任务完成、事实依据、工具选择、参数正确、安全、成本和时延应分别测量。能写规则的用确定性评分，开放输出再结合模型评分和人工抽检。',[['运行轨迹','答案、工具调用、证据与耗时'],['确定性评分','模式、数值、执行结果和引用存在性'],['语义评分','完整性、相关性与表达质量'],['人工复核','校准开放评分和高风险案例']],[['模型评分需校准','与专家标注比较一致性，不能把裁判模型当绝对真值。'],['过程和结果都看','偶然得到正确答案但调用越权工具仍应失败。'],['置信区间','小样本波动大，版本差异要有统计意识。']]],
+        ['Gate','发布门槛应说明哪些指标绝不能退化','新版本与基线在同一环境运行，按关键任务和安全项设置硬门槛；非关键改进可权衡成本与时延。',[['基线运行','冻结旧版本结果与环境'],['候选运行','同题、同工具与重复次数'],['差异分析','总体、分组和失败类型'],['发布决策','通过、限制范围或退回修改']],[['平均分会掩盖风险','高风险子集即使样本少也应单独设门槛。'],['评测不能替代灰度','真实流量分布和外部依赖仍可能不同。'],['结果可追溯','保存代码、提示、模型、数据和评分器版本。']]]
+      ], ['agentbench','gaia','openaiEval']),
+      monitoring: K('“健康监护仪”持续观察线上任务是否成功、够快、可控且成本合理。机制加餐说明指标分层、告警与降级怎样连接。', ['指标体系','告警诊断','降级回滚'], [
+        ['Signals','同时看结果、过程、资源和风险四类信号','只看 HTTP 成功率无法说明 Agent 完成了任务。还应监控任务成功、引用、工具失败、人工接管、时延、token、成本和安全拦截。',[['任务信号','完成率、用户修正和业务结果'],['过程信号','工具选择、重试、循环和交接'],['资源信号','时延、token、调用量与费用'],['风险信号','越权、敏感数据和护栏触发']],[['按维度分组','模型、工具、租户、语言和任务类型可能局部退化。'],['定义分母','“成功率”必须说明哪些请求被计入。'],['指标与目标相连','每项监控回答一个可行动的问题。']]],
+        ['Alert','告警要指向用户影响和可执行处置','阈值、变化率和异常检测结合使用。告警携带受影响范围、关联 Trace 和近期版本变化，帮助快速判断根因。',[['基线与阈值','正常范围和服务目标'],['异常检测','突增、突降或分组偏移'],['告警上下文','影响用户、组件、版本和轨迹'],['处置分派','自动降级或通知责任人']],[['避免告警疲劳','重复事件聚合，低影响信号不必都叫醒人。'],['平均值不够','P95/P99 时延和失败分布能暴露尾部问题。'],['业务结果有延迟','退款差错等可能晚于技术指标出现。']]],
+        ['Response','发现异常后要能缩小影响并回到稳定版本','根据故障类型选择限流、缓存、关闭某工具、切换模型、只读模式或人工接管。处置后继续监控并生成事后复盘。',[['异常确认','影响、风险和可能根因'],['保护动作','限流、熔断、降级或暂停'],['恢复策略','回滚版本或修复外部依赖'],['验证关闭','指标恢复并补入回归评测']],[['降级要诚实','能力变弱时明确告诉用户哪些结果待确认。'],['安全优先于可用性','高风险写入异常时宁可暂停。'],['演练回滚','只有预先验证过的开关和版本才是真正退路。']]]
+      ], ['opentelemetry','agentsdk','nist']),
+      feedback: K('“纠错信箱”把用户改动、人工审核和业务结果转成可验证的改进假设。机制加餐解释反馈怎样清洗、归因并通过实验闭环。', ['反馈采集','错误归因','实验闭环'], [
+        ['Collect','不同反馈信号代表不同含义','点赞、文本纠正、重新提问、人工接管和最终业务结果应分开记录，并关联原始任务、版本和上下文。',[['显式反馈','评分、原因和人工改稿'],['行为反馈','重试、放弃、复制或追问'],['业务结果','问题是否解决、动作是否被撤销'],['关联轨迹','模型、工具、证据与版本']],[['点赞不是正确率','用户可能喜欢流畅但错误的答案。'],['负反馈可诊断','让用户选择“事实错、没解决、太慢”等原因。'],['隐私克制','不要把无关行为永久变成用户画像。']]],
+        ['Attribute','先找到失败发生在哪一层','将反馈映射到检索、模型理解、计划、工具参数、权限、界面或业务规则，形成具体、可检验的修复假设。',[['失败案例','用户修改和完整轨迹'],['分类分析','按组件、任务和严重度聚类'],['根因抽检','专家复核代表性样本'],['改进假设','明确改哪里、预期改善什么']],[['不要直接用差评训练','先排除数据错误和工具故障。'],['保留反例','修改前后的差异可形成高质量评测样本。'],['高影响优先','低频但严重的安全问题优先于文风问题。']]],
+        ['Experiment','改动必须通过对照验证，而非只看个别案例','把失败样本加入离线评测，再用影子流量或小范围 A/B 测试观察真实任务成功、安全、成本和延迟。',[['候选改动','提示、模型、检索、工具或流程'],['离线回归','目标样本和关键能力不退化'],['受控实验','随机分流或影子比较'],['决策沉淀','发布、回滚并更新评测集']],[['一次改变有限变量','否则无法知道哪项产生效果。'],['设停止条件','安全指标异常应立即终止实验。'],['长期结果回看','短期满意度不一定等于业务问题真正解决。']]]
+      ], ['openaiEval','agentsdk','agentbench'])
+    });
+
+    Object.assign(mechanicsProfiles, {
+      identity: K('“门禁识别员”确认请求来自谁，以及 Agent 正在代表谁行动。机制加餐区分人、服务和 Agent 身份，并说明会话与委托关系如何传递。', ['身份验证','代表关系','会话风险'], [
+        ['Authenticate','先验证主体，再让身份进入任务上下文','用户可通过企业单点登录和多因素认证；服务使用工作负载身份或证书。验证成功后签发短期会话，不把长期密码交给模型。',[['身份凭证','口令、多因素、证书或工作负载证明'],['认证服务','验证真实性与状态'],['短期会话','签发有时限的令牌或会话'],['任务绑定','把主体标识传给授权和审计']],[['认证不等于授权','证明是谁后还要判断能做什么。'],['模型不处理密码','登录和令牌交换留在受控组件。'],['服务也有身份','后台 Agent 不应共享一个无法追责的万能账号。']]],
+        ['Delegation','Agent 代用户行动时，要保留“谁委托谁”','调用外部工具时同时记录用户主体、Agent 服务主体和委托范围。权限不能因为经过 Agent 就扩大。',[['用户发起','明确任务和允许范围'],['Agent 会话','携带用户与服务双重身份'],['工具请求','按委托范围申请短期权限'],['审计记录','关联用户、Agent、资源和动作']],[['禁止身份混淆','不能把服务账号权限当成用户权限。'],['最小委托','只授权当前动作和必要时间。'],['跨系统映射','不同系统的身份标识需要可靠映射和撤销。']]],
+        ['Session','会话会过期、被盗或上下文切换','令牌设置短期有效、受众和作用域；高风险动作可重新认证。退出、离职或权限变更后要及时撤销。',[['会话创建','设备、时间和风险信号'],['持续检查','令牌有效、账号状态与异常行为'],['敏感动作','重新认证或多因素确认'],['结束撤销','登出、超时或策略变化']],[['防重放','绑定受众、时间和请求上下文。'],['不要把令牌写进日志','追踪只存必要标识和脱敏信息。'],['失效传播','缓存的身份与权限结果需要及时更新。']]]
+      ], ['oauth','nist','openaiSafety']),
+      authorization: K('“权限门卫”在已知身份后决定这个任务能否对这个资源执行这个动作。机制加餐覆盖策略判断、临时授权和高风险审批。', ['策略判断','临时授权','审批撤销'], [
+        ['Policy','把主体、资源、动作和上下文一起判断','授权不只看角色，还可结合资源所有者、部门、任务目的、时间、设备和风险。策略引擎返回允许、拒绝或需要审批。',[['主体','用户、服务与委托关系'],['资源与动作','读文档、更新客户或退款'],['上下文','任务目的、金额、时间和风险'],['策略结果','允许、拒绝、限权或审批']],[['默认拒绝','没有明确允许的能力不应开放。'],['权限前置','无权数据在检索前过滤，而非生成后遮盖。'],['策略可测试','用允许和拒绝案例验证边界。']]],
+        ['Least privilege','为当前任务签发短期、细粒度能力','执行层按策略获取只对指定资源、动作和时段有效的凭据，用完即失效，而非长期共享全局 API Key。',[['任务获批','确定对象、动作与期限'],['令牌签发','资源范围和最小作用域'],['受控执行','连接器持有并使用凭据'],['到期撤销','完成、取消或风险变化']],[['读写分离','查询权限不应隐含修改权限。'],['模型不看凭据','它只提出结构化动作。'],['缓存带身份','不能把一个用户的授权结果复用给另一个人。']]],
+        ['Approval','高风险动作需要责任主体确认','付款、删库、外发敏感数据等动作在执行前展示对象、影响、依据和可撤回性，由有权人员批准。',[['风险检测','金额、数据类别或不可逆性'],['审批材料','动作、参数、证据与预计影响'],['责任人决定','批准、修改、拒绝或要求补充'],['执行与审计','使用一次性批准并记录结果']],[['批准绑定参数','不能批准一万元后被替换成十万元。'],['有效期短','过时审批不能无限复用。'],['紧急撤销','权限变更或异常时能立刻中止未执行请求。']]]
+      ], ['oauth','nist','mcp']),
+      secrets: K('“钥匙柜管理员”让真实密钥停留在模型看不到的受控边界。机制加餐说明存储、短期注入和轮换撤销。', ['安全存储','短期注入','轮换响应'], [
+        ['Store','密钥集中保存在专用系统，不进代码和提示词','密钥库加密保存 API Key、证书和数据库凭据，并用身份和策略控制谁可以读取或使用。',[['秘密创建','生成高熵值并标记所有者'],['密钥库存储','加密、访问控制与审计'],['应用引用','只保存逻辑名称或路径'],['受控读取','运行时按工作负载身份申请']],[['代码仓库不存密钥','即使私有仓库也可能复制和泄露。'],['提示词不传密钥','模型上下文、日志和追踪都不是秘密存储。'],['分环境隔离','开发、测试和生产使用不同凭据。']]],
+        ['Inject','把凭据直接交给执行组件，而不是交给模型','运行时取得短期令牌并注入连接器或沙箱环境；模型只知道工具名称和业务参数。执行结束后清理内存和临时文件。',[['工具获准','身份与授权策略通过'],['申请凭据','限定作用域、受众和有效期'],['执行注入','仅目标进程或请求可用'],['使用后清理','撤销、过期并避免日志回显']],[['环境变量也会泄露','需控制进程、调试和错误输出。'],['结果要脱敏','外部服务不得把令牌原样返回给模型。'],['最短寿命','能用分钟级令牌就不发长期密钥。']]],
+        ['Rotate','泄露前要定期轮换，泄露后要能快速撤销','为每个秘密建立所有者、用途、到期和轮换计划；检测到泄露时先撤销并评估访问记录，再更新依赖。',[['资产清单','秘密、用途、所有者和依赖'],['自动轮换','新旧凭据短期并行切换'],['异常检测','仓库扫描、日志扫描和访问告警'],['事件响应','撤销、替换、调查和复盘']],[['轮换要演练','依赖不支持双密钥时容易造成停机。'],['审计谁用了钥匙','记录服务身份和目标，不记录秘密本身。'],['最小爆炸半径','不同工具和租户不要共享同一密钥。']]]
+      ], ['vault','oauth','owasp']),
+      guardrail: K('“安全检查站”覆盖输入、输出、工具动作和流程状态。机制加餐强调分层检查、风险分级和失败时的处理方式。', ['分层护栏','动作风险','拒绝与升级'], [
+        ['Layers','护栏应分布在模型前后与执行边界','输入检查恶意内容和敏感数据；模型输出检查格式与政策；工具调用再检查参数、权限和业务规则；结果返回前做脱敏。',[['输入层','内容风险、注入与数据分类'],['生成层','模式、事实依据和政策检查'],['执行层','权限、参数、预算和审批'],['输出层','敏感信息、引用与用户可见性']],[['不要只过滤文本','真正副作用发生在工具执行。'],['确定规则优先','金额上限、白名单和字段类型用程序强制。'],['多层独立','单个分类器失误不应直接导致危险动作。']]],
+        ['Risk','动作后果越难撤回，控制越严格','读取公开信息、修改草稿、发送邮件和转账的风险不同。按数据敏感度、金额、外部影响和可逆性分级。',[['动作识别','资源、对象、范围与副作用'],['风险评分','敏感度、金额、可逆性和用户影响'],['控制选择','自动、二次确认、审批或禁止'],['执行后检查','状态确认、通知和异常回滚']],[['参数绑定审批','用户确认必须对应最终执行参数。'],['批量动作升风险','单条允许不代表批量导出也允许。'],['工具描述不可信任','安全策略不能只根据模型给工具起的名字。']]],
+        ['Response','护栏触发后，要给出安全且有用的下一步','处理方式可以是改写、减少范围、要求补充、拒绝或转人工。记录触发规则与上下文，供审计和误报改进。',[['规则命中','风险类别和证据'],['选择响应','允许、净化、阻断或升级'],['用户说明','指出不能执行的部分与可行替代'],['反馈闭环','复核误报、更新规则和评测']],[['不要泄露检测细节','说明边界但不暴露可绕过规则。'],['误报可申诉','重要业务要有人工复核通道。'],['评测绕过攻击','持续用提示注入、编码和多步工具场景测试。']]]
+      ], ['owasp','nist','openaiSafety']),
+      audit: K('“飞行记录仪”回答谁在何时基于什么访问了什么、做了什么。机制加餐区分审计轨迹与普通调试日志，并把隐私最小化贯穿其中。', ['审计事件','数据最小化','查询取证'], [
+        ['Events','记录可追责的决策与动作，而非无限复制正文','审计事件包含主体、代理关系、任务、资源、动作、策略结果、批准人、时间和最终状态，并用关联标识连接详细轨迹。',[['访问请求','谁代表谁请求什么'],['策略决定','允许、拒绝或审批及规则版本'],['真实动作','目标、参数摘要与外部结果'],['生命周期','更正、撤销、删除或导出']],[['审计和调试不同','审计强调不可抵赖和责任，调试强调诊断细节。'],['版本很重要','记录当时使用的模型、规则和工具契约。'],['事件应防篡改','限制写入、设置完整性校验与受控导出。']]],
+        ['Minimize','为了审计而收集的数据也必须受限制','敏感提示、文档片段和工具结果尽量使用摘要、分类、哈希或受控引用；只有调查确需时才能访问原文。',[['数据分类','识别个人、机密和监管信息'],['字段策略','不记录、遮蔽、加密或单独存储'],['保留期限','按风险和法规设置删除时间'],['访问控制','调查角色、审批与全程留痕']],[['日志会成为新风险面','集中日志常拥有跨系统的敏感全景。'],['脱敏要在采集前','避免原文先进入不受控管道。'],['不同用途分库','运营指标不必拥有安全调查的全部明细。']]],
+        ['Investigation','真正需要时，能按任务还原关键事实','调查者从审计事件定位相关 Trace、批准记录和外部系统结果，形成时间线，并保持取证访问本身也被记录。',[['事件检索','按主体、任务、资源或时间范围'],['关联还原','连接身份、策略、工具和状态'],['证据保全','控制导出、完整性与访问链'],['结论整改','说明根因、影响和修复验证']],[['最小查询范围','不要因一个事件导出所有用户数据。'],['区分模型建议与真实动作','只有执行系统成功才代表副作用发生。'],['定期演练','确认保留的数据足以调查，又没有过度收集。']]]
+      ], ['nist','opentelemetry','owasp'])
+    });
+
+    Object.assign(mechanicsProfiles, {
+      runtime: K('“任务调度员”维持 Agent 从启动到暂停、恢复和结束的生命周期。机制加餐说明会话、执行器与持久状态怎样配合支撑长任务。', ['生命周期','调度并发','持久恢复'], [
+        ['Lifecycle','运行时把一次请求变成有状态的任务实例','每个实例绑定配置、模型、工具、身份、预算和状态。它推进 Agent 循环，并在完成、等待、取消或失败时进入明确终态。',[['任务创建','分配标识、配置与权限上下文'],['循环执行','加载状态、调用模型或工具'],['生命周期事件','暂停、等待、取消、超时或完成'],['结果归档','产物、状态、成本与轨迹']],[['运行时不是模型','它管理模型和工具何时运行。'],['配置需版本化','恢复任务时知道原来使用的模型、提示和工具。'],['取消要传播','用户取消后应终止下游调用和排队任务。']]],
+        ['Scheduling','并发、配额和优先级决定系统能否稳定运行','调度器按租户、任务类型和资源需求控制并发，处理限流、背压、超时和公平性，避免一个长任务耗尽全部资源。',[['任务排队','优先级、截止时间和资源标签'],['容量判断','模型、浏览器、沙箱和外部 API 配额'],['执行分配','选择工作进程与并发槽'],['背压处置','排队、降级、拒绝或通知用户']],[['并发不只看 CPU','外部 API 配额和浏览器会话也有限。'],['公平与紧急权衡','高优先任务不能长期饿死普通任务。'],['预算实时扣减','token、工具次数和墙钟时间都应有上限。']]],
+        ['Durability','长任务必须能跨进程和故障继续','关键步骤完成后持久化检查点与事件；恢复时重放状态而非重复真实副作用，并验证外部条件仍有效。',[['检查点','状态版本、当前位置和外部动作标识'],['故障或等待','进程退出、审批或定时器'],['恢复调度','加载状态与兼容配置'],['一致性确认','查询外部结果后继续、补偿或交接']],[['持久执行有语义成本','活动重放和代码升级需遵循框架约束。'],['写入保证幂等','每个副作用带业务键和最终状态查询。'],['恢复也要授权','旧任务的用户权限可能已经变化。']]]
+      ], ['temporal','langgraph','agentsdk']),
+      sandbox: K('“隔离实验室”限制代码、浏览器和文件操作能接触的网络、磁盘、凭据与算力。机制加餐说明隔离边界、资源策略和产物回收。', ['隔离边界','资源网络','产物清理'], [
+        ['Boundary','每个任务进入最小权限的隔离环境','容器、虚拟机或受限进程为任务建立独立文件系统、用户、进程和系统调用边界，只挂载必要输入。',[['任务准备','代码、数据与允许工具'],['环境创建','隔离用户、文件系统和进程'],['受限执行','捕获标准输出、错误和退出码'],['环境销毁','回收资源并按策略保留产物']],[['容器不是绝对安全边界','高风险不可信代码可需要更强虚拟化。'],['宿主目录不随便挂载','尤其避免整个工作区或凭据目录。'],['镜像可追溯','基础镜像和依赖需扫描、锁定与更新。']]],
+        ['Policy','网络、算力和时间都要显式允许','默认阻断外部网络和敏感端点；按任务开放域名或服务。设置 CPU、内存、磁盘、进程数和执行时限。',[['策略输入','任务类型、数据分类和目标服务'],['资源限制','CPU、内存、磁盘和超时'],['网络控制','允许列表、代理和元数据服务阻断'],['运行监测','异常流量、资源耗尽和策略违规']],[['防止数据外传','网络白名单也要检查请求目的与负载。'],['依赖安装受控','运行中下载未知包会扩大供应链风险。'],['资源耗尽也是风险','死循环和压缩炸弹需要配额。']]],
+        ['Artifacts','只把经过检查的结果带出沙箱','输出文件、日志和下载内容在交付前检查类型、大小、恶意内容和敏感数据；临时凭据和中间文件随环境销毁。',[['产物收集','明确目录和允许文件类型'],['安全扫描','路径、大小、内容与恶意负载'],['数据检查','敏感信息和授权范围'],['受控发布','复制到目标位置并记录来源']],[['防路径穿越','输出不能借相对路径覆盖宿主文件。'],['日志也要清理','命令行和异常栈可能含令牌。'],['可复现信息','保留代码、依赖和输入版本，而非整个秘密环境。']]]
+      ], ['docker','owasp','nist']),
+      event: K('“接力信使”把任务提交、工具完成和人工回复变成可持久的事件。机制加餐覆盖投递语义、幂等消费与失败队列。', ['事件模型','投递消费','重试死信'], [
+        ['Event model','事件描述已经发生的事实，命令描述希望发生的动作','消息包含类型、唯一标识、发生时间、业务键、模式版本和必要负载。生产者不假设消费者内部实现。',[['事件产生','文件已解析、审批已完成等事实'],['封装消息','标识、类型、版本、时间与关联任务'],['写入消息系统','持久化并按主题或队列路由'],['消费者订阅','按自身职责处理']],[['事实用过去式','“文件已解析”比含糊的“处理文件”更易理解。'],['模式版本化','字段变化需兼容旧消费者。'],['负载最小化','大文件存对象存储，事件只带受控引用。']]],
+        ['Delivery','至少一次投递意味着消费者必须处理重复','队列通常在消费者确认前保留消息；进程在处理后确认前崩溃，会导致同一事件再次到达。',[['拉取消息','获得消息与投递上下文'],['幂等检查','业务键是否已处理'],['业务处理','更新状态或触发下一节点'],['确认提交','结果持久化后确认消息']],[['顺序只在有限范围保证','跨分区事件不能默认全局有序。'],['状态与确认协调','避免业务已写入但消息未确认造成重复。'],['可见延迟','积压量和最老消息年龄比总吞吐更能反映用户等待。']]],
+        ['Failure','重试、退避和死信队列各有职责','临时网络故障可退避重试；参数或业务错误应停止并进入死信或人工队列，避免毒消息反复占用消费者。',[['处理失败','分类临时、永久或未知错误'],['有限重试','指数退避并记录次数'],['死信隔离','超过阈值转入专门队列'],['修复重放','校正原因后受控重新处理']],[['死信不是垃圾桶','要有责任人、告警和处理时限。'],['重放仍需幂等','修复后也可能遇到已部分成功的状态。'],['可观测关联','消息标识应连接任务 Trace 与下游事件。']]]
+      ], ['kafka','temporal','opentelemetry']),
+      storage: K('“带标签仓库”根据数据用途选择会话库、对象存储、向量索引与缓存。机制加餐说明一致性、缓存键和过期策略。', ['分层存储','缓存一致性','权限保留'], [
+        ['Layers','不同数据进入不同存储，而不是全塞进一个数据库','任务状态需要事务与版本；大文件进入对象存储；可检索内容进入搜索或向量索引；热点结果才进入缓存。',[['数据分类','状态、文档、向量、产物或临时结果'],['存储选择','事务库、对象存储、索引或缓存'],['引用关联','用稳定标识连接而非复制全部正文'],['生命周期','备份、归档、过期与删除']],[['源数据有主权威库','索引和缓存都是可重建的派生层。'],['一致性需求不同','任务状态比推荐缓存更不能容忍旧值。'],['多租户隔离','存储键、分区和访问策略都应带身份边界。']]],
+        ['Cache','缓存命中前先证明它仍适用于当前请求','缓存键至少考虑模型或工具版本、用户权限、数据版本和关键参数；政策更新或权限变化时主动失效。',[['请求归一化','确定影响结果的身份与参数'],['缓存查找','键、版本、有效期和权限匹配'],['未命中执行','调用模型、检索或工具'],['写入与失效','保存结果并订阅变更事件']],[['不要缓存高风险写入','副作用请求不能用返回值缓存代替真实状态。'],['语义缓存谨慎','相似问题可能有不同部门和时间条件。'],['命中也可追踪','记录使用了哪个缓存版本和原始来源。']]],
+        ['Durability','存得住之外，还要恢复得对、删得掉','备份、复制和灾难恢复要验证恢复点与恢复时间；删除请求和保留期需要覆盖主库、索引、缓存与备份政策。',[['备份策略','频率、加密、地域和保留'],['恢复演练','验证数据、索引和应用兼容'],['删除流程','主记录、派生层和缓存失效'],['审计证明','记录恢复或删除的范围与结果']],[['备份不等于可恢复','必须定期实际演练。'],['索引可重建','保留源文档和构建版本。'],['密钥决定可用性','加密数据恢复还依赖密钥生命周期。']]]
+      ], ['redis','temporal','nist']),
+      a2a: K('“跨团队任务单”让不同 Agent 发现彼此能力、发送任务并跟踪进度。机制加餐区分 Agent 协作与工具调用，并展开任务生命周期和信任边界。', ['能力发现','任务生命周期','跨域信任'], [
+        ['Discovery','调用方先确认远程 Agent 能做什么','远程 Agent 公布能力、输入输出、认证方式和服务端点。调用方根据任务需求选择，而不是把对方当成无边界聊天模型。',[['需求描述','子任务、格式和时限'],['能力卡片','技能、接口、安全与支持模式'],['匹配选择','能力、成本、信任与可用性'],['建立会话','认证并协商交互方式']],[['与 MCP 分工','A2A 偏 Agent 间委派，MCP 偏工具与资源接入。'],['能力声明需验证','不能只相信自报标签。'],['最少上下文','只发送完成子任务所需的信息。']]],
+        ['Task','协作围绕有状态任务，而不只是一次请求响应','任务具有创建、进行、等待输入、完成、失败和取消等状态，可流式返回进度和中间产物。',[['创建任务','目标、输入、上下文和回调方式'],['远程执行','更新状态与阶段性结果'],['交互等待','需要补充信息或人工确认'],['结束处理','结果、错误、取消或交接']],[['任务标识贯穿','便于重试、取消和审计。'],['取消要确认','调用方发出取消后需知道远端是否停止。'],['产物单独管理','大文件用受控引用和明确权限。']]],
+        ['Trust','跨系统协作扩大了身份、数据和责任边界','双方验证身份、授权任务范围、限制可访问数据，并记录委托链。远端结果仍需由调用方按自己的政策验收。',[['双方认证','服务与组织身份'],['委托授权','任务、数据范围和有效期'],['结果验收','模式、证据、安全和来源'],['审计撤销','记录链路并支持终止信任']],[['远端不是自动可信','输出可能错误或含不安全内容。'],['责任不外包','最终系统仍要对自己执行的动作负责。'],['数据驻留','跨区域或第三方发送前检查合规与用户授权。']]]
+      ], ['a2a','mcp','nist'])
+    });
+
+    Object.assign(mechanicsProfiles, {
+      researchagent: K('“带脚注的研究助理”把问题拆成可验证的子问题，搜集一手来源并区分事实、推断与未知。机制加餐覆盖检索计划、证据账本和综合写作。', ['研究计划','证据账本','综合核验'], [
+        ['Plan','先定义问题、范围与评价维度','研究任务需要明确时间范围、地区、比较对象、允许来源和交付格式，再拆成彼此可验证的子问题。',[['研究问题','目标、受众和决策用途'],['范围约束','时间、地区、对象和术语'],['子问题','事实项、比较维度和争议点'],['搜索计划','优先一手来源并安排交叉验证']],[['范围漂移要阻止','新线索只有与目标相关才纳入。'],['术语先统一','不同厂商对 Agent、记忆等词的定义可能不同。'],['停止条件','关键问题覆盖且证据达到标准后结束。']]],
+        ['Evidence','每条关键主张都进入证据账本','记录来源标题、链接、发布日期、访问时间、原文摘录、支持的主张和可信度；把事实与分析者推断分开。',[['来源发现','官方文档、论文、标准或可靠报道'],['来源评估','一手性、时效、利益关系与可访问性'],['证据摘录','保留原文位置和必要上下文'],['主张绑定','一条主张对应一个或多个来源']],[['搜索摘要不算来源','应打开并核验原始页面。'],['冲突不抹平','记录不同来源的口径和时间差。'],['引用可复核','读者能通过链接定位到支持内容。']]],
+        ['Synthesis','结论是证据上的比较，不是资料拼贴','按统一维度对照证据，说明哪些结论确定、哪些依赖假设、哪些仍缺资料。生成后反向检查每个关键句是否被引用支持。',[['整理矩阵','对象、维度、证据和空缺'],['形成判断','事实、推断与建议分层'],['反向核验','逐项检查引用与原文含义'],['交付报告','结论、限制、来源和更新时间']],[['避免多数投票','多个转述不一定胜过一个权威原始来源。'],['数字检查单位','价格、日期和口径必须一致。'],['更新敏感','快速变化主题要标明访问时间并设置复查。']]]
+      ], ['webgpt','rag','gaia']),
+      codingagent: K('“配对程序员”在真实仓库中完成定位、编辑、测试和交接。机制加餐说明仓库上下文、受控工具循环和差异验证。', ['定位上下文','编辑测试循环','交付边界'], [
+        ['Understand','先复现问题，再缩小相关代码范围','Agent 读取仓库说明、构建脚本、相关实现和测试，运行可复现命令并把现象与期望行为对齐。',[['任务输入','Issue、报错和验收条件'],['仓库导航','说明、依赖、调用链与历史'],['最小复现','失败测试或稳定命令'],['修改假设','定位可能根因和影响范围']],[['不先大改','没有复现和上下文时的重构风险很高。'],['尊重本地改动','区分用户未提交修改与当前任务变更。'],['依赖变化需谨慎','升级包会扩大测试与审批范围。']]],
+        ['Loop','一次只做有假设的小改动，并用工具获得反馈','修改后运行格式、静态检查、单元测试和针对性集成测试；失败时读取具体错误，修正假设而非反复生成代码。',[['应用补丁','保持改动小且符合现有模式'],['静态检查','语法、类型、格式和安全规则'],['动态测试','复现用例与相关回归'],['差异审阅','确认没有无关文件和意外行为']],[['测试是外部反馈','比模型自述“应该能运行”可靠。'],['沙箱限制副作用','代码执行控制网络、文件和秘密。'],['生成文件可识别','避免把临时产物或密钥带入提交。']]],
+        ['Handoff','交付的是可审阅变更与验证证据','完成后说明改了什么、为何能解决、运行了哪些检查以及剩余风险。高风险合并和部署仍由既有评审流程决定。',[['变更摘要','行为、文件与设计取舍'],['测试证据','命令、通过结果和未覆盖项'],['差异检查','敏感信息、依赖与迁移影响'],['责任交接','代码审查、合并和发布']],[['能写不等于能发布','生产权限和审批不应自动继承。'],['残余风险诚实','无法运行的测试和环境限制必须明说。'],['回归样本保留','修复 bug 时新增能捕获原问题的测试。']]]
+      ], ['swebench','agentsdk','docker']),
+      dataagent: K('“数据分析台”把业务问题转成口径、查询、计算与可复现结论。机制加餐强调权限、数据质量和图表核验。', ['口径与权限','可复现分析','结论核验'], [
+        ['Frame','先把问题翻译成可计算的指标与范围','确认指标定义、时间窗口、粒度、过滤条件、时区、单位和比较基线，同时只申请必要数据权限。',[['业务问题','例如“销售额为何下降”'],['指标口径','收入确认、退款、税与币种'],['数据范围','时间、区域、产品和用户群'],['查询计划','数据源、连接条件与质量检查']],[['口径变化先于趋势解释','定义变了会制造假增长或下降。'],['最小权限','能查汇总就不开放明细身份数据。'],['时间要明确','事件时间、入库时间和报表时间不同。']]],
+        ['Compute','查询、清洗和计算过程必须可重放','使用保存的 SQL、代码和参数处理缺失、重复、异常与连接关系，记录数据快照或版本，使同一输入可得到同一结果。',[['授权查询','读取确定版本或时间点数据'],['质量分析','缺失、重复、异常和分布变化'],['转换计算','清洗、聚合、统计或建模'],['产物保存','表格、图表、代码和运行元数据']],[['不要静默填补缺失','选择删除、填充或标记要说明理由。'],['连接会放大行数','Join 前后检查主键和记录数。'],['单位与精度','金额、百分比和时区需统一。']]],
+        ['Validate','图表之后还要回到原始数据和业务解释','检查总量、抽样记录、边界条件和替代解释；将事实观察、统计关系和因果推断分开表达。',[['结果校验','总量对账、抽样与敏感性分析'],['可视化检查','坐标、分母、颜色和截断'],['业务复核','与数据负责人确认口径和异常事件'],['结论交付','发现、限制、来源与可复现附件']],[['相关不等于因果','趋势同时变化不能直接证明原因。'],['图表可误导','截断坐标和不同分母会改变视觉结论。'],['高影响决定需复核','财务和运营动作应由责任人确认。']]]
+      ], ['ds1000','nist','agentsdk']),
+      processagent: K('“流程专员”在工单、采购和报销系统中读取状态并推进低风险步骤。机制加餐说明规则、事务副作用和例外升级。', ['状态与规则','受控动作','例外升级'], [
+        ['State','先读取权威业务状态，再决定当前允许的动作','流程 Agent 从业务系统获取工单、订单或申请单状态，结合规则表判断可用转移，不能只凭对话历史推测。',[['业务事件','新工单、审批回复或状态变化'],['权威读取','对象、版本、申请人与当前状态'],['规则匹配','前置条件、阈值和允许转移'],['下一步候选','自动执行、补充资料或人工审核']],[['状态版本防并发冲突','写入时检查读取后的对象是否已被他人修改。'],['规则可追溯','记录命中的政策版本和条件。'],['模型处理例外文本','确定状态机仍由程序控制。']]],
+        ['Action','副作用动作必须先校验、后确认真实结果','模型提出结构化动作，执行层检查权限、业务约束和幂等键，调用系统后再读取最终状态，不能把“已请求”当成“已完成”。',[['动作建议','对象、目标状态和理由'],['执行前控制','权限、参数、阈值与审批'],['系统写入','带版本与幂等标识提交'],['状态确认','查询真实结果并通知相关方']],[['超时先查后重试','避免重复退款或建单。'],['通知与写入分开','邮件发送成功不代表订单状态更新成功。'],['补偿按业务设计','不是所有外部动作都能自动撤回。']]],
+        ['Exception','规则外和高风险情况进入明确的人类队列','材料冲突、金额超阈值、客户争议或无法回退的动作应暂停自动化，交接完整状态和证据。',[['例外识别','冲突、低置信、超阈值或无匹配规则'],['冻结动作','不继续产生副作用'],['交接包','摘要、证据、尝试和待决定项'],['人工决定','批准、修改、拒绝并回写流程']],[['人工参与是设计节点','不是最后才想到的兜底。'],['服务等级可见','例外队列有负责人和处理时限。'],['从例外改进','高频例外可转成新规则或评测样本。']]]
+      ], ['anthropic','temporal','nist']),
+      embodied: K('“带手脚的执行员”把感知、任务规划和低层控制闭成现实世界循环。机制加餐强调语言模型只能参与高层语义，物理安全必须独立保证。', ['感知定位','分层控制','安全闭环'], [
+        ['Perception','传感器读数先变成带不确定性的环境状态','相机、激光雷达、力传感器和关节状态经过标定、融合与目标识别，形成机器人可用于规划的世界模型。',[['传感器采集','图像、距离、力和本体状态'],['标定同步','坐标系、时间和噪声处理'],['感知融合','目标、障碍物、姿态和可通行区域'],['状态估计','带置信与更新时间的环境模型']],[['感知会错','遮挡、反光和传感器故障需要冗余与检测。'],['语言描述不等于坐标','“左边箱子”仍要映射到精确目标和位置。'],['状态会快速过期','运动环境中必须持续更新。']]],
+        ['Hierarchy','高层语言规划与低层实时控制分开','视觉语言动作模型可把指令和视觉转成高层动作或策略，但轨迹规划、力控、碰撞检测和执行频率由专用控制器承担。',[['任务指令','自然语言目标和约束'],['高层策略','选择抓取、移动或观察子任务'],['运动规划','轨迹、速度和碰撞约束'],['低层控制','实时驱动执行器并反馈状态']],[['控制频率不同','语言模型响应不能替代毫秒级控制回路。'],['动作有前置条件','抓取前确认目标、姿态和安全区域。'],['仿真先行','新策略先在数字环境和受控场地验证。']]],
+        ['Safety','安全控制拥有独立、最高优先级的停止权','急停、碰撞限制、速度边界、地理围栏和人工监护不依赖语言模型同意；异常时进入安全状态并保留事件数据。',[['安全传感','人员、障碍、力矩与系统健康'],['独立判断','硬件或实时控制器检查边界'],['保护动作','减速、停止、断能或退回安全姿态'],['恢复审批','排查原因后由授权人员重启']],[['故障安全','通信中断默认进入更安全状态。'],['现实测试渐进','从仿真、围栏、低速到有限生产逐步放量。'],['责任明确','高层 Agent 不承担无法验证的物理安全保证。']]]
+      ], ['rt2','nist','agentbench'])
+    });
+
+    Object.assign(mechanicsProfiles, {
+      knowledgegraph: K('“关系档案员”把文本里的对象与关系变成带出处的结构化证据。机制加餐说明图谱如何从知识源构建、如何参与检索，以及为什么最终仍要回到原始材料。', ['知识接入','关系检索','证据回链'], [
+        ['Ingest','知识源先保留自己的权威性','文档、Wiki、数据库、数据仓库和 API 不是同一种资料。先记录来源、版本、权限和更新时间，再决定哪些内容要切分、向量化或抽取为实体关系。',[['识别来源','文档、表、数据库或业务 API'],['登记元数据','来源、版本、权限、生效时间'],['解析内容','正文、表格、字段和结构'],['建立派生索引','文本块、向量、实体或关系']],[['源数据优先','图谱与向量索引通常是可重建的派生层。'],['权限前置','不该看的关系也不应进入检索候选。'],['结构不替原文','实体名称和关系标签要能追到原始出处。']]],
+        ['Graph','图谱将“是什么”与“怎么相关”分开表示','实体可以是产品、客户、制度或地区；关系可以是适用、归属、依赖或替代。每条关系应记录来源片段、时间和置信信息，避免把模型猜测当成事实。',[['识别实体','从资料中定位对象'],['关系候选','抽取对象之间的关系'],['规范对齐','合并别名，消除同名歧义'],['证据绑定','关系回链到原始资料']],[['实体消歧重要','“苹果”可能是公司、产品或水果。'],['关系需版本','组织架构和政策适用关系都会改变。'],['抽取须校验','高影响关系可用规则、人工或多源交叉验证。']]],
+        ['Retrieve','GraphRAG 将关系路径与文本证据结合','面对多跳问题，可先沿相关实体和关系找到局部子图，再取回支持这些关系的文本片段，与关键词或向量检索结果一起重排。它适合关系本身是答案一部分的任务。',[['理解问题','识别对象、条件和关系'],['定位子图','扩展必要的相邻实体和边'],['合并文本检索','取回原文条款与说明'],['生成并引用','结论回到证据和路径']],[['不是通用升级','简单文档问答通常先用高质量文本 RAG。'],['路径要受限','无边界扩图会引入噪声、时延和不相关信息。'],['答案须引用','图上路径说明关系，原文证明关系为何成立。']]]
+      ], ['rag','hnsw','nist']),
+      memorytypes: K('“分类收纳员”强调记忆不是一个数据库字段。机制加餐按信息用途拆分不同记忆类型，并用写入、检索和治理三个环节防止把临时或敏感信息带到未来。', ['类型判断','写入与读取','画像治理'], [
+        ['Classify','先问这条信息在未来任务中承担什么角色','工作记忆保存当前任务进度；情景记忆记录曾经发生的可复盘事件；语义记忆保存经过验证的稳定事实；用户画像保存经允许的偏好和约束。',[['发现信息','对话、工具结果或人工反馈'],['判断用途','任务状态、经历、事实或偏好'],['标记来源','谁提供、何时提供、是否验证'],['决定去向','短期状态、长期库或不保存']],[['类型可重叠','一条内容可有多个标签，但保留规则应明确。'],['不要把推断当事实','模型总结出的偏好应等待用户确认或多次证据。'],['状态会过期','任务完成后应归档、删除或转化为经过筛选的经验。']]],
+        ['Retrieve','读取前先匹配当前任务，而非全量塞入上下文','对每类记忆按身份、权限、时间、相关性和 token 预算过滤。当前任务只读取完成此事需要的信息，并将来源和时间带入模型上下文。',[['当前任务','目标、用户和权限范围'],['筛选候选记忆','类型、相关性、时效和可信度'],['压缩与排序','保留最必要的项目'],['构造上下文','说明来源和不确定性']],[['画像不是默认上下文','只有确实影响当前回答的偏好才取用。'],['避免跨用户污染','租户和用户身份是记忆检索的硬过滤条件。'],['支持更正','记忆读取应能展示、修改或删除相关记录。']]],
+        ['Govern','用户画像需要目的、同意和退出机制','保存偏好前应说明用途，设置保留期与删除入口。敏感属性、未成年人信息和高影响推断应遵循更严格的最小化与人工政策。',[['明确用途','个性化、可访问性或任务约束'],['取得必要授权','由产品和合规策略决定'],['受控保存','权限、保留期和审计'],['删除与失效','主库、索引和缓存一起处理']],[['少存更稳','没有明确价值的信息不应进入画像。'],['存储不是授权','能保存不等于每个 Agent 都能读取。'],['删除要闭环','只删除前台展示而不清理检索索引并不完整。']]]
+      ], ['memgpt','middle','nist']),
+      execution: K('“受控执行台”把模型意图变成 API、代码或浏览器中的真实动作。机制加餐聚焦共同的工具契约，以及三类执行通道各自的边界。', ['统一契约','三类通道','结果确认'], [
+        ['Contract','模型只提交结构化意图，执行层保有控制权','工具模式规定动作名称、参数、类型、权限和错误类型。模型选择工具并给出参数，应用独立校验后执行，再返回结构化、可追踪的结果。',[['工具描述','输入、输出、风险与限制'],['模型提议','函数与参数'],['执行校验','身份、参数、业务规则'],['结果返回','成功、失败或待确认']],[['参数模式不是业务规则','金额上限和审批状态应由执行层再判断。'],['错误要分类','参数错误、权限拒绝和网络超时不能同样重试。'],['副作用要幂等','重复请求不能创建两笔订单。']]],
+        ['Channels','API、代码和浏览器适合不同的系统边界','稳定业务系统优先使用 API；需要计算、转换或分析时使用隔离代码环境；只有缺少 API 或需要真实界面语义时才使用浏览器自动化。',[['API','受版本和权限控制的系统接口'],['Code','沙箱中的计算、文件处理或测试'],['Browser','在受限会话中观察和操作界面'],['选择策略','按可靠性、权限和可审计性取舍']],[['API 通常更稳','它比页面元素更不易随界面变化失效。'],['代码需隔离','网络、文件、依赖和资源都要限制。'],['浏览器需观察','页面显示“已提交”后仍可能需要读取业务状态确认。']]],
+        ['Confirm','动作完成要以权威结果为准','调用返回、页面提示或进程退出只能说明请求的某个阶段。高影响动作应读取权威业务状态、记录操作标识，并在失败时提供恢复或人工接管。',[['执行请求','带任务 ID 和幂等键'],['获取返回','状态码、日志或页面结果'],['权威确认','重新读取订单、工单或文件状态'],['交付记录','证据、结果和未完成项']],[['不要编造成功','工具失败时应告诉用户真实状态。'],['超时先查询','避免对可能已经成功的写操作直接重试。'],['产物需检查','代码和浏览器下载的文件也要做敏感与格式检查。']]]
+      ], ['toolformer','docker','agentsdk']),
+      mcpobjects: K('“能力目录管理员”把 MCP 中 Client、Server、Tools、Resources 与 Prompts 分开理解。机制加餐从连接、能力模型与安全边界说明它们如何协作。', ['连接角色','能力对象','授权边界'], [
+        ['Roles','Client 使用能力，Server 暴露能力','MCP Client 位于模型应用侧，负责建立连接、发现能力和发起请求；MCP Server 对外声明自己支持的对象与操作，并将请求转换为后端系统调用。',[['Client 发起连接','协商协议与认证方式'],['Server 接受连接','声明版本和能力'],['Client 发现目录','读取可用对象描述'],['按契约交互','调用或读取并处理结果']],[['角色可以多层嵌套','一个应用可同时连接多个 Server。'],['协议不是部署方式','本地进程、远程服务等传输形态不同，安全要求也不同。'],['能力发现不等于信任','目录里的能力仍需经过本地策略筛选。']]],
+        ['Objects','三类原语表达三种不同用途','Tool 表示可调用动作；Resource 表示可读取的上下文或数据；Prompt 表示可复用的提示模板。把对象类型说明清楚，Client 才能以正确方式展示、调用和记录它们。',[['Tool','名称、参数模式与调用结果'],['Resource','标识、内容或访问方式'],['Prompt','参数化模板与消息结构'],['Client 编排','按对象类型接入任务']],[['Tool 可有副作用','必须显示风险和权限边界。'],['Resource 也会敏感','读取资料同样需要访问控制与审计。'],['Prompt 不是系统策略','服务端模板不能覆盖 Client 的高优先级安全约束。']]],
+        ['Security','MCP 连接必须保留应用自身的授权链','认证确认连接方身份；授权决定可看到或执行哪些能力；工具执行层仍检查参数、用户委托和审批。模型生成的内容及远端返回内容都应视为不可信数据。',[['身份建立','客户端、服务器和用户上下文'],['最小能力暴露','按用户和任务过滤目录'],['每次调用校验','参数、策略和审批'],['审计与撤销','关联任务、能力与结果']],[['不要共享万能令牌','Client 连接 Server 不应自动获得所有后端权限。'],['远端输出需检查','Resource 和 Tool 返回都可能含不可信文本。'],['能力变更可见','Server 更新工具模式或权限时应有版本和回归测试。']]]
+      ], ['mcp','agentsdk','nist']),
+      supervisor: K('“项目总控”不是多一个会聊天的 Agent，而是负责分派、通信、验收和停止的控制节点。机制加餐说明主管如何让多个 Agent 的协作可验证。', ['任务分派','通信契约','验收停止'], [
+        ['Delegate','任务要按交付物和依赖拆分','主管根据目标、风险、预算和可用能力选择单 Agent、并行专家或人工节点。每个子任务需写清输入、期望产物、证据要求、时限和权限。',[['总目标','范围、成功条件和预算'],['分解依赖','并行与顺序节点'],['选择执行者','能力、权限和成本匹配'],['发出任务','结构化输入与验收标准']],[['先证明需要协作','简单任务不应因角色数量而复杂化。'],['最小上下文','子 Agent 只收到完成任务必要的信息。'],['预算可传递','每次委派都要消耗可观测的时间和成本额度。']]],
+        ['Communicate','中间产物要比长段对话更可复用','建议统一传递结论、证据链接、置信度、假设、未解决项和可机器校验的字段。主管据此判断是合并、补问、交给验证者还是停止。',[['任务消息','目标、输入和限制'],['子任务产物','结构化结论与证据'],['冲突检测','比较来源、假设和数值'],['主管决策','采纳、退回、交接或升级']],[['通信可版本化','字段变更和大型产物应有稳定引用。'],['不要共享全部思维','需要的是可检查结果，而非不可验证的内部推演。'],['状态要有权威源','共享白板与数据库更新要处理并发和冲突。']]],
+        ['Accept','最终验收与停止由规则和证据共同决定','主管对照成功标准检查证据覆盖、格式、权限和预算。关键结论可交给独立验证者或规则引擎，高风险动作进入人工审批。',[['汇总候选','来自多个执行者的产物'],['验证关键项','规则、测试或独立证据'],['作出决策','完成、修订、升级或失败'],['记录链路','父子任务与最终责任']],[['主管不能自证正确','关键结论应有外部验证。'],['设定停止条件','避免专家间无尽追问或辩论。'],['责任不可转移','外部 Agent 的输出仍需由最终系统按自身政策验收。']]]
+      ], ['autogen','langgraph','a2a']),
+      gateway: K('“模型服务总闸”统一管理模型调用的服务边界。机制加餐区分网关治理与业务路由，并说明限流、降级和观测如何协同。', ['请求治理','路由与回退','用量观测'], [
+        ['Ingress','先识别调用方和服务约束','网关接收应用请求后，验证身份，应用租户配额、内容长度、区域和允许模型策略，再将标准化请求发往后端模型服务。',[['应用请求','模型、消息与身份上下文'],['策略校验','可用模型、配额和区域'],['标准化调用','统一参数和重试语义'],['后端服务','一个或多个模型提供方']],[['网关与模型解耦','业务侧不必嵌入每家供应商的协议差异。'],['租户隔离','预算、速率和日志应按租户区分。'],['不要泄露密钥','模型凭据由网关或受控服务保存。']]],
+        ['Route','按服务可用性选择，不替业务决定任务','网关可因模型健康、区域、成本或策略选择具体端点，也可在故障时回退；Agent 的任务路由则根据问题难度和业务风险决定要不要用模型、检索或人工。',[['业务路由','选择任务所需能力'],['网关选择','落到允许的模型端点'],['调用执行','限流、超时和重试'],['回退结果','备用模型、排队或明确失败']],[['两层都要记录','否则难以解释某个回答为何用了某版本。'],['回退须评测','备用模型可能改变格式、质量与安全表现。'],['不是所有错误重试','认证和参数错误应快速失败并暴露原因。']]],
+        ['Observe','用量、质量与版本要能关联','记录模型版本、输入输出 token、首 token 与总时延、错误码、缓存命中、成本和降级事件，并与上层任务 Trace 关联。',[['调用 Span','请求 ID 与模型版本'],['指标聚合','成本、时延、错误和限流'],['异常告警','按客户、模型或区域分组'],['策略改进','调配额、路由和缓存']],[['成本不能脱离质量','省 token 后需检查任务完成与安全是否退化。'],['日志要脱敏','用量观测不等于永久保存完整输入。'],['版本可回滚','服务策略变化应具备快速恢复路径。']]]
+      ], ['agentsdk','opentelemetry','nist']),
+      schedule: K('“值班钟”把周期与事件转成可恢复任务。机制加餐区分触发、可靠交付和执行状态，避免“定时器跑过了”被误认为“业务完成了”。', ['触发设计','可靠执行','异常处置'], [
+        ['Trigger','时间与事实是两类不同的启动信号','定时任务适合周期检查、批处理和到期提醒；业务事件适合资料入库、审批完成或工具完成后的接力。触发器应携带唯一键与来源信息。',[['时间或事件','计划时间、对象变更或外部回调'],['去重判定','业务键与窗口'],['创建任务','绑定输入、版本和追踪 ID'],['交给调度','进入运行时或消息队列']],[['事件是过去式事实','“文档已入库”比“处理文档”更适合解耦。'],['时区要明确','周期任务最容易在夏令时和跨区域场景出错。'],['触发可重放','变更失败后应能受控重建任务。']]],
+        ['Execute','一次触发可拆成长期任务链','调度器创建任务后，运行时保存状态，队列分发阶段事件，消费者在副作用完成后才确认。每一步使用幂等键以承受至少一次投递。',[['任务创建','状态为待执行'],['阶段处理','解析、索引、评测等节点'],['状态确认','结果持久化后推进'],['完成或失败','保留证据和恢复点']],[['不要依赖内存计时','进程重启后计划与状态需要恢复。'],['消费者要幂等','重复投递不能重复建索引或重复通知。'],['大任务分段','让每步都能重试、取消和观测。']]],
+        ['Recover','失败要进入可见的处理路径','对瞬时错误采用有限退避重试；对数据、权限或业务错误终止并进入死信或人工队列。监控漏触发、延迟和重复率，而非只监控进程存活。',[['失败分类','临时、永久或未知'],['有限重试','退避与上限'],['隔离异常','死信、告警或人工队列'],['修复重放','校正后用同一业务键恢复']],[['死信需要责任人','否则只是隐藏失败。'],['重放仍检查状态','部分完成的动作可能已经留下副作用。'],['向用户说明进度','长任务应展示已完成与待处理的阶段。']]]
+      ], ['temporal','kafka','opentelemetry']),
+      delivery: K('“发布指挥台”把 Agent 当作包含模型、提示词、知识、工具与策略的整体版本。机制加餐说明发布前的证据、灰度中的观测和回滚后的复盘。', ['发布包','渐进放量','回滚复盘'], [
+        ['Package','一个可发布版本不只是一段代码','发布清单应包含模型与提示词版本、索引构建版本、工具模式、策略、配置、评测结果和依赖环境，才能在异常时复现。',[['构建产物','代码、容器或服务配置'],['版本清单','模型、提示、索引与工具'],['发布门槛','测试、评测、安全与容量检查'],['候选环境','影子、预发或沙箱']],[['配置也要版本化','一个环境变量差异可能改变行为或权限。'],['密钥不进发布包','通过受控环境在运行时注入。'],['评测是门槛','不能只用构建成功作为发布依据。']]],
+        ['Rollout','用小流量验证真实分布下的表现','先影子运行或灰度到低风险流量，比较新旧版本的任务成功、引用、时延、成本、安全事件与人工接管，再逐步扩大。',[['选择分流','用户、任务或租户维度'],['观察指标','质量、系统和安全信号'],['扩大或暂停','根据预设阈值决策'],['全量发布','保留版本与监控']],[['分流需可解释','高风险用户或任务应有更保守策略。'],['平均值不够','关注长尾失败和特定工具错误。'],['流量分配可追溯','实验与灰度要知道谁使用了哪个版本。']]],
+        ['Rollback','回滚需要状态与兼容性预案','发现退化后停止放量、切回已验证版本，并处理异步任务、缓存、数据模式和正在执行的工作流。之后把事件沉淀为评测样本与防复发措施。',[['触发阈值','质量、安全或可用性退化'],['停止影响','暂停高风险工具或流量'],['切换版本','恢复稳定策略与依赖'],['复盘改进','根因、样本与监控项']],[['回滚不是删日志','需要保留现场证据与版本关联。'],['数据迁移需可逆','不可逆模式变化要独立审批和演练。'],['修复后再灰度','不能因一次回滚就跳过回归验证。']]]
+      ], ['agentsdk','langgraph','opentelemetry']),
+      approval: K('“责任签核台”将系统无法独自承担的决策变成明确的人类关口。机制加餐解释如何触发审批、构造审批包和处理超时与审计。', ['触发规则','审批包','决定回写'], [
+        ['Trigger','审批条件应由可审计策略决定','金额、影响范围、不可逆性、法律合规、低置信、策略冲突或用户要求都可以触发审批。触发后先冻结副作用，而不是先执行再补签。',[['动作候选','对象、参数和预期影响'],['策略评估','风险、权限和阈值'],['命中关口','暂停自动执行'],['创建审批','关联任务与有效期']],[['规则应可解释','审批人需要知道为什么此事被送来。'],['低置信不等于高风险','两者可组合，但需分别定义门槛。'],['避免审批泛滥','低风险、可逆任务过度审批会使系统失去效率。']]],
+        ['Package','人需要足够证据，而不是一段模型结论','审批包应包含动作摘要、参数、风险、适用规则、证据链接、可选决定、截止时间和撤销方式。敏感原文按最小权限展示。',[['收集证据','来源、状态与规则命中'],['生成摘要','说明建议与影响'],['展示选项','批准、修改、拒绝或补充资料'],['保护内容','按审批人权限过滤']],[['不可只给“是否同意”','缺上下文会让人工成为盲目橡皮图章。'],['审批 UI 可结构化','修改金额、收件人等要经过再次校验。'],['时效明确','超时后应取消、升级或继续等待，不能无限悬挂。']]],
+        ['Decision','审批结果必须回到原任务并可追溯','批准后重新校验当前状态与权限再执行；修改或拒绝后记录理由并更新任务。每次决定关联身份、时间、依据、结果和后续副作用。',[['人工决定','批准、修改、拒绝或撤回'],['重新校验','对象状态、权限与额度'],['受控执行','带幂等键和结果确认'],['审计记录','任务、决定、执行与影响']],[['审批不是永久许可','一次批准不应自动授权后续不同动作。'],['并发要防冲突','审批期间业务对象可能已被他人修改。'],['失败可见','批准后工具失败要告知审批人和任务所有者。']]]
+      ], ['nist','oauth','agentsdk']),
+      release: K('“实验记录员”让改动与结果可以建立因果关系。机制加餐将版本对象、离线对比和线上实验放进一条持续优化链。', ['版本对象','离线验证','线上实验'], [
+        ['Version','需要追踪所有会改变行为的组件','模型、提示词、检索索引、切分器、工具模式、工作流、护栏、评测集和配置都可能改变输出。版本清单把一次任务关联到这些组件。',[['候选改动','明确假设和预期指标'],['版本登记','组件、依赖与兼容关系'],['构建评测','固定样本和环境'],['生成证据','差异与风险说明']],[['不要只记模型版本','检索索引或工具字段变化同样会造成回归。'],['评测集也有版本','标签或样本变化会影响得分解释。'],['假设先行','先说清想改善什么，避免事后挑指标。']]],
+        ['Offline','在可控环境中先判断是否值得上线','对新旧版本运行同一批常见、边界、对抗和高风险任务，比较任务完成、过程正确、引用、安全、成本与时延，并按失败类型拆解。',[['固定任务集','输入、环境和评分规则'],['运行对照','旧版与候选版'],['分层评分','结果、过程、安全和成本'],['发布判断','通过、修订或拒绝']],[['离线并非现实全貌','仍需线上监测分布变化和外部依赖。'],['统计要有样本量','小样本差异不应轻易当作胜负。'],['人工评审关键例','自动评分器也可能偏向某种表达。']]],
+        ['Online','灰度与 A/B 用于确认真实收益并限制风险','按预先定义的分流和停止规则比较版本。线上失败样本经过脱敏、标注和复核后回流离线集，形成新的回归门槛。',[['灰度分流','控制人群、风险和流量'],['监控结果','成功、时延、成本和安全'],['停止或放量','按阈值决策'],['样本回流','复核后加入评测集']],[['不要混改','多项改动同时上线会削弱归因。'],['快速停止','安全或质量退化应先止损。'],['实验尊重权限','分流与日志不能破坏用户授权和隐私规则。']]]
+      ], ['agentbench','openaiEval','opentelemetry']),
+      officeagent: K('“业务助理”覆盖办公、客服和销售的高频协作任务。机制加餐将资料准备、沟通草稿和受控写入分开，避免把效率工具变成无边界的对外代理。', ['资料准备','沟通生成','业务写入'], [
+        ['Prepare','先把业务上下文和权限准备对','任务开始前读取经授权的客户记录、产品资料、历史工单和会议材料，标明来源与时效，再为当前对象整理摘要和待办。',[['身份与对象','客户、机会或工单'],['权限过滤','只取必要资料'],['资料整理','来源、时间和关键事实'],['草稿上下文','交给生成与人工审阅']],[['客户数据最小化','不要因写一封邮件而读取全部历史。'],['区分事实与建议','会议记录中的猜测不能直接成为 CRM 事实。'],['来源可回看','关键承诺应能定位到原始材料。']]],
+        ['Draft','输出先作为可审阅草稿','模型可起草邮件、会议纪要、工单分类、知识答复或下一步建议，但需要明确语气、受众、事实依据和不可承诺事项。',[['任务目标','摘要、回复或建议'],['生成草稿','带结构与引用'],['规则检查','敏感信息、禁用承诺和格式'],['人工审阅','确认、修改或退回']],[['不要伪装真人决定','对外消息需清晰的人类责任主体。'],['敏感场景升级','投诉、法律、价格和退款不能仅靠自动文案。'],['质量看业务结果','不仅看文本流畅，也看解决率和客户纠正。']]],
+        ['Act','写入系统时采用最小动作和可回滚策略','对 CRM、工单或日历的更新应校验字段、对象版本、权限和审批状态，并读取回写后的真实记录。批量操作需要范围预览与撤销计划。',[['动作建议','字段、对象和理由'],['执行前校验','权限、规则与幂等'],['受控写入','API 或浏览器通道'],['确认与审计','读取结果并记录']],[['草稿与发送分离','生成邮件不等于发送邮件。'],['写入需确认','返回成功也应检查最终对象状态。'],['异常可交接','保留原始请求、证据和已完成步骤供人工处理。']]]
+      ], ['webarena','agentsdk','nist'])
+    });
+
+    const params = new URLSearchParams(location.search);
+    const requestedTopic = params.get('topic');
+    const topicKey = topics[requestedTopic] ? requestedTopic : 'foundation';
+    const topic = topics[topicKey];
+    const requestedChild = params.get('child');
+    let activeChild = topic.children.find(child => child.id === requestedChild) || topic.children[0];
+    document.documentElement.style.setProperty('--accent', topic.color);
+    document.title = `${topic.title} | AI Agent 知识图谱`;
+
+    const topicOrder = ['foundation','context','improvement','core','capabilities','orchestration','evaluation','governance','runtime','applications'];
+    const interviewTopicMap = {foundation:'foundation',context:'rag',improvement:'memory',core:'agent',capabilities:'tools',orchestration:'multiagent',evaluation:'evaluation',governance:'safety',runtime:'system',applications:'project'};
+    const nav = document.getElementById('moduleNav');
+    topicOrder.forEach(key => {
+      const item = topics[key];
+      const link = document.createElement('a');
+      link.href = `模块下钻.html?topic=${key}`;
+      link.innerHTML = `${item.no} ${item.title}<small>${item.english}</small>`;
+      if (key === topicKey) link.setAttribute('aria-current', 'page');
+      nav.append(link);
+    });
+
+    const content = document.getElementById('content');
+    const componentNav = document.getElementById('componentNav');
+    const escapeHtml = value => value.replace(/[&<>'"]/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[character]));
+    const refLinks = keys => keys.map(key => `<li><a href="${refs[key][1]}" target="_blank" rel="noreferrer">${refs[key][0]}</a></li>`).join('');
+    const relationshipSvg = () => `
+      <div class="relation"><svg viewBox="0 0 860 390" role="img" aria-label="${escapeHtml(topic.title)}的结构与关联关系图">
+        <path class="rel-link main" d="M220 126H330M530 126H640"/><path class="rel-link" d="M430 190V278M220 298H330M530 298H640"/>
+        <g class="rel-node"><rect x="45" y="78" width="175" height="96"/><text x="132" y="116">上游输入</text><text class="minor" x="132" y="142">${escapeHtml(topic.inbound)}</text></g>
+        <g class="rel-node center"><rect x="330" y="62" width="200" height="128"/><text x="430" y="111">${escapeHtml(topic.title)}</text><text class="minor" x="430" y="137">${escapeHtml(topic.core)}</text></g>
+        <g class="rel-node"><rect x="640" y="78" width="175" height="96"/><text x="727" y="116">下游产物</text><text class="minor" x="727" y="142">${escapeHtml(topic.outbound)}</text></g>
+        <g class="rel-node"><rect x="45" y="250" width="175" height="96"/><text x="132" y="288">治理约束</text><text class="minor" x="132" y="314">${escapeHtml(topic.guard)}</text></g>
+        <g class="rel-node"><rect x="330" y="250" width="200" height="96"/><text x="430" y="288">结构关系</text><text class="minor" x="430" y="314">模型 + 数据 + 规则 + 执行</text></g>
+        <g class="rel-node"><rect x="640" y="250" width="175" height="96"/><text x="727" y="288">可观测证据</text><text class="minor" x="727" y="314">轨迹、结果、评测、反馈</text></g>
+      </svg></div>`;
+    const foundationPrimer = () => topicKey === 'foundation' ? `
+      <div class="foundation-primer"><div class="foundation-primer-main"><h3>别把它们当成五个版本的“聊天模型”</h3><p>这五类模型更像一个小团队：有人负责读图和听声音，有人负责写和规划，有人在资料堆里找相近内容，有人从候选里挑最贴题的，还有人负责把通用能力调成适合当前任务的样子。</p><div class="model-cast"><div><b>会写</b><span>大语言模型<br>组织语言与意图</span></div><div><b>会看</b><span>多模态模型<br>理解图像与声音</span></div><div><b>会找</b><span>向量嵌入模型<br>找到语义相近资料</span></div><div><b>会挑</b><span>重排序模型<br>从候选中排优先</span></div><div><b>会调</b><span>模型适配<br>让行为贴合任务</span></div></div></div><aside class="foundation-primer-side"><h3>报销助手收到一张发票</h3><ol><li>多模态模型读出图片里的文字、表格和金额。</li><li>向量嵌入模型从制度库找相似条款。</li><li>重排序模型优先留下当前部门、当前版本的规则。</li><li>大语言模型整理成易读说明，必要时提出工具调用。</li><li>模型适配让语气、格式和业务口径保持稳定。</li></ol></aside></div>` : '';
+    function updateUrl({ preserveHash = false } = {}) {
+      const isShareableHash = hash => ['#child-visual', '#llm-visual', '#llm-mechanics'].includes(hash) || hash.startsWith('#mechanics-');
+      const hash = preserveHash && isShareableHash(location.hash) ? location.hash : '';
+      history.replaceState({}, '', `模块下钻.html?topic=${topicKey}&child=${activeChild.id}${hash}`);
+    }
+    function renderDeepDive() {
+      const container = document.getElementById('llmDeepDive');
+      const child = activeChild;
+      const childNo = String(topic.children.indexOf(child) + 1).padStart(2, '0');
+      if (topicKey === 'foundation' || mechanicsProfiles[child.id]) {
+        const talk = talkTracks[child.id];
+        const mechanics = foundationMechanics[child.id] || mechanicsProfiles[child.id];
+        const mechanicsId = `mechanics-${child.id}`;
+        const llmAlias = child.id === 'llm' ? '<span id="llm-visual" aria-hidden="true"></span>' : '';
+        const llmRoute = `<nav class="llm-route" aria-label="${escapeHtml(child.title)}阅读层级"><a href="#childDetail"><span>01 / 基础图解</span><strong>定义、输入与输出</strong></a><div class="current"><span>02 / 大话</span><strong>任务现场与交棒</strong></div><a href="#${mechanicsId}"><span>03 / 机制加餐</span><strong>模型原理与工程取舍</strong></a></nav>`;
+        const mechanicsGuide = child.id === 'llm' ? '' : `
+          <section class="llm-deep-dive mechanics-deep-dive" id="${mechanicsId}" aria-labelledby="${mechanicsId}-title">
+            <div class="llm-lede"><div><p class="llm-kicker">03 / 机制加餐 · 与「大话大语言模型」同级</p><h3 id="${mechanicsId}-title">机制加餐：${escapeHtml(child.title)}怎样完成这一步</h3><p>${escapeHtml(mechanics.intro)}</p><div class="mechanics-map" aria-label="${escapeHtml(child.title)}机制加餐内容索引">${mechanics.map.map(item => `<span>${escapeHtml(item)}</span>`).join('')}</div></div><a class="llm-backlink" href="#child-visual">返回大话${escapeHtml(child.title)}</a></div>
+            ${mechanics.parts.map(part => `<div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">${escapeHtml(part.kicker)}</p><h3>${escapeHtml(part.title)}</h3></div><p class="llm-note">${escapeHtml(part.note)}</p></div><div class="mechanics-flow"><div class="mechanics-flow-inner">${part.stages.map((stage, index) => `<article class="mechanics-stage"><span>${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(stage[0])}</strong><p>${escapeHtml(stage[1])}</p></article>`).join('')}</div></div><div class="mechanics-notes">${part.notes.map(note => `<div><b>${escapeHtml(note[0])}</b><span>${escapeHtml(note[1])}</span></div>`).join('')}</div></div>`).join('')}
+            <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">Evidence</p><h3>继续阅读</h3></div></div><ul class="refs">${refLinks(mechanics.refs)}</ul><a class="other-link" href="#childDetail">返回${escapeHtml(child.title)}概览 -></a></div>
+          </section>`;
+        const foundationGuide = `
+          <section class="talk-deep-dive" id="child-visual" aria-labelledby="child-visual-title">${llmAlias}
+            <div class="talk-intro"><div><h3 id="child-visual-title">大话${escapeHtml(child.title)}</h3></div><a class="talk-backlink" href="#childDetail">返回基础图解</a></div>
+            ${llmRoute}
+            <div class="talk-stage"><div class="talk-story"><h4>小剧场</h4><p class="talk-bubble">用户：${escapeHtml(talk.ask)}</p><div class="talk-cast"><span class="talk-badge">角色</span><div><strong>${escapeHtml(talk.role)}</strong><span>${escapeHtml(talk.move)}</span></div></div><div class="talk-cast"><span class="talk-badge">交棒</span><div><strong>它做完以后</strong><span>${escapeHtml(talk.partner)}</span></div></div></div><aside class="talk-console"><h4>点一下看分工</h4><div class="talk-switch" aria-label="大话${escapeHtml(child.title)}的分工说明"><button type="button" data-talk="do" aria-pressed="true">它现在帮什么忙</button><button type="button" data-talk="partner" aria-pressed="false">下一位该找谁</button><button type="button" data-talk="trap" aria-pressed="false">别把它当成什么</button></div><p class="talk-answer" id="talkAnswer"><b>它现在帮什么忙</b>${escapeHtml(talk.move)}</p></aside></div>
+            <div class="talk-memory"><div class="talk-memory-tag">${escapeHtml(talk.memory)}</div><div><h4>记忆钩</h4><p>${escapeHtml(talk.trap)}</p></div></div>
+          </section>`;
+        if (child.id !== 'llm') {
+          container.innerHTML = `${foundationGuide}${mechanicsGuide}`;
+        } else {
+          container.innerHTML = `${foundationGuide}
+            <section class="llm-deep-dive" id="${mechanicsId}" aria-labelledby="llm-mechanics-title"><span id="llm-mechanics" aria-hidden="true"></span>
+              <div class="llm-lede"><div><p class="llm-kicker">03 / 机制加餐 · 与其他四类模型同级</p><h3 id="llm-mechanics-title">机制加餐：大语言模型怎样生成与决策</h3><p>“文稿起草员”是任务现场的比喻；下面拆开它的真实工作：文字如何被切成词元，词元如何关联并产生候选，以及为什么它必须与检索、工具和验证协作。</p><div class="mechanics-map" aria-label="机制加餐内容索引"><span>词元</span><span>生成</span><span>注意力</span><span>Agent 分工</span><span>采样</span><span>边界</span></div></div><a class="llm-backlink" href="#child-visual">返回大话大语言模型</a></div>
+              <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">01 / Token</p><h3>它读的不是完整句子，而是词元</h3></div><p class="llm-note">词元（token）是模型处理文本的基本片段，可能是一个字、一个词的一部分、标点或空格。不同模型的切分方式不同，所以“一个字等于一个 token”并不准确。</p></div><div class="llm-token-board"><div class="llm-token-main"><h4>“请总结这份合同”会被拆成可计算片段</h4><p>实际切分由具体分词器决定；下面只是概念示意。</p><div class="llm-tokens"><div class="llm-token">请<small>词元 1</small></div><span class="llm-arrow">+</span><div class="llm-token">总结<small>词元 2</small></div><span class="llm-arrow">+</span><div class="llm-token">这份<small>词元 3</small></div><span class="llm-arrow">+</span><div class="llm-token">合同<small>词元 4</small></div></div></div><aside class="llm-token-side"><h4>三个直接影响</h4><div class="llm-fact"><b>上下文长度</b><span>模型以词元计量输入与输出容量，而不是以汉字或页数计量。</span></div><div class="llm-fact"><b>成本与时延</b><span>读得更多、写得更多，通常意味着更多计算和更高成本。</span></div><div class="llm-fact"><b>结构化输出</b><span>JSON、代码、工具参数也都是词元序列，需要通过模式和校验保证可靠。</span></div></aside></div></div>
+              <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">02 / Generation</p><h3>一轮生成：从文字到下一个词元</h3></div><p class="llm-note">模型内部有很多重复层与矩阵计算；对使用者而言，理解“表示 -> 关联 -> 概率 -> 选择”已足以建立正确直觉。</p></div><div class="llm-pipeline"><div class="llm-pipeline-inner"><article class="llm-pipe"><span class="number">A</span><strong>分词</strong><p>把文字转成词元编号。</p></article><article class="llm-pipe"><span class="number">B</span><strong>词向量与位置</strong><p>把编号映射为数字向量，并标注顺序。</p></article><article class="llm-pipe"><span class="number">C</span><strong>Transformer 层</strong><p>反复计算词元之间的上下文关系。</p></article><article class="llm-pipe"><span class="number">D</span><strong>候选概率</strong><p>为可能的下一个词元产生概率分布。</p></article><article class="llm-pipe"><span class="number">E</span><strong>采样或选择</strong><p>选出下一个词元，重复直到停止。</p></article></div></div></div>
+              <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">03 / Attention</p><h3>注意力机制：决定当前片段该参考谁</h3></div><p class="llm-note">注意力机制（attention）允许模型在处理某个位置时，对其他位置赋予不同权重。它不是人类的“专注力”，也不等于模型真正理解了语言，但它有效建立了上下文关联。</p></div><div class="llm-attention"><div class="llm-attention-visual"><h4>例：理解“合同在明天到期”中的“到期”</h4><p>当前词元可以更关注“合同”“明天”等与语义和时间有关的片段。</p><div class="llm-sentence"><span class="llm-attention-line llm-line-one"></span><span class="llm-attention-line llm-line-two"></span><span class="llm-attention-line llm-line-three"></span><span class="llm-word">合同</span><span class="llm-word">在</span><span class="llm-word">明天</span><span class="llm-word active">到期</span></div></div><aside class="llm-attention-copy"><h4>它解决什么</h4><ul class="llm-list"><li>在长句或文档片段中建立关联，而不是只看紧邻的字。</li><li>让模型根据位置和语义，在生成下一步时选择不同信息作为参考。</li><li>配合多层网络，逐步形成更复杂的模式表示。</li></ul><p style="margin-top:16px"><b>需要保留的谨慎：</b>注意力权重不是可靠的“解释报告”，不能单独证明模型为何得出某个结论。</p></aside></div></div>
+              <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">04 / Agent brain</p><h3>LLM 在 Agent 里：负责判断，不独自包办</h3></div><p class="llm-note">可靠系统会在模型之外提供知识、工具、状态、执行约束和结果验证，让模型的语言能力进入一个可控循环。</p></div><div class="llm-agent-loop"><svg viewBox="0 0 930 360" role="img" aria-label="大语言模型在智能体中与上下文、工具和验证协同的关系图"><path class="llm-wire main" d="M195 125H330M550 125H690"/><path class="llm-wire" d="M440 193V250M770 175V250H550"/><path class="llm-wire" d="M690 295H550"/><g class="llm-node" style="--accent:var(--teal)"><rect x="35" y="75" width="160" height="100"/><text x="115" y="114">上下文</text><text class="minor" x="115" y="138">任务、RAG、记忆</text></g><g class="llm-node" style="--accent:var(--plum)"><rect x="330" y="60" width="220" height="130"/><text x="440" y="108">大语言模型</text><text class="minor" x="440" y="134">判断下一步、生成文本</text><text class="minor" x="440" y="153">或提出结构化工具调用</text></g><g class="llm-node" style="--accent:var(--orange)"><rect x="690" y="75" width="170" height="100"/><text x="775" y="114">工具执行层</text><text class="minor" x="775" y="138">校验、权限、执行</text></g><g class="llm-node" style="--accent:var(--green)"><rect x="330" y="250" width="220" height="75"/><text x="440" y="281">结果验证与状态更新</text><text class="minor" x="440" y="303">测试、规则、追踪、反馈</text></g></svg><div class="llm-caption">重要分工：LLM 可以提出“调用什么工具、用什么参数”；工具执行层仍应负责参数校验、身份授权、真实执行和返回可信结果。</div></div></div>
+              <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">05 / Sampling</p><h3>为什么同一句问题有时回答不同</h3></div><p class="llm-note">模型会给候选下一个词元一个概率分布。采样策略决定是更偏向高概率、稳定的候选，还是允许更多低概率候选参与。</p></div><div class="llm-control"><div class="llm-control-main"><h4>采样温度（temperature）的概念演示</h4><p>拖动滑块只展示倾向，不代表某个具体模型的精确行为。需要稳定格式或工具参数时，通常选择更保守的设置；创意任务可适度提高多样性。</p><input class="llm-range" id="llmTemperature" type="range" min="0" max="100" value="25" aria-label="采样温度演示"><div class="llm-range-read"><span>更确定</span><strong id="llmTempValue">0.25 · 稳定优先</strong><span>更多样</span></div><div class="llm-choices" id="llmChoices"><div class="llm-choice active">“合同将于明天到期。”</div><div class="llm-choice">“该合同的截止日期是明天。”</div><div class="llm-choice">“明天就是这份合同的到期日。”</div><div class="llm-choice">“需要尽快确认合同续签安排。”</div></div></div><aside class="llm-control-side"><h4>工程上的处理</h4><p><b>事实、工具和结构化输出：</b>优先稳定、可校验的输出，并设置 JSON 模式或参数验证。</p><p><b>创意、头脑风暴和文案：</b>可允许更多表达变化，但仍需检查事实来源和品牌规范。</p><p><b>注意：</b>温度只是众多采样和解码参数之一，不能把质量问题都归因给它。</p></aside></div></div>
+              <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">06 / Limits</p><h3>把 LLM 放在合适的位置</h3></div><p class="llm-note">最常见的失误，是把语言上的流畅误认为事实上的可靠。明确分工能让 Agent 同时拥有表达能力、证据和边界。</p></div><div class="llm-boundaries"><div class="llm-do"><h4>适合交给 LLM</h4><ul><li>理解自然语言目标、归纳和改写信息。</li><li>在有限选项间提出计划或工具调用建议。</li><li>从证据中生成带引用的说明草案。</li><li>将不同格式的信息组织成用户易读的结果。</li></ul></div><div class="llm-dont"><h4>不应只靠 LLM</h4><ul><li>最新事实、精确数值、权限判断：接入可信数据和规则。</li><li>不可逆操作：加入参数校验、审批和幂等性控制。</li><li>高风险决策：保留人工复核和可解释的证据链。</li><li>长期记忆：使用可管理、可更新、可删除的外部存储。</li></ul></div></div></div>
+              <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">Evidence</p><h3>继续阅读</h3></div><p class="llm-note">这些来源分别支持 Transformer 架构、RAG、上下文局限、工具调用和 Agent 框架的关键判断。</p></div><ul class="refs"><li><a href="${refs.transformer[1]}" target="_blank" rel="noreferrer">Attention Is All You Need</a></li><li><a href="${refs.rag[1]}" target="_blank" rel="noreferrer">Retrieval-Augmented Generation</a></li><li><a href="${refs.middle[1]}" target="_blank" rel="noreferrer">Lost in the Middle</a></li><li><a href="${refs.toolformer[1]}" target="_blank" rel="noreferrer">Toolformer</a></li><li><a href="${refs.agentsdk[1]}" target="_blank" rel="noreferrer">OpenAI Agents SDK</a></li></ul><a class="other-link" href="#childDetail">返回大语言模型概览 -></a></div>
+            </section>`;
+        }
+        const answer = container.querySelector('#talkAnswer');
+        const labels = {do:'它现在帮什么忙', partner:'下一位该找谁', trap:'别把它当成什么'};
+        const values = {do:talk.move, partner:talk.partner, trap:talk.trap};
+        container.querySelectorAll('[data-talk]').forEach(button => button.addEventListener('click', () => {
+          const mode = button.dataset.talk;
+          container.querySelectorAll('[data-talk]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+          answer.innerHTML = `<b>${labels[mode]}</b>${escapeHtml(values[mode])}`;
+        }));
+        if (child.id !== 'llm') return;
+        const slider = document.getElementById('llmTemperature');
+        const value = document.getElementById('llmTempValue');
+        const choices = [...document.querySelectorAll('.llm-choice')];
+        slider.addEventListener('input', () => {
+          const temperature = Number(slider.value);
+          const label = temperature < 34 ? '稳定优先' : temperature < 67 ? '平衡选择' : '多样性更高';
+          value.textContent = `${(temperature / 100).toFixed(2)} · ${label}`;
+          choices.forEach((item, index) => item.classList.toggle('active', index === Math.min(3, Math.floor(temperature / 27))));
+        });
+        return;
+      }
+      const process = child.steps.map((step, index) => `<div class="deep-step"><span>${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(step)}</strong></div>`).join('');
+      const llmAlias = child.id === 'llm' ? '<span id="llm-visual" aria-hidden="true"></span>' : '';
+      const genericGuide = `
+        <section class="deep-dive" id="child-visual" aria-labelledby="child-visual-title">${llmAlias}
+          <div class="deep-lede"><div><p class="deep-kicker">Beginner visual guide / ${childNo}</p><h3 id="child-visual-title">大话${escapeHtml(child.title)}：先把它放回系统里</h3><p>${escapeHtml(child.definition)}</p></div><a class="deep-backlink" href="#childDetail">返回${escapeHtml(child.title)}概览</a></div>
+          <div class="deep-part"><div class="deep-part-head"><div><p class="deep-kicker">01 / Process</p><h3>把它的动作拆成一条可观察的链</h3></div><p class="deep-note">这张图只保留学习时最重要的因果顺序。真实实现可能分支、重试或被规则中断，但仍应能说明每一步接收什么、产出什么。</p></div><div class="deep-process">${process}</div><div class="deep-connection"><div><b>从哪里开始</b><span>${escapeHtml(child.steps[0])}</span></div><div><b>它负责什么</b><span>${escapeHtml(child.output)}</span></div><div><b>不能替代什么</b><span>${escapeHtml(child.confusion)}</span></div></div></div>
+          <div class="deep-part"><div class="deep-part-head"><div><p class="deep-kicker">02 / Handoff</p><h3>下一棒交给谁</h3></div></div><div class="deep-situation"><div class="deep-situation-main"><h4>在「${escapeHtml(topic.title)}」中</h4><p><b>${escapeHtml(child.title)}</b> 做完后，留下“${escapeHtml(child.output)}”。</p></div><aside class="deep-situation-side"><h4>先记这一问</h4><p>它输出的东西，下一步由谁使用、如何验证？</p></aside></div></div>
+          <div class="deep-part"><div class="deep-part-head"><div><p class="deep-kicker">03 / Scenario</p><h3>换个场景看它</h3></div></div><div class="deep-situation"><div class="deep-situation-main"><h4>情景</h4><p>${escapeHtml(child.example)}</p></div><aside class="deep-situation-side"><h4>容易踩的坑</h4><p>${escapeHtml(child.confusion)}</p></aside></div><a class="other-link" href="#childDetail">返回${escapeHtml(child.title)}概览 -></a></div>
+        </section>`;
+      if (child.id !== 'llm') { container.innerHTML = genericGuide; return; }
+      container.innerHTML = `${genericGuide}
+        <section class="llm-deep-dive" id="llm-mechanics" aria-labelledby="llm-mechanics-title">
+          <div class="llm-lede"><div><p class="llm-kicker">LLM mechanics / extra guide</p><h3 id="llm-mechanics-title">机制加餐：继续看大语言模型怎样生成</h3><p>大语言模型（Large Language Model，LLM）可以先理解为一台强大的“上下文续写机”：它把输入切成词元，计算这些词元之间的关系，再一步步预测后续内容。它能写、能归纳、能规划，但不会天然拥有最新事实、真实权限或绝对正确性。</p></div><a class="llm-backlink" href="#child-visual">返回大话大语言模型</a></div>
+          <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">01 / Token</p><h3>它读的不是完整句子，而是词元</h3></div><p class="llm-note">词元（token）是模型处理文本的基本片段，可能是一个字、一个词的一部分、标点或空格。不同模型的切分方式不同，所以“一个字等于一个 token”并不准确。</p></div><div class="llm-token-board"><div class="llm-token-main"><h4>“请总结这份合同”会被拆成可计算片段</h4><p>实际切分由具体分词器决定；下面只是概念示意。</p><div class="llm-tokens"><div class="llm-token">请<small>词元 1</small></div><span class="llm-arrow">+</span><div class="llm-token">总结<small>词元 2</small></div><span class="llm-arrow">+</span><div class="llm-token">这份<small>词元 3</small></div><span class="llm-arrow">+</span><div class="llm-token">合同<small>词元 4</small></div></div></div><aside class="llm-token-side"><h4>三个直接影响</h4><div class="llm-fact"><b>上下文长度</b><span>模型以词元计量输入与输出容量，而不是以汉字或页数计量。</span></div><div class="llm-fact"><b>成本与时延</b><span>读得更多、写得更多，通常意味着更多计算和更高成本。</span></div><div class="llm-fact"><b>结构化输出</b><span>JSON、代码、工具参数也都是词元序列，需要通过模式和校验保证可靠。</span></div></aside></div></div>
+          <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">02 / Generation</p><h3>一轮生成：从文字到下一个词元</h3></div><p class="llm-note">模型内部有很多重复层与矩阵计算；对使用者而言，理解“表示 -> 关联 -> 概率 -> 选择”已足以建立正确直觉。</p></div><div class="llm-pipeline"><div class="llm-pipeline-inner"><article class="llm-pipe"><span class="number">A</span><strong>分词</strong><p>把文字转成词元编号。</p></article><article class="llm-pipe"><span class="number">B</span><strong>词向量与位置</strong><p>把编号映射为数字向量，并标注顺序。</p></article><article class="llm-pipe"><span class="number">C</span><strong>Transformer 层</strong><p>反复计算词元之间的上下文关系。</p></article><article class="llm-pipe"><span class="number">D</span><strong>候选概率</strong><p>为可能的下一个词元产生概率分布。</p></article><article class="llm-pipe"><span class="number">E</span><strong>采样或选择</strong><p>选出下一个词元，重复直到停止。</p></article></div></div></div>
+          <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">03 / Attention</p><h3>注意力机制：决定当前片段该参考谁</h3></div><p class="llm-note">注意力机制（attention）允许模型在处理某个位置时，对其他位置赋予不同权重。它不是人类的“专注力”，也不等于模型真正理解了语言，但它有效建立了上下文关联。</p></div><div class="llm-attention"><div class="llm-attention-visual"><h4>例：理解“合同在明天到期”中的“到期”</h4><p>当前词元可以更关注“合同”“明天”等与语义和时间有关的片段。</p><div class="llm-sentence"><span class="llm-attention-line llm-line-one"></span><span class="llm-attention-line llm-line-two"></span><span class="llm-attention-line llm-line-three"></span><span class="llm-word">合同</span><span class="llm-word">在</span><span class="llm-word">明天</span><span class="llm-word active">到期</span></div></div><aside class="llm-attention-copy"><h4>它解决什么</h4><ul class="llm-list"><li>在长句或文档片段中建立关联，而不是只看紧邻的字。</li><li>让模型根据位置和语义，在生成下一步时选择不同信息作为参考。</li><li>配合多层网络，逐步形成更复杂的模式表示。</li></ul><p style="margin-top:16px"><b>需要保留的谨慎：</b>注意力权重不是可靠的“解释报告”，不能单独证明模型为何得出某个结论。</p></aside></div></div>
+          <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">04 / Agent brain</p><h3>LLM 在 Agent 里：负责判断，不独自包办</h3></div><p class="llm-note">可靠系统会在模型之外提供知识、工具、状态、执行约束和结果验证，让模型的语言能力进入一个可控循环。</p></div><div class="llm-agent-loop"><svg viewBox="0 0 930 360" role="img" aria-label="大语言模型在智能体中与上下文、工具和验证协同的关系图"><path class="llm-wire main" d="M195 125H330M550 125H690"/><path class="llm-wire" d="M440 193V250M770 175V250H550"/><path class="llm-wire" d="M690 295H550"/><g class="llm-node" style="--accent:var(--teal)"><rect x="35" y="75" width="160" height="100"/><text x="115" y="114">上下文</text><text class="minor" x="115" y="138">任务、RAG、记忆</text></g><g class="llm-node" style="--accent:var(--plum)"><rect x="330" y="60" width="220" height="130"/><text x="440" y="108">大语言模型</text><text class="minor" x="440" y="134">判断下一步、生成文本</text><text class="minor" x="440" y="153">或提出结构化工具调用</text></g><g class="llm-node" style="--accent:var(--orange)"><rect x="690" y="75" width="170" height="100"/><text x="775" y="114">工具执行层</text><text class="minor" x="775" y="138">校验、权限、执行</text></g><g class="llm-node" style="--accent:var(--green)"><rect x="330" y="250" width="220" height="75"/><text x="440" y="281">结果验证与状态更新</text><text class="minor" x="440" y="303">测试、规则、追踪、反馈</text></g></svg><div class="llm-caption">重要分工：LLM 可以提出“调用什么工具、用什么参数”；工具执行层仍应负责参数校验、身份授权、真实执行和返回可信结果。</div></div></div>
+          <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">05 / Sampling</p><h3>为什么同一句问题有时回答不同</h3></div><p class="llm-note">模型会给候选下一个词元一个概率分布。采样策略决定是更偏向高概率、稳定的候选，还是允许更多低概率候选参与。</p></div><div class="llm-control"><div class="llm-control-main"><h4>采样温度（temperature）的概念演示</h4><p>拖动滑块只展示倾向，不代表某个具体模型的精确行为。需要稳定格式或工具参数时，通常选择更保守的设置；创意任务可适度提高多样性。</p><input class="llm-range" id="llmTemperature" type="range" min="0" max="100" value="25" aria-label="采样温度演示"><div class="llm-range-read"><span>更确定</span><strong id="llmTempValue">0.25 · 稳定优先</strong><span>更多样</span></div><div class="llm-choices" id="llmChoices"><div class="llm-choice active">“合同将于明天到期。”</div><div class="llm-choice">“该合同的截止日期是明天。”</div><div class="llm-choice">“明天就是这份合同的到期日。”</div><div class="llm-choice">“需要尽快确认合同续签安排。”</div></div></div><aside class="llm-control-side"><h4>工程上的处理</h4><p><b>事实、工具和结构化输出：</b>优先稳定、可校验的输出，并设置 JSON 模式或参数验证。</p><p><b>创意、头脑风暴和文案：</b>可允许更多表达变化，但仍需检查事实来源和品牌规范。</p><p><b>注意：</b>温度只是众多采样和解码参数之一，不能把质量问题都归因给它。</p></aside></div></div>
+          <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">06 / Limits</p><h3>把 LLM 放在合适的位置</h3></div><p class="llm-note">最常见的失误，是把语言上的流畅误认为事实上的可靠。明确分工能让 Agent 同时拥有表达能力、证据和边界。</p></div><div class="llm-boundaries"><div class="llm-do"><h4>适合交给 LLM</h4><ul><li>理解自然语言目标、归纳和改写信息。</li><li>在有限选项间提出计划或工具调用建议。</li><li>从证据中生成带引用的说明草案。</li><li>将不同格式的信息组织成用户易读的结果。</li></ul></div><div class="llm-dont"><h4>不应只靠 LLM</h4><ul><li>最新事实、精确数值、权限判断：接入可信数据和规则。</li><li>不可逆操作：加入参数校验、审批和幂等性控制。</li><li>高风险决策：保留人工复核和可解释的证据链。</li><li>长期记忆：使用可管理、可更新、可删除的外部存储。</li></ul></div></div></div>
+          <div class="llm-part"><div class="llm-part-head"><div><p class="llm-kicker">Evidence</p><h3>继续阅读</h3></div><p class="llm-note">这些来源分别支持 Transformer 架构、RAG、上下文局限、工具调用和 Agent 框架的关键判断。</p></div><ul class="refs"><li><a href="${refs.transformer[1]}" target="_blank" rel="noreferrer">Attention Is All You Need</a></li><li><a href="${refs.rag[1]}" target="_blank" rel="noreferrer">Retrieval-Augmented Generation</a></li><li><a href="${refs.middle[1]}" target="_blank" rel="noreferrer">Lost in the Middle</a></li><li><a href="${refs.toolformer[1]}" target="_blank" rel="noreferrer">Toolformer</a></li><li><a href="${refs.agentsdk[1]}" target="_blank" rel="noreferrer">OpenAI Agents SDK</a></li></ul><a class="other-link" href="#childDetail">返回大语言模型概览 -></a></div>
+        </section>`;
+      const slider = document.getElementById('llmTemperature');
+      const value = document.getElementById('llmTempValue');
+      const choices = [...document.querySelectorAll('.llm-choice')];
+      slider.addEventListener('input', () => {
+        const temperature = Number(slider.value);
+        const label = temperature < 34 ? '稳定优先' : temperature < 67 ? '平衡选择' : '多样性更高';
+        value.textContent = `${(temperature / 100).toFixed(2)} · ${label}`;
+        choices.forEach((item, index) => item.classList.toggle('active', index === Math.min(3, Math.floor(temperature / 27))));
+      });
+    }
+    function renderDetail({ preserveHash = false } = {}) {
+      const child = activeChild;
+      const pipeline = child.steps.map((step, index) => `<div class="step">${escapeHtml(step)}<small>${index === 0 ? '输入或触发' : index === child.steps.length - 1 ? '输出或判断' : '处理中间环节'}</small></div>${index < child.steps.length - 1 ? '<span class="flow-arrow">-></span>' : ''}`).join('');
+      const childRefs = (foundationMechanics[child.id]?.refs || mechanicsProfiles[child.id]?.refs || topic.refs).slice(0, 3);
+      const special = `<a class="other-link" href="#child-visual">展开：大话${escapeHtml(child.title)}图解 -></a>`;
+      document.getElementById('childDetail').innerHTML = `
+        <div class="detail-main"><p class="detail-label">子模块图解 / ${String(topic.children.indexOf(child) + 1).padStart(2, '0')}</p><h3>${escapeHtml(child.title)} <span class="term">${escapeHtml(child.english)}</span></h3>
+        <p class="definition">${escapeHtml(child.definition)}</p><h4 class="visual-title">工作过程（简化示意）</h4><div class="pipeline">${pipeline}</div>
+        <div class="quick-grid"><div class="quick"><b>它产生什么</b><span>${escapeHtml(child.output)}</span></div><div class="quick"><b>新手容易混淆</b><span>${escapeHtml(child.confusion)}</span></div></div>${special}</div>
+        <aside class="detail-side"><h4>场景</h4><p>${escapeHtml(child.example)}</p><div class="side-block"><strong>相关资料</strong><ul class="refs">${refLinks(childRefs)}</ul></div></aside>`;
+      document.getElementById('childHeading').textContent = `当前子模块：${child.title}`;
+      document.querySelectorAll('.component-nav-button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.child === child.id)));
+      renderDeepDive();
+      updateUrl({ preserveHash });
+    }
+    function renderPage() {
+      const componentButtons = topic.children.map((child, index) => `<button class="component-nav-button" type="button" data-child="${child.id}" aria-pressed="false"><span>${String(index + 1).padStart(2,'0')} / 子模块</span><strong>${escapeHtml(child.title)}</strong><small>${escapeHtml(child.english)}</small></button>`).join('');
+      const structure = topic.structure.map(item => `<div><strong>${escapeHtml(item[0])}</strong><span>${escapeHtml(item[1])}</span></div>`).join('');
+      componentNav.innerHTML = componentButtons;
+      content.innerHTML = `
+        <header><p class="crumb">${topic.no} / ${escapeHtml(topic.english)}</p><h1>${escapeHtml(topic.title)}<span>${escapeHtml(topic.english)}：${escapeHtml(topic.core)}</span></h1><p class="intro">${escapeHtml(topic.intro)}</p><p class="question"><b>本模块要回答的问题：</b>${escapeHtml(topic.question)}</p><p class="counterpart">对应面试练习：<a href="../面向面试/面试题下钻.html?topic=${interviewTopicMap[topicKey]}">进入「${escapeHtml(topic.title)}」高频面试题</a></p></header>
+        <section class="section"><div class="section-head"><div><h2>它在系统中的位置与关联</h2></div></div>${relationshipSvg()}<div class="structure-list">${structure}</div>${foundationPrimer()}</section>
+        <section class="section" id="childExplain"><div class="section-head"><div><h2 id="childHeading">当前子模块：${escapeHtml(activeChild.title)}</h2></div></div><div class="detail" id="childDetail"></div><div id="llmDeepDive"></div></section>
+        <section class="section"><div class="section-head"><div><h2>本模块的主要参考</h2></div></div><ul class="refs">${refLinks(topic.refs)}</ul></section>`;
+      document.querySelectorAll('.component-nav-button').forEach(button => button.addEventListener('click', () => { activeChild = topic.children.find(child => child.id === button.dataset.child); renderDetail(); document.getElementById('childExplain').scrollIntoView({behavior:'smooth', block:'start'}); }));
+      renderDetail({ preserveHash: true });
+    }
+    renderPage();
+    if (['#child-visual', '#llm-visual', '#llm-mechanics'].includes(location.hash) || location.hash.startsWith('#mechanics-')) {
+      requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView({ block:'start' }));
+    }
+  </script>
+</body>
+</html>
