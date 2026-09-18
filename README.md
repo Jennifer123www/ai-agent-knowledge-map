@@ -39,7 +39,7 @@ The check confirms expected pages, local HTML links, inline script syntax, and t
 
 ## Project Metadata
 
-- Version: `0.2.0`
+- Version: `0.2.1`
 - Stage: static site restructured for remote hosting
-- Git baseline: `12cd12e` on `main`; working tree contains the pending site-structure refactor
-- Updated: `2026-09-18 21:51 CST`
+- Git baseline: `103bba1` on `main`; working tree contains the pending HTML knowledge-map refinement
+- Updated: `2026-09-18 22:15 CST`

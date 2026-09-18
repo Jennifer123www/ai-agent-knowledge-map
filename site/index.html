@@ -29,6 +29,40 @@
     .section-head { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:24px; }
     h2 { margin-bottom:0; font-family:ui-serif, Georgia, "Songti SC", serif; font-size:28px; line-height:1.25; letter-spacing:0; }
     .section-note { max-width:460px; margin-bottom:0; color:var(--muted); font-size:13px; }
+    .atlas { position:relative; height:816px; overflow:hidden; border-top:2px solid var(--ink); border-bottom:1px solid var(--line); background:var(--surface); }
+    .atlas-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+    .atlas-lines line { stroke:#b7c3b9; stroke-width:1.2; stroke-dasharray:3 5; }
+    .atlas-lines circle { fill:var(--surface); stroke:#9aa99d; stroke-width:1.2; }
+    .atlas-node { position:absolute; display:grid; grid-template-columns:42px minmax(0, 1fr); column-gap:12px; width:18%; min-height:132px; padding:16px; border:1px solid var(--line); border-top:3px solid var(--tone); background:var(--surface); color:var(--ink); text-decoration:none; }
+    .atlas-node:hover { background:var(--soft); border-color:var(--tone); }
+    .atlas-node:focus-visible { outline:3px solid color-mix(in srgb, var(--tone) 35%, transparent); outline-offset:2px; }
+    .atlas-order { grid-column:1; align-self:start; color:var(--tone); font-size:11px; font-weight:800; }
+    .atlas-visual { grid-column:1; display:grid; grid-template-columns:repeat(3, 1fr); align-self:end; gap:3px; height:28px; padding:5px; border:1px solid color-mix(in srgb, var(--tone) 48%, var(--line)); }
+    .atlas-visual i { display:block; align-self:end; background:var(--tone); opacity:.78; }
+    .atlas-visual i:nth-child(1) { height:45%; } .atlas-visual i:nth-child(2) { height:80%; } .atlas-visual i:nth-child(3) { height:60%; }
+    .atlas-copy { grid-column:2; grid-row:1 / span 2; }
+    .atlas-copy strong { display:block; margin-bottom:7px; font-size:15px; line-height:1.28; letter-spacing:0; }
+    .atlas-copy span { display:block; color:var(--muted); font-size:11px; line-height:1.5; }
+    .atlas-node.foundation { left:41%; top:4%; --tone:var(--green); }
+    .atlas-node.context { left:67%; top:13%; --tone:var(--teal); }
+    .atlas-node.memory { left:80%; top:36%; --tone:var(--blue); }
+    .atlas-node.capabilities { left:80%; top:64%; --tone:var(--orange); }
+    .atlas-node.orchestration { left:59%; top:82%; --tone:var(--teal); }
+    .atlas-node.runtime { left:22%; top:82%; --tone:var(--blue); }
+    .atlas-node.evaluation { left:2%; top:64%; --tone:var(--green); }
+    .atlas-node.governance { left:2%; top:36%; --tone:var(--plum); }
+    .atlas-node.applications { left:15%; top:13%; --tone:var(--orange); }
+    .atlas-core { position:absolute; left:50%; top:50%; display:flex; width:252px; height:188px; transform:translate(-50%, -50%); flex-direction:column; align-items:center; justify-content:center; border:2px solid var(--green); background:var(--soft); color:var(--ink); text-align:center; text-decoration:none; }
+    .atlas-core:hover { background:#e2eee5; }
+    .atlas-core::before { position:absolute; inset:10px; border:1px dashed #8eaa99; content:""; }
+    .atlas-core > * { position:relative; z-index:1; }
+    .atlas-core small { color:var(--green); font-size:10px; font-weight:800; }
+    .atlas-core h3 { margin:4px 0 5px; font-family:ui-serif, Georgia, "Songti SC", serif; font-size:32px; line-height:1; letter-spacing:0; }
+    .atlas-core p { max-width:184px; margin:0; color:#46554b; font-size:12px; line-height:1.5; }
+    .atlas-core-tags { display:flex; flex-wrap:wrap; justify-content:center; gap:5px; margin-top:11px; }
+    .atlas-core-tags span { padding:2px 6px; border:1px solid #abc0b0; color:var(--green); font-size:10px; line-height:1.3; }
+    .atlas-caption { display:flex; justify-content:space-between; gap:24px; padding:12px 0 0; color:var(--muted); font-size:13px; }
+    .atlas-caption strong { color:var(--ink); }
     .reading-list { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:0 30px; }
     .reading-item { display:grid; grid-template-columns:48px 1fr auto; align-items:start; gap:14px; min-height:155px; padding:23px 0; border-top:1px solid var(--line); text-decoration:none; }
     .reading-item:nth-child(-n+2) { border-top:2px solid var(--ink); }
@@ -51,7 +85,7 @@
     .topic-index strong { display:block; font-size:15px; line-height:1.35; letter-spacing:0; }
     .topic-index span { display:block; margin-top:7px; color:var(--muted); font-size:12px; line-height:1.45; }
     .footer { padding:27px 0 45px; color:var(--muted); font-size:12px; }
-    @media (max-width:840px) { .topbar-inner { flex-wrap:wrap; gap:9px 17px; padding:12px 0; } .nav { order:3; width:100%; overflow:auto; padding-bottom:2px; } [data-site-search] { margin-left:auto; } .masthead { padding-top:46px; } .reading-list { grid-template-columns:1fr; } .reading-item:nth-child(2) { border-top:1px solid var(--line); } .path { grid-template-columns:1fr; } .path-step { min-height:0; border-right:0; border-bottom:1px solid var(--line); } .path-step:last-child { border-bottom:0; } .topic-index { grid-template-columns:repeat(2, 1fr); } }
+    @media (max-width:940px) { .topbar-inner { flex-wrap:wrap; gap:9px 17px; padding:12px 0; } .nav { order:3; width:100%; overflow:auto; padding-bottom:2px; } [data-site-search] { margin-left:auto; } .masthead { padding-top:46px; } .atlas { display:grid; height:auto; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:0; padding:14px; border-top:2px solid var(--ink); border-left:1px solid var(--line); } .atlas-lines { display:none; } .atlas-node, .atlas-node.foundation, .atlas-node.context, .atlas-node.memory, .atlas-node.capabilities, .atlas-node.orchestration, .atlas-node.runtime, .atlas-node.evaluation, .atlas-node.governance, .atlas-node.applications { position:static; width:auto; min-height:118px; } .atlas-core { position:relative; top:auto; left:auto; width:auto; height:170px; transform:none; grid-column:1 / -1; margin-bottom:14px; } .atlas-caption { display:block; } .atlas-caption span { display:block; margin-top:4px; } .reading-list { grid-template-columns:1fr; } .reading-item:nth-child(2) { border-top:1px solid var(--line); } .path { grid-template-columns:1fr; } .path-step { min-height:0; border-right:0; border-bottom:1px solid var(--line); } .path-step:last-child { border-bottom:0; } .topic-index { grid-template-columns:repeat(2, 1fr); } }
     @media (max-width:520px) { .shell { width:min(calc(100% - 28px), var(--shell)); } .section-head { display:block; } .section-note { margin-top:10px; } .topic-index { grid-template-columns:1fr; } .topic-index a { min-height:0; } }
     @media print { .topbar { position:static; } [data-site-search] { display:none; } }
   </style>
@@ -78,6 +112,27 @@
   </div>
 
   <main class="shell">
+    <section class="section" aria-labelledby="map-title">
+      <div class="section-head">
+        <div><p class="eyebrow">System map</p><h2 id="map-title">全景知识图谱</h2></div>
+        <p class="section-note">十个模块围绕 AI Agent 展开：模型提供能力，知识与记忆补充依据，工具与流程完成行动，评测、安全与运行时保障交付。</p>
+      </div>
+      <div class="atlas" aria-label="AI Agent 全景知识图谱。中央是 AI Agent 执行循环，周围是九个相互连接的知识模块。">
+        <svg class="atlas-lines" viewBox="0 0 1000 816" preserveAspectRatio="none" aria-hidden="true"><line x1="500" y1="408" x2="500" y2="100"/><line x1="500" y1="408" x2="760" y2="175"/><line x1="500" y1="408" x2="890" y2="355"/><line x1="500" y1="408" x2="890" y2="620"/><line x1="500" y1="408" x2="660" y2="735"/><line x1="500" y1="408" x2="330" y2="735"/><line x1="500" y1="408" x2="110" y2="620"/><line x1="500" y1="408" x2="110" y2="355"/><line x1="500" y1="408" x2="245" y2="175"/><circle cx="500" cy="100" r="5"/><circle cx="760" cy="175" r="5"/><circle cx="890" cy="355" r="5"/><circle cx="890" cy="620" r="5"/><circle cx="660" cy="735" r="5"/><circle cx="330" cy="735" r="5"/><circle cx="110" cy="620" r="5"/><circle cx="110" cy="355" r="5"/><circle cx="245" cy="175" r="5"/></svg>
+        <a class="atlas-node foundation" href="learn/concepts.html?topic=foundation"><span class="atlas-order">01</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>基础模型与推理</strong><span>LLM · 多模态 · 向量 · 适配</span></span></a>
+        <a class="atlas-node context" href="learn/concepts.html?topic=context"><span class="atlas-order">02</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>知识检索与 RAG</strong><span>知识源 · 分段 · 召回 · 引用</span></span></a>
+        <a class="atlas-node memory" href="learn/concepts.html?topic=improvement"><span class="atlas-order">03</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>记忆与上下文工程</strong><span>状态 · 长期记忆 · 写入 · 治理</span></span></a>
+        <a class="atlas-node capabilities" href="learn/concepts.html?topic=capabilities"><span class="atlas-order">05</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>工具、技能与协议</strong><span>Tool Calling · Skill · MCP</span></span></a>
+        <a class="atlas-node orchestration" href="learn/concepts.html?topic=orchestration"><span class="atlas-order">06</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>多智能体协作</strong><span>分工 · 主管 · 交接 · 人工参与</span></span></a>
+        <a class="atlas-node runtime" href="learn/concepts.html?topic=runtime"><span class="atlas-order">09</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>系统设计与运行时</strong><span>沙箱 · 网关 · 队列 · 交付</span></span></a>
+        <a class="atlas-node evaluation" href="learn/concepts.html?topic=evaluation"><span class="atlas-order">07</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>评测与持续优化</strong><span>Trace · 评测 · 反馈 · 发布</span></span></a>
+        <a class="atlas-node governance" href="learn/concepts.html?topic=governance"><span class="atlas-order">08</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>安全、权限与治理</strong><span>身份 · 授权 · 审批 · 审计</span></span></a>
+        <a class="atlas-node applications" href="learn/concepts.html?topic=applications"><span class="atlas-order">10</span><span class="atlas-visual" aria-hidden="true"><i></i><i></i><i></i></span><span class="atlas-copy"><strong>应用落地与项目实践</strong><span>研究 · 编程 · 分析 · 业务流程</span></span></a>
+        <a class="atlas-core" href="learn/concepts.html?topic=core"><small>04 / AGENT</small><h3>AI Agent</h3><p>智能体与工作流：观察任务 · 组织上下文 · 规划与行动 · 验证结果</p><span class="atlas-core-tags"><span>目标</span><span>模型</span><span>工具</span><span>反馈</span></span></a>
+      </div>
+      <div class="atlas-caption"><strong>每个模块均可点击进入结构图解</strong><span>虚线表示模块与 Agent 执行循环的直接关系；中文标签和关键子项直接在图中呈现。</span></div>
+    </section>
+
     <section class="section" aria-labelledby="start-title">
       <div class="section-head">
         <div><p class="eyebrow">Start here</p><h2 id="start-title">从一篇文章开始</h2></div>
@@ -123,6 +178,6 @@
     </section>
   </main>
 
-  <footer class="shell footer">AI Agent 知识图谱 · 静态学习站 · 版本 0.2.0 · 2026-09-18</footer>
+  <footer class="shell footer">AI Agent 知识图谱 · 静态学习站 · 版本 0.2.1 · 2026-09-18</footer>
 </body>
 </html>
