@@ -37,6 +37,12 @@ for (const articlePath of await collectArticles(contentRoot)) {
       throw new Error(`At least 5 local images are required, including the cover (${article.images.length}/5)`);
     }
 
+    const source = article.lines.join("\n");
+    const referenceLinks = [...source.matchAll(/\]\((https?:\/\/[^)]+)\)/g)].map((match) => match[1]);
+    if (!/^##\s+参考资料/m.test(source) || referenceLinks.length === 0) {
+      throw new Error("Article must include a '参考资料' section with at least one HTTP(S) link");
+    }
+
     const chineseCharacters = chineseCharacterCount(article.lines.join("\n"));
     if (chineseCharacters < 3000 || chineseCharacters > 5000) {
       throw new Error(`Article must contain 3000-5000 Chinese characters (${chineseCharacters})`);
@@ -52,7 +58,7 @@ for (const articlePath of await collectArticles(contentRoot)) {
     console.log(
       `${relativePath}: title=${[...article.title].length}/32, author=${[...article.author].length}/16, `
       + `digest=${[...article.digest].length}/120, Chinese=${chineseCharacters}, images=${article.images.length}, `
-      + `HTML=${htmlCharacters}/20000 chars, ${htmlBytes}/1048576 bytes`,
+      + `references=${referenceLinks.length}, HTML=${htmlCharacters}/20000 chars, ${htmlBytes}/1048576 bytes`,
     );
   } catch (error) {
     failures.push(`${relativePath}: ${error.message}`);

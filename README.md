@@ -60,7 +60,7 @@ The last command creates a draft only. It does not publish or mass-send it. See 
 
 ## Project Metadata
 
-- Version: `0.3.1`
-- Stage: WeChat callback, draft API, YAML Front Matter, and official article-limit checks implemented; public deployment and account binding pending
-- Git status during this update: dirty; based on `main` at `59ec185`
-- Updated: `2026-09-20 17:06 CST`
+- Version: `0.3.2`
+- Stage: WeChat callback, draft API, YAML Front Matter, article-limit and reference-link checks implemented; public deployment and account binding pending
+- Git status during this update: dirty; based on `main` at `e5afada`
+- Updated: `2026-09-20 17:31 CST`
