@@ -6,6 +6,7 @@ const root = process.cwd();
 const contentRoot = path.join(root, "content", "wechat");
 const articleNames = new Set(["beginner-main.md", "interview-side.md"]);
 const failures = [];
+const articleGroups = new Map();
 
 async function collectArticles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -27,6 +28,28 @@ for (const articlePath of await collectArticles(contentRoot)) {
   try {
     const markdown = await readFile(articlePath, "utf8");
     const article = parseWechatArticle(markdown, articlePath);
+    const topic = String(article.metadata.topic || "").trim();
+    const contentLevel = String(article.metadata.content_level || "").trim();
+    const submodule = String(article.metadata.submodule || "").trim();
+    const seriesOrder = Number(article.metadata.series_order);
+    if (!topic) throw new Error("YAML front matter must declare topic");
+    if (!new Set(["overview", "submodule"]).has(contentLevel)) {
+      throw new Error("content_level must be overview or submodule");
+    }
+    if (contentLevel === "overview" && submodule) {
+      throw new Error("Overview articles must use an empty submodule value");
+    }
+    if (contentLevel === "submodule" && !submodule) {
+      throw new Error("Submodule articles must declare a stable submodule id");
+    }
+    if (!Number.isInteger(seriesOrder) || seriesOrder < 0) {
+      throw new Error("series_order must be a non-negative integer");
+    }
+    const groupKey = `${topic}:${contentLevel}:${submodule}`;
+    const group = articleGroups.get(groupKey) || { files: new Set(), orders: new Set() };
+    group.files.add(path.basename(articlePath));
+    group.orders.add(seriesOrder);
+    articleGroups.set(groupKey, group);
     for (const image of article.images) {
       await access(image.absolutePath);
       if (!/\.(?:png|jpe?g)$/i.test(image.absolutePath)) {
@@ -62,6 +85,17 @@ for (const articlePath of await collectArticles(contentRoot)) {
     );
   } catch (error) {
     failures.push(`${relativePath}: ${error.message}`);
+  }
+}
+
+for (const [groupKey, group] of articleGroups) {
+  for (const requiredName of articleNames) {
+    if (!group.files.has(requiredName)) {
+      failures.push(`${groupKey}: missing paired article ${requiredName}`);
+    }
+  }
+  if (group.orders.size !== 1) {
+    failures.push(`${groupKey}: paired articles must use the same series_order`);
   }
 }
 

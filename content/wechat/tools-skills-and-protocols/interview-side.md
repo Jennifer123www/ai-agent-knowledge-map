@@ -8,10 +8,14 @@ article_type: "news"
 need_open_comment: 0
 only_fans_can_comment: 0
 order: 2
+topic: "capabilities"
+content_level: "overview"
+submodule: ""
+series_order: 0
 version: "0.3.0"
-stage: "微信公众号面试副文 Demo，已按官方草稿接口限制整理"
-git_state: "e5afada（main；修改时 dirty，含本轮语气调整与参考链接校验改动）"
-modified_at: "2026-09-20 17:31 CST"
+stage: "工具、技能与协议总概览面试副文，已按分层推文规则归档"
+git_state: "d62495a（main；修改时 dirty，含分层推文规则与总概览标记）"
+modified_at: "2026-09-20 19:39 CST"
 ---
 
 # 面试官问工具调用与 MCP：别只会说插件
