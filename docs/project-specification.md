@@ -4,11 +4,11 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 规范版本 | `1.3.0` |
-| 适用项目版本 | `0.3.0` |
-| 阶段 | 静态站点、微信公众号文章资产及公众号 API 接入实现持续维护 |
-| Git 基线 | `0cc5805`（`main`；本次接入开始前工作区 clean） |
-| 修改时间 | `2026-09-20 13:03 CST` |
+| 规范版本 | `1.4.0` |
+| 适用项目版本 | `0.3.1` |
+| 阶段 | 静态站点、微信公众号文章资产、Front Matter 校验及公众号 API 接入持续维护 |
+| Git 状态 | `59ec185`（`main`；更新时 dirty，含本轮文章格式与校验改动） |
+| 修改时间 | `2026-09-20 17:06 CST` |
 
 ## 1. 目标与边界
 
@@ -99,6 +99,7 @@ ai-agent-knowledge-map/
 │           └── assets/            # PNG 配图
 ├── scripts/
 │   ├── check-site.mjs
+│   ├── check-wechat-articles.mjs
 │   ├── check-wechat-config.mjs
 │   └── create-wechat-draft.mjs
 ├── server/
@@ -191,6 +192,8 @@ ai-agent-knowledge-map/
 - `beginner-main.md` 面向初学者，组合对应主题的基础说明与“大话”内容，可引申机制和工程边界；
 - `interview-side.md` 面向面试，按原理、答题点、记忆点、追问和失分点组织，至少三道题；
 - 两篇文章都控制在 3000-5000 个中文字符，主文首图为封面，每篇至少引用五张本地 PNG；
+- 每篇 Markdown 必须以 YAML Front Matter 声明 `title`、`author`、`digest`、`cover`、评论开关和文章顺序；标题不超过 32 个字符，作者不超过 16 个字符，摘要不超过 120 个字符；
+- 转换后的正文 HTML 必须少于 20000 个字符且小于 1 MB，不含 JavaScript；正文图片只能引用本地 JPG/PNG，并在创建草稿时先上传微信再替换为微信 URL；
 - 配图提示词集中在 `prompts.md`，图中文字必须逐张目视校对；
 - 文章正文与站点页面共享主题边界，但不直接复制页面文案，并在文末保留可核验的参考资料链接。
 
@@ -232,6 +235,7 @@ ai-agent-knowledge-map/
 ```sh
 npm run check
 npm test
+npm run wechat:articles:check
 npm run wechat:draft -- --dry-run
 npm run serve
 ```

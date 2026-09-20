@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { getWechatConfig } from "../lib/wechat/config.mjs";
 import { createWechatClient, WechatApiError } from "../lib/wechat/client.mjs";
 import { prepareWechatArticleImage } from "../lib/wechat/image.mjs";
-import { parseWechatArticle, renderWechatHtml } from "../lib/wechat/markdown.mjs";
+import { parseWechatArticle, renderWechatHtml, validateWechatHtml } from "../lib/wechat/markdown.mjs";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const defaultArticle = "content/wechat/tools-skills-and-protocols/beginner-main.md";
@@ -28,11 +28,24 @@ async function main() {
   for (const image of article.images) await access(image.absolutePath);
 
   if (options.dryRun) {
+    const placeholderUrls = new Map(article.images.slice(1).map((image) => [
+      image.source,
+      `https://mmbiz.qpic.cn/placeholder/${encodeURIComponent(path.basename(image.source))}`,
+    ]));
+    const content = renderWechatHtml(article, placeholderUrls);
+    const contentSize = validateWechatHtml(content);
     console.log(JSON.stringify({
       title: article.title,
+      titleCharacters: [...article.title].length,
+      author: article.author,
+      authorCharacters: [...article.author].length,
       digest: article.digest,
+      digestCharacters: [...article.digest].length,
       cover: path.relative(repositoryRoot, article.cover.absolutePath),
       inlineImages: article.images.slice(1).map((image) => path.relative(repositoryRoot, image.absolutePath)),
+      htmlCharacters: contentSize.characters,
+      htmlBytes: contentSize.bytes,
+      imagesRequireWechatUpload: true,
     }, null, 2));
     return;
   }
@@ -55,14 +68,15 @@ async function main() {
 
     const content = renderWechatHtml(article, uploadedImageUrls);
     const result = await client.addDraft({
+      article_type: article.articleType,
       title: article.title,
-      author: config.author,
+      author: article.author || config.author,
       digest: article.digest,
       content,
-      content_source_url: config.contentSourceUrl,
+      content_source_url: article.contentSourceUrl || config.contentSourceUrl,
       thumb_media_id: cover.media_id,
-      need_open_comment: 0,
-      only_fans_can_comment: 0,
+      need_open_comment: article.needOpenComment,
+      only_fans_can_comment: article.onlyFansCanComment,
     });
     console.log(`Draft created successfully. media_id=${result.media_id}`);
   } finally {

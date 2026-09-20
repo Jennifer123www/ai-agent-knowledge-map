@@ -1,13 +1,20 @@
-# 面试官问工具调用与 MCP：别只回答“它是插件协议”
+---
+title: "面试官问工具调用与 MCP：别只会说插件"
+author: "三色堇絮絮念"
+digest: "围绕工具调用、Skill、MCP、执行通道和故障恢复，整理 9 道高频面试题及答题要点、记忆点与常见失分点。"
+cover: "./assets/interview-answer-skeleton-image-2.png"
+content_source_url: ""
+article_type: "news"
+need_open_comment: 0
+only_fans_can_comment: 0
+order: 2
+version: "0.2.0"
+stage: "微信公众号面试副文 Demo，已按官方草稿接口限制整理"
+git_state: "59ec185（main；修改时 dirty，含本轮 Front Matter 与校验改动）"
+modified_at: "2026-09-20 17:06 CST"
+---
 
-## 文档元数据
-
-| 项目 | 值 |
-| --- | --- |
-| 版本 | `0.1.0` |
-| 阶段 | “工具、技能与协议”微信公众号面试副文试稿，待人工审阅 |
-| Git 基线 | `3196915`（`main`；创建本文档时工作区存在未跟踪的 `.DS_Store`） |
-| 修改时间 | `2026-09-20 12:09 CST` |
+# 面试官问工具调用与 MCP：别只会说插件
 
 AI Agent 面试里，工具调用与 MCP 很容易出现一种尴尬：名词都听过，真正回答时只剩一句“就是让模型调用插件”。这句话不能说全错，但信息量大约相当于“数据库是存数据的”。面试官继续问两句，边界、机制和工程细节就开始排队掉落。
 

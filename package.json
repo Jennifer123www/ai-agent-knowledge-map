@@ -1,16 +1,17 @@
 {
   "name": "ai-agent-knowledge-map",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "description": "AI Agent learning content with a WeChat Official Account publishing integration.",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "check": "node scripts/check-site.mjs",
+    "check": "node scripts/check-site.mjs && node scripts/check-wechat-articles.mjs",
     "serve": "python3 -m http.server 4173 --directory site",
     "test": "node --test",
     "wechat:serve": "node --env-file-if-exists=.env server/wechat-server.mjs",
+    "wechat:articles:check": "node scripts/check-wechat-articles.mjs",
     "wechat:check": "node --env-file-if-exists=.env scripts/check-wechat-config.mjs",
     "wechat:draft": "node --env-file-if-exists=.env scripts/create-wechat-draft.mjs"
   }

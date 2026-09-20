@@ -43,7 +43,7 @@ npm run check
 npm test
 ```
 
-The check confirms expected pages, local HTML links, inline script syntax, and the shared search script.
+The check confirms expected pages, local HTML links, inline script syntax, the shared search script, and every WeChat article's official field, HTML-size, and local-image constraints.
 
 ## WeChat Draft Integration
 
@@ -51,6 +51,7 @@ The integration has no third-party runtime dependencies and requires Node.js 20 
 
 ```sh
 npm run wechat:check
+npm run wechat:articles:check
 npm run wechat:draft -- --dry-run
 npm run wechat:draft
 ```
@@ -59,7 +60,7 @@ The last command creates a draft only. It does not publish or mass-send it. See 
 
 ## Project Metadata
 
-- Version: `0.3.0`
-- Stage: WeChat callback and draft API implementation complete; public deployment and account binding pending
-- Git status before this update: clean; `main` tracked `origin/main` at `0cc5805`
-- Updated: `2026-09-20 13:03 CST`
+- Version: `0.3.1`
+- Stage: WeChat callback, draft API, YAML Front Matter, and official article-limit checks implemented; public deployment and account binding pending
+- Git status during this update: dirty; based on `main` at `59ec185`
+- Updated: `2026-09-20 17:06 CST`

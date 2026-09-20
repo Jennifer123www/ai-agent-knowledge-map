@@ -4,7 +4,7 @@ import path from "node:path";
 import { handleWechatCallback } from "../lib/wechat/callback.mjs";
 import { createWechatClient } from "../lib/wechat/client.mjs";
 import { createWechatSignature } from "../lib/wechat/signature.mjs";
-import { parseWechatArticle, renderWechatHtml } from "../lib/wechat/markdown.mjs";
+import { parseWechatArticle, renderWechatHtml, validateWechatHtml } from "../lib/wechat/markdown.mjs";
 
 test("creates the official WeChat SHA-1 callback signature", () => {
   assert.equal(
@@ -101,4 +101,93 @@ First **paragraph**.
   assert.match(html, /<strong>paragraph<\/strong>/);
   assert.match(html, /https:\/\/example\.com\/diagram\.png/);
   assert.doesNotMatch(html, /cover\.png/);
+});
+
+test("uses YAML front matter for WeChat draft metadata", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const markdown = `---
+title: "Demo title"
+author: "Demo author"
+digest: "A short digest"
+cover: "./cover.png"
+content_source_url: "https://example.com/source"
+article_type: "news"
+need_open_comment: 1
+only_fans_can_comment: 0
+order: 2
+---
+
+# Demo title
+
+![cover](./cover.png)
+
+First paragraph.
+
+![diagram](./diagram.png)
+`;
+  const article = parseWechatArticle(markdown, markdownPath);
+  const html = renderWechatHtml(article, new Map([["./diagram.png", "https://mmbiz.qpic.cn/diagram.png"]]));
+
+  assert.equal(article.title, "Demo title");
+  assert.equal(article.author, "Demo author");
+  assert.equal(article.digest, "A short digest");
+  assert.equal(article.contentSourceUrl, "https://example.com/source");
+  assert.equal(article.needOpenComment, 1);
+  assert.equal(article.onlyFansCanComment, 0);
+  assert.equal(article.order, 2);
+  assert.equal(article.cover.source, "./cover.png");
+  assert.doesNotMatch(html, /title:|digest:|content_source_url:/);
+});
+
+test("enforces WeChat article metadata and HTML limits", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const longTitle = "标".repeat(33);
+  assert.throws(
+    () => parseWechatArticle(`---\ntitle: "${longTitle}"\nauthor: "Author"\ndigest: "Digest"\ncover: "./cover.png"\n---\n\n# ${longTitle}\n\n![cover](./cover.png)`, markdownPath),
+    /Title exceeds WeChat limit/,
+  );
+  assert.throws(
+    () => validateWechatHtml(`<section>${"文".repeat(20_000)}</section>`),
+    /under 20,000 characters/,
+  );
+  assert.throws(
+    () => validateWechatHtml('<section><script>alert("x")</script></section>'),
+    /must not contain JavaScript/,
+  );
+});
+
+test("requires local WeChat images before upload", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  assert.throws(
+    () => parseWechatArticle(`---
+title: "Demo"
+author: "Author"
+digest: "Digest"
+cover: "./cover.png"
+---
+
+# Demo
+
+![cover](./cover.png)
+
+![remote](https://example.com/remote.png)
+`, markdownPath),
+    /images must be local/,
+  );
+});
+
+test("requires core fields when YAML front matter is present", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  assert.throws(
+    () => parseWechatArticle(`---
+title: "Demo"
+cover: "./cover.png"
+---
+
+# Demo
+
+![cover](./cover.png)
+`, markdownPath),
+    /Missing required YAML front matter field 'author'/,
+  );
 });

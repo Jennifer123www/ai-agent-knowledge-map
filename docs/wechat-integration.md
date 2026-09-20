@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.1.0` |
-| 阶段 | 服务端回调与草稿 API 实现完成，待部署并绑定公众号凭证 |
-| Git 基线 | `0cc5805`（`main`；开始修改前工作区 clean） |
-| 修改时间 | `2026-09-20 13:03 CST` |
+| 版本 | `0.2.0` |
+| 阶段 | 服务端回调、草稿 API 与文章 Front Matter 校验已实现，待部署并绑定公众号凭证 |
+| Git 状态 | `59ec185`（`main`；更新时 dirty，含本轮文章格式与校验改动） |
+| 修改时间 | `2026-09-20 17:06 CST` |
 
 ## 1. 已实现链路
 
@@ -77,6 +77,24 @@ https://<部署域名>/api/wechat/callback
 
 ## 5. 创建 Demo 草稿
 
+文章使用 UTF-8 Markdown 作为唯一内容源，文件开头使用 YAML Front Matter 描述草稿字段：
+
+```yaml
+---
+title: "不超过 32 个字符的标题"
+author: "不超过 16 个字符的作者"
+digest: "不超过 120 个字符的摘要"
+cover: "./assets/local-cover.png"
+content_source_url: ""
+article_type: "news"
+need_open_comment: 0
+only_fans_can_comment: 0
+order: 1
+---
+```
+
+导入前会强制校验：标题、作者和摘要长度；HTML 少于 20000 个字符且小于 1 MB；正文不含 JavaScript；封面和正文图片均为本地 JPG/PNG。正文图片在创建草稿时先调用微信图片上传接口，HTML 只使用微信返回的 URL。
+
 默认将以下文章转换为公众号 HTML，上传本地配图并写入草稿箱：
 
 ```text
@@ -96,6 +114,12 @@ npm run wechat:draft -- --file content/wechat/tools-skills-and-protocols/intervi
 ```
 
 微信正文图片按 1 MB 上限预检。本机 macOS 运行时，超限 PNG 会通过系统自带的 `sips` 临时压缩为 JPEG 后上传；临时文件在命令结束时删除，源图片不会改动。其他系统需要预先把正文图片压缩到 1 MB 以下。
+
+可独立检查仓库内全部公众号文章：
+
+```sh
+npm run wechat:articles:check
+```
 
 ## 6. 上线检查
 

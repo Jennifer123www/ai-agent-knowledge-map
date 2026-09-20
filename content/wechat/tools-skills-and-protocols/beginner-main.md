@@ -1,13 +1,20 @@
-# 从会回答到能办事：把 AI Agent 的工具、技能与 MCP 讲明白
+---
+title: "从会回答到能办事：工具、技能与 MCP"
+author: "三色堇絮絮念"
+digest: "Tool、Skill 和 MCP 分别解决什么问题？从一次受控工具调用讲清 Agent 如何连接能力、执行动作并守住安全边界。"
+cover: "./assets/beginner-cover-image-2.png"
+content_source_url: ""
+article_type: "news"
+need_open_comment: 0
+only_fans_can_comment: 0
+order: 1
+version: "0.2.0"
+stage: "微信公众号主文 Demo，已按官方草稿接口限制整理"
+git_state: "59ec185（main；修改时 dirty，含本轮 Front Matter 与校验改动）"
+modified_at: "2026-09-20 17:06 CST"
+---
 
-## 文档元数据
-
-| 项目 | 值 |
-| --- | --- |
-| 版本 | `0.1.0` |
-| 阶段 | “工具、技能与协议”微信公众号主文试稿，待人工审阅 |
-| Git 基线 | `3196915`（`main`；创建本文档时工作区存在未跟踪的 `.DS_Store`） |
-| 修改时间 | `2026-09-20 12:09 CST` |
+# 从会回答到能办事：工具、技能与 MCP
 
 ![从会回答到能办事：工具、技能与 MCP](./assets/beginner-cover-image-2.png)
 
