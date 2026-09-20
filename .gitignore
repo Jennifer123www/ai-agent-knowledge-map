@@ -5,8 +5,12 @@
 *.log
 .vscode/
 .idea/
+.env
+.env.*
+!.env.example
 
 # Dependency and build directories
 node_modules/
 dist/
 build/
+.wechat-cache/

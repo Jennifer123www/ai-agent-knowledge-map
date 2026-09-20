@@ -1,6 +1,6 @@
 # AI Agent Knowledge Map
 
-A static Chinese learning site for the AI Agent knowledge map. It presents one shared topic system through two complementary paths: a beginner guide for concepts and an interview guide for answer practice.
+A Chinese AI Agent knowledge project with a static learning site and a separate WeChat Official Account publishing integration. The site presents one shared topic system through a beginner guide and an interview guide; the server-side tools verify WeChat callbacks and turn repository Markdown into unpublished drafts.
 
 ## Structure
 
@@ -17,6 +17,13 @@ site/
     site-search.js           # Shared cross-site search
 scripts/
   check-site.mjs             # Link and syntax validation
+  check-wechat-config.mjs    # Validate AppID/AppSecret with stable_token
+  create-wechat-draft.mjs    # Upload article assets and create a draft
+api/
+  wechat/callback.mjs        # Serverless callback endpoint
+lib/wechat/                  # Signature, API client, and Markdown conversion
+server/wechat-server.mjs     # Local/standalone callback server
+test/wechat.test.mjs         # Callback and article conversion tests
 ```
 
 The `site/` directory is the publish root for GitHub Pages, Netlify, Vercel, or any ordinary static-file host. The paths use stable English lowercase URLs, while the pages and learning material remain in Chinese.
@@ -33,13 +40,26 @@ Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/).
 
 ```sh
 npm run check
+npm test
 ```
 
 The check confirms expected pages, local HTML links, inline script syntax, and the shared search script.
 
+## WeChat Draft Integration
+
+The integration has no third-party runtime dependencies and requires Node.js 20 or newer. Configure a local `.env` from `.env.example`, then run:
+
+```sh
+npm run wechat:check
+npm run wechat:draft -- --dry-run
+npm run wechat:draft
+```
+
+The last command creates a draft only. It does not publish or mass-send it. See `docs/wechat-integration.md` for callback and deployment details.
+
 ## Project Metadata
 
-- Version: `0.2.1`
-- Stage: GitHub repository linked and initial `main` history pushed
-- Git status before this metadata update: clean; `main` tracked `origin/main` at `c9c366f`
-- Updated: `2026-09-19 00:05 CST`
+- Version: `0.3.0`
+- Stage: WeChat callback and draft API implementation complete; public deployment and account binding pending
+- Git status before this update: clean; `main` tracked `origin/main` at `0cc5805`
+- Updated: `2026-09-20 13:03 CST`

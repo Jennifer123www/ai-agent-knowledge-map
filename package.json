@@ -1,10 +1,17 @@
 {
   "name": "ai-agent-knowledge-map",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
-  "description": "Static Chinese learning and interview guides for the AI Agent knowledge map.",
+  "description": "AI Agent learning content with a WeChat Official Account publishing integration.",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "check": "node scripts/check-site.mjs",
-    "serve": "python3 -m http.server 4173 --directory site"
+    "serve": "python3 -m http.server 4173 --directory site",
+    "test": "node --test",
+    "wechat:serve": "node --env-file-if-exists=.env server/wechat-server.mjs",
+    "wechat:check": "node --env-file-if-exists=.env scripts/check-wechat-config.mjs",
+    "wechat:draft": "node --env-file-if-exists=.env scripts/create-wechat-draft.mjs"
   }
 }

@@ -4,20 +4,20 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 规范版本 | `1.2.0` |
-| 适用站点版本 | `0.2.1` |
-| 阶段 | GitHub 远程仓库已关联，静态站点与微信公众号文章资产持续维护 |
-| Git 基线 | `3196915`（`main`，新增文章资产前工作区仅有未跟踪的 `.DS_Store`） |
-| 修改时间 | `2026-09-20 12:09 CST` |
+| 规范版本 | `1.3.0` |
+| 适用项目版本 | `0.3.0` |
+| 阶段 | 静态站点、微信公众号文章资产及公众号 API 接入实现持续维护 |
+| Git 基线 | `0cc5805`（`main`；本次接入开始前工作区 clean） |
+| 修改时间 | `2026-09-20 13:03 CST` |
 
 ## 1. 目标与边界
 
-本项目是一个无需构建步骤的中文静态学习站，用同一套 AI Agent 知识体系服务两个阅读目标：
+本项目以无需构建步骤的中文静态学习站为主体，并提供独立的微信公众号服务端接入和草稿生成工具。站点用同一套 AI Agent 知识体系服务两个阅读目标：
 
 - **面向初学者**：建立全景认知，解释概念、结构、术语和模块关系。
 - **面向面试**：将同一主题转为原理、答题要点、记忆点、图解与追问练习。
 
-站点不承担运行 Agent、存储用户数据或调用模型的职责。HTML、内联 CSS 和原生 JavaScript 是唯一的运行时依赖；`site/` 是唯一发布根目录。
+站点不承担运行 Agent、存储用户数据或调用模型的职责。HTML、内联 CSS 和原生 JavaScript 是站点唯一的运行时依赖；`site/` 是静态发布根目录。公众号接入代码位于 `api/`、`lib/wechat/`、`server/` 和 `scripts/`，仅在服务端运行，不得把公众号密钥打包进 `site/`。
 
 ## 2. 总体组织
 
@@ -78,7 +78,18 @@ ai-agent-knowledge-map/
 ├── README.md
 ├── package.json
 ├── docs/
-│   └── project-specification.md
+│   ├── project-specification.md
+│   └── wechat-integration.md
+├── api/
+│   ├── health.mjs
+│   └── wechat/callback.mjs
+├── lib/wechat/
+│   ├── callback.mjs
+│   ├── client.mjs
+│   ├── config.mjs
+│   ├── image.mjs
+│   ├── markdown.mjs
+│   └── signature.mjs
 ├── content/
 │   └── wechat/                    # 面向公众号的模块化文章资产
 │       └── <topic>/
@@ -87,7 +98,13 @@ ai-agent-knowledge-map/
 │           ├── prompts.md         # 配图提示词与渲染记录
 │           └── assets/            # PNG 配图
 ├── scripts/
-│   └── check-site.mjs
+│   ├── check-site.mjs
+│   ├── check-wechat-config.mjs
+│   └── create-wechat-draft.mjs
+├── server/
+│   └── wechat-server.mjs
+├── test/
+│   └── wechat.test.mjs
 └── site/                         # 唯一可发布目录
     ├── index.html                # 根首页
     ├── assets/
@@ -109,6 +126,7 @@ ai-agent-knowledge-map/
 4. 公共行为放入 `site/assets/js/`；仅被一个页面使用、且数据量不大的交互逻辑可留在该页面的内联脚本中。
 5. 新增媒体资源应放在 `site/assets/` 的按类型子目录中，并提供有意义的英文小写文件名和 `alt` 文本。
 6. 公众号文章属于 `content/wechat/` 内容资产，不直接混入 `site/` 发布目录；每个主题保持 `beginner-main.md` 与 `interview-side.md` 一一对应。
+7. 公众号凭证只保存在被 Git 忽略的 `.env` 或部署平台的服务端环境变量中；禁止写入 `site/`、文档、测试夹具和日志。
 
 ## 4. 路由、导航与搜索
 
@@ -213,6 +231,8 @@ ai-agent-knowledge-map/
 
 ```sh
 npm run check
+npm test
+npm run wechat:draft -- --dry-run
 npm run serve
 ```
 
@@ -220,6 +240,8 @@ npm run serve
 - 本地预览地址为 `http://127.0.0.1:4173/`。
 - 涉及交互、导航、搜索或响应式样式时，至少手工检查：首页、两类总览、两类下钻；搜索命中；桌面和移动端无水平溢出。
 - 发布时将 `site/` 作为 GitHub Pages、Netlify、Vercel 或其他静态托管平台的发布目录；不要将仓库根目录误作为站点根目录。
+- 公众号回调必须部署到公网 HTTPS 服务；本地回调仅用于测试。接入流程、环境变量和草稿命令见 `docs/wechat-integration.md`。
+- 草稿脚本只能创建草稿，不得在未获得明确发布指令时增加或调用发布、群发接口。
 
 ## 9. Git 与文档维护
 
@@ -242,3 +264,4 @@ npm run serve
 - 中文术语准确，英文专有名词在需要处得到解释。
 - 桌面与移动端文字不重叠、不溢出，图解可读且可点击。
 - `npm run check` 与 `git diff --check` 通过。
+- 涉及公众号接入时，`npm test`、草稿 dry-run 和回调验签测试通过；真实凭证与公网回调另行完成联调。
