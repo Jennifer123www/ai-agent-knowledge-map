@@ -7,6 +7,18 @@ const contentRoot = path.join(root, "content", "wechat");
 const articleNames = new Set(["beginner-main.md", "interview-side.md"]);
 const failures = [];
 const articleGroups = new Map();
+const interviewQuestions = new Map();
+const expectedSeries = new Map([
+  ["capabilities", new Map([
+    ["overview:", 0],
+    ["submodule:skill", 1],
+    ["submodule:toolcalling", 2],
+    ["submodule:execution", 3],
+    ["submodule:mcp", 4],
+    ["submodule:mcpobjects", 5],
+    ["submodule:connector", 6],
+  ])],
+]);
 
 async function collectArticles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -50,6 +62,17 @@ for (const articlePath of await collectArticles(contentRoot)) {
     group.files.add(path.basename(articlePath));
     group.orders.add(seriesOrder);
     articleGroups.set(groupKey, group);
+    if (path.basename(articlePath) === "interview-side.md") {
+      const topicQuestions = interviewQuestions.get(topic) || new Map();
+      for (const match of markdown.matchAll(/^##\s+问题\s+\d+：(.+)$/gm)) {
+        const title = match[1].trim();
+        const normalized = title.toLowerCase().replace(/[\s，。？！、：“”‘’（）()《》]/g, "");
+        const previous = topicQuestions.get(normalized);
+        if (previous) failures.push(`${relativePath}: duplicate interview question '${title}' also appears in ${previous}`);
+        else topicQuestions.set(normalized, relativePath);
+      }
+      interviewQuestions.set(topic, topicQuestions);
+    }
     for (const image of article.images) {
       await access(image.absolutePath);
       if (!/\.(?:png|jpe?g)$/i.test(image.absolutePath)) {
@@ -96,6 +119,20 @@ for (const [groupKey, group] of articleGroups) {
   }
   if (group.orders.size !== 1) {
     failures.push(`${groupKey}: paired articles must use the same series_order`);
+  }
+}
+
+for (const [topic, expectedGroups] of expectedSeries) {
+  for (const [groupSuffix, expectedOrder] of expectedGroups) {
+    const groupKey = `${topic}:${groupSuffix}`;
+    const group = articleGroups.get(groupKey);
+    if (!group) {
+      failures.push(`${groupKey}: required WeChat article group is missing`);
+      continue;
+    }
+    if (!group.orders.has(expectedOrder)) {
+      failures.push(`${groupKey}: expected series_order ${expectedOrder}`);
+    }
   }
 }
 

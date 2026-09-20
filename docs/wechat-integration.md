@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.3.0` |
-| 阶段 | 服务端回调、草稿 API、文章 Front Matter 与参考资料校验已实现，待部署并绑定公众号凭证 |
-| Git 状态 | `e5afada`（`main`；更新时 dirty，含本轮文章语气与参考资料改动） |
-| 修改时间 | `2026-09-20 17:31 CST` |
+| 版本 | `0.4.0` |
+| 阶段 | 草稿 API、文章校验与“工具、技能与协议”7 组分层推文已完成，待部署并绑定公众号凭证 |
+| Git 状态 | `9bfc7e6`（`main`；更新时 dirty，含总概览重写和系列完整性校验） |
+| 修改时间 | `2026-09-21 00:41 CST` |
 
 ## 1. 已实现链路
 
@@ -100,6 +100,8 @@ order: 1
 ```text
 content/wechat/tools-skills-and-protocols/beginner-main.md
 ```
+
+该主题当前包含 1 组总概览和 6 组子模块，共 14 篇 Markdown。子模块文章位于 `content/wechat/tools-skills-and-protocols/submodules/<child>/`，同样通过 `--file` 指定导入。
 
 执行：
 

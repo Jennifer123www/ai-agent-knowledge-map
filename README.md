@@ -60,7 +60,7 @@ The last command creates a draft only. It does not publish or mass-send it. See 
 
 ## Project Metadata
 
-- Version: `0.3.2`
-- Stage: WeChat callback, draft API, YAML Front Matter, article-limit and reference-link checks implemented; public deployment and account binding pending
-- Git status during this update: dirty; based on `main` at `e5afada`
-- Updated: `2026-09-20 17:31 CST`
+- Version: `0.4.0`
+- Stage: The Tools, Skills and Protocols WeChat series is complete with 1 overview group and 6 submodule groups; public deployment and account binding remain pending
+- Git status during this update: dirty; based on `main` at `9bfc7e6`
+- Updated: `2026-09-21 00:41 CST`
