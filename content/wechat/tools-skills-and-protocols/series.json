@@ -1,0 +1,358 @@
+{
+  "schemaVersion": 1,
+  "topic": "capabilities",
+  "title": "工具、技能与协议",
+  "draftPlan": {
+    "outlineSections": { "min": 8, "max": 10 },
+    "targetChineseCharacters": { "min": 3200, "max": 3500 }
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "contentLevel": "overview",
+      "submodule": "",
+      "seriesOrder": 0,
+      "promptFile": "prompts.md",
+      "images": [
+        "assets/beginner-cover-image-2.png",
+        "assets/beginner-intent-to-action-image-2.png",
+        "assets/beginner-mcp-architecture-image-2.png",
+        "assets/beginner-safe-action-image-2.png",
+        "assets/beginner-skill-tool-mcp-image-2.png",
+        "assets/interview-answer-skeleton-image-2.png",
+        "assets/interview-execution-choice-image-2.png",
+        "assets/interview-failure-recovery-image-2.png",
+        "assets/interview-mcp-objects-image-2.png",
+        "assets/interview-tool-calling-cycle-image-2.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "解释能力扩展层的位置、六个子模块的职责、端到端协作和共同边界。",
+          "outline": [
+            "真实任务为什么不止需要模型回答",
+            "六个子模块的全景分工",
+            "一个业务任务怎样穿过六层",
+            "模型与执行的共同边界",
+            "能力发现与业务授权的区别",
+            "标准化与业务差异的取舍",
+            "从原型到生产的演进顺序",
+            "总体评测与下钻阅读路线"
+          ]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "只回答跨模块架构、端到端链路、总体选型、权限治理、发布与评测。",
+          "questionBoundary": {
+            "include": ["跨层职责", "端到端链路", "总体选型", "跨层权限", "发布回滚", "总体评测"],
+            "exclude": ["具体 Schema", "沙箱参数", "MCP 单个对象方法", "供应商分页限流实现"]
+          },
+          "outline": [
+            "能力扩展层职责划分",
+            "用户意图到真实结果",
+            "标准化与业务差异",
+            "跨层权限治理",
+            "抽象层次的引入时机",
+            "总体评测",
+            "原型生产化",
+            "故障定位、所有权与版本发布"
+          ]
+        }
+      }
+    },
+    {
+      "id": "skill",
+      "contentLevel": "submodule",
+      "submodule": "skill",
+      "seriesOrder": 1,
+      "promptFile": "submodules/skill/prompts.md",
+      "images": [
+        "submodules/skill/assets/skill-cover.png",
+        "submodules/skill/assets/skill-discovery.png",
+        "submodules/skill/assets/skill-execution.png",
+        "submodules/skill/assets/skill-method-tool.png",
+        "submodules/skill/assets/skill-recovery.png",
+        "submodules/skill/assets/skill-versioning.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/skill/beginner-main.md",
+          "focus": "讲清 Skill 的发现、执行、验收、恢复、版本化和安全治理。",
+          "outline": [
+            "重复任务为什么需要技能",
+            "Skill 与 Tool 的边界",
+            "一项技能的组成",
+            "技能发现与匹配",
+            "执行、检查点与恢复",
+            "技能版本管理",
+            "Skill、Prompt 与 Workflow",
+            "复合技能和安全治理"
+          ]
+        },
+        "interview": {
+          "path": "submodules/skill/interview-side.md",
+          "focus": "聚焦技能边界、匹配、验收、版本、恢复、编排和第三方技能治理。",
+          "questionBoundary": {
+            "include": ["Skill 与 Tool", "技能发现", "技能评测", "版本回归", "检查点恢复", "技能安全"],
+            "exclude": ["Tool Schema 细节", "MCP 传输", "连接器限流"]
+          },
+          "outline": [
+            "Skill 与 Tool 边界",
+            "技能发现",
+            "技能验收",
+            "版本升级",
+            "中断恢复",
+            "Prompt 与 Workflow",
+            "复合技能编排",
+            "安全治理和废弃判断"
+          ]
+        }
+      }
+    },
+    {
+      "id": "toolcalling",
+      "contentLevel": "submodule",
+      "submodule": "toolcalling",
+      "seriesOrder": 2,
+      "promptFile": "submodules/toolcalling/prompts.md",
+      "images": [
+        "submodules/toolcalling/assets/toolcalling-contract.png",
+        "submodules/toolcalling/assets/toolcalling-cover.png",
+        "submodules/toolcalling/assets/toolcalling-flow.png",
+        "submodules/toolcalling/assets/toolcalling-result.png",
+        "submodules/toolcalling/assets/toolcalling-validation.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/toolcalling/beginner-main.md",
+          "focus": "讲清结构化调用闭环、工具契约、执行校验、调用标识和结果回传。",
+          "outline": [
+            "模型为什么不直接执行函数",
+            "五步调用闭环",
+            "工具定义与参数契约",
+            "严格结构与业务校验",
+            "多工具调用",
+            "工具选择策略",
+            "调用 ID、幂等与错误",
+            "可观测性和实践清单"
+          ]
+        },
+        "interview": {
+          "path": "submodules/toolcalling/interview-side.md",
+          "focus": "聚焦工具定义、严格模式、并行调用、结果语义、tool choice、幂等和错误设计。",
+          "questionBoundary": {
+            "include": ["工具契约", "严格模式", "并行调用", "结果回传", "tool choice", "调用 ID 与幂等"],
+            "exclude": ["完整执行通道选型", "MCP 架构", "供应商字段适配"]
+          },
+          "outline": [
+            "工具定义",
+            "严格结构输出",
+            "并行调用",
+            "结果回传",
+            "调用评测",
+            "工具与代码执行",
+            "tool choice 和幂等",
+            "错误设计与选错排查"
+          ]
+        }
+      }
+    },
+    {
+      "id": "execution",
+      "contentLevel": "submodule",
+      "submodule": "execution",
+      "seriesOrder": 3,
+      "promptFile": "submodules/execution/prompts.md",
+      "images": [
+        "submodules/execution/assets/execution-browser.png",
+        "submodules/execution/assets/execution-choice.png",
+        "submodules/execution/assets/execution-confirm.png",
+        "submodules/execution/assets/execution-cover.png",
+        "submodules/execution/assets/execution-decision.png",
+        "submodules/execution/assets/execution-sandbox.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/execution/beginner-main.md",
+          "focus": "比较 API、隔离代码和浏览器执行的适用场景、风险、恢复与演进。",
+          "outline": [
+            "三种执行通道",
+            "API 的稳定契约",
+            "代码沙箱",
+            "浏览器自动化",
+            "通道选择",
+            "跨通道数据交接",
+            "失败恢复与人工确认",
+            "从原型迁移到稳定能力"
+          ]
+        },
+        "interview": {
+          "path": "submodules/execution/interview-side.md",
+          "focus": "聚焦通道选型、沙箱、浏览器脆弱性、结果确认、凭据和跨通道追踪。",
+          "questionBoundary": {
+            "include": ["执行通道选型", "沙箱隔离", "浏览器自动化", "权威状态", "产物验收", "登录凭据"],
+            "exclude": ["Tool Schema", "MCP 对象语义", "连接器供应商映射"]
+          },
+          "outline": [
+            "执行通道选型",
+            "代码沙箱边界",
+            "浏览器维护",
+            "业务状态确认",
+            "故障恢复",
+            "成本和权限",
+            "API 演进与产物验收",
+            "凭据、数据最小化与追踪"
+          ]
+        }
+      }
+    },
+    {
+      "id": "mcp",
+      "contentLevel": "submodule",
+      "submodule": "mcp",
+      "seriesOrder": 4,
+      "promptFile": "submodules/mcp/prompts.md",
+      "images": [
+        "submodules/mcp/assets/mcp-compatibility.png",
+        "submodules/mcp/assets/mcp-cover.png",
+        "submodules/mcp/assets/mcp-discovery.png",
+        "submodules/mcp/assets/mcp-layers.png",
+        "submodules/mcp/assets/mcp-local-remote.png",
+        "submodules/mcp/assets/mcp-security.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/mcp/beginner-main.md",
+          "focus": "解释 MCP 的协议范围、数据层、传输层、发现、状态、安全与兼容。",
+          "outline": [
+            "为什么需要共同连接规则",
+            "数据层和传输层",
+            "连接与能力发现",
+            "请求、响应和通知",
+            "协议无状态与任务状态",
+            "本地和远程部署",
+            "认证授权与内容信任",
+            "兼容、降级和采用时机"
+          ]
+        },
+        "interview": {
+          "path": "submodules/mcp/interview-side.md",
+          "focus": "聚焦协议分层、发现协商、本地远程、安全、兼容、通知和降级。",
+          "questionBoundary": {
+            "include": ["数据层与传输层", "版本协商", "本地与远程", "协议授权边界", "通知与长任务", "降级"],
+            "exclude": ["Tools/Resources/Prompts 具体语义", "连接器字段与限流实现"]
+          },
+          "outline": [
+            "协议分层",
+            "发现和版本协商",
+            "本地与远程",
+            "授权边界",
+            "兼容测试",
+            "远端内容安全",
+            "请求通知与任务状态",
+            "降级和采用判断"
+          ]
+        }
+      }
+    },
+    {
+      "id": "mcpobjects",
+      "contentLevel": "submodule",
+      "submodule": "mcpobjects",
+      "seriesOrder": 5,
+      "promptFile": "submodules/mcpobjects/prompts.md",
+      "images": [
+        "submodules/mcpobjects/assets/mcpobjects-cover.png",
+        "submodules/mcpobjects/assets/mcpobjects-elicitation.png",
+        "submodules/mcpobjects/assets/mcpobjects-primitives.png",
+        "submodules/mcpobjects/assets/mcpobjects-roles.png",
+        "submodules/mcpobjects/assets/mcpobjects-routing.png",
+        "submodules/mcpobjects/assets/mcpobjects-security.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/mcpobjects/beginner-main.md",
+          "focus": "分清 Host、Client、Server 和 Tools、Resources、Prompts、Elicitation。",
+          "outline": [
+            "角色关系",
+            "Tool 动作",
+            "Resource 内容",
+            "Prompt 模板",
+            "对象为何分开",
+            "对象进入上下文",
+            "Elicitation",
+            "目录治理和坏味道"
+          ]
+        },
+        "interview": {
+          "path": "submodules/mcpobjects/interview-side.md",
+          "focus": "聚焦角色、三类对象语义、对象级授权、组合、Elicitation 和对象目录治理。",
+          "questionBoundary": {
+            "include": ["Host/Client/Server", "三类对象", "对象级授权", "Elicitation", "Resource 缓存", "Prompt 治理"],
+            "exclude": ["MCP 传输协议", "供应商 API 演进实现"]
+          },
+          "outline": [
+            "角色划分",
+            "三类对象语义",
+            "对象级授权",
+            "任务组合",
+            "Elicitation",
+            "对象目录",
+            "Resource 与 Prompt 治理",
+            "长任务、版本和可观测性"
+          ]
+        }
+      }
+    },
+    {
+      "id": "connector",
+      "contentLevel": "submodule",
+      "submodule": "connector",
+      "seriesOrder": 6,
+      "promptFile": "submodules/connector/prompts.md",
+      "images": [
+        "submodules/connector/assets/connector-adapter.png",
+        "submodules/connector/assets/connector-auth.png",
+        "submodules/connector/assets/connector-cover.png",
+        "submodules/connector/assets/connector-errors.png",
+        "submodules/connector/assets/connector-evolution.png",
+        "submodules/connector/assets/connector-plugin.png",
+        "submodules/connector/assets/connector-reliability.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/connector/beginner-main.md",
+          "focus": "解释具体系统适配、认证、字段翻译、可靠调用、事件、缓存和插件治理。",
+          "outline": [
+            "连接器为何不是转发层",
+            "对象和字段翻译",
+            "身份与凭据",
+            "分页限流和部分成功",
+            "错误归一",
+            "事件、缓存和一致性",
+            "契约演进与测试",
+            "插件安装和治理"
+          ]
+        },
+        "interview": {
+          "path": "submodules/connector/interview-side.md",
+          "focus": "聚焦适配边界、凭据、分页限流、错误、演进、事件、缓存和测试矩阵。",
+          "questionBoundary": {
+            "include": ["连接器边界", "身份凭据", "分页限流", "错误归一", "契约演进", "Webhook", "缓存一致性"],
+            "exclude": ["MCP 协议握手", "Tool Schema 设计", "浏览器沙箱细节"]
+          },
+          "outline": [
+            "连接器与业务流程",
+            "身份和凭据",
+            "分页限流与部分成功",
+            "错误归一",
+            "供应商演进",
+            "可观测性",
+            "插件治理",
+            "Webhook、缓存、粒度和测试"
+          ]
+        }
+      }
+    }
+  ]
+}

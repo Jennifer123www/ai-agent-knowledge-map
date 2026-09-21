@@ -17,6 +17,7 @@ site/
     site-search.js           # Shared cross-site search
 scripts/
   check-site.mjs             # Link and syntax validation
+  check-wechat-articles.mjs  # Manifest and WeChat article validation
   check-wechat-config.mjs    # Validate AppID/AppSecret with stable_token
   create-wechat-draft.mjs    # Upload article assets and create a draft
 api/
@@ -24,6 +25,11 @@ api/
 lib/wechat/                  # Signature, API client, and Markdown conversion
 server/wechat-server.mjs     # Local/standalone callback server
 test/wechat.test.mjs         # Callback and article conversion tests
+content/wechat/<topic>/
+  series.json                # Article paths, outlines, boundaries, and image inventory
+  beginner-main.md           # Topic overview article
+  interview-side.md          # Topic overview interview article
+  submodules/<child>/        # Paired child-module articles and assets
 ```
 
 The `site/` directory is the publish root for GitHub Pages, Netlify, Vercel, or any ordinary static-file host. The paths use stable English lowercase URLs, while the pages and learning material remain in Chinese.
@@ -56,11 +62,13 @@ npm run wechat:draft -- --dry-run
 npm run wechat:draft
 ```
 
+Use `npm run wechat:articles:check:verbose` only when article-level diagnostics are needed.
+
 The last command creates a draft only. It does not publish or mass-send it. See `docs/wechat-integration.md` for callback and deployment details.
 
 ## Project Metadata
 
-- Version: `0.4.0`
-- Stage: The Tools, Skills and Protocols WeChat series is complete with 1 overview group and 6 submodule groups; public deployment and account binding remain pending
-- Git status during this update: dirty; based on `main` at `9bfc7e6`
-- Updated: `2026-09-21 00:41 CST`
+- Version: `0.4.1`
+- Stage: WeChat series manifests, first-draft planning, and concise validation are implemented; public deployment and account binding remain pending
+- Git status during this update: dirty; based on `main` at `5f81733`
+- Updated: `2026-09-21 10:11 CST`
