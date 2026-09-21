@@ -103,6 +103,8 @@ content/wechat/tools-skills-and-protocols/beginner-main.md
 
 该主题当前包含 1 组总概览和 6 组子模块，共 14 篇 Markdown。子模块文章位于 `content/wechat/tools-skills-and-protocols/submodules/<child>/`，同样通过 `--file` 指定导入。
 
+项目复盘系列位于 `content/wechat/project-retrospective/`，包含“我是如何引导 AI 生成一份 AI Agent 知识图谱的”主文和一篇独立踩坑指南。两篇同样登记在 `series.json` 并接受完整校验。
+
 执行：
 
 ```sh
@@ -113,6 +115,13 @@ npm run wechat:draft
 
 ```sh
 npm run wechat:draft -- --file content/wechat/tools-skills-and-protocols/interview-side.md
+```
+
+复盘文章示例：
+
+```sh
+npm run wechat:draft -- --file content/wechat/project-retrospective/beginner-main.md
+npm run wechat:draft -- --file content/wechat/project-retrospective/interview-side.md
 ```
 
 微信正文图片按 1 MB 上限预检。本机 macOS 运行时，超限 PNG 会通过系统自带的 `sips` 临时压缩为 JPEG 后上传；临时文件在命令结束时删除，源图片不会改动。其他系统需要预先把正文图片压缩到 1 MB 以下。

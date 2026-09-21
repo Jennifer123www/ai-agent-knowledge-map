@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "topic": "project-retrospective",
+  "title": "AI Agent 知识图谱共创复盘",
+  "draftPlan": {
+    "outlineSections": { "min": 8, "max": 10 },
+    "targetChineseCharacters": { "min": 3200, "max": 3500 }
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "contentLevel": "overview",
+      "submodule": "",
+      "seriesOrder": 0,
+      "promptFile": "prompts.md",
+      "images": [
+        "assets/retrospective-cover.png",
+        "assets/artifact-evolution.png",
+        "assets/content-architecture.png",
+        "assets/review-loop.png",
+        "assets/publishing-pipeline.png",
+        "assets/pitfalls-cover.png",
+        "assets/hierarchy-pitfall.png",
+        "assets/quality-gates.png",
+        "assets/token-efficiency.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "以真实对话为线索，复盘如何把模糊的 AI Agent 知识图谱需求逐步变成网站、双版本内容、分层公众号系列和自动校验工程。",
+          "outline": [
+            "从一张简单脑图开始",
+            "先把交付格式做对",
+            "从页面改成内容体系",
+            "用反馈逐步明确语言和交互",
+            "建立初学者与面试版对应关系",
+            "从一级模块下钻到 n+1 推文结构",
+            "把图片、规则、Git 和发布接成流水线",
+            "我学会怎样给 AI 提要求"
+          ]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "整理本次共创中的需求、层级、内容、图片、工具、校验、节奏和成本陷阱，并给出可复用的规避方法。",
+          "questionBoundary": {
+            "include": ["需求澄清", "内容层级", "图片文字", "阶段完成", "自动校验", "token 成本"],
+            "exclude": ["AI Agent 技术面试题", "具体 MCP 机制", "站点子模块正文"]
+          },
+          "outline": [
+            "只给名词不等于说清目标",
+            "交付格式和文件结构要先确认",
+            "总览、子模块和文章层级最容易错",
+            "泛化文案和 AI 腔会稀释内容",
+            "图片生成要控制文字和校对",
+            "工具安装、认证和依赖会阻塞",
+            "阶段完成不能冒充任务完成",
+            "短稿补写和全量日志会浪费 token",
+            "用清单、提纲和完成审计收口"
+          ]
+        }
+      }
+    }
+  ]
+}
