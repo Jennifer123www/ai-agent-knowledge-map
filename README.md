@@ -69,6 +69,6 @@ The last command creates a draft only. It does not publish or mass-send it. See 
 ## Project Metadata
 
 - Version: `0.5.0`
-- Stage: AI Agent knowledge-map co-creation retrospective and pitfalls WeChat drafts are complete; public deployment and account binding remain pending
-- Git status during this update: dirty; based on `main` at `d6f57ad`
-- Updated: `2026-09-21 12:48 CST`
+- Stage: the complete "基础模型与推理" WeChat series is ready with 6 paired groups, 12 articles, and 30 reviewed images; public deployment and account binding remain pending
+- Git status during this update: dirty; based on `main` at `cebcec4`
+- Updated: `2026-09-23 19:59 CST`

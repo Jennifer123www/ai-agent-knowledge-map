@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.4.0` |
-| 阶段 | 草稿 API、文章校验与“工具、技能与协议”7 组分层推文已完成，待部署并绑定公众号凭证 |
-| Git 状态 | `9bfc7e6`（`main`；更新时 dirty，含总概览重写和系列完整性校验） |
-| 修改时间 | `2026-09-21 00:41 CST` |
+| 版本 | `0.5.0` |
+| 阶段 | 草稿 API、文章校验及“工具、技能与协议”“基础模型与推理”分层推文已完成，待部署并绑定公众号凭证 |
+| Git 状态 | `cebcec4`（`main`；更新时 dirty，新增基础模型完整系列） |
+| 修改时间 | `2026-09-23 19:59 CST` |
 
 ## 1. 已实现链路
 
@@ -105,6 +105,8 @@ content/wechat/tools-skills-and-protocols/beginner-main.md
 
 项目复盘系列位于 `content/wechat/project-retrospective/`，包含“我是如何引导 AI 生成一份 AI Agent 知识图谱的”主文和一篇独立踩坑指南。两篇同样登记在 `series.json` 并接受完整校验。
 
+基础模型系列位于 `content/wechat/foundation-models-and-inference/`，包含 1 组总概览和大语言模型、多模态模型、向量嵌入、重排序、模型适配 5 组子模块，共 12 篇 Markdown 与 30 张本地配图。各组文章路径、题目边界、提纲和配图以该目录的 `series.json` 为准。
+
 执行：
 
 ```sh
@@ -122,6 +124,13 @@ npm run wechat:draft -- --file content/wechat/tools-skills-and-protocols/intervi
 ```sh
 npm run wechat:draft -- --file content/wechat/project-retrospective/beginner-main.md
 npm run wechat:draft -- --file content/wechat/project-retrospective/interview-side.md
+```
+
+基础模型系列示例：
+
+```sh
+npm run wechat:draft -- --file content/wechat/foundation-models-and-inference/beginner-main.md
+npm run wechat:draft -- --file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
 ```
 
 微信正文图片按 1 MB 上限预检。本机 macOS 运行时，超限 PNG 会通过系统自带的 `sips` 临时压缩为 JPEG 后上传；临时文件在命令结束时删除，源图片不会改动。其他系统需要预先把正文图片压缩到 1 MB 以下。
