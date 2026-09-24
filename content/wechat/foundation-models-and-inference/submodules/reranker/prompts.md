@@ -7,3 +7,4 @@
 3. `reranker-cross-encoder.png`：查询和段落共同进入模型，标签“查询 + 段落”“联合阅读”“相关性分数”。
 4. `reranker-policy.png`：排序前后的业务筛子，标签“权限”“生效日期”“来源质量”“相关性”。
 5. `reranker-evaluation.png`：排序评测，标签“标注相关性”“MRR”“NDCG”“延迟”。
+6. `reranker-principle.png`：原理图。依据 [Passage Re-ranking with BERT](https://arxiv.org/abs/1901.04085) 第 2 节改绘。保留 `[CLS] 查询 [SEP] 候选段落 [SEP] → BERT → 相关性分数`；说明每个查询—候选对单独计算，分数只用于排序。图注：“依据 Nogueira 与 Cho，第 2 节改绘。”

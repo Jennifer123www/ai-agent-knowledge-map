@@ -7,3 +7,4 @@
 3. `toolcalling-contract.png`：左侧结构化参数卡，右侧两道闸门“格式校验”“业务校验”，下方“执行”，只保留这些标签。
 4. `toolcalling-validation.png`：展示严格结构约束和身份、额度、资源归属的业务校验分层，标签为“参数结构”“身份权限”“业务规则”“副作用”。
 5. `toolcalling-result.png`：结果状态图，展示“成功”“处理中”“失败”“部分成功”四种状态，回到下一步决策，标签少而大。
+6. `toolcalling-principle.png`：原理图。依据 [MCP Tools 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools) 的调用责任改绘。保留“用户请求 → 模型输出工具名与参数 → 应用校验 → 工具服务 → 结构化结果 → 回到模型”；强调模型不直接执行函数。图注：“依据 MCP Tools 规范改绘；同样适用于常见 Function Calling。”

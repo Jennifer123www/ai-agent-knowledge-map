@@ -13,6 +13,7 @@
       "submodule": "",
       "seriesOrder": 0,
       "promptFile": "prompts.md",
+      "principleImage": "assets/retrospective-principle.png",
       "images": [
         "assets/retrospective-cover.png",
         "assets/artifact-evolution.png",
@@ -22,7 +23,8 @@
         "assets/pitfalls-cover.png",
         "assets/hierarchy-pitfall.png",
         "assets/quality-gates.png",
-        "assets/token-efficiency.png"
+        "assets/token-efficiency.png",
+        "assets/retrospective-principle.png"
       ],
       "articles": {
         "beginner": {

@@ -80,6 +80,10 @@ Skill，就是把这类事情整理成一套可复用的方法。中文可以叫
 
 ![技能发现与匹配](./assets/skill-discovery.png)
 
+![技能按需加载的机制](./assets/skill-principle.png)
+
+*依据 Agent Skills 规范中的渐进式加载与 `SKILL.md` 结构改绘。*
+
 技能目录的描述要能区分相近任务。“处理数据”“分析文件”太宽泛，模型很难判断。好的描述会写清对象、动作和产物，例如“比较两个月云账单并输出异常明细”，比“账单助手”更容易被准确选中。
 
 发现技能不等于获得权限。用户可以看见“退款处理”技能，但当前账号可能只有查询权限。技能匹配之后，还要由执行层检查身份、资源范围和动作风险。
@@ -152,6 +156,7 @@ Skill，就是把这类事情整理成一套可复用的方法。中文可以叫
 
 ## 参考资料
 
+- [Agent Skills：规范](https://agentskills.io/specification)
 - [OpenAI 官方文档：Tools 与 Skills](https://developers.openai.com/api/docs/guides/tools-skills)
 - [Anthropic：Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [OpenAI 官方文档：Agents SDK](https://openai.github.io/openai-agents-js/)

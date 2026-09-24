@@ -8,3 +8,4 @@
 4. `skill-discovery.png`：技能目录匹配图。用户任务卡片经过候选筛选，进入一份被选中的技能手册；画面标签为“任务”“技能目录”“候选筛选”“选中”。
 5. `skill-recovery.png`：技能中断恢复图。展示“检查点”“状态查询”“继续执行”“人工接管”四个节点，突出先查状态再恢复，不要出现小字。
 6. `skill-versioning.png`：技能版本发布图。展示版本 1、评测、灰度、版本 2 和回滚箭头，标签为“版本”“回归”“灰度”“回滚”。
+7. `skill-principle.png`：原理图。依据 [Agent Skills 规范](https://agentskills.io/specification) 的渐进式加载和 `SKILL.md` 结构改绘。保留“任务 → 技能元数据 → 选中后读取 SKILL.md → 按需资源 → 执行验收”；不把技能发现画成模型训练。图注：“依据 Agent Skills 规范改绘。”

@@ -44,6 +44,10 @@ Tool 表示可调用的动作，通常包含名称、说明、参数结构和返
 
 ![Tools、Resources 与 Prompts](./assets/mcpobjects-primitives.png)
 
+![MCP 三种对象的请求路径](./assets/mcpobjects-principle.png)
+
+*依据 MCP Architecture、Tools、Resources 与 Prompts 规范改绘。*
+
 Tool 可能只读，也可能产生副作用。名称看起来像“查询”的动作，也可能触发计费或写审计日志，因此 Server 应明确风险和权限。Client 收到目录后，还可以结合用户身份和本地策略进一步过滤。
 
 调用 Tool 时，模型或上层流程提出参数，Host 的执行策略先检查，再由 Client 向 Server 发起请求。Server 仍要在后端重新校验身份和业务规则。目录里有 Tool，不等于任何人都能调用。
@@ -134,6 +138,7 @@ Host 像商场，Client 像每个专柜的联络员，Server 像具体专柜。�
 
 ## 参考资料
 
+- [MCP 2025-06-18：Tools、Resources 与 Prompts](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
 - [Model Context Protocol 官方文档：Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)
 - [MCP 官方文档：Server concepts](https://modelcontextprotocol.io/docs/learn/server-concepts)
 - [MCP 官方文档：Client concepts](https://modelcontextprotocol.io/docs/learn/client-concepts)

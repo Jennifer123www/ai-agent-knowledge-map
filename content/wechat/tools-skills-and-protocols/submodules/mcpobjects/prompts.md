@@ -8,3 +8,4 @@
 4. `mcpobjects-security.png`：三类对象分别经过动作授权、数据授权、模板治理，标签“动作”“数据”“模板”“本地策略”。
 5. `mcpobjects-routing.png`：任务先读 Resource，再用 Prompt 整理，最后调用 Tool，标签“读取资料”“使用模板”“执行动作”。
 6. `mcpobjects-elicitation.png`：Server 请求补充信息，Host 展示界面，用户确认后返回，标签“Server 发问”“Host 展示”“用户决定”。
+7. `mcpobjects-principle.png`：原理图。依据 MCP [Architecture](https://modelcontextprotocol.io/docs/learn/architecture)、[Tools](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)、[Resources](https://modelcontextprotocol.io/specification/2025-06-18/server/resources) 与 [Prompts](https://modelcontextprotocol.io/specification/2025-06-18/server/prompts) 改绘。保留 Client/Server 与三种不同请求路径；明确发现对象不等于获得权限。图注：“依据 MCP 规范改绘。”

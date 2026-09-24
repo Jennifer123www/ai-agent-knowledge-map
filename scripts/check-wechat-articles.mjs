@@ -94,16 +94,25 @@ for (const manifestPath of manifestPaths) {
     seriesOrders.add(seriesOrder);
 
     const promptFile = String(group.promptFile || "").trim();
+    let promptMarkdown = "";
     if (!promptFile) fail(groupLabel, "promptFile is required");
     else {
-      try { await access(seriesPath(seriesRoot, promptFile)); }
+      try { promptMarkdown = await readFile(seriesPath(seriesRoot, promptFile), "utf8"); }
       catch { fail(groupLabel, `missing prompt file ${promptFile}`); }
     }
 
     const imageNames = Array.isArray(group.images) ? group.images : [];
     const declaredImages = new Set(imageNames);
+    const principleImage = String(group.principleImage || "").trim();
     groupImageUsage.set(groupLabel, { declaredImages, usedImages: new Set() });
     if (declaredImages.size < 5) fail(groupLabel, "at least 5 image names must be declared");
+    if (!principleImage) fail(groupLabel, "principleImage is required");
+    else {
+      if (!declaredImages.has(principleImage)) fail(groupLabel, "principleImage must be declared in images");
+      if (!promptMarkdown.includes(path.basename(principleImage))) {
+        fail(groupLabel, `prompt file must document principle image ${path.basename(principleImage)}`);
+      }
+    }
     for (const imageName of declaredImages) {
       if (!/\.(?:png|jpe?g)$/i.test(imageName)) fail(groupLabel, `unsupported image type: ${imageName}`);
       try { await access(seriesPath(seriesRoot, imageName)); }
@@ -152,6 +161,7 @@ for (const manifestPath of manifestPaths) {
         seriesOrder,
         role,
         declaredImages,
+        principleImage,
       });
     }
   }
@@ -210,6 +220,9 @@ for (const [articlePath, registration] of registeredArticles) {
     }
     if (article.images.length < 5) {
       throw new Error(`At least 5 local images are required, including the cover (${article.images.length}/5)`);
+    }
+    if (registration.role === "beginner" && !usedImages.has(registration.principleImage)) {
+      throw new Error(`Beginner main article must use declared principle image: ${registration.principleImage}`);
     }
 
     const source = article.lines.join("\n");

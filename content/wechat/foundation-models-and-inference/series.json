@@ -13,12 +13,14 @@
       "submodule": "",
       "seriesOrder": 0,
       "promptFile": "prompts.md",
+      "principleImage": "assets/foundation-principle.png",
       "images": [
         "assets/foundation-cover.png",
         "assets/foundation-model-team.png",
         "assets/foundation-data-flow.png",
         "assets/foundation-selection.png",
-        "assets/foundation-production.png"
+        "assets/foundation-production.png",
+        "assets/foundation-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -63,12 +65,15 @@
       "submodule": "llm",
       "seriesOrder": 1,
       "promptFile": "submodules/llm/prompts.md",
+      "principleImage": "submodules/llm/assets/llm-principle.png",
       "images": [
         "submodules/llm/assets/llm-cover.png",
         "submodules/llm/assets/llm-token-generation.png",
         "submodules/llm/assets/llm-attention-context.png",
         "submodules/llm/assets/llm-sampling.png",
-        "submodules/llm/assets/llm-reliability.png"
+        "submodules/llm/assets/llm-reliability.png",
+        "submodules/llm/assets/llm-principle.png",
+        "submodules/llm/assets/llm-rnn-comparison.png"
       ],
       "articles": {
         "beginner": {
@@ -76,14 +81,14 @@
           "focus": "讲清 token 预测、Transformer、自注意力、上下文、采样和可靠性边界。",
           "outline": [
             "从续写一句话理解语言模型",
-            "token 与概率预测",
-            "Transformer 和自注意力",
-            "上下文窗口怎样被使用",
-            "采样怎样改变输出",
-            "为什么会流畅地答错",
+            "文字怎样变成 token",
+            "模型怎样一步一步生成",
+            "Transformer 与自注意力",
+            "上下文窗口与 KV Cache",
+            "解码策略与采样",
+            "幻觉与事实边界",
             "结构化输出与工具协作",
-            "模型选择和基础评测",
-            "KV Cache 与提示缓存"
+            "模型选择和基础评测"
           ]
         },
         "interview": {
@@ -113,12 +118,14 @@
       "submodule": "multimodal",
       "seriesOrder": 2,
       "promptFile": "submodules/multimodal/prompts.md",
+      "principleImage": "submodules/multimodal/assets/multimodal-principle.png",
       "images": [
         "submodules/multimodal/assets/multimodal-cover.png",
         "submodules/multimodal/assets/multimodal-encoding.png",
         "submodules/multimodal/assets/multimodal-alignment.png",
         "submodules/multimodal/assets/multimodal-document.png",
-        "submodules/multimodal/assets/multimodal-validation.png"
+        "submodules/multimodal/assets/multimodal-validation.png",
+        "submodules/multimodal/assets/multimodal-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -163,12 +170,14 @@
       "submodule": "embedding",
       "seriesOrder": 3,
       "promptFile": "submodules/embedding/prompts.md",
+      "principleImage": "submodules/embedding/assets/embedding-principle.png",
       "images": [
         "submodules/embedding/assets/embedding-cover.png",
         "submodules/embedding/assets/embedding-space.png",
         "submodules/embedding/assets/embedding-retrieval.png",
         "submodules/embedding/assets/embedding-chunking.png",
-        "submodules/embedding/assets/embedding-evaluation.png"
+        "submodules/embedding/assets/embedding-evaluation.png",
+        "submodules/embedding/assets/embedding-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -213,12 +222,14 @@
       "submodule": "reranker",
       "seriesOrder": 4,
       "promptFile": "submodules/reranker/prompts.md",
+      "principleImage": "submodules/reranker/assets/reranker-principle.png",
       "images": [
         "submodules/reranker/assets/reranker-cover.png",
         "submodules/reranker/assets/reranker-two-stage.png",
         "submodules/reranker/assets/reranker-cross-encoder.png",
         "submodules/reranker/assets/reranker-policy.png",
-        "submodules/reranker/assets/reranker-evaluation.png"
+        "submodules/reranker/assets/reranker-evaluation.png",
+        "submodules/reranker/assets/reranker-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -263,12 +274,14 @@
       "submodule": "adaptation",
       "seriesOrder": 5,
       "promptFile": "submodules/adaptation/prompts.md",
+      "principleImage": "submodules/adaptation/assets/adaptation-principle.png",
       "images": [
         "submodules/adaptation/assets/adaptation-cover.png",
         "submodules/adaptation/assets/adaptation-decision.png",
         "submodules/adaptation/assets/adaptation-lora.png",
         "submodules/adaptation/assets/adaptation-distillation.png",
-        "submodules/adaptation/assets/adaptation-release.png"
+        "submodules/adaptation/assets/adaptation-release.png",
+        "submodules/adaptation/assets/adaptation-principle.png"
       ],
       "articles": {
         "beginner": {

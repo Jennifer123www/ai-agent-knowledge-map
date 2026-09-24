@@ -46,6 +46,10 @@ MCP 连接不是插上就能用。客户端要知道服务端支持什么版本�
 
 ![MCP 连接与能力发现](./assets/mcp-discovery.png)
 
+![MCP 初始化时序](./assets/mcp-principle.png)
+
+*依据 MCP 2025-06-18 版 Basic / Lifecycle 规范改绘。*
+
 发现过程可以理解成一次“能力目录交换”：服务端声明自己支持哪些对象，客户端读取目录并结合本地策略筛选。目录变更时，服务端还可以通过通知让客户端更新缓存。
 
 发现不等于信任。一个远程服务自称能读公司文件，客户端仍要核对来源、身份、授权和数据范围。目录里列出“删除数据”，也不代表当前用户或当前任务允许调用它。
@@ -128,6 +132,7 @@ MCP 更像统一插座。插头规格统一后，电脑、台灯和充电器不�
 
 ## 参考资料
 
+- [MCP 2025-06-18：初始化生命周期](https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle)
 - [Model Context Protocol 官方文档：Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)
 - [MCP 官方规范：Basic protocol](https://modelcontextprotocol.io/specification/latest/basic)
 - [OpenAI 官方文档：MCP servers](https://developers.openai.com/api/docs/guides/tools-connectors-mcp)

@@ -7,3 +7,4 @@
 3. `embedding-retrieval.png`：双塔检索，标签“查询向量”“文档向量”“近邻搜索”“候选资料”。
 4. `embedding-chunking.png`：长文档被按标题和条款切分，标签“语义切分”“来源元数据”“权限过滤”“向量索引”。
 5. `embedding-evaluation.png`：召回评测漏斗，标签“测试问题”“相关资料”“召回结果”“Recall@K”。
+6. `embedding-principle.png`：原理图。依据 [Sentence-BERT](https://arxiv.org/abs/1908.10084) Figure 2（推理阶段）改绘，不能错标为 Figure 1（分类训练结构）。保留查询与文档两条独立编码路径、向量 `q/d` 和相似度计算；强调文档向量可预计算，相似度不是事实证明。图注：“依据 Reimers 与 Gurevych，Figure 2 改绘。”

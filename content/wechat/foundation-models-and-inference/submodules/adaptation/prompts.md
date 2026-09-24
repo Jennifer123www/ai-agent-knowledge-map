@@ -7,3 +7,4 @@
 3. `adaptation-lora.png`：冻结基础模型，只训练小型增量模块，标签“基础权重”“LoRA 适配器”“任务行为”。
 4. `adaptation-distillation.png`：教师模型向学生模型迁移，标签“教师模型”“示例与软目标”“学生模型”“重新评测”。
 5. `adaptation-release.png`：发布闭环，标签“数据版本”“训练实验”“离线评测”“灰度发布”“回滚”。
+6. `adaptation-principle.png`：原理图。依据 [LoRA](https://arxiv.org/abs/2106.09685) 第 4 节与 Figure 1 改绘。保留冻结基础权重 `W`、可训练低秩矩阵 `A/B`、增量 `BA` 与输出相加；说明 QLoRA 还会量化冻结底座。图注：“依据 Hu 等，第 4 节与 Figure 1 改绘。”

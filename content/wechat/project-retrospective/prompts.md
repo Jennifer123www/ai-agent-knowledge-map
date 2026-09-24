@@ -11,3 +11,4 @@
 7. `hierarchy-pitfall.png`：错误和正确层级对比。错误侧把一级模块只做两篇文章；正确侧显示“1 个总览 + n 个子模块 = n+1 组”。
 8. `quality-gates.png`：发布前质量闸门。文字：“字数”“图片”“参考链接”“HTML 限制”“dry-run”。
 9. `token-efficiency.png`：低效和高效写作对比。低效侧“短稿→补写→全量日志”，高效侧“8–10 段提纲→3200–3500 字首稿→简洁校验”。
+10. `retrospective-principle.png`：原理图。依据本项目对话、`series.json` 与 `check-wechat-articles.mjs` 整理。保留“初版产物 → 人工审阅 → 规则与清单 → 下一版产物 → 自动校验 → 回到审阅”；不宣称它来自外部论文。图注：“依据本项目共创与校验流程整理。”

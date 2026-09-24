@@ -13,6 +13,7 @@
       "submodule": "",
       "seriesOrder": 0,
       "promptFile": "prompts.md",
+      "principleImage": "assets/capabilities-principle.png",
       "images": [
         "assets/beginner-cover-image-2.png",
         "assets/beginner-intent-to-action-image-2.png",
@@ -23,7 +24,8 @@
         "assets/interview-execution-choice-image-2.png",
         "assets/interview-failure-recovery-image-2.png",
         "assets/interview-mcp-objects-image-2.png",
-        "assets/interview-tool-calling-cycle-image-2.png"
+        "assets/interview-tool-calling-cycle-image-2.png",
+        "assets/capabilities-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -66,13 +68,15 @@
       "submodule": "skill",
       "seriesOrder": 1,
       "promptFile": "submodules/skill/prompts.md",
+      "principleImage": "submodules/skill/assets/skill-principle.png",
       "images": [
         "submodules/skill/assets/skill-cover.png",
         "submodules/skill/assets/skill-discovery.png",
         "submodules/skill/assets/skill-execution.png",
         "submodules/skill/assets/skill-method-tool.png",
         "submodules/skill/assets/skill-recovery.png",
-        "submodules/skill/assets/skill-versioning.png"
+        "submodules/skill/assets/skill-versioning.png",
+        "submodules/skill/assets/skill-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -115,12 +119,14 @@
       "submodule": "toolcalling",
       "seriesOrder": 2,
       "promptFile": "submodules/toolcalling/prompts.md",
+      "principleImage": "submodules/toolcalling/assets/toolcalling-principle.png",
       "images": [
         "submodules/toolcalling/assets/toolcalling-contract.png",
         "submodules/toolcalling/assets/toolcalling-cover.png",
         "submodules/toolcalling/assets/toolcalling-flow.png",
         "submodules/toolcalling/assets/toolcalling-result.png",
-        "submodules/toolcalling/assets/toolcalling-validation.png"
+        "submodules/toolcalling/assets/toolcalling-validation.png",
+        "submodules/toolcalling/assets/toolcalling-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -163,13 +169,15 @@
       "submodule": "execution",
       "seriesOrder": 3,
       "promptFile": "submodules/execution/prompts.md",
+      "principleImage": "submodules/execution/assets/execution-principle.png",
       "images": [
         "submodules/execution/assets/execution-browser.png",
         "submodules/execution/assets/execution-choice.png",
         "submodules/execution/assets/execution-confirm.png",
         "submodules/execution/assets/execution-cover.png",
         "submodules/execution/assets/execution-decision.png",
-        "submodules/execution/assets/execution-sandbox.png"
+        "submodules/execution/assets/execution-sandbox.png",
+        "submodules/execution/assets/execution-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -212,13 +220,15 @@
       "submodule": "mcp",
       "seriesOrder": 4,
       "promptFile": "submodules/mcp/prompts.md",
+      "principleImage": "submodules/mcp/assets/mcp-principle.png",
       "images": [
         "submodules/mcp/assets/mcp-compatibility.png",
         "submodules/mcp/assets/mcp-cover.png",
         "submodules/mcp/assets/mcp-discovery.png",
         "submodules/mcp/assets/mcp-layers.png",
         "submodules/mcp/assets/mcp-local-remote.png",
-        "submodules/mcp/assets/mcp-security.png"
+        "submodules/mcp/assets/mcp-security.png",
+        "submodules/mcp/assets/mcp-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -261,13 +271,15 @@
       "submodule": "mcpobjects",
       "seriesOrder": 5,
       "promptFile": "submodules/mcpobjects/prompts.md",
+      "principleImage": "submodules/mcpobjects/assets/mcpobjects-principle.png",
       "images": [
         "submodules/mcpobjects/assets/mcpobjects-cover.png",
         "submodules/mcpobjects/assets/mcpobjects-elicitation.png",
         "submodules/mcpobjects/assets/mcpobjects-primitives.png",
         "submodules/mcpobjects/assets/mcpobjects-roles.png",
         "submodules/mcpobjects/assets/mcpobjects-routing.png",
-        "submodules/mcpobjects/assets/mcpobjects-security.png"
+        "submodules/mcpobjects/assets/mcpobjects-security.png",
+        "submodules/mcpobjects/assets/mcpobjects-principle.png"
       ],
       "articles": {
         "beginner": {
@@ -310,6 +322,7 @@
       "submodule": "connector",
       "seriesOrder": 6,
       "promptFile": "submodules/connector/prompts.md",
+      "principleImage": "submodules/connector/assets/connector-principle.png",
       "images": [
         "submodules/connector/assets/connector-adapter.png",
         "submodules/connector/assets/connector-auth.png",
@@ -317,7 +330,8 @@
         "submodules/connector/assets/connector-errors.png",
         "submodules/connector/assets/connector-evolution.png",
         "submodules/connector/assets/connector-plugin.png",
-        "submodules/connector/assets/connector-reliability.png"
+        "submodules/connector/assets/connector-reliability.png",
+        "submodules/connector/assets/connector-principle.png"
       ],
       "articles": {
         "beginner": {

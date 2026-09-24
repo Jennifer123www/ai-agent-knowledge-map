@@ -54,6 +54,10 @@ modified_at: "2026-09-21 00:10 CST"
 
 ![从任务到真实结果的能力链](./assets/beginner-intent-to-action-image-2.png)
 
+![Agent 的判断、行动与观察闭环](./assets/capabilities-principle.png)
+
+*依据 Yao 等人的 ReAct 论文第 3 节改绘，并补入受控工具执行层。*
+
 读取订单和创建退款分别是 Tool。模型按工具契约提出订单号、原因和金额。执行器检查参数、身份、订单归属和额度，创建退款前还要确认用户的真实意图。
 
 动作优先调用退款 API。若旧系统没有接口，可能暂时通过受控浏览器提交；若需要计算多笔退款和汇率，可以在隔离代码环境处理。每条执行通道有不同风险，却都要留下任务 ID 和证据。
@@ -150,6 +154,7 @@ Agent 能看见某项 Skill、Tool 或 MCP 对象，不代表当前用户有权�
 
 ## 参考资料
 
+- [ReAct：Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [OpenAI 官方文档：Tools](https://developers.openai.com/api/docs/guides/tools)
 - [Model Context Protocol 官方文档：Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)
 - [Anthropic：Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents)

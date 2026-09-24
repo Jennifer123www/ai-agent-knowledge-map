@@ -8,3 +8,4 @@
 4. `execution-browser.png`：浏览器分步操作，标签“观察页面”“填写参数”“提交确认”“读取状态”。
 5. `execution-decision.png`：决策图，从“稳定业务动作”“开放计算”“页面语义”分别导向 API、代码、浏览器。
 6. `execution-confirm.png`：结果确认图，展示“请求已受理”“处理中”“权威状态”“业务完成”的状态链。
+7. `execution-principle.png`：原理图。依据 [Computer Use Guide](https://developers.openai.com/api/docs/guides/tools-computer-use) 的观察—动作循环改绘。保留“页面状态 S0 → 模型选动作 → 执行层把关 → 页面状态 S1 → 回到判断”；说明页面提示不等于业务成功。图注：“依据 Computer Use 机制改绘，并补入执行层确认。”

@@ -32,6 +32,10 @@ modified_at: "2026-09-20 20:10 CST"
 
 ![工具调用五步闭环](./assets/toolcalling-flow.png)
 
+![工具调用的执行边界](./assets/toolcalling-principle.png)
+
+*依据 MCP Tools 规范描述的调用责任改绘；该边界同样适用于常见 Function Calling。*
+
 第一步，应用把可用工具的说明交给模型。工具说明包括名称、用途、参数类型、必填字段和返回值含义。第二步，模型根据用户任务决定是否调用，以及调用哪一个。第三步，应用收到调用请求，解析参数并做校验。第四步，执行器调用真实 API、数据库或内部函数。第五步，应用把工具结果回传给模型，模型再生成回答，或者继续调用另一个工具。
 
 天气例子里，模型可能提出：工具名是 `get_weather`，城市是“北京”，日期是“明天”。应用不能因为参数看起来像样就直接放行，还要检查城市是否在允许范围，日期是否能解析，调用者是否有权限，以及请求是否超预算。
@@ -128,6 +132,7 @@ modified_at: "2026-09-20 20:10 CST"
 
 ## 参考资料
 
+- [Model Context Protocol：Tools 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
 - [OpenAI 官方文档：Function calling](https://developers.openai.com/api/docs/guides/function-calling)
 - [OpenAI 官方文档：Tools](https://developers.openai.com/api/docs/guides/tools)
 - [Anthropic：Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents)

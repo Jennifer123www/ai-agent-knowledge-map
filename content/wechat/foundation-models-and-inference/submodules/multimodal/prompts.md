@@ -7,3 +7,4 @@
 3. `multimodal-alignment.png`：视觉特征通过桥接层进入语言模型，标签“视觉编码器”“连接层”“语言模型”“回答”。
 4. `multimodal-document.png`：一页复杂单据被拆成“版面”“表格”“小字”“印章”四类观察对象。
 5. `multimodal-validation.png`：识别结果进入复核链，标签“模型提取”“格式校验”“业务规则”“人工复核”。
+6. `multimodal-principle.png`：原理图。依据 [Visual Instruction Tuning / LLaVA](https://arxiv.org/abs/2304.08485) 第 3 节改绘。保留“图像 → 视觉编码器 → 投影层 → 语言模型”，文字指令另一路进入语言模型；省略训练目标与完整参数细节。图注：“依据 Liu 等，LLaVA 第 3 节改绘。”
