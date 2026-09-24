@@ -73,10 +73,10 @@
       "articles": {
         "beginner": {
           "path": "submodules/llm/beginner-main.md",
-          "focus": "讲清词元预测、Transformer、自注意力、上下文、采样和可靠性边界。",
+          "focus": "讲清 token 预测、Transformer、自注意力、上下文、采样和可靠性边界。",
           "outline": [
             "从续写一句话理解语言模型",
-            "词元与概率预测",
+            "token 与概率预测",
             "Transformer 和自注意力",
             "上下文窗口怎样被使用",
             "采样怎样改变输出",

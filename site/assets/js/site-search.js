@@ -20,7 +20,7 @@
   ];
 
   const children = [
-    ['foundation', 'llm', '大语言模型', 'LLM 词元 注意力 采样'], ['foundation', 'multimodal', '多模态模型', 'VLM 图像 视觉 语音'], ['foundation', 'embedding', '向量嵌入模型', 'Embedding 向量 相似度 HNSW'], ['foundation', 'reranker', '重排序模型', 'Reranker ColBERT'], ['foundation', 'adaptation', '模型适配', 'LoRA QLoRA 微调'],
+    ['foundation', 'llm', '大语言模型', 'LLM token 注意力 采样'], ['foundation', 'multimodal', '多模态模型', 'VLM 图像 视觉 语音'], ['foundation', 'embedding', '向量嵌入模型', 'Embedding 向量 相似度 HNSW'], ['foundation', 'reranker', '重排序模型', 'Reranker ColBERT'], ['foundation', 'adaptation', '模型适配', 'LoRA QLoRA 微调'],
     ['context', 'knowledgebase', '知识库', '文档 版本 权限'], ['context', 'knowledgegraph', '知识源、知识图谱与 GraphRAG', '文档 Wiki 数据库 数仓 向量数据库 图谱 实体 关系 多跳检索'], ['context', 'rag', '检索增强生成', 'RAG 检索 引用'], ['context', 'chunking', '分段与元数据', 'Chunking 切分'], ['context', 'retrieval', '召回、重排序与引用', '检索 混合召回'],
     ['improvement', 'shortterm', '短期状态', '状态 检查点'], ['improvement', 'longterm', '长期记忆', 'Memory 偏好'], ['improvement', 'memorytypes', '记忆类型与用户画像', '工作记忆 情景记忆 语义记忆 用户画像 偏好'], ['improvement', 'memorywrite', '记忆写入与更新', '冲突 合并 删除'], ['improvement', 'contextbuild', '上下文构造', 'Context Token 窗口'], ['improvement', 'memorygovernance', '记忆治理', '隐私 保留期'],
     ['core', 'persona', '角色与职责设定', 'Role 边界'], ['core', 'prompt', '系统指令与提示词', 'Prompt 提示词 注入'], ['core', 'reasoning', '基于证据的推理', 'Reasoning ReAct'], ['core', 'planning', '任务规划', 'Planning 计划'], ['core', 'routing', '模型与能力路由', 'Routing 模型路由'], ['core', 'reflection', '反思与纠错', 'Reflection 复盘'], ['core', 'loop', '智能体执行循环', 'Agent Loop 停止条件'],
