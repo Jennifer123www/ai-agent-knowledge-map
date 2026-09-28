@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "topic": "context",
+  "title": "知识检索与检索增强生成",
+  "draftPlan": {
+    "outlineSections": { "min": 8, "max": 10 },
+    "targetChineseCharacters": { "min": 3200, "max": 3500 }
+  },
+  "groups": [
+    {
+      "id": "overview", "contentLevel": "overview", "submodule": "", "seriesOrder": 0,
+      "promptFile": "prompts.md", "principleImage": "assets/overview-principle.png",
+      "images": ["assets/overview-cover.png", "assets/overview-sources.png", "assets/overview-route.png", "assets/overview-principle.png", "assets/overview-boundary.png", "assets/overview-evaluation.png"],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "用一份示意住宿制度贯穿五个子模块，解释资料、结构、分段、检索与生成如何交接，重点放在跨层因果与证据边界。",
+          "outline": ["一条报销问题为何需要外部证据", "五个子模块怎样分工", "资料从发布到可用的路径", "问题从检索到带出处回答的路径", "RAG 的代表性检索生成机制", "冲突、权限和时效造成的共性失败", "何时直接查数据库、何时用检索", "系统级评测与版本发布", "五个下钻模块的阅读路线"]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "只考察五模块职责、端到端链路、整体选型、证据与权限治理、跨层故障归因和总体评测，不抢子模块算法题。",
+          "questionBoundary": {
+            "include": ["跨模块分工", "端到端证据链", "总体方案选型", "跨源冲突", "权限与时效", "总体评测", "版本发布", "系统降级"],
+            "exclude": ["解析器和分段参数", "图谱抽取方法", "RAG 提示模板", "BM25 公式", "重排序模型训练"]
+          },
+          "outline": ["五个子模块在系统中的职责", "端到端证据路径", "数据库、检索和长上下文的选型", "跨源证据冲突", "权限与版本的共同约束", "系统级评测", "制度更新的版本发布", "错误归因", "缺证据时安全降级"]
+        }
+      }
+    },
+    {
+      "id": "knowledgebase", "contentLevel": "submodule", "submodule": "knowledgebase", "seriesOrder": 1,
+      "promptFile": "submodules/knowledgebase/prompts.md", "principleImage": "submodules/knowledgebase/assets/kb-principle.png",
+      "images": ["submodules/knowledgebase/assets/kb-cover.png", "submodules/knowledgebase/assets/kb-source.png", "submodules/knowledgebase/assets/kb-principle.png", "submodules/knowledgebase/assets/kb-version.png", "submodules/knowledgebase/assets/kb-access.png", "submodules/knowledgebase/assets/kb-refresh.png"],
+      "articles": {
+        "beginner": {
+          "path": "submodules/knowledgebase/beginner-main.md",
+          "focus": "只讲知识库的资料接入、解析质量、版本、权限、索引更新与来源追踪；不代替分段或检索算法文章。",
+          "outline": ["文件夹与知识库的差别", "权威来源和资料责任人", "解析后的可检查记录", "可检索资产的索引原理", "版本与生效日期", "访问控制和删除", "更新、失败与回滚", "质量抽检与验收", "知识库向检索层交付什么"]
+        },
+        "interview": {
+          "path": "submodules/knowledgebase/interview-side.md",
+          "focus": "聚焦知识资产生命周期、解析、权限、版本、增量同步和审计。",
+          "questionBoundary": {
+            "include": ["知识库与文件夹", "来源管理", "解析验收", "版本模型", "访问控制", "增量更新", "删除传播", "知识资产评测"],
+            "exclude": ["分段长度策略", "图谱关系抽取", "向量距离", "重排序模型", "生成提示模板"]
+          },
+          "outline": ["知识库最小要素", "权威来源识别", "解析质量验收", "版本与生效时间", "权限随数据流转", "增量同步和幂等", "删除与撤回传播", "资产质量监测"]
+        }
+      }
+    },
+    {
+      "id": "knowledgegraph", "contentLevel": "submodule", "submodule": "knowledgegraph", "seriesOrder": 2,
+      "promptFile": "submodules/knowledgegraph/prompts.md", "principleImage": "submodules/knowledgegraph/assets/kg-principle.png",
+      "images": ["submodules/knowledgegraph/assets/kg-cover.png", "submodules/knowledgegraph/assets/kg-sources.png", "submodules/knowledgegraph/assets/kg-principle.png", "submodules/knowledgegraph/assets/kg-query.png", "submodules/knowledgegraph/assets/kg-contrast.png", "submodules/knowledgegraph/assets/kg-provenance.png"],
+      "articles": {
+        "beginner": {
+          "path": "submodules/knowledgegraph/beginner-main.md",
+          "focus": "讲结构化来源、实体关系与出处、图查询和 GraphRAG 的适用条件与成本，不把图谱当成事实自动保证。",
+          "outline": ["多跳关系问题从哪里来", "文档数据库与图谱各存什么", "实体关系和出处的基本形状", "GraphRAG 的图构建与查询原理", "局部关系与全局主题的不同问法", "抽取歧义与关系时效", "什么时候不该建图", "关系与原文的双重核验", "图谱专项评测"]
+        },
+        "interview": {
+          "path": "submodules/knowledgegraph/interview-side.md",
+          "focus": "聚焦图谱表示、实体消歧、关系溯源、图查询与 GraphRAG 取舍。",
+          "questionBoundary": {
+            "include": ["图谱与向量索引", "实体关系建模", "实体消歧", "多跳查询", "GraphRAG 取舍", "关系时效", "证据回溯", "图谱评测"],
+            "exclude": ["通用 RAG 流水线", "文本分段参数", "BM25 与向量混合召回", "生成模型提示格式"]
+          },
+          "outline": ["图谱与向量索引的区别", "实体关系及出处建模", "重名实体消歧", "多跳问题求解", "GraphRAG 的使用条件", "旧关系的更新", "图结论回溯原文", "图谱质量评测"]
+        }
+      }
+    },
+    {
+      "id": "rag", "contentLevel": "submodule", "submodule": "rag", "seriesOrder": 3,
+      "promptFile": "submodules/rag/prompts.md", "principleImage": "submodules/rag/assets/rag-principle.png",
+      "images": ["submodules/rag/assets/rag-cover.png", "submodules/rag/assets/rag-question.png", "submodules/rag/assets/rag-principle.png", "submodules/rag/assets/rag-context.png", "submodules/rag/assets/rag-citation.png", "submodules/rag/assets/rag-abstain.png"],
+      "articles": {
+        "beginner": {
+          "path": "submodules/rag/beginner-main.md",
+          "focus": "聚焦检索证据怎样进入生成模型、引用怎样绑定到断言、信息不足时如何拒答；召回算法留给检索子模块。",
+          "outline": ["顺口回答为何不等于有证据", "RAG 的检索与生成分工", "原论文的非参数记忆机制", "问题改写与证据包", "模型如何使用有限上下文", "逐条断言如何挂靠来源", "矛盾和无答案时怎样处理", "RAG 与微调的不同用途", "生成链路评测与失败诊断"]
+        },
+        "interview": {
+          "path": "submodules/rag/interview-side.md",
+          "focus": "聚焦 RAG 原理、证据包、上下文、引用绑定、拒答、RAG/微调选型和生成层评测。",
+          "questionBoundary": {
+            "include": ["RAG 原理论证", "证据包", "上下文预算", "引用正确性", "无答案处理", "RAG 与微调", "生成层诊断", "提示注入隔离"],
+            "exclude": ["知识库接入与同步", "图谱实体消歧", "分段参数", "混合召回公式", "排序模型训练"]
+          },
+          "outline": ["RAG 的核心机制", "检索结果转证据包", "证据数量与顺序", "断言和引用绑定", "无答案与矛盾证据", "RAG 和微调选型", "检索正确但答案错误", "资料中的恶意指令"]
+        }
+      }
+    },
+    {
+      "id": "chunking", "contentLevel": "submodule", "submodule": "chunking", "seriesOrder": 4,
+      "promptFile": "submodules/chunking/prompts.md", "principleImage": "submodules/chunking/assets/chunk-principle.png",
+      "images": ["submodules/chunking/assets/chunk-cover.png", "submodules/chunking/assets/chunk-document.png", "submodules/chunking/assets/chunk-principle.png", "submodules/chunking/assets/chunk-metadata.png", "submodules/chunking/assets/chunk-error.png", "submodules/chunking/assets/chunk-test.png"],
+      "articles": {
+        "beginner": {
+          "path": "submodules/chunking/beginner-main.md",
+          "focus": "聚焦文档解析后的证据单元、结构化分段、上下文补全、元数据继承和专项评测。",
+          "outline": ["一条规则怎样被切坏", "页面与正文的解析顺序", "条款和例外的语义边界", "父子分段机制", "元数据继承与定位", "重叠和长度的取舍", "表格图片及附件", "变更后的重切与稳定标识", "分段质量评测"]
+        },
+        "interview": {
+          "path": "submodules/chunking/interview-side.md",
+          "focus": "聚焦分段策略、父子映射、表格和例外、元数据继承、长度重叠与版本稳定性。",
+          "questionBoundary": {
+            "include": ["分段单位", "父子分段", "表格例外", "元数据继承", "长度重叠", "稳定标识", "分段评测", "解析失败处理"],
+            "exclude": ["知识资产权限系统", "GraphRAG", "检索模型训练", "生成引用模板"]
+          },
+          "outline": ["固定长度与结构分段", "父子分段适用性", "跨页表格与例外", "元数据怎样继承", "长度与重叠如何确定", "重切后如何保持追溯", "分段失败的症状", "分段评测"]
+        }
+      }
+    },
+    {
+      "id": "retrieval", "contentLevel": "submodule", "submodule": "retrieval", "seriesOrder": 5,
+      "promptFile": "submodules/retrieval/prompts.md", "principleImage": "submodules/retrieval/assets/retrieval-principle.png",
+      "images": ["submodules/retrieval/assets/retrieval-cover.png", "submodules/retrieval/assets/retrieval-candidates.png", "submodules/retrieval/assets/retrieval-principle.png", "submodules/retrieval/assets/retrieval-filter.png", "submodules/retrieval/assets/retrieval-citation.png", "submodules/retrieval/assets/retrieval-metrics.png"],
+      "articles": {
+        "beginner": {
+          "path": "submodules/retrieval/beginner-main.md",
+          "focus": "聚焦关键词、稠密与混合召回、硬过滤、重排序、去重、引用目标和检索专项评测。",
+          "outline": ["相似文本为何不一定适用", "关键词与向量各找什么", "双编码器与交叉编码器原理", "混合召回与候选合并", "权限版本和时间先过滤", "重排序与去重", "引用需要稳定位置", "召回与排序分层评测", "时延与失败降级"]
+        },
+        "interview": {
+          "path": "submodules/retrieval/interview-side.md",
+          "focus": "聚焦关键词/稠密/混合召回、过滤与排序先后、重排序取舍、召回率、引用定位和性能。",
+          "questionBoundary": {
+            "include": ["关键词检索", "稠密检索", "混合召回", "权限硬过滤", "重排序", "去重", "引用定位", "检索专项指标"],
+            "exclude": ["知识库同步", "图谱关系抽取", "分段长度设计", "生成提示和拒答策略"]
+          },
+          "outline": ["关键词与稠密召回", "混合检索设计", "权限过滤先后", "重排序模型价值", "候选去重", "引用位置设计", "召回排序专项评测", "延迟预算与降级"]
+        }
+      }
+    }
+  ]
+}
