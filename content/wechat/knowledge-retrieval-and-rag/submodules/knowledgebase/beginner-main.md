@@ -12,10 +12,10 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.0"
-stage: "知识检索主题之知识库首稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "文档索引原理图与图注对齐"
+git_state: "基于 47c0ee0（main；修改前 clean）"
+modified_at: "2026-09-28 17:26 CST"
 ---
 
 # 知识库：资料进库之后，谁保证它还管用
@@ -60,7 +60,7 @@ modified_at: "2026-09-28 15:35 CST"
 
 ![外部文档与可查索引的原理示意](./assets/kb-principle.png)
 
-*依据 Lewis 等 RAG 论文 Figure 1 的外部文档索引部分改绘；解析、权限和版本是知识库工程扩展。*
+*依据 Lewis 等 RAG 论文 Figure 1、§2.2 的外部文档索引部分改绘；版本、权限与出处关联是知识库工程扩展。*
 
 原始的检索增强生成研究把外部文档索引作为模型参数以外的知识来源。工程上的知识库还要做更多准备：给每份资料一个稳定 ID，把解析后的内容连同标题、版本、来源位置、权限域和时间条件写入可查询记录，再建立供检索使用的索引。图里的索引是**查找入口**，不是权威原件。
 

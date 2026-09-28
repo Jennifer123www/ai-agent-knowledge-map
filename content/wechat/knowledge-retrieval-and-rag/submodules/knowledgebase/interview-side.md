@@ -12,10 +12,10 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.0"
-stage: "知识检索主题之知识库面试稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "文档索引原理图图注对齐"
+git_state: "基于 47c0ee0（main；修改前 clean）"
+modified_at: "2026-09-28 17:26 CST"
 ---
 
 # 面试题：知识库怎样避免旧资料答新问题
@@ -60,7 +60,7 @@ modified_at: "2026-09-28 15:35 CST"
 
 ![文档索引的资料路径](./assets/kb-principle.png)
 
-*依据 Lewis 等 RAG 论文 Figure 1 的文档索引部分改绘；资料治理是工程扩展。*
+*依据 Lewis 等 RAG 论文 Figure 1、§2.2 的文档索引部分改绘；版本、权限与出处关联是工程扩展。*
 
 ## 问题 4：资料的时间字段应该怎么设计？
 

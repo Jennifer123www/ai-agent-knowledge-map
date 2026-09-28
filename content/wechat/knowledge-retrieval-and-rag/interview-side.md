@@ -12,10 +12,10 @@ topic: "context"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.0"
-stage: "知识检索与 RAG 主题总览面试稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "总览原理图图注对齐"
+git_state: "基于 47c0ee0（main；修改前 clean）"
+modified_at: "2026-09-28 17:26 CST"
 ---
 
 # 面试题：一条知识证据怎样走完整条链
@@ -116,7 +116,7 @@ modified_at: "2026-09-28 15:35 CST"
 
 ![外部索引与生成的代表机制](./assets/overview-principle.png)
 
-*依据 Lewis 等 RAG 论文 Figure 1 改绘；出处绑定为工程补充。*
+*依据 Lewis 等 RAG 论文 Figure 1 改绘；问题同时进入检索器与生成模型，引用与权限是工程补充。*
 
 **原理：** 降级不等于随便用一个旧结果。索引不可用、身份不明、权限不足或制度冲突时，系统应只陈述已核事实，说明缺口，并选择可审计的替代路径。
 

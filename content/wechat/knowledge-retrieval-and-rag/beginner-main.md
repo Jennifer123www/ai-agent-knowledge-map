@@ -12,10 +12,10 @@ topic: "context"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.0"
-stage: "知识检索与 RAG 主题总览主文"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "总览原理图纠错与图注对齐"
+git_state: "基于 47c0ee0（main；修改前 clean）"
+modified_at: "2026-09-28 17:26 CST"
 ---
 
 # 知识检索与 RAG：一条制度怎样走到回答里
@@ -70,7 +70,7 @@ modified_at: "2026-09-28 15:35 CST"
 
 ![外部索引帮助生成回答的原理](./assets/overview-principle.png)
 
-*依据 Lewis 等 RAG 论文 Figure 1 改绘；出处绑定是本项目为可追溯回答补充的工程环节。*
+*依据 Lewis 等 RAG 论文 Figure 1 改绘；图中问题同时进入检索器与生成模型。引用与权限是本项目另加的工程环节。*
 
 原始 RAG 研究把外部文档索引接到生成模型旁边：问题被编码后从索引取回候选，生成模型再结合问题与候选形成输出。相较只依靠训练时写进参数的知识，这让当前资料有机会参与回答。论文讨论的是具体的神经检索与生成方案；现在工程上还常加入规则过滤、关键词检索、重排序和引用，不能把这些都冒称为原论文 Figure 1 的固有部件。
 

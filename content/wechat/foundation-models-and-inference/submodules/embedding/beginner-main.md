@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "embedding"
 series_order: 3
-version: "0.2.0"
-stage: "向量嵌入子模块主文精修"
-git_state: "基于 3f5267d（main；修改前 clean）"
-modified_at: "2026-09-28 17:02 CST"
+version: "0.2.1"
+stage: "向量嵌入评测图纠错与替代文字对齐"
+git_state: "基于 47c0ee0（main；修改前 clean）"
+modified_at: "2026-09-28 17:26 CST"
 ---
 
 # 大话向量嵌入：同一个意思为何找不到
@@ -112,7 +112,7 @@ modified_at: "2026-09-28 17:02 CST"
 
 ## 怎样用难题检验这组向量
 
-![向量召回评测漏斗](./assets/embedding-evaluation.png)
+![召回结果与人工标注资料的对照评测](./assets/embedding-evaluation.png)
 
 先建立“问题—相关资料”标注集。Recall@K 表示前 K 个候选是否覆盖了相关资料，是召回阶段最常用的指标之一。若一个问题有多份必要证据，还要看覆盖比例，而不是找到其中一份就算完成。也可观察精确率、平均排名和不同主题的失败分布。
 

@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "embedding"
 series_order: 3
-version: "0.2.0"
-stage: "向量嵌入子模块面试副文精修"
-git_state: "基于 3f5267d（main；修改前 clean）"
-modified_at: "2026-09-28 17:02 CST"
+version: "0.2.1"
+stage: "向量嵌入评测图替代文字对齐"
+git_state: "基于 47c0ee0（main；修改前 clean）"
+modified_at: "2026-09-28 17:26 CST"
 ---
 
 # 面试题：向量相似为何找错住宿条款
@@ -186,7 +186,7 @@ modified_at: "2026-09-28 17:02 CST"
 
 召回评测需要问题与相关资料标注。Recall@K 衡量前 K 个候选是否覆盖相关资料；若关注第一个相关结果的位置，可看 MRR；多相关文档场景还要看覆盖和排序指标。召回层的首要目标通常是别漏掉正确证据。
 
-![向量召回评测漏斗](./assets/embedding-evaluation.png)
+![召回结果与人工标注资料的对照评测](./assets/embedding-evaluation.png)
 
 ### 答题点
 
