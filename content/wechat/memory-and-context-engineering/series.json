@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "topic": "improvement",
+  "title": "记忆与上下文工程",
+  "draftPlan": {
+    "outlineSections": { "min": 8, "max": 10 },
+    "targetChineseCharacters": { "min": 3200, "max": 3500 }
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "contentLevel": "overview",
+      "submodule": "",
+      "seriesOrder": 0,
+      "promptFile": "prompts.md",
+      "principleImage": "assets/overview-principle.png",
+      "images": [
+        "assets/overview-cover.png", "assets/overview-map.png", "assets/overview-handoff.png",
+        "assets/overview-boundary.png", "assets/overview-evaluation.png", "assets/overview-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "用一笔中断的报销草稿串起短期状态、长期记忆、类型与画像、写入、上下文构造和治理，只讲跨模块交接与共同边界。",
+          "outline": [
+            "报销草稿中断后究竟缺了什么", "当前任务状态与跨会话记忆的分工", "候选信息怎样分类并决定去向",
+            "写入和更新怎样接住事实变化", "哪些信息在这一轮进入上下文", "权限与删除怎样贯穿全链路",
+            "外部存储与模型窗口怎样协作", "如何按环节评测而不只看最终句子", "六个下钻主题各解决哪一步"
+          ]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "同一笔报销草稿，考察跨层架构、边界划分、端到端恢复、总体取舍、统一评测与跨层故障定位。",
+          "questionBoundary": {
+            "include": ["状态与记忆的系统边界", "六个子模块的交接", "恢复链路", "总体选型", "统一评测", "跨层排障", "共同治理"],
+            "exclude": ["检查点序列化细节", "记忆类型内部判据", "单条记忆更新事务", "压缩算法", "删除作业实现"]
+          },
+          "outline": [
+            "系统边界", "六层职责", "中断恢复", "跨会话连续性", "整体选型",
+            "上下文与权限的共同闸门", "端到端评测", "跨层故障定位", "灰度与回退"
+          ]
+        }
+      }
+    },
+    {
+      "id": "shortterm", "contentLevel": "submodule", "submodule": "shortterm", "seriesOrder": 1,
+      "promptFile": "submodules/shortterm/prompts.md",
+      "principleImage": "submodules/shortterm/assets/shortterm-principle.png",
+      "images": [
+        "submodules/shortterm/assets/shortterm-cover.png", "submodules/shortterm/assets/shortterm-state.png",
+        "submodules/shortterm/assets/shortterm-checkpoint.png", "submodules/shortterm/assets/shortterm-replay.png",
+        "submodules/shortterm/assets/shortterm-test.png", "submodules/shortterm/assets/shortterm-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/shortterm/beginner-main.md",
+          "focus": "以报销草稿停在票据识别后的任务为主案例，解释当前状态、检查点、恢复、幂等与过期，不讨论跨会话偏好保存。",
+          "outline": [
+            "中断时到底丢了什么", "状态与聊天记录的区别", "步骤输出怎样进入检查点", "恢复时怎样校验版本",
+            "重放为什么需要幂等", "并发与冲突怎样处理", "何时过期或归档", "怎样用故障注入验收"
+          ]
+        },
+        "interview": {
+          "path": "submodules/shortterm/interview-side.md",
+          "focus": "围绕同一笔报销草稿考察状态建模、检查点粒度、恢复、幂等、并发与短期状态评测。",
+          "questionBoundary": {
+            "include": ["任务状态模型", "检查点时机", "中断恢复", "幂等重放", "并发版本", "过期清理", "故障注入"],
+            "exclude": ["长期记忆筛选", "用户画像分类", "跨会话偏好更新", "全系统整体选型"]
+          },
+          "outline": ["状态建模", "检查点粒度", "恢复起点", "外部动作幂等", "并发冲突", "状态过期", "故障注入", "版本迁移"]
+        }
+      }
+    },
+    {
+      "id": "longterm", "contentLevel": "submodule", "submodule": "longterm", "seriesOrder": 2,
+      "promptFile": "submodules/longterm/prompts.md",
+      "principleImage": "submodules/longterm/assets/longterm-principle.png",
+      "images": [
+        "submodules/longterm/assets/longterm-cover.png", "submodules/longterm/assets/longterm-vs-history.png",
+        "submodules/longterm/assets/longterm-retrieval.png", "submodules/longterm/assets/longterm-conflict.png",
+        "submodules/longterm/assets/longterm-test.png", "submodules/longterm/assets/longterm-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/longterm/beginner-main.md",
+          "focus": "以用户跨会话反复要求中文、简洁和先给结论为例，说明受控长期记忆的保存、检索、适用与失效，不展开单条写入事务。",
+          "outline": ["隔天怎样继续保持偏好", "长期记忆与聊天历史的区别", "怎样从外部存储取回相关信息", "来源和时效为何重要", "偏好与当前要求冲突怎么办", "为何不能替代权威数据", "如何限制读取范围", "怎样评测长期收益与污染"]
+        },
+        "interview": {
+          "path": "submodules/longterm/interview-side.md",
+          "focus": "围绕跨会话输出偏好，考察长期记忆的价值、存储检索、相关性、冲突、失效和专项评测。",
+          "questionBoundary": {
+            "include": ["跨会话持久性", "长期记忆与历史区别", "检索相关性", "时间衰减", "冲突裁决", "长期效果评测"],
+            "exclude": ["任务检查点", "记忆类型完整分类", "单条写入原子性", "删除作业全流程"]
+          },
+          "outline": ["长期价值", "外部存储", "读取条件", "时效与版本", "冲突裁决", "权威性边界", "污染检测", "效果评测"]
+        }
+      }
+    },
+    {
+      "id": "memorytypes", "contentLevel": "submodule", "submodule": "memorytypes", "seriesOrder": 3,
+      "promptFile": "submodules/memorytypes/prompts.md",
+      "principleImage": "submodules/memorytypes/assets/memorytypes-principle.png",
+      "images": [
+        "submodules/memorytypes/assets/memorytypes-cover.png", "submodules/memorytypes/assets/memorytypes-taxonomy.png",
+        "submodules/memorytypes/assets/memorytypes-profile.png", "submodules/memorytypes/assets/memorytypes-routing.png",
+        "submodules/memorytypes/assets/memorytypes-test.png", "submodules/memorytypes/assets/memorytypes-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/memorytypes/beginner-main.md",
+          "focus": "以报销任务里的临时进度、历史经历、已核事实和受控语言偏好为例，厘清工作、情景、语义记忆与用户画像的用途和边界。",
+          "outline": ["四条看似相近的信息", "按用途分类而非按数据库分类", "工作记忆如何服务当前任务", "情景与语义记忆如何区别", "画像为何不是聊天全档", "一条信息可能有多个标签", "错误分类会造成什么后果", "如何用反例检验分类"]
+        },
+        "interview": {
+          "path": "submodules/memorytypes/interview-side.md",
+          "focus": "用同一组报销信息做分类判题，训练用途、保留、画像边界、歧义处理与分类误差评测。",
+          "questionBoundary": {
+            "include": ["工作情景语义分类", "用户画像边界", "交叉标签", "分类误差", "来源与必要性"],
+            "exclude": ["长期检索算法", "写入事务细节", "上下文压缩", "全链路删除"]
+          },
+          "outline": ["分类口径", "工作记忆", "情景记忆", "语义记忆", "用户画像", "重叠信息", "错误归类", "分类验收"]
+        }
+      }
+    },
+    {
+      "id": "memorywrite", "contentLevel": "submodule", "submodule": "memorywrite", "seriesOrder": 4,
+      "promptFile": "submodules/memorywrite/prompts.md",
+      "principleImage": "submodules/memorywrite/assets/memorywrite-principle.png",
+      "images": [
+        "submodules/memorywrite/assets/memorywrite-cover.png", "submodules/memorywrite/assets/memorywrite-gate.png",
+        "submodules/memorywrite/assets/memorywrite-conflict.png", "submodules/memorywrite/assets/memorywrite-version.png",
+        "submodules/memorywrite/assets/memorywrite-test.png", "submodules/memorywrite/assets/memorywrite-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/memorywrite/beginner-main.md",
+          "focus": "以用户更改常用称呼为主案例，讲候选抽取、写入门槛、覆盖与冲突、版本、撤销和可核验更新。",
+          "outline": ["称呼改变时旧值怎么办", "候选为何不能直接落库", "来源与稳定性门槛", "新旧值如何合并或覆盖", "并发更新如何避免旧值回流", "写入审计记录什么", "撤销与失败补偿", "如何用反向样本验收"]
+        },
+        "interview": {
+          "path": "submodules/memorywrite/interview-side.md",
+          "focus": "围绕常用称呼变更，考察写入门槛、冲突合并、版本控制、并发、撤销与写入专项评测。",
+          "questionBoundary": {
+            "include": ["候选写入判定", "覆盖与合并", "并发版本", "撤销", "写入审计", "污染回滚"],
+            "exclude": ["全部记忆类型分类", "长期检索策略", "上下文排序", "全局权限架构"]
+          },
+          "outline": ["写入门槛", "来源可靠性", "覆盖策略", "冲突处理", "并发版本", "撤销补偿", "审计与回滚", "写入评测"]
+        }
+      }
+    },
+    {
+      "id": "contextbuild", "contentLevel": "submodule", "submodule": "contextbuild", "seriesOrder": 5,
+      "promptFile": "submodules/contextbuild/prompts.md",
+      "principleImage": "submodules/contextbuild/assets/contextbuild-principle.png",
+      "images": [
+        "submodules/contextbuild/assets/contextbuild-cover.png", "submodules/contextbuild/assets/contextbuild-selection.png",
+        "submodules/contextbuild/assets/contextbuild-budget.png", "submodules/contextbuild/assets/contextbuild-injection.png",
+        "submodules/contextbuild/assets/contextbuild-test.png", "submodules/contextbuild/assets/contextbuild-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/contextbuild/beginner-main.md",
+          "focus": "以报销新旧制度冲突和网页夹带指令为例，讲权限过滤、相关性、预算、压缩、顺序和不可信数据隔离。",
+          "outline": ["长材料为何仍答错", "候选信息怎样筛选", "权限和时效先于排序", "token 预算怎样分配", "压缩时怎样保住关键字段", "顺序与中间信息遗漏", "检索文本为何不能变指令", "缓存何时失效", "怎样做位置与注入测试"]
+        },
+        "interview": {
+          "path": "submodules/contextbuild/interview-side.md",
+          "focus": "沿用新旧制度与恶意网页案例，考察上下文选择、预算、压缩、位置、缓存、注入隔离及专项评测。",
+          "questionBoundary": {
+            "include": ["上下文选择", "token 预算", "压缩损失", "位置效应", "缓存键", "间接注入", "上下文评测"],
+            "exclude": ["记忆写入事务", "任务检查点", "全局删除作业", "知识库索引训练"]
+          },
+          "outline": ["上下文边界", "候选筛选", "预算", "压缩", "位置效应", "可信度分层", "缓存失效", "专项评测"]
+        }
+      }
+    },
+    {
+      "id": "memorygovernance", "contentLevel": "submodule", "submodule": "memorygovernance", "seriesOrder": 6,
+      "promptFile": "submodules/memorygovernance/prompts.md",
+      "principleImage": "submodules/memorygovernance/assets/memorygovernance-principle.png",
+      "images": [
+        "submodules/memorygovernance/assets/memorygovernance-cover.png", "submodules/memorygovernance/assets/memorygovernance-access.png",
+        "submodules/memorygovernance/assets/memorygovernance-lifecycle.png", "submodules/memorygovernance/assets/memorygovernance-delete.png",
+        "submodules/memorygovernance/assets/memorygovernance-test.png", "submodules/memorygovernance/assets/memorygovernance-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/memorygovernance/beginner-main.md",
+          "focus": "以用户要求删除已保存偏好为例，讲目的限制、隔离、保留期、删除传播、缓存失效和审计，不把工程建议写成普遍法律义务。",
+          "outline": ["用户删除请求发生了什么", "保存前先定用途和范围", "谁能读取哪条记忆", "保留期与过期", "删除怎样传到索引和缓存", "备份与日志如何处理", "审计怎样不重新泄露", "如何验证跨租户与删除闭环"]
+        },
+        "interview": {
+          "path": "submodules/memorygovernance/interview-side.md",
+          "focus": "沿用删除偏好案例，考察最小化、访问隔离、生命周期、删除传播、审计与治理专项验收。",
+          "questionBoundary": {
+            "include": ["用途限制", "最小化", "租户隔离", "保留期", "删除传播", "审计", "治理验收"],
+            "exclude": ["单条记忆语义合并", "模型上下文排序算法", "短期检查点重放", "泛化法律意见"]
+          },
+          "outline": ["目的与必要性", "权限隔离", "保留期", "删除传播", "缓存失效", "备份处理", "审计最小化", "治理测试"]
+        }
+      }
+    }
+  ]
+}
