@@ -69,7 +69,6 @@
       "images": [
         "submodules/llm/assets/llm-cover.png",
         "submodules/llm/assets/llm-token-generation.png",
-        "submodules/llm/assets/llm-attention-context.png",
         "submodules/llm/assets/llm-sampling.png",
         "submodules/llm/assets/llm-reliability.png",
         "submodules/llm/assets/llm-principle.png",
@@ -78,36 +77,37 @@
       "articles": {
         "beginner": {
           "path": "submodules/llm/beginner-main.md",
-          "focus": "讲清 token 预测、Transformer、自注意力、上下文、采样和可靠性边界。",
+          "focus": "以会议改期通知为贯穿案例，讲清 token 预测、自注意力、上下文、采样、事实边界、结构化结果和推理时延。",
           "outline": [
-            "从续写一句话理解语言模型",
-            "文字怎样变成 token",
-            "模型怎样一步一步生成",
-            "Transformer 与自注意力",
-            "上下文窗口与 KV Cache",
-            "解码策略与采样",
-            "幻觉与事实边界",
-            "结构化输出与工具协作",
-            "模型选择和基础评测"
+            "输入的文字怎样拆成 token",
+            "自回归模型怎样逐步生成通知",
+            "自注意力怎样联系旧日程与新要求",
+            "长上下文为何仍可能漏读更新",
+            "采样参数怎样改变措辞",
+            "流畅文字为何可能缺少事实依据",
+            "怎样输出并核对结构化草稿",
+            "预填充、解码与缓存怎样影响时延",
+            "怎样用冲突与缺值样本验证通知"
           ]
         },
         "interview": {
           "path": "submodules/llm/interview-side.md",
-          "focus": "聚焦自注意力、上下文失效、采样、幻觉、结构化输出、缓存和推理优化。",
+          "focus": "沿用会议改期案例，回答分词成本、生成、自注意力、长上下文、采样、事实核对、结构化输出、缓存和评测。",
           "questionBoundary": {
-            "include": ["自注意力", "上下文利用", "采样参数", "幻觉", "结构化输出", "推理时延"],
+            "include": ["token 成本", "自回归生成", "自注意力", "上下文利用", "采样参数", "事实核对", "结构化输出", "缓存与时延", "模型评测"],
             "exclude": ["多模态编码", "向量召回", "重排序", "微调选型"]
           },
           "outline": [
-            "自注意力的价值与成本",
-            "长上下文仍会失败的原因",
-            "温度与截断采样",
-            "幻觉治理",
-            "结构化输出可靠性",
-            "提示缓存和吞吐",
-            "小模型大模型路由",
-            "语言模型线上排障",
-            "KV Cache 与分词器影响"
+            "分词与输入成本",
+            "逐步生成与缺失事实",
+            "自注意力与旧新记录关联",
+            "长上下文的信息利用",
+            "温度与 Top-k、Top-p 采样",
+            "不同事实错误的定位与治理",
+            "结构化输出的格式与来源核对",
+            "KV Cache 与提示缓存",
+            "冲突、缺值和新增信息评测",
+            "输入并行计算与输出逐步生成"
           ]
         }
       }
