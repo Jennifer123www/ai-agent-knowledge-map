@@ -73,7 +73,10 @@
         "submodules/llm/assets/llm-reliability.png",
         "submodules/llm/assets/llm-principle.png",
         "submodules/llm/assets/llm-rnn-comparison.png",
-        "submodules/llm/assets/llm-subagent-link-test.png"
+        "submodules/llm/assets/llm-subagent-link-test.png",
+        "submodules/llm/assets/llm-repeat-link-experiment.png",
+        "submodules/llm/assets/llm-context-comparison.png",
+        "submodules/llm/assets/llm-eval-cases.png"
       ],
       "articles": {
         "beginner": {
@@ -84,11 +87,11 @@
             "自回归模型怎样逐步生成通知及一次子 Agent 实测",
             "自注意力怎样联系旧日程与新要求",
             "长上下文为何仍可能漏读更新",
-            "采样参数怎样改变措辞",
+            "采样参数怎样改变措辞及四次真实回答实验",
             "流畅文字为何可能缺少事实依据",
             "怎样输出并核对结构化草稿",
-            "预填充、解码与缓存怎样影响时延",
-            "怎样用冲突与缺值样本验证通知"
+            "预填充、解码、缓存及长短上下文实测",
+            "怎样用真实截屏记录冲突与缺值样本"
           ]
         },
         "interview": {
