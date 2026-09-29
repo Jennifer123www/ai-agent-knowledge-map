@@ -1,74 +1,70 @@
-# AI Agent Knowledge Map
+# AI Agent 知识图谱
 
-A Chinese AI Agent knowledge project with a static learning site and a separate WeChat Official Account publishing integration. The site presents one shared topic system through a beginner guide and an interview guide; the server-side tools verify WeChat callbacks and turn repository Markdown into unpublished drafts.
+一个无需构建的中文静态学习网站。首页用可点击的全景图串起十个主题；同一套主题分别提供**初学者讲解**和**面试练习**，适合先看整体关系，再按问题逐层下钻。
 
-## Structure
+## 从哪里开始
 
-```text
-site/
-  index.html                 # Editorial home page
-  learn/
-    index.html               # Beginner overview
-    concepts.html            # Concept diagrams and "大话" explanations
-  interview/
-    index.html               # Interview topic map
-    questions.html           # Interview question drill-down
-  assets/js/
-    site-search.js           # Shared cross-site search
-scripts/
-  check-site.mjs             # Link and syntax validation
-  check-wechat-articles.mjs  # Manifest and WeChat article validation
-  check-wechat-config.mjs    # Validate AppID/AppSecret with stable_token
-  create-wechat-draft.mjs    # Upload article assets and create a draft
-api/
-  wechat/callback.mjs        # Serverless callback endpoint
-lib/wechat/                  # Signature, API client, and Markdown conversion
-server/wechat-server.mjs     # Local/standalone callback server
-test/wechat.test.mjs         # Callback and article conversion tests
-content/wechat/<topic>/
-  series.json                # Article paths, outlines, boundaries, and image inventory
-  beginner-main.md           # Topic overview article
-  interview-side.md          # Topic overview interview article
-  submodules/<child>/        # Paired child-module articles and assets
-```
+| 页面 | 适合做什么 |
+| --- | --- |
+| [首页](site/index.html) | 浏览全景知识图谱，选择主题或阅读路线 |
+| [初学者总览](site/learn/index.html) | 理解十个主题的职责、关系和建议阅读顺序 |
+| [概念下钻](site/learn/concepts.html) | 按子模块阅读结构图解、名词解释、“大话”说明和机制加餐 |
+| [面试图谱](site/interview/index.html) | 按相同主题梳理面试准备范围 |
+| [面试题下钻](site/interview/questions.html) | 练习原理、答题点、记忆点、图解、追问与常见误区 |
 
-The `site/` directory is the publish root for GitHub Pages, Netlify, Vercel, or any ordinary static-file host. The paths use stable English lowercase URLs, while the pages and learning material remain in Chinese.
+初学者版与面试版的十个主题一一对应。可以从初学者总览按顺序阅读，也可以在首页点选主题，再通过页面顶栏切换到另一种阅读方式。
 
-## Local Preview
+## 本地预览
+
+需要 Python 3，以及可运行 `npm` 的 Node.js 环境；项目没有前端依赖安装或构建步骤。
 
 ```sh
 npm run serve
 ```
 
-Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/).
+打开 [http://127.0.0.1:4173/](http://127.0.0.1:4173/) 即可。静态站点的发布根目录是 `site/`，因此不要把仓库根目录当作网站根目录。
 
-## Validation
+## 如何浏览
 
-```sh
-npm run check
-npm test
+- 五个页面共用顶栏和搜索框。搜索支持主题、子模块、术语与面试题关键词；可用方向键选择结果、Enter 打开、Escape 关闭。
+- 概念页按“一级主题 → 子模块”展开。基础图解交代结构，“大话”用具体场景解释，机制加餐补充原理与取舍。
+- 面试页按主题切换问题，每道题提供可展开的答题结构，并可返回对应的初学者主题。
+- 下钻状态写在 URL 参数中，可复制链接或刷新后继续阅读。例如：[任务规划](site/learn/concepts.html?topic=core&child=planning)与[智能体面试题](site/interview/questions.html?topic=agent)。
+
+## 网站目录
+
+```text
+site/
+├── index.html                 首页与全景知识图谱
+├── learn/
+│   ├── index.html             初学者总览
+│   └── concepts.html          主题、子模块和机制讲解
+├── interview/
+│   ├── index.html             面试主题图谱
+│   └── questions.html         逐题练习
+└── assets/js/
+    └── site-search.js         五个页面共用的搜索
 ```
 
-The check confirms expected pages, local HTML links, inline script syntax, the shared search script, and every WeChat article's official field, HTML-size, and local-image constraints.
+页面使用 HTML、CSS 和原生 JavaScript。内容与交互直接保存在上述文件中，无需框架或打包器。
 
-## WeChat Draft Integration
+## 修改与检查
 
-The integration has no third-party runtime dependencies and requires Node.js 20 or newer. Configure a local `.env` from `.env.example`, then run:
+新增或调整主题时，同步检查初学者页、面试页和 `site/assets/js/site-search.js` 的名称及映射；子模块链接使用稳定的 `topic`、`child` 标识，题目链接使用 `topic`、`question` 标识。中文展示标题可以调整，但不要仅因改标题就改掉已有链接参数。
+
+修改网站后运行：
 
 ```sh
-npm run wechat:check
-npm run wechat:articles:check
-npm run wechat:draft -- --dry-run
-npm run wechat:draft
+node scripts/check-site.mjs
 ```
 
-Use `npm run wechat:articles:check:verbose` only when article-level diagnostics are needed.
+这项检查会核对五个页面、站内 HTML 链接以及页面脚本和共享搜索脚本的语法。涉及布局或交互的改动，还应运行 `npm run serve`，在桌面和窄屏下检查导航、图解、搜索与键盘操作。
 
-The last command creates a draft only. It does not publish or mass-send it. See `docs/wechat-integration.md` for callback and deployment details.
+部署时将 `site/` 设为静态站点的发布目录即可；不需要构建命令。
 
-## Project Metadata
+## 文档状态
 
-- Version: `0.5.0`
-- Stage: the complete "基础模型与推理" WeChat series is ready with 6 paired groups, 12 articles, and 30 reviewed images; public deployment and account binding remain pending
-- Git status during this update: dirty; based on `main` at `cebcec4`
-- Updated: `2026-09-23 19:59 CST`
+- 版本：`0.5.0`
+- 阶段：网站入口、目录与本地使用说明更新
+- Git 基线：`main` 的 `c5c0cca`；编写时工作区为 dirty，另有一份无关的未跟踪文件
+- 修改时间：`2026-09-29 15:48 CST`
