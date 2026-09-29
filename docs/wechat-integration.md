@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.1` |
-| 阶段 | 草稿 API 已完成真实联调，支持单篇和主副文双图文草稿；公网回调仍待部署 |
-| Git 状态 | `daf161e`（`main`；工作区 dirty，另有未提交的项目复盘改动和 Word 临时锁文件） |
-| 修改时间 | `2026-09-29 17:31 CST` |
+| 版本 | `0.5.2` |
+| 阶段 | API 草稿成为公众号唯一终稿通道，主文与面试副文按橙色主题组成双图文；公网回调仍待部署 |
+| Git 状态 | 基于 `9dc4313`（`main`；修改前另有未跟踪的评测系列与编辑器临时文件） |
+| 修改时间 | `2026-09-29 19:42 CST` |
 
 ## 1. 已实现链路
 
@@ -44,7 +44,7 @@ PORT=3000
 
 ```sh
 npm test
-npm run wechat:draft -- --dry-run
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
 npm run wechat:serve
 ```
 
@@ -75,9 +75,9 @@ https://<部署域名>/api/wechat/callback
 
 `WECHAT_APP_ID` 和 `WECHAT_APP_SECRET` 只用于服务端调用微信 API。若只部署回调，可暂时不在托管平台设置这两个值；创建草稿时运行脚本的环境必须设置。
 
-## 5. 创建 Demo 草稿
+## 5. 生成公众号双图文草稿
 
-文章使用 UTF-8 Markdown 作为唯一内容源，文件开头使用 YAML Front Matter 描述草稿字段：
+文章使用 UTF-8 Markdown 作为唯一内容源。内容精修后经 API 创建草稿，不再导出 Word 终稿或从 Word 导入公众号。文件开头使用 YAML Front Matter 描述草稿字段：
 
 ```yaml
 ---
@@ -95,51 +95,35 @@ order: 1
 
 导入前会强制校验：标题、作者和摘要长度；HTML 少于 20000 个字符且小于 1 MB；正文不含 JavaScript；封面和正文图片均为本地 JPG/PNG；文章包含“参考资料”小节和至少一个 HTTP(S) 文档链接。正文图片在创建草稿时先调用微信图片上传接口，HTML 只使用微信返回的 URL。若 `content_source_url` 为空，脚本会采用文末 `[阅读原文](...)` 的地址；两处都填写时必须一致。
 
-默认将以下文章转换为公众号 HTML，上传本地配图并写入草稿箱：
+当前脚本不带参数时会把 `content/wechat/tools-skills-and-protocols/beginner-main.md` 作为单篇、绿色主题草稿导入，只用于兼容旧命令和单篇烟测。**正式主副文交付必须显式指定两篇路径及 `--theme orange`**，不要依赖这个默认值。
 
-```text
-content/wechat/tools-skills-and-protocols/beginner-main.md
-```
-
-该主题当前包含 1 组总概览和 6 组子模块，共 14 篇 Markdown。子模块文章位于 `content/wechat/tools-skills-and-protocols/submodules/<child>/`，同样通过 `--file` 指定导入。
+该主题包含 1 组总概览和 6 组子模块，共 14 篇 Markdown。子模块文章位于 `content/wechat/tools-skills-and-protocols/submodules/<child>/`，其主副文路径以 `series.json` 为准。
 
 项目复盘系列位于 `content/wechat/project-retrospective/`，包含“我是如何引导 AI 生成一份 AI Agent 知识图谱的”主文和一篇独立踩坑指南。两篇同样登记在 `series.json` 并接受完整校验。
 
 基础模型系列位于 `content/wechat/foundation-models-and-inference/`，包含 1 组总概览和大语言模型、多模态模型、向量嵌入、重排序、模型适配 5 组子模块，共 12 篇 Markdown 与 30 张本地配图。各组文章路径、题目边界、提纲和配图以该目录的 `series.json` 为准。
 
-执行：
-
-```sh
-npm run wechat:draft
-```
-
-脚本只调用草稿接口 `draft/add`，不会调用发布接口。成功后输出草稿 `media_id`。也可指定另一篇文章：
-
-```sh
-npm run wechat:draft -- --file content/wechat/tools-skills-and-protocols/interview-side.md
-```
-
-要把主文和面试副文放进同一份双图文草稿，先 dry-run，再创建；`--file` 的文章排在第一篇，`--side-file` 排在第二篇，两篇各用自己的封面：
+同组主文和面试副文默认写入**同一份双图文草稿**：`--file` 的主文排第一篇，`--side-file` 的面试副文排第二篇，两篇各用自己的封面。先 dry-run，再创建：
 
 ```sh
 npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
 npm run wechat:draft -- --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
 ```
 
-双图文仍只创建一份草稿、返回一个 `media_id`；脚本复用两篇文章共有的正文图片上传结果，原有单篇草稿不会被覆盖。
+脚本只调用草稿接口 `draft/add`，不会调用发布或群发接口。双图文只创建一份草稿、返回一个 `media_id`；脚本复用两篇共有的正文图片上传结果，原有草稿不会被覆盖。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
+
+排版以 [项目规范 5.3.7 节](./project-specification.md) 为准：两篇共用白／暖白底、深色正文和橙色强调；主文连续讲解，副文用题号与固定答题层级便于扫读；代码块、行内代码、加粗、居中灰色图注和参考链接必须保留。主文封面检查大图预览，副文封面检查右侧小缩略图的中心裁切与可读性。公众号可能清理部分 HTML 样式或正文外链，创建后必须在后台和手机端核对，尤其检查“阅读原文”是否指向 `content_source_url`。
 
 复盘文章示例：
 
 ```sh
-npm run wechat:draft -- --file content/wechat/project-retrospective/beginner-main.md
-npm run wechat:draft -- --file content/wechat/project-retrospective/interview-side.md
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/project-retrospective/beginner-main.md --side-file content/wechat/project-retrospective/interview-side.md
 ```
 
 基础模型系列示例：
 
 ```sh
-npm run wechat:draft -- --file content/wechat/foundation-models-and-inference/beginner-main.md
-npm run wechat:draft -- --file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/beginner-main.md --side-file content/wechat/foundation-models-and-inference/interview-side.md
 ```
 
 微信正文图片按 1 MB 上限预检。本机 macOS 运行时，超限 PNG 会通过系统自带的 `sips` 临时压缩为 JPEG 后上传；临时文件在命令结束时删除，源图片不会改动。其他系统需要预先把正文图片压缩到 1 MB 以下。
@@ -155,5 +139,6 @@ npm run wechat:articles:check
 1. `https://<部署域名>/api/health` 返回 `ok: true`。
 2. 微信公众号后台能成功保存服务器配置。
 3. `npm run wechat:check` 能取得稳定版 `access_token`。
-4. `npm run wechat:draft` 返回 `media_id`，且草稿箱出现单篇或双图文草稿。
-5. 不调用发布或群发接口；发布前继续由人工审阅草稿。
+4. 双图文 dry-run 确认两篇顺序、封面和 HTML 限额，实际调用返回一份草稿的 `media_id`。
+5. 在公众号后台核对主文大图、副文缩略图、手机正文、配图与图注、代码块、参考资料和“阅读原文”。
+6. 不调用发布或群发接口；发布前继续由人工审阅草稿。
