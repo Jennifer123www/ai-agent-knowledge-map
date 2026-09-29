@@ -333,6 +333,18 @@ def markdown_to_docx(
     configure_document(document, document_metadata)
 
     lines = body.splitlines()
+    publish_footer_url = ""
+    if publish_opening:
+        filtered_lines = []
+        for body_line in lines:
+            if body_line.strip().startswith("想看它在 AI Agent 中的位置"):
+                footer_link = re.search(r"\[[^\]]+\]\((https?://[^)]+)\)", body_line)
+                if footer_link:
+                    publish_footer_url = footer_link.group(1)
+                continue
+            filtered_lines.append(body_line)
+        lines = filtered_lines
+
     index = 0
     title_seen = False
     image_count = 0
@@ -489,6 +501,19 @@ def markdown_to_docx(
                 keep_next_body = False
             add_inline_markdown(paragraph, stripped)
         index += 1
+
+    if publish_opening:
+        footer = document.add_paragraph()
+        style_paragraph(footer, before=13, after=0)
+        add_inline_markdown(footer, "想看本文在 AI Agent 中的位置，可点击下方 ")
+        if publish_footer_url:
+            add_hyperlink(footer, "阅读原文", publish_footer_url)
+        else:
+            footer_link = footer.add_run("阅读原文")
+            set_run_font(footer_link, size=Pt(11.25))
+            footer_link.font.color.rgb = RGBColor.from_string(ORANGE_DARK)
+            footer_link.underline = True
+        add_inline_markdown(footer, "，从“基础模型与推理”继续阅读。")
 
     output.parent.mkdir(parents=True, exist_ok=True)
     document.save(output)
