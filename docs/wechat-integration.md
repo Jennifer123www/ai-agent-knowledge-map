@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.2` |
-| 阶段 | 支持三套双图文排版样稿和草稿回读；公网回调仍待部署 |
-| Git 状态 | 基于 `14cbaab`（`main`；本文及排版实现待提交，另有用户的 Word 临时锁文件未跟踪） |
-| 修改时间 | `2026-09-29 19:22 CST` |
+| 版本 | `0.5.1` |
+| 阶段 | 草稿 API 已完成真实联调，支持单篇和主副文双图文草稿；公网回调仍待部署 |
+| Git 状态 | `daf161e`（`main`；工作区 dirty，另有未提交的项目复盘改动和 Word 临时锁文件） |
+| 修改时间 | `2026-09-29 17:31 CST` |
 
 ## 1. 已实现链路
 
@@ -19,8 +19,7 @@
        ├─ stable_token         -> 获取并缓存 access_token
        ├─ material/add_material -> 上传永久封面素材
        ├─ media/uploadimg      -> 上传正文图片
-       ├─ draft/add            -> 创建草稿，不发布、不群发
-       └─ draft/get            -> 回读草稿，核对文章顺序与样式
+       └─ draft/add            -> 创建草稿，不发布、不群发
 ```
 
 当前回调使用明文模式完成首次接入。安全模式需要增加消息体 XML 解析和 AES 解密后再启用，不能只在后台切换配置。
@@ -151,26 +150,7 @@ npm run wechat:draft -- --file content/wechat/foundation-models-and-inference/su
 npm run wechat:articles:check
 ```
 
-## 6. 排版主题对照样稿
-
-`--sample-themes` 会用同一组主文和面试副文，一次创建三份双图文草稿。图片只上传一次，三份草稿分别带有 A/B/C 标题前缀和“排版样稿，请勿发布”摘要；原 Markdown 与既有草稿不变。创建后调用 `draft/get` 回读，核对文章顺序及关键样式是否保留。
-
-| 样稿 | 本项目主题参数 | 参考方向 | 主要区别 |
-| --- | --- | --- | --- |
-| A 暖陶米白 | `warm-paper` | [MarkNice 的暖陶米白](https://github.com/willmove/marknice) | 暖纸底色、棕色标题、细分隔线 |
-| B 简洁优雅 | `simple-elegant` | [doocs/md 的简洁／优雅主题](https://github.com/doocs/md/discussions/426) | 白底、墨绿标题、清晰的章节下划线 |
-| C 技术蓝 | `tech-blue` | [Markdown Nice 的技术文章主题库](https://github.com/mdnice/markdown-nice) | 浅蓝标题块、蓝色代码与提示框 |
-
-这是按三种排版方向制作的**独立样稿**，不是复制第三方模板的 HTML、CSS 或素材。三套样式使用公众号 API 可接受的内联样式，兼顾较长的面试副文；最终效果仍须在手机端预览。
-
-```sh
-npm run wechat:draft -- --dry-run --sample-themes --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
-npm run wechat:draft -- --sample-themes --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
-```
-
-选定一种样式后，日常草稿仍只创建一份，例如 `--theme warm-paper`；原有 `green`、`orange` 主题继续可用。
-
-## 7. 上线检查
+## 6. 上线检查
 
 1. `https://<部署域名>/api/health` 返回 `ok: true`。
 2. 微信公众号后台能成功保存服务器配置。

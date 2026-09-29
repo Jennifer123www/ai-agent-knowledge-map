@@ -1,6 +1,4 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 import path from "node:path";
 import { handleWechatCallback } from "../lib/wechat/callback.mjs";
@@ -98,25 +96,6 @@ test("creates one draft with the main article followed by its side article", asy
   assert.deepEqual(JSON.parse(requests[1].options.body), { articles: [main, side] });
 });
 
-test("reads a saved WeChat draft for post-upload verification", async () => {
-  const requests = [];
-  const fetchImpl = async (url, options) => {
-    requests.push({ url, options });
-    if (url.endsWith("/cgi-bin/stable_token")) {
-      return new Response(JSON.stringify({ access_token: "token-value", expires_in: 7200 }));
-    }
-    if (url.includes("/cgi-bin/draft/get")) {
-      return new Response(JSON.stringify({ news_item: [{ title: "Saved sample" }] }));
-    }
-    throw new Error(`Unexpected request: ${url}`);
-  };
-  const client = createWechatClient({ appId: "test-app-for-readback", appSecret: "test-secret", fetchImpl });
-
-  const draft = await client.getDraft("saved-media-id");
-  assert.equal(draft.news_item[0].title, "Saved sample");
-  assert.deepEqual(JSON.parse(requests[1].options.body), { media_id: "saved-media-id" });
-});
-
 test("parses and renders a WeChat article", () => {
   const markdownPath = path.resolve("content/wechat/example/article.md");
   const markdown = `# Demo title
@@ -178,42 +157,6 @@ Read **this** \`code\` and [source](https://example.com).
   assert.match(orange, /color:#20252B/);
   assert.doesNotMatch(orange, /#16865b|#176b45/);
   assert.throws(() => renderWechatHtml(article, images, { theme: "purple" }), /Unsupported WeChat theme/);
-});
-
-test("renders three distinct comparison themes within the long interview article limit", async () => {
-  const articlePath = path.resolve("content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md");
-  const article = parseWechatArticle(await readFile(articlePath, "utf8"), articlePath);
-  const placeholderUrl = `https://mmbiz.qpic.cn/${"x".repeat(180)}`;
-  const images = new Map(article.images.slice(1).map((image) => [image.source, placeholderUrl]));
-  const themes = ["warm-paper", "simple-elegant", "tech-blue"];
-  const html = themes.map((theme) => renderWechatHtml(article, images, { theme }));
-
-  assert.match(html[0], /background:#FFFCF8/);
-  assert.match(html[1], /border-bottom:2px solid #39735C/);
-  assert.match(html[2], /background:#EAF3F9/);
-  assert.equal(new Set(html).size, themes.length);
-  for (const content of html) assert.ok(validateWechatHtml(content).characters < 20_000);
-});
-
-test("sample draft dry-run prepares three labeled main-and-side pairs", () => {
-  const output = execFileSync(process.execPath, [
-    "scripts/create-wechat-draft.mjs",
-    "--dry-run",
-    "--sample-themes",
-    "--file", "content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md",
-    "--side-file", "content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md",
-  ], { cwd: path.resolve("."), encoding: "utf8" });
-  const result = JSON.parse(output);
-
-  assert.equal(result.sampleCount, 3);
-  assert.deepEqual(result.drafts.map((draft) => draft.theme), ["warm-paper", "simple-elegant", "tech-blue"]);
-  for (const draft of result.drafts) {
-    assert.equal(draft.articleCount, 2);
-    assert.equal(draft.articles.length, 2);
-    assert.match(draft.articles[0].title, /^【[ABC] /);
-    assert.match(draft.articles[1].title, /^【[ABC] /);
-    assert.ok(draft.articles.every((article) => article.titleCharacters <= 32));
-  }
 });
 
 test("renders image captions and fenced code blocks as distinct elements", () => {
