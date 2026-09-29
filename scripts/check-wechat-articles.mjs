@@ -1,5 +1,6 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
+import { validateChineseCharacterCount } from "../lib/wechat/article-policy.mjs";
 import { parseWechatArticle, renderWechatHtml } from "../lib/wechat/markdown.mjs";
 
 const root = process.cwd();
@@ -59,11 +60,15 @@ for (const manifestPath of manifestPaths) {
   }
 
   const topic = String(manifest.topic || "").trim();
+  const seriesType = String(manifest.seriesType || "module").trim();
   const groups = Array.isArray(manifest.groups) ? manifest.groups : [];
   const outlinePlan = manifest.draftPlan?.outlineSections;
   const characterPlan = manifest.draftPlan?.targetChineseCharacters;
   if (manifest.schemaVersion !== 1) fail(manifestLabel, "schemaVersion must be 1");
   if (!topic) fail(manifestLabel, "topic is required");
+  if (!new Set(["module", "independent"]).has(seriesType)) {
+    fail(manifestLabel, "seriesType must be module or independent");
+  }
   if (outlinePlan?.min !== 8 || outlinePlan?.max !== 10) {
     fail(manifestLabel, "draftPlan.outlineSections must be 8-10");
   }
@@ -139,12 +144,14 @@ for (const manifestPath of manifestPaths) {
         fail(groupLabel, `${role}.outline must contain 8-10 planned sections (${outline.length})`);
       }
       if (role === "interview") {
-        const boundary = entry.questionBoundary;
+        const boundaryName = seriesType === "independent" && entry.contentBoundary
+          ? "contentBoundary" : "questionBoundary";
+        const boundary = entry[boundaryName];
         if (!Array.isArray(boundary?.include) || boundary.include.length === 0) {
-          fail(groupLabel, "interview.questionBoundary.include is required");
+          fail(groupLabel, `interview.${boundaryName}.include is required`);
         }
         if (!Array.isArray(boundary?.exclude) || boundary.exclude.length === 0) {
-          fail(groupLabel, "interview.questionBoundary.exclude is required");
+          fail(groupLabel, `interview.${boundaryName}.exclude is required`);
         }
       }
 
@@ -158,6 +165,7 @@ for (const manifestPath of manifestPaths) {
         manifestLabel,
         groupLabel,
         topic,
+        seriesType,
         contentLevel,
         submodule,
         seriesOrder,
@@ -235,9 +243,7 @@ for (const [articlePath, registration] of registeredArticles) {
     }
 
     const chineseCharacters = chineseCharacterCount(source);
-    if (chineseCharacters < 3000 || chineseCharacters > 5000) {
-      throw new Error(`Article must contain 3000-5000 Chinese characters (${chineseCharacters})`);
-    }
+    validateChineseCharacterCount(chineseCharacters, { independent: registration.seriesType === "independent" });
 
     if (registration.role === "interview") {
       const topicQuestions = interviewQuestions.get(topic) || new Map();

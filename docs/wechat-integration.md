@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.2` |
-| 阶段 | API 草稿成为公众号唯一终稿通道，主文与面试副文按橙色主题组成双图文；公网回调仍待部署 |
-| Git 状态 | 基于 `9dc4313`（`main`；修改前另有未跟踪的评测系列与编辑器临时文件） |
-| 修改时间 | `2026-09-29 19:42 CST` |
+| 版本 | `0.5.3` |
+| 阶段 | 双图文草稿支持独立专题的非面试副文；公网回调仍待部署 |
+| Git 状态 | 基于 `9b187ce`（`main`；修改前另有未跟踪的评测系列与编辑器临时文件） |
+| 修改时间 | `2026-09-29 20:02 CST` |
 
 ## 1. 已实现链路
 
@@ -99,11 +99,11 @@ order: 1
 
 该主题包含 1 组总概览和 6 组子模块，共 14 篇 Markdown。子模块文章位于 `content/wechat/tools-skills-and-protocols/submodules/<child>/`，其主副文路径以 `series.json` 为准。
 
-项目复盘系列位于 `content/wechat/project-retrospective/`，包含“我是如何引导 AI 生成一份 AI Agent 知识图谱的”主文和一篇独立踩坑指南。两篇同样登记在 `series.json` 并接受完整校验。
+项目复盘系列位于 `content/wechat/project-retrospective/`，在 `series.json` 标记为 `independent`，包含“我是如何引导 AI 生成一份 AI Agent 知识图谱的”主文和一篇非面试形式的踩坑指南。两篇仍作为一组接受校验和双图文 dry-run；独立专题可超过 5000 个中文字符，但不能超过公众号 HTML 限额。
 
 基础模型系列位于 `content/wechat/foundation-models-and-inference/`，包含 1 组总概览和大语言模型、多模态模型、向量嵌入、重排序、模型适配 5 组子模块，共 12 篇 Markdown 与 30 张本地配图。各组文章路径、题目边界、提纲和配图以该目录的 `series.json` 为准。
 
-同组主文和面试副文默认写入**同一份双图文草稿**：`--file` 的主文排第一篇，`--side-file` 的面试副文排第二篇，两篇各用自己的封面。先 dry-run，再创建：
+同组主文和副文默认写入**同一份双图文草稿**：`--file` 的主文排第一篇，`--side-file` 的副文排第二篇，两篇各用自己的封面。每组运行一次双图文 dry-run，通过后再创建：
 
 ```sh
 npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
@@ -112,7 +112,7 @@ npm run wechat:draft -- --theme orange --file content/wechat/foundation-models-a
 
 脚本只调用草稿接口 `draft/add`，不会调用发布或群发接口。双图文只创建一份草稿、返回一个 `media_id`；脚本复用两篇共有的正文图片上传结果，原有草稿不会被覆盖。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
 
-排版以 [项目规范 5.3.7 节](./project-specification.md) 为准：两篇共用白／暖白底、深色正文和橙色强调；主文连续讲解，副文用题号与固定答题层级便于扫读；代码块、行内代码、加粗、居中灰色图注和参考链接必须保留。主文封面检查大图预览，副文封面检查右侧小缩略图的中心裁切与可读性。公众号可能清理部分 HTML 样式或正文外链，创建后必须在后台和手机端核对，尤其检查“阅读原文”是否指向 `content_source_url`。
+排版以 [项目规范 5.3.7 节](./project-specification.md) 为准：两篇共用白／暖白底、深色正文和橙色强调；主文连续讲解，面试副文便于逐题扫读，独立专题的非面试副文按内容设小标题；代码块、行内代码、加粗、居中灰色图注和参考链接必须保留。主文封面检查大图预览，副文封面检查右侧小缩略图的中心裁切与可读性。公众号可能清理部分 HTML 样式或正文外链，创建后必须在后台和手机端核对，尤其检查“阅读原文”是否指向 `content_source_url`。
 
 复盘文章示例：
 

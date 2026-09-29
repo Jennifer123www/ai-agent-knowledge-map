@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "topic": "project-retrospective",
+  "seriesType": "independent",
   "title": "AI Agent 知识图谱共创复盘",
   "draftPlan": {
     "outlineSections": { "min": 8, "max": 10 },
@@ -44,7 +45,7 @@
         "interview": {
           "path": "interview-side.md",
           "focus": "整理本次共创中的需求、层级、内容、图片、工具、校验、节奏和成本陷阱，并给出可复用的规避方法。",
-          "questionBoundary": {
+          "contentBoundary": {
             "include": ["需求澄清", "内容层级", "图片文字", "阶段完成", "自动校验", "token 成本"],
             "exclude": ["AI Agent 技术面试题", "具体 MCP 机制", "站点子模块正文"]
           },

@@ -3,8 +3,15 @@ import test from "node:test";
 import path from "node:path";
 import { handleWechatCallback } from "../lib/wechat/callback.mjs";
 import { createWechatClient } from "../lib/wechat/client.mjs";
+import { validateChineseCharacterCount } from "../lib/wechat/article-policy.mjs";
 import { createWechatSignature } from "../lib/wechat/signature.mjs";
 import { parseWechatArticle, renderWechatHtml, validateWechatHtml } from "../lib/wechat/markdown.mjs";
+
+test("independent-topic articles may exceed the module word ceiling", () => {
+  assert.doesNotThrow(() => validateChineseCharacterCount(5001, { independent: true }));
+  assert.throws(() => validateChineseCharacterCount(5001), /3000-5000/);
+  assert.throws(() => validateChineseCharacterCount(2999, { independent: true }), /at least 3000/);
+});
 
 test("creates the official WeChat SHA-1 callback signature", () => {
   assert.equal(
