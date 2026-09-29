@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 1,
+  "topic": "applications",
+  "title": "应用落地与项目实践",
+  "draftPlan": {
+    "outlineSections": {
+      "min": 8,
+      "max": 10
+    },
+    "targetChineseCharacters": {
+      "min": 3200,
+      "max": 3500
+    }
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "contentLevel": "overview",
+      "submodule": "",
+      "seriesOrder": 0,
+      "promptFile": "prompts.md",
+      "principleImage": "assets/applications-principle.png",
+      "images": [
+        "assets/applications-cover-main-wechat.png",
+        "assets/applications-cover-interview-wechat.png",
+        "assets/applications-principle.png",
+        "assets/applications-inputs.png",
+        "assets/applications-failure.png",
+        "assets/applications-controls.png",
+        "assets/applications-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "一家企业同时提出六个愿望：自动写行业报告、修复代码、分析经营数据、处理退款、整理会议并指挥仓库机器人。若统一包装成“万能企业智能体”，团队很快会发现每类任务的输入、风险、验收和失败成本完全不同。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "围绕“一家企业同时提出六个愿望：自动写行业报告、修复代码、分析经营数据、处理退款、整理会议并指挥仓库机器人。若统一包装成“万能企业智能体”，团队很快会发现每类任务”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "应用落地与项目实践总览",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "researchagent",
+      "contentLevel": "submodule",
+      "submodule": "researchagent",
+      "seriesOrder": 1,
+      "promptFile": "submodules/researchagent/prompts.md",
+      "principleImage": "submodules/researchagent/assets/researchagent-principle.png",
+      "images": [
+        "submodules/researchagent/assets/researchagent-cover-main-wechat.png",
+        "submodules/researchagent/assets/researchagent-cover-interview-wechat.png",
+        "submodules/researchagent/assets/researchagent-principle.png",
+        "submodules/researchagent/assets/researchagent-inputs.png",
+        "submodules/researchagent/assets/researchagent-failure.png",
+        "submodules/researchagent/assets/researchagent-controls.png",
+        "submodules/researchagent/assets/researchagent-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/researchagent/beginner-main.md",
+          "focus": "采购部门要求比较三家云服务商的合规、价格和服务能力。研究智能体很快给出一份流畅报告，却把旧价格、营销博客和另一地区的合规证书混在一起。引用链接存在，但并不支持紧挨着的结论。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/researchagent/interview-side.md",
+          "focus": "围绕“采购部门要求比较三家云服务商的合规、价格和服务能力。研究智能体很快给出一份流畅报告，却把旧价格、营销博客和另一地区的合规证书混在一起。引用链接存在，但并不支”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "研究型智能体",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "codingagent",
+      "contentLevel": "submodule",
+      "submodule": "codingagent",
+      "seriesOrder": 2,
+      "promptFile": "submodules/codingagent/prompts.md",
+      "principleImage": "submodules/codingagent/assets/codingagent-principle.png",
+      "images": [
+        "submodules/codingagent/assets/codingagent-cover-main-wechat.png",
+        "submodules/codingagent/assets/codingagent-cover-interview-wechat.png",
+        "submodules/codingagent/assets/codingagent-principle.png",
+        "submodules/codingagent/assets/codingagent-inputs.png",
+        "submodules/codingagent/assets/codingagent-failure.png",
+        "submodules/codingagent/assets/codingagent-controls.png",
+        "submodules/codingagent/assets/codingagent-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/codingagent/beginner-main.md",
+          "focus": "用户报告导出 CSV 时包含逗号的字段会错列。编程智能体没有运行测试，直接把所有字符串都加上双引号，结果修好一个样本，却破坏了已有转义规则。代码能编译，问题仍然没有被严格定义。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/codingagent/interview-side.md",
+          "focus": "围绕“用户报告导出 CSV 时包含逗号的字段会错列。编程智能体没有运行测试，直接把所有字符串都加上双引号，结果修好一个样本，却破坏了已有转义规则。代码能编译，问题”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "编程智能体",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "dataagent",
+      "contentLevel": "submodule",
+      "submodule": "dataagent",
+      "seriesOrder": 3,
+      "promptFile": "submodules/dataagent/prompts.md",
+      "principleImage": "submodules/dataagent/assets/dataagent-principle.png",
+      "images": [
+        "submodules/dataagent/assets/dataagent-cover-main-wechat.png",
+        "submodules/dataagent/assets/dataagent-cover-interview-wechat.png",
+        "submodules/dataagent/assets/dataagent-principle.png",
+        "submodules/dataagent/assets/dataagent-inputs.png",
+        "submodules/dataagent/assets/dataagent-failure.png",
+        "submodules/dataagent/assets/dataagent-controls.png",
+        "submodules/dataagent/assets/dataagent-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/dataagent/beginner-main.md",
+          "focus": "管理层问“华东区收入为什么下降”。智能体生成 SQL 后发现本月收入少了 12%，便归因于新客减少。后来分析师发现查询把含税金额和未税金额混用，还漏掉退款冲销。语句语法正确，业务口径却错了。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/dataagent/interview-side.md",
+          "focus": "围绕“管理层问“华东区收入为什么下降”。智能体生成 SQL 后发现本月收入少了 12%，便归因于新客减少。后来分析师发现查询把含税金额和未税金额混用，还漏掉退款冲”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "数据分析智能体",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "processagent",
+      "contentLevel": "submodule",
+      "submodule": "processagent",
+      "seriesOrder": 4,
+      "promptFile": "submodules/processagent/prompts.md",
+      "principleImage": "submodules/processagent/assets/processagent-principle.png",
+      "images": [
+        "submodules/processagent/assets/processagent-cover-main-wechat.png",
+        "submodules/processagent/assets/processagent-cover-interview-wechat.png",
+        "submodules/processagent/assets/processagent-principle.png",
+        "submodules/processagent/assets/processagent-inputs.png",
+        "submodules/processagent/assets/processagent-failure.png",
+        "submodules/processagent/assets/processagent-controls.png",
+        "submodules/processagent/assets/processagent-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/processagent/beginner-main.md",
+          "focus": "客户在聊天里申请退款，智能体判断理由合理并回复“已经办理”。实际上支付接口超时，工单状态却提前写成完成；重试又创建第二笔退款。聊天流畅地结束了，资金和业务状态却分成三份。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/processagent/interview-side.md",
+          "focus": "围绕“客户在聊天里申请退款，智能体判断理由合理并回复“已经办理”。实际上支付接口超时，工单状态却提前写成完成；重试又创建第二笔退款。聊天流畅地结束了，资金和业务状”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "业务流程智能体",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "officeagent",
+      "contentLevel": "submodule",
+      "submodule": "officeagent",
+      "seriesOrder": 5,
+      "promptFile": "submodules/officeagent/prompts.md",
+      "principleImage": "submodules/officeagent/assets/officeagent-principle.png",
+      "images": [
+        "submodules/officeagent/assets/officeagent-cover-main-wechat.png",
+        "submodules/officeagent/assets/officeagent-cover-interview-wechat.png",
+        "submodules/officeagent/assets/officeagent-principle.png",
+        "submodules/officeagent/assets/officeagent-inputs.png",
+        "submodules/officeagent/assets/officeagent-failure.png",
+        "submodules/officeagent/assets/officeagent-controls.png",
+        "submodules/officeagent/assets/officeagent-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/officeagent/beginner-main.md",
+          "focus": "销售会议结束后，智能体整理纪要并准备跟进邮件。它把上一位客户的折扣方案带进当前草稿，又从昵称猜错了收件人。若系统把“生成完成”和“发送成功”放在同一个按钮后面，一次小混淆就会直接触达外部客户。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/officeagent/interview-side.md",
+          "focus": "围绕“销售会议结束后，智能体整理纪要并准备跟进邮件。它把上一位客户的折扣方案带进当前草稿，又从昵称猜错了收件人。若系统把“生成完成”和“发送成功”放在同一个按钮后”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "办公、客服与销售智能体",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "embodied",
+      "contentLevel": "submodule",
+      "submodule": "embodied",
+      "seriesOrder": 6,
+      "promptFile": "submodules/embodied/prompts.md",
+      "principleImage": "submodules/embodied/assets/embodied-principle.png",
+      "images": [
+        "submodules/embodied/assets/embodied-cover-main-wechat.png",
+        "submodules/embodied/assets/embodied-cover-interview-wechat.png",
+        "submodules/embodied/assets/embodied-principle.png",
+        "submodules/embodied/assets/embodied-inputs.png",
+        "submodules/embodied/assets/embodied-failure.png",
+        "submodules/embodied/assets/embodied-controls.png",
+        "submodules/embodied/assets/embodied-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/embodied/beginner-main.md",
+          "focus": "仓库机器人收到“把桌上的红杯放进周转箱”。视觉系统把红色清洁剂瓶识别成杯子，语言计划又选择了经过人员通道的最短路径。数字世界里的错答可以删除，物理世界里的误抓和碰撞却可能已经发生。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/embodied/interview-side.md",
+          "focus": "围绕“仓库机器人收到“把桌上的红杯放进周转箱”。视觉系统把红色清洁剂瓶识别成杯子，语言计划又选择了经过人员通道的最短路径。数字世界里的错答可以删除，物理世界里的误”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "具身智能体",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    }
+  ]
+}
