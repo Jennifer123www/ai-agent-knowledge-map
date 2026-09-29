@@ -103,6 +103,37 @@ First **paragraph**.
   assert.doesNotMatch(html, /cover\.png/);
 });
 
+test("renders an orange WeChat theme without changing the green default", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const article = parseWechatArticle(`# Demo title
+
+![cover](./cover.png)
+
+Read **this** \`code\` and [source](https://example.com).
+
+## Main heading
+
+### Detail heading
+
+> A useful note.
+
+- One item
+`, markdownPath);
+  const images = new Map();
+  const green = renderWechatHtml(article, images);
+  const orange = renderWechatHtml(article, images, { theme: "orange" });
+
+  assert.match(green, /border-left:4px solid #16865b/);
+  assert.match(green, /color:#25312c/);
+  assert.match(orange, /border-left:4px solid #E87522/);
+  assert.match(orange, /color:#C85D12/);
+  assert.match(orange, /background:#FFF3E6/);
+  assert.match(orange, /background:#FFF9F2/);
+  assert.match(orange, /color:#20252B/);
+  assert.doesNotMatch(orange, /#16865b|#176b45/);
+  assert.throws(() => renderWechatHtml(article, images, { theme: "purple" }), /Unsupported WeChat theme/);
+});
+
 test("uses YAML front matter for WeChat draft metadata", () => {
   const markdownPath = path.resolve("content/wechat/example/article.md");
   const markdown = `---

@@ -11,11 +11,16 @@ const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 const defaultArticle = "content/wechat/tools-skills-and-protocols/beginner-main.md";
 
 function parseArguments(argv) {
-  const result = { file: defaultArticle, dryRun: false };
+  const result = { file: defaultArticle, theme: "green", dryRun: false };
   for (let index = 0; index < argv.length; index += 1) {
     if (argv[index] === "--file") result.file = argv[++index];
+    else if (argv[index] === "--theme") result.theme = argv[++index];
     else if (argv[index] === "--dry-run") result.dryRun = true;
     else throw new Error(`Unknown argument: ${argv[index]}`);
+  }
+  if (!result.file) throw new Error("--file requires an article path");
+  if (!["green", "orange"].includes(result.theme)) {
+    throw new Error("--theme must be green or orange");
   }
   return result;
 }
@@ -32,10 +37,11 @@ async function main() {
       image.source,
       `https://mmbiz.qpic.cn/placeholder/${encodeURIComponent(path.basename(image.source))}`,
     ]));
-    const content = renderWechatHtml(article, placeholderUrls);
+    const content = renderWechatHtml(article, placeholderUrls, { theme: options.theme });
     const contentSize = validateWechatHtml(content);
     console.log(JSON.stringify({
       title: article.title,
+      theme: options.theme,
       titleCharacters: [...article.title].length,
       author: article.author,
       authorCharacters: [...article.author].length,
@@ -66,7 +72,7 @@ async function main() {
       uploadedImageUrls.set(image.source, uploaded.url);
     }
 
-    const content = renderWechatHtml(article, uploadedImageUrls);
+    const content = renderWechatHtml(article, uploadedImageUrls, { theme: options.theme });
     const result = await client.addDraft({
       article_type: article.articleType,
       title: article.title,
