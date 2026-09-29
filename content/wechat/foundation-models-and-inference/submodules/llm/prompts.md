@@ -1,13 +1,13 @@
 # 大语言模型子模块配图提示词
 
-版本：0.7.1；修订时间：2026-09-29 15:03 CST；依据提交：`ff9de6e`（`main`；修订前仅有 Word 临时锁文件未跟踪）。
+版本：0.7.2；修订时间：2026-09-29 15:35 CST；依据提交：`876189f`（`main`；修订前仅有 Word 临时锁文件未跟踪）。
 
-统一规格：1536x1024 PNG，暖白背景，梅红与深灰为主，少量青绿，简洁中文信息图，无水印、无 Logo、无小字说明。原有成片使用 `gpt-image-2`；本轮纠错图 `llm-sampling.png` 由 `scripts/render-foundation-figure-fixes.py` 确定性绘制。
+统一规格：1536x1024 PNG，暖白背景，梅红与深灰为主，少量青绿，简洁中文信息图，无水印、无 Logo、无小字说明。原有成片使用 `gpt-image-2`；纠错图 `llm-sampling.png` 与 `llm-evidence-audit.png` 由 `scripts/render-foundation-figure-fixes.py` 确定性绘制。
 
 1. `llm-cover.png`：封面，像接龙一样逐个生成 token，标题“大语言模型”，副标题“会续写，才有了会表达”。
 2. `llm-token-generation.png`：生成循环，标签“输入 token”“概率分布”“选择下一个”“继续生成”。
 3. `llm-sampling.png`：生成参数关系图；“候选分数→温度调整分布→Top-p 保留候选→抽取下一个 token”，明确两者可单独设置也可组合，具体处理顺序依推理系统而定。不把温度与 Top-p 画成互斥策略，也不把温度画成准确率或语气旋钮。
-4. `llm-reliability.png`：可靠性护栏，标签“检索证据”“工具结果”“结构校验”“人工确认”。
+4. `llm-evidence-audit.png`：会议通知的逐句证据核对图。三列分别为“模型写出的内容”“输入中的依据”“判断”；四行固定展示“改至 16:00—17:00”“地点仍为 A302”“会议链接稍后补充”“邀请已发出”，分别标记保留、删除、保留、禁止写入。图片只解释当前会议案例，不引入检索、工具或人工确认等系统级流程。
 
 5. `llm-principle.png`：原理图。依据 [Attention Is All You Need](https://arxiv.org/abs/1706.03762) Figure 2 与第 3.2.3 节改绘。保留 `Q`、`K`、`V`、缩放点积、`softmax`、对 `V` 加权汇总和因果掩码说明。图注：“依据 Vaswani 等，Figure 2 与第 3.2.3 节改绘。”
 6. `llm-rnn-comparison.png`：原理对比图。依据同一论文第 4 节与 Table 1。左侧展示 RNN 隐藏状态依次依赖，右侧展示自注意力层在训练阶段并行处理各输入位置；明确“自回归生成仍逐步产生下一个 token”。

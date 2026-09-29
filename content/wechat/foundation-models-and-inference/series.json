@@ -68,9 +68,10 @@
       "principleImage": "submodules/llm/assets/llm-principle.png",
       "images": [
         "submodules/llm/assets/llm-cover.png",
+        "submodules/llm/assets/llm-cover-wechat-horizontal-v2.png",
         "submodules/llm/assets/llm-token-generation.png",
         "submodules/llm/assets/llm-sampling.png",
-        "submodules/llm/assets/llm-reliability.png",
+        "submodules/llm/assets/llm-evidence-audit.png",
         "submodules/llm/assets/llm-principle.png",
         "submodules/llm/assets/llm-rnn-comparison.png"
       ],

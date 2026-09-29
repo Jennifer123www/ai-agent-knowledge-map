@@ -196,6 +196,58 @@ def llm_sampling():
     save(im, "submodules/llm/assets/llm-sampling.png")
 
 
+def llm_evidence_audit():
+    im, d = base(
+        "这句话，输入里有依据吗？",
+        "把通知拆成事实陈述，再逐条决定保留、改写或删除",
+        "事实核对",
+        "核对单位是每一条事实陈述，不是整段文字读起来是否顺畅",
+    )
+
+    columns = (92, 610, 1120, 1444)
+    header_y0, header_y1 = 338, 408
+    d.rounded_rectangle(
+        (columns[0], header_y0, columns[-1], header_y1),
+        radius=18,
+        fill=INK,
+    )
+    for x, text in (
+        ((columns[0] + columns[1]) // 2, "模型写出的内容"),
+        ((columns[1] + columns[2]) // 2, "输入中的依据"),
+        ((columns[2] + columns[3]) // 2, "判断"),
+    ):
+        label(d, (x, (header_y0 + header_y1) // 2), text, 27, "#FFFFFF", "mm")
+
+    rows = [
+        ("改至 16:00—17:00", "最新要求：16:00—17:00", "保留", TEAL_PALE, TEAL),
+        ("地点仍为 A302", "A302 只在旧日程中", "删除", PLUM_PALE, PLUM),
+        ("会议链接稍后补充", "链接尚未生成", "保留", TEAL_PALE, TEAL),
+        ("邀请已发出", "没有发送结果", "禁止写入", ORANGE_PALE, ORANGE),
+    ]
+    row_h = 86
+    y = 423
+    for statement, evidence, decision, fill, decision_color in rows:
+        d.rounded_rectangle(
+            (columns[0], y, columns[-1], y + row_h),
+            radius=16,
+            fill="#FFFFFF",
+            outline=OUTLINE,
+            width=2,
+        )
+        d.line((columns[1], y + 10, columns[1], y + row_h - 10), fill=OUTLINE, width=2)
+        d.line((columns[2], y + 10, columns[2], y + row_h - 10), fill=OUTLINE, width=2)
+        label(d, (118, y + row_h // 2), statement, 28, INK, "lm")
+        label(d, (641, y + row_h // 2), evidence, 27, MUTED, "lm")
+        chip = (1172, y + 18, 1388, y + row_h - 18)
+        d.rounded_rectangle(chip, radius=22, fill=fill, outline=decision_color, width=2)
+        label(d, ((chip[0] + chip[2]) // 2, (chip[1] + chip[3]) // 2), decision, 26, decision_color, "mm")
+        y += row_h + 12
+
+    d.rounded_rectangle((300, 820, 1236, 878), radius=20, fill=ORANGE_PALE)
+    label(d, (768, 849), "流畅度看语言；事实是否成立，要看证据", 29, PLUM, "mm")
+    save(im, "submodules/llm/assets/llm-evidence-audit.png")
+
+
 def adaptation_distillation():
     im, d = base(
         "小模型怎样向大模型学习",
@@ -268,6 +320,7 @@ def main():
         reranker_two_stage,
         reranker_evaluation,
         llm_sampling,
+        llm_evidence_audit,
         adaptation_distillation,
         adaptation_lora,
         multimodal_encoding,

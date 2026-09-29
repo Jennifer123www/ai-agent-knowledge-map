@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.3.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.3.2"
+stage: "将通用可靠性护栏图改为会议案例的逐句证据核对图"
+git_state: "基于 876189f（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 15:35 CST"
 ---
 
 # 面试题：大语言模型从原理到验证怎么答
@@ -160,7 +160,7 @@ modified_at: "2026-09-29 13:49 CST"
 
 “A302”“已有链接”“已发送”是三种不同的文本错误：引用了旧记录、补出不存在的信息、把未执行动作写成已完成。语言模型能写出可信句子；但输入里只有“先写草稿”，没有“发送成功”的证据。
 
-![大语言模型可靠性护栏](./assets/llm-reliability.png)
+![会议通知中的陈述、输入依据与处理判断](./assets/llm-evidence-audit.png)
 
 ### 答题点
 
