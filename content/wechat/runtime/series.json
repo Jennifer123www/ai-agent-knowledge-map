@@ -1,0 +1,620 @@
+{
+  "schemaVersion": 1,
+  "topic": "runtime",
+  "title": "系统设计、运行时与成本",
+  "draftPlan": {
+    "outlineSections": {
+      "min": 8,
+      "max": 10
+    },
+    "targetChineseCharacters": {
+      "min": 3200,
+      "max": 3500
+    }
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "contentLevel": "overview",
+      "submodule": "",
+      "seriesOrder": 0,
+      "promptFile": "prompts.md",
+      "principleImage": "assets/runtime-system-principle.png",
+      "images": [
+        "assets/runtime-system-cover-main-wechat.png",
+        "assets/runtime-system-cover-interview-wechat.png",
+        "assets/runtime-system-principle.png",
+        "assets/runtime-system-inputs.png",
+        "assets/runtime-system-failure.png",
+        "assets/runtime-system-controls.png",
+        "assets/runtime-system-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "一家咨询公司让研究智能体每晚收集政策变化并生成晨报。凌晨两点模型服务限流，任务重试后重复抓取，队列积压，容器重启又丢了进度，早晨只留下两份互相矛盾的半成品。演示里的五分钟顺利路径，在生产里变成了一夜的状态、并发和成本问题。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "围绕“一家咨询公司让研究智能体每晚收集政策变化并生成晨报。凌晨两点模型服务限流，任务重试后重复抓取，队列积压，容器重启又丢了进度，早晨只留下两份互相矛盾的半成品。”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "系统设计、运行时与成本总览",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "runtime",
+      "contentLevel": "submodule",
+      "submodule": "runtime",
+      "seriesOrder": 1,
+      "promptFile": "submodules/runtime/prompts.md",
+      "principleImage": "submodules/runtime/assets/runtime-principle.png",
+      "images": [
+        "submodules/runtime/assets/runtime-cover-main-wechat.png",
+        "submodules/runtime/assets/runtime-cover-interview-wechat.png",
+        "submodules/runtime/assets/runtime-principle.png",
+        "submodules/runtime/assets/runtime-inputs.png",
+        "submodules/runtime/assets/runtime-failure.png",
+        "submodules/runtime/assets/runtime-controls.png",
+        "submodules/runtime/assets/runtime-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/runtime/beginner-main.md",
+          "focus": "研究智能体已经检索了四十份报告，并完成两轮证据筛选，运行容器却在生成摘要前被重启。如果只保存聊天记录，它不知道哪些网页已经抓过、哪些工具动作已成功、哪段摘要对应哪个版本，最简单的重跑会重复计费甚至重复写入。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/runtime/interview-side.md",
+          "focus": "围绕“研究智能体已经检索了四十份报告，并完成两轮证据筛选，运行容器却在生成摘要前被重启。如果只保存聊天记录，它不知道哪些网页已经抓过、哪些工具动作已成功、哪段摘要”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "智能体运行时",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "sandbox",
+      "contentLevel": "submodule",
+      "submodule": "sandbox",
+      "seriesOrder": 2,
+      "promptFile": "submodules/sandbox/prompts.md",
+      "principleImage": "submodules/sandbox/assets/sandbox-principle.png",
+      "images": [
+        "submodules/sandbox/assets/sandbox-cover-main-wechat.png",
+        "submodules/sandbox/assets/sandbox-cover-interview-wechat.png",
+        "submodules/sandbox/assets/sandbox-principle.png",
+        "submodules/sandbox/assets/sandbox-inputs.png",
+        "submodules/sandbox/assets/sandbox-failure.png",
+        "submodules/sandbox/assets/sandbox-controls.png",
+        "submodules/sandbox/assets/sandbox-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/sandbox/beginner-main.md",
+          "focus": "数据分析智能体下载了一份客户提供的压缩包，解压后运行脚本统计销售额。脚本除了读取 CSV，还尝试扫描主机目录并向外部地址上传环境变量。若执行环境与业务服务共用文件系统和凭据，一次分析就可能变成数据泄漏。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/sandbox/interview-side.md",
+          "focus": "围绕“数据分析智能体下载了一份客户提供的压缩包，解压后运行脚本统计销售额。脚本除了读取 CSV，还尝试扫描主机目录并向外部地址上传环境变量。若执行环境与业务服务共”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "沙箱执行环境",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "gateway",
+      "contentLevel": "submodule",
+      "submodule": "gateway",
+      "seriesOrder": 3,
+      "promptFile": "submodules/gateway/prompts.md",
+      "principleImage": "submodules/gateway/assets/gateway-principle.png",
+      "images": [
+        "submodules/gateway/assets/gateway-cover-main-wechat.png",
+        "submodules/gateway/assets/gateway-cover-interview-wechat.png",
+        "submodules/gateway/assets/gateway-principle.png",
+        "submodules/gateway/assets/gateway-inputs.png",
+        "submodules/gateway/assets/gateway-failure.png",
+        "submodules/gateway/assets/gateway-controls.png",
+        "submodules/gateway/assets/gateway-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/gateway/beginner-main.md",
+          "focus": "月底报表任务同时启动，所有团队都直连同一个模型供应商。429 限流出现后，各客户端立即重试，流量反而翻倍；少数高价值交互也被挤在队列里。账单只显示一个公共 API Key，没人知道是谁花掉了预算。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/gateway/interview-side.md",
+          "focus": "围绕“月底报表任务同时启动，所有团队都直连同一个模型供应商。429 限流出现后，各客户端立即重试，流量反而翻倍；少数高价值交互也被挤在队列里。账单只显示一个公共 ”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "模型网关与流量治理",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "schedule",
+      "contentLevel": "submodule",
+      "submodule": "schedule",
+      "seriesOrder": 4,
+      "promptFile": "submodules/schedule/prompts.md",
+      "principleImage": "submodules/schedule/assets/schedule-principle.png",
+      "images": [
+        "submodules/schedule/assets/schedule-cover-main-wechat.png",
+        "submodules/schedule/assets/schedule-cover-interview-wechat.png",
+        "submodules/schedule/assets/schedule-principle.png",
+        "submodules/schedule/assets/schedule-inputs.png",
+        "submodules/schedule/assets/schedule-failure.png",
+        "submodules/schedule/assets/schedule-controls.png",
+        "submodules/schedule/assets/schedule-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/schedule/beginner-main.md",
+          "focus": "政策巡检设为每天凌晨一点运行。夏令时切换时任务执行两次；一次运行超过二十四小时后，又与下一次重叠。两份任务都发现相同变化并发送通知，团队收到重复告警，还以为政策连续更新了两回。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/schedule/interview-side.md",
+          "focus": "围绕“政策巡检设为每天凌晨一点运行。夏令时切换时任务执行两次；一次运行超过二十四小时后，又与下一次重叠。两份任务都发现相同变化并发送通知，团队收到重复告警，还以为”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "定时任务与事件触发",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "event",
+      "contentLevel": "submodule",
+      "submodule": "event",
+      "seriesOrder": 5,
+      "promptFile": "submodules/event/prompts.md",
+      "principleImage": "submodules/event/assets/event-principle.png",
+      "images": [
+        "submodules/event/assets/event-cover-main-wechat.png",
+        "submodules/event/assets/event-cover-interview-wechat.png",
+        "submodules/event/assets/event-principle.png",
+        "submodules/event/assets/event-inputs.png",
+        "submodules/event/assets/event-failure.png",
+        "submodules/event/assets/event-controls.png",
+        "submodules/event/assets/event-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/event/beginner-main.md",
+          "focus": "合同上传后产生“文件已到达”事件，解析智能体成功写入摘要，却在确认消息前崩溃。队列再次投递，同一合同被生成两份索引和两条通知。若把重复归咎于队列“不可靠”，系统就会在下一次网络抖动时继续出错。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/event/interview-side.md",
+          "focus": "围绕“合同上传后产生“文件已到达”事件，解析智能体成功写入摘要，却在确认消息前崩溃。队列再次投递，同一合同被生成两份索引和两条通知。若把重复归咎于队列“不可靠”，”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "事件与消息队列",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "storage",
+      "contentLevel": "submodule",
+      "submodule": "storage",
+      "seriesOrder": 6,
+      "promptFile": "submodules/storage/prompts.md",
+      "principleImage": "submodules/storage/assets/storage-principle.png",
+      "images": [
+        "submodules/storage/assets/storage-cover-main-wechat.png",
+        "submodules/storage/assets/storage-cover-interview-wechat.png",
+        "submodules/storage/assets/storage-principle.png",
+        "submodules/storage/assets/storage-inputs.png",
+        "submodules/storage/assets/storage-failure.png",
+        "submodules/storage/assets/storage-controls.png",
+        "submodules/storage/assets/storage-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/storage/beginner-main.md",
+          "focus": "退货政策已经从七天改成十五天，知识库完成更新，智能体却连续两小时回答旧规则。原因不是检索没刷新，而是答案缓存只用用户问题做键，没有包含政策版本和租户。另一个租户的命中结果甚至可能被复用。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/storage/interview-side.md",
+          "focus": "围绕“退货政策已经从七天改成十五天，知识库完成更新，智能体却连续两小时回答旧规则。原因不是检索没刷新，而是答案缓存只用用户问题做键，没有包含政策版本和租户。另一个”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "状态存储与缓存",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "delivery",
+      "contentLevel": "submodule",
+      "submodule": "delivery",
+      "seriesOrder": 7,
+      "promptFile": "submodules/delivery/prompts.md",
+      "principleImage": "submodules/delivery/assets/delivery-principle.png",
+      "images": [
+        "submodules/delivery/assets/delivery-cover-main-wechat.png",
+        "submodules/delivery/assets/delivery-cover-interview-wechat.png",
+        "submodules/delivery/assets/delivery-principle.png",
+        "submodules/delivery/assets/delivery-inputs.png",
+        "submodules/delivery/assets/delivery-failure.png",
+        "submodules/delivery/assets/delivery-controls.png",
+        "submodules/delivery/assets/delivery-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/delivery/beginner-main.md",
+          "focus": "促销开始后，客服智能体任务量翻了十倍。平台按 CPU 使用率扩容，但真正瓶颈是模型供应商并发配额，新增容器只让排队和 429 更严重。随后一个提示版本灰度失败，简单回滚代码却没有处理已经进入新版状态图的任务。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/delivery/interview-side.md",
+          "focus": "围绕“促销开始后，客服智能体任务量翻了十倍。平台按 CPU 使用率扩容，但真正瓶颈是模型供应商并发配额，新增容器只让排队和 429 更严重。随后一个提示版本灰度失”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "部署、扩缩容与发布",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2a",
+      "contentLevel": "submodule",
+      "submodule": "a2a",
+      "seriesOrder": 8,
+      "promptFile": "submodules/a2a/prompts.md",
+      "principleImage": "submodules/a2a/assets/a2a-principle.png",
+      "images": [
+        "submodules/a2a/assets/a2a-cover-main-wechat.png",
+        "submodules/a2a/assets/a2a-cover-interview-wechat.png",
+        "submodules/a2a/assets/a2a-principle.png",
+        "submodules/a2a/assets/a2a-inputs.png",
+        "submodules/a2a/assets/a2a-failure.png",
+        "submodules/a2a/assets/a2a-controls.png",
+        "submodules/a2a/assets/a2a-verification.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/a2a/beginner-main.md",
+          "focus": "研究智能体需要把日文法规交给外部翻译智能体。若只是向一个聊天接口发文本，它不知道对方支持什么输入、任务是否仍在运行、结果是临时消息还是正式产物，也无法安全取消。网络断开后，双方甚至会各自创建一份重复任务。",
+          "outline": [
+            "问题与目标",
+            "核心原理",
+            "关键输入",
+            "典型失效",
+            "控制组合",
+            "风险取舍",
+            "验证方法",
+            "模块关系",
+            "落地步骤",
+            "记忆结论"
+          ]
+        },
+        "interview": {
+          "path": "submodules/a2a/interview-side.md",
+          "focus": "围绕“研究智能体需要把日文法规交给外部翻译智能体。若只是向一个聊天接口发文本，它不知道对方支持什么输入、任务是否仍在运行、结果是临时消息还是正式产物，也无法安全取”回答原理、边界、取舍和落地。",
+          "questionBoundary": {
+            "include": [
+              "智能体对智能体协议",
+              "原理链路",
+              "输入契约",
+              "失效模式",
+              "控制组合",
+              "上线验证",
+              "成本与取舍"
+            ],
+            "exclude": [
+              "其他子模块专属实现细节",
+              "脱离案例的术语背诵",
+              "与总览重复的宽泛定义"
+            ]
+          },
+          "outline": [
+            "目标与边界",
+            "原理链路",
+            "输入契约",
+            "失效模式",
+            "控制组合",
+            "风险取舍",
+            "上线回滚",
+            "验证指标",
+            "模块关系",
+            "综合案例"
+          ]
+        }
+      }
+    }
+  ]
+}
