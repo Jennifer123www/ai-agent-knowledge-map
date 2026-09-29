@@ -95,9 +95,9 @@ function compare(left, right, footer) {
   return body;
 }
 
-function contract(rows, footer) {
+function contract(rows, footer, header = "字段清单") {
   let body = rect(178, 235, 1180, 545, "#fff", "#b7c5c9", 14, 2);
-  body += rect(178, 235, 1180, 80, paleBlue, blue, 14, 0) + text(768, 288, "任务契约：交付前先把边界写清楚", 30, blue, "middle", 750);
+  body += rect(178, 235, 1180, 80, paleBlue, blue, 14, 0) + text(768, 288, header, 30, blue, "middle", 750);
   rows.forEach((row, i) => {
     const y = 315 + i * 92;
     const color = [blue, teal, orange, plum, rose][i % 5];
@@ -221,7 +221,7 @@ const diagrams = [
       ["输出", "结论、证据链接、未知项、置信说明"],
       ["权限", "只读公开资料；不得发送邮件或修改表格"],
       ["验收", "每项结论可追溯；未决问题明确列出"],
-    ], "把“帮我查一下”改成可验收的交付，协作才有边界。"),
+    ], "把“帮我查一下”改成可验收的交付，协作才有边界。", "任务契约：交付前先把边界写清楚"),
   },
   {
     file: "assets/orchestration-patterns.png", title: "四种常见协作结构", eyebrow: "模式图",
@@ -284,7 +284,7 @@ const diagrams = [
       ["模型记录", "模型版本、提示词版本、token 与延迟"],
       ["工具回执", "请求标识、状态码、业务结果"],
       ["决策记录", "分支条件、人工审批人和时间"],
-    ], "日志不是堆满原文；敏感数据要脱敏，关键回执要可追溯。"),
+    ], "日志不是堆满原文；敏感数据要脱敏，关键回执要可追溯。", "一次运行应保存的关键证据"),
   },
   {
     file: "submodules/workflow/assets/workflow-principle.png", title: "工作流的核心：确定路径包住不确定模型", eyebrow: "原理示意图",
@@ -302,7 +302,7 @@ const diagrams = [
       ["中间产物", "已确认来源、待核对数字、草稿路径"],
       ["动作回执", "哪些查询成功，哪些写操作已经发生"],
       ["下一步", "从价格核验继续；不得重复发送审批"],
-    ], "聊天记录可以辅助理解，但不能替代可验证的任务状态。"),
+    ], "聊天记录可以辅助理解，但不能替代可验证的任务状态。", "研究任务的显式状态"),
   },
   {
     file: "submodules/stategraph/assets/stategraph-transition.png", title: "状态转移要经过守卫条件", eyebrow: "状态图",
@@ -361,7 +361,7 @@ const diagrams = [
       ["适用范围", "结论覆盖哪些版本、地区或客户"],
       ["未知项", "缺少哪些资料，哪些数字尚未确认"],
       ["冲突项", "与其他 Agent 的哪条结论不一致"],
-    ], "没有证据和边界的“专业意见”，只会把核验成本推给下一个人。"),
+    ], "没有证据和边界的“专业意见”，只会把核验成本推给下一个人。", "结构化交付：结论之外还要交什么"),
   },
   {
     file: "submodules/multiagent/assets/multiagent-evaluation.png", title: "多 Agent 必须与更简单方案做对照", eyebrow: "评测图",
@@ -393,7 +393,7 @@ const diagrams = [
       ["交付格式", "结论、证据、未知项、建议下一步"],
       ["权限边界", "只读资料；禁止外发和修改采购系统"],
       ["停止条件", "找到三条独立证据或明确资料不足"],
-    ], "主管的第一份产物不是答案，而是可执行、可验收的任务单。"),
+    ], "主管的第一份产物不是答案，而是可执行、可验收的任务单。", "主管下发的任务单"),
   },
   {
     file: "submodules/supervisor/assets/supervisor-routing.png", title: "专家路由看能力，也看权限和负载", eyebrow: "路由图",
@@ -438,7 +438,7 @@ const diagrams = [
       ["已做动作", "身份已核验；尚未创建退款单"],
       ["未决问题", "退款原因需要用户补充"],
       ["权限与下一步", "退款 Agent 可建草稿；付款需人工批准"],
-    ], "交接包越长不一定越好，关键是事实、状态、边界和下一步。"),
+    ], "交接包越长不一定越好，关键是事实、状态、边界和下一步。", "最小交接包：接手后能继续工作"),
   },
   {
     file: "submodules/handoff/assets/handoff-control.png", title: "主管调用与任务交接的控制权不同", eyebrow: "对比图",
