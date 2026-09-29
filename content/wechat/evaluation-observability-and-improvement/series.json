@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 1,
+  "topic": "evaluation",
+  "title": "评测、可观测性与持续优化",
+  "draftPlan": {
+    "outlineSections": { "min": 8, "max": 10 },
+    "targetChineseCharacters": { "min": 3200, "max": 3500 }
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "contentLevel": "overview",
+      "submodule": "",
+      "seriesOrder": 0,
+      "promptFile": "prompts.md",
+      "principleImage": "assets/evaluation-loop.png",
+      "images": [
+        "assets/evaluation-cover-main-wechat.png",
+        "assets/evaluation-cover-interview-wechat.png",
+        "assets/evaluation-loop.png",
+        "assets/evaluation-metric-layers.png",
+        "assets/evaluation-failure-attribution.png",
+        "assets/evaluation-evidence-gate.png",
+        "assets/evaluation-baseline.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "以售后工单 Agent 升级后表面结单率上升、实际返工增多为案例，解释链路追踪、离线评测、线上监控、版本发布与反馈实验怎样组成证据闭环。",
+          "outline": [
+            "结单率上涨为什么仍不能证明系统变好",
+            "结果、过程、风险和资源四层指标怎样分工",
+            "链路追踪怎样还原一次任务",
+            "离线评测怎样建立可重复基线",
+            "线上监控怎样发现真实分布变化",
+            "版本与发布怎样建立改动和结果的关系",
+            "用户反馈怎样变成可验证样本",
+            "五个子模块如何闭环而不是各做各的",
+            "怎样从最小证据链开始建设"
+          ]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "围绕售后工单 Agent，回答可靠性定义、指标分层、Trace、离线与线上配合、版本归因、反馈回流、发布门槛和总体治理。",
+          "questionBoundary": {
+            "include": ["Agent 可靠性定义", "指标分层", "离线与线上闭环", "端到端归因", "统一版本对象", "总体发布门槛", "持续优化治理"],
+            "exclude": ["Span 字段设计细节", "LLM 裁判校准方法", "告警阈值算法", "A/B 实验统计实现", "反馈标签体系细节"]
+          },
+          "outline": [
+            "如何定义 Agent 可靠性",
+            "为什么只看最终答案不够",
+            "五个子模块怎样接成证据链",
+            "离线评测与线上监控如何配合",
+            "怎样把问题归因到具体版本和步骤",
+            "如何设计总体发布门槛",
+            "反馈怎样进入回归集",
+            "怎样平衡质量、成本、时延与安全",
+            "证据不足时怎样做上线决策",
+            "怎样用综合案例讲清指标上涨"
+          ]
+        }
+      }
+    },
+    {
+      "id": "trace",
+      "contentLevel": "submodule",
+      "submodule": "trace",
+      "seriesOrder": 1,
+      "promptFile": "submodules/trace/prompts.md",
+      "principleImage": "submodules/trace/assets/trace-tree.png",
+      "images": [
+        "submodules/trace/assets/trace-cover-main-wechat.png",
+        "submodules/trace/assets/trace-cover-interview-wechat.png",
+        "submodules/trace/assets/trace-tree.png",
+        "submodules/trace/assets/trace-span-fields.png",
+        "submodules/trace/assets/trace-diagnosis.png",
+        "submodules/trace/assets/trace-sampling.png",
+        "submodules/trace/assets/trace-privacy.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/trace/beginner-main.md",
+          "focus": "以一张错误退款工单为案例，解释 Trace、Span、父子关系、上下文传播、版本字段、采样和隐私治理，展示怎样从最终错误回到具体步骤。",
+          "outline": [
+            "一句错误退款结论为何不能只查最终答案",
+            "Trace 与 Span 分别记录什么",
+            "父子关系和时间线怎样还原执行过程",
+            "模型、检索、工具和状态应保留哪些字段",
+            "怎样沿轨迹定位旧政策和错误参数",
+            "日志、指标和 Trace 怎样配合",
+            "全量记录为何既昂贵又危险",
+            "采样、脱敏、权限和保留期怎样设计",
+            "怎样用真实故障验收追踪系统",
+            "怎样从一条关键路径开始建设"
+          ]
+        },
+        "interview": {
+          "path": "submodules/trace/interview-side.md",
+          "focus": "沿用错误退款案例，考察 Trace 与日志区别、Span 粒度、跨服务传播、版本记录、根因定位、采样、敏感数据治理和追踪质量评测。",
+          "questionBoundary": {
+            "include": ["Trace 与 Span", "上下文传播", "Span 粒度", "版本关联", "轨迹诊断", "采样策略", "隐私治理", "追踪完整性"],
+            "exclude": ["总体 Agent 可靠性框架", "离线数据集构造", "线上告警策略", "版本灰度实验"]
+          },
+          "outline": [
+            "Trace、Span、日志和指标有什么区别",
+            "一次 Agent 运行应记录哪些 Span",
+            "跨服务和多 Agent 怎样传播关联标识",
+            "Span 粒度怎样控制",
+            "怎样从错误结果定位根因",
+            "为什么必须记录版本",
+            "全量采集与采样怎样取舍",
+            "敏感输入输出怎样治理",
+            "怎样验证追踪系统可用",
+            "怎样沿一条错答追到可复现根因"
+          ]
+        }
+      }
+    },
+    {
+      "id": "offlineeval",
+      "contentLevel": "submodule",
+      "submodule": "offlineeval",
+      "seriesOrder": 2,
+      "promptFile": "submodules/offlineeval/prompts.md",
+      "principleImage": "submodules/offlineeval/assets/offlineeval-harness.png",
+      "images": [
+        "submodules/offlineeval/assets/offlineeval-cover-main-wechat.png",
+        "submodules/offlineeval/assets/offlineeval-cover-interview-wechat.png",
+        "submodules/offlineeval/assets/offlineeval-harness.png",
+        "submodules/offlineeval/assets/offlineeval-dataset.png",
+        "submodules/offlineeval/assets/offlineeval-graders.png",
+        "submodules/offlineeval/assets/offlineeval-slices.png",
+        "submodules/offlineeval/assets/offlineeval-release-gate.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/offlineeval/beginner-main.md",
+          "focus": "以 300 个历史售后工单比较新旧版本为案例，解释评测目标、数据集、环境快照、规则评分、模型评分、人工校准、分层结果和发布门槛。",
+          "outline": [
+            "新版本看起来更顺为何仍不能上线",
+            "先定义任务完成而不是先选一个分数",
+            "评测集怎样覆盖常见、边界和高风险样本",
+            "环境快照怎样保证新旧版本可比",
+            "规则、执行、模型和人工评分怎样分工",
+            "LLM 裁判为什么需要校准",
+            "总分为何会掩盖关键退化",
+            "污染、过拟合和不稳定怎样防范",
+            "发布门槛怎样连接线上灰度",
+            "评测集怎样版本化和定期体检"
+          ]
+        },
+        "interview": {
+          "path": "submodules/offlineeval/interview-side.md",
+          "focus": "围绕 300 个工单对照，考察任务成功定义、数据集版本、环境隔离、评分器组合、LLM 裁判偏差、切片报告、显著性与发布门槛。",
+          "questionBoundary": {
+            "include": ["评测目标", "数据集设计", "沙盒与环境快照", "评分器选择", "LLM 裁判校准", "分层报告", "数据污染", "回归门槛"],
+            "exclude": ["Trace 采样", "线上告警", "灰度流量实现", "反馈归因标签"]
+          },
+          "outline": [
+            "如何定义 Agent 任务成功",
+            "怎样构造代表性数据集",
+            "为什么要固定工具和知识环境",
+            "规则评分、模型评分和人工评审怎样组合",
+            "LLM-as-a-judge 有哪些偏差",
+            "为什么不能只报平均总分",
+            "如何防止数据污染和评测过拟合",
+            "怎样设置回归门槛",
+            "开放式任务怎样验收",
+            "怎样完整设计退款 Agent 评测"
+          ]
+        }
+      }
+    },
+    {
+      "id": "monitoring",
+      "contentLevel": "submodule",
+      "submodule": "monitoring",
+      "seriesOrder": 3,
+      "promptFile": "submodules/monitoring/prompts.md",
+      "principleImage": "submodules/monitoring/assets/monitoring-signals.png",
+      "images": [
+        "submodules/monitoring/assets/monitoring-cover-main-wechat.png",
+        "submodules/monitoring/assets/monitoring-cover-interview-wechat.png",
+        "submodules/monitoring/assets/monitoring-signals.png",
+        "submodules/monitoring/assets/monitoring-slices.png",
+        "submodules/monitoring/assets/monitoring-alert.png",
+        "submodules/monitoring/assets/monitoring-degrade.png",
+        "submodules/monitoring/assets/monitoring-slo.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/monitoring/beginner-main.md",
+          "focus": "以搜索服务变慢导致部分售后任务超时为案例，解释业务、过程、资源和风险信号，分位数与切片、SLO、告警、降级和事后验证。",
+          "outline": [
+            "接口都返回 200 为何用户仍说系统坏了",
+            "Agent 监控比普通接口多看哪些信号",
+            "指标、日志和 Trace 怎样连接",
+            "平均值为什么会藏住局部故障",
+            "SLO 与错误预算怎样约束发布",
+            "告警怎样指向用户影响和处置",
+            "降级、熔断和人工接管怎样选择",
+            "成本与 token 异常怎样监控",
+            "事故结束后怎样补充回归样本",
+            "怎样用值班演练验收监控体系"
+          ]
+        },
+        "interview": {
+          "path": "submodules/monitoring/interview-side.md",
+          "focus": "沿用搜索服务退化案例，考察信号分层、分母、P95/P99、维度切片、SLO、告警疲劳、异常处置、成本监控和监控有效性。",
+          "questionBoundary": {
+            "include": ["任务与过程指标", "分位数与切片", "SLO 与错误预算", "告警设计", "异常处置", "降级回滚", "成本监控", "监控验收"],
+            "exclude": ["Span 字段", "离线评分器", "A/B 实验统计", "反馈样本清洗"]
+          },
+          "outline": [
+            "Agent 线上监控应该看什么",
+            "为什么 HTTP 成功不等于任务成功",
+            "平均值、P95 和切片怎样配合",
+            "如何定义 SLI、SLO 与错误预算",
+            "告警阈值怎样减少噪声",
+            "出现异常后怎样降级",
+            "token 和成本怎样纳入监控",
+            "线上没有标准答案时怎么办",
+            "怎样测试监控与告警",
+            "线上成功率下降时怎样完整处置"
+          ]
+        }
+      }
+    },
+    {
+      "id": "release",
+      "contentLevel": "submodule",
+      "submodule": "release",
+      "seriesOrder": 4,
+      "promptFile": "submodules/release/prompts.md",
+      "principleImage": "submodules/release/assets/release-experiment.png",
+      "images": [
+        "submodules/release/assets/release-cover-main-wechat.png",
+        "submodules/release/assets/release-cover-interview-wechat.png",
+        "submodules/release/assets/release-experiment.png",
+        "submodules/release/assets/release-version-bundle.png",
+        "submodules/release/assets/release-rollout.png",
+        "submodules/release/assets/release-guardrails.png",
+        "submodules/release/assets/release-rollback.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/release/beginner-main.md",
+          "focus": "以更换检索切分策略为案例，解释版本包、离线对照、影子流量、灰度、随机 A/B、护栏指标、停止条件和回滚，区分相关与因果。",
+          "outline": [
+            "新版指标上涨为何不能立刻归功于新策略",
+            "Agent 的版本为何不只是模型名称",
+            "离线对照怎样一次只改变关键变量",
+            "影子流量与灰度发布分别解决什么问题",
+            "随机 A/B 怎样建立因果关系",
+            "护栏指标和停止条件怎样保护用户",
+            "在途任务与状态版本怎样处理",
+            "回滚为什么需要预先演练",
+            "实验结果怎样沉淀为下一轮证据",
+            "一次小流量发布怎样走完闭环"
+          ]
+        },
+        "interview": {
+          "path": "submodules/release/interview-side.md",
+          "focus": "围绕检索策略发布，考察版本对象、实验假设、离线基线、影子与灰度区别、随机化、护栏指标、样本偏差、在途任务和回滚。",
+          "questionBoundary": {
+            "include": ["版本包", "实验假设", "影子流量", "灰度发布", "A/B 随机化", "护栏指标", "停止规则", "在途任务", "回滚"],
+            "exclude": ["离线数据集完整设计", "线上告警通用体系", "反馈标签清洗", "Trace 采样"]
+          },
+          "outline": [
+            "Agent 版本应包含哪些对象",
+            "如何写可验证实验假设",
+            "影子、灰度和 A/B 有什么区别",
+            "为什么 A/B 需要随机分流",
+            "主要指标和护栏指标怎样设置",
+            "如何处理样本偏差与新奇效应",
+            "哪些情况必须停止实验",
+            "在途任务怎样跨版本处理",
+            "回滚怎样做到真正可用",
+            "怎样判断候选版本能否全量"
+          ]
+        }
+      }
+    },
+    {
+      "id": "feedback",
+      "contentLevel": "submodule",
+      "submodule": "feedback",
+      "seriesOrder": 5,
+      "promptFile": "submodules/feedback/prompts.md",
+      "principleImage": "submodules/feedback/assets/feedback-loop.png",
+      "images": [
+        "submodules/feedback/assets/feedback-cover-main-wechat.png",
+        "submodules/feedback/assets/feedback-cover-interview-wechat.png",
+        "submodules/feedback/assets/feedback-loop.png",
+        "submodules/feedback/assets/feedback-signals.png",
+        "submodules/feedback/assets/feedback-attribution.png",
+        "submodules/feedback/assets/feedback-sample.png",
+        "submodules/feedback/assets/feedback-prioritization.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/feedback/beginner-main.md",
+          "focus": "以客服频繁修改退款摘要中的金额为案例，解释显式反馈、行为信号、业务结果、轨迹关联、错误归因、样本回流、优先级和受控实验。",
+          "outline": [
+            "一排差评为何仍说不清该改哪里",
+            "评分、改稿、重试和业务结果分别代表什么",
+            "反馈怎样关联原任务与版本",
+            "先归因再决定改提示、数据、工具还是流程",
+            "人工改稿怎样转成高质量评测样本",
+            "为什么不能把差评原文直接拿去训练",
+            "高频小错和低频大错怎样排序",
+            "改动怎样通过离线与线上实验验证",
+            "反馈收集怎样兼顾隐私和退出权",
+            "怎样用一张问题单完成反馈闭环"
+          ]
+        },
+        "interview": {
+          "path": "submodules/feedback/interview-side.md",
+          "focus": "沿用金额纠错案例，考察反馈信号含义、轨迹关联、标签设计、归因、样本清洗、优先级、实验验证、偏差与隐私治理。",
+          "questionBoundary": {
+            "include": ["显式与隐式反馈", "业务结果", "轨迹关联", "错误标签", "根因归类", "样本清洗", "优先级", "实验验证", "反馈隐私"],
+            "exclude": ["总体发布门槛", "Span 结构", "监控分位数", "A/B 统计细节"]
+          },
+          "outline": [
+            "用户点赞能否代表正确率",
+            "应该采集哪些反馈信号",
+            "怎样把反馈关联到一次运行",
+            "如何设计可行动的错误标签",
+            "为什么要先归因再优化",
+            "怎样把人工改稿变成评测样本",
+            "如何排序改进优先级",
+            "怎样验证反馈驱动的改动",
+            "反馈数据怎样合规使用",
+            "怎样把一条改稿变成可验证改进"
+          ]
+        }
+      }
+    }
+  ]
+}
