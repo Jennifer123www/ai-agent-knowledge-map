@@ -314,10 +314,23 @@ def add_code_block(document: Document, lines: Iterable[str]) -> None:
     run.font.color.rgb = RGBColor.from_string(BLACK)
 
 
-def markdown_to_docx(source: Path, output: Path, *, skip_first_image: bool = False) -> None:
+def markdown_to_docx(
+    source: Path,
+    output: Path,
+    *,
+    skip_first_image: bool = False,
+    publish_opening: bool = False,
+    display_title: str | None = None,
+    display_author: str | None = None,
+) -> None:
     metadata, body = parse_front_matter(source.read_text(encoding="utf-8"))
+    document_metadata = dict(metadata)
+    if display_title:
+        document_metadata["title"] = display_title
+    if display_author:
+        document_metadata["author"] = display_author
     document = Document()
-    configure_document(document, metadata)
+    configure_document(document, document_metadata)
 
     lines = body.splitlines()
     index = 0
@@ -329,6 +342,10 @@ def markdown_to_docx(source: Path, output: Path, *, skip_first_image: bool = Fal
         line = lines[index].rstrip()
         stripped = line.strip()
         if not stripped:
+            index += 1
+            continue
+
+        if publish_opening and stripped.startswith(("项目入口：", "项目入口:")):
             index += 1
             continue
 
@@ -371,18 +388,24 @@ def markdown_to_docx(source: Path, output: Path, *, skip_first_image: bool = Fal
             heading_text = heading_match.group(2).strip()
             in_references = heading_text == "参考资料"
             if level == 1 and not title_seen:
+                visible_title = display_title or heading_text
+                title_size = Pt(18.5 if publish_opening else 24)
                 paragraph = document.add_paragraph(style="Title")
                 paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
-                add_inline_markdown(paragraph, heading_text, Pt(24))
+                add_inline_markdown(paragraph, visible_title, title_size)
                 for run in paragraph.runs:
                     run.bold = True
                     run.font.color.rgb = RGBColor.from_string(BLACK)
                 if metadata.get("author"):
                     author = document.add_paragraph(style="Article Author")
-                    author_run = author.add_run(f"作者：{metadata['author']}")
+                    byline_label = "原创" if publish_opening else "作者"
+                    byline_name = display_author or metadata["author"]
+                    author_run = author.add_run(f"{byline_label}：{byline_name}")
                     set_run_font(author_run, size=Pt(10.5))
-                    author_run.font.color.rgb = RGBColor.from_string(ORANGE_DARK)
-                if metadata.get("digest"):
+                    author_run.font.color.rgb = RGBColor.from_string(
+                        LIGHT_GRAY if publish_opening else ORANGE_DARK
+                    )
+                if metadata.get("digest") and not publish_opening:
                     digest = document.add_paragraph(style="Article Digest")
                     digest_run = digest.add_run(metadata["digest"])
                     set_run_font(digest_run, size=Pt(10.5))
@@ -480,11 +503,27 @@ def main() -> None:
         action="store_true",
         help="Omit the first body image when the publishing platform uses a separate cover upload.",
     )
+    parser.add_argument(
+        "--publish-opening",
+        action="store_true",
+        help="Use a clean WeChat opening with an original-byline and no digest or project-intro paragraph.",
+    )
+    parser.add_argument(
+        "--display-title",
+        help="Override the visible document title without changing the Markdown source.",
+    )
+    parser.add_argument(
+        "--display-author",
+        help="Override the visible byline without changing the Markdown source.",
+    )
     args = parser.parse_args()
     markdown_to_docx(
         args.source.resolve(),
         args.output.resolve(),
         skip_first_image=args.skip_first_image,
+        publish_opening=args.publish_opening,
+        display_title=args.display_title,
+        display_author=args.display_author,
     )
 
 
