@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.0` |
-| 阶段 | 草稿 API、文章校验及“工具、技能与协议”“基础模型与推理”分层推文已完成，待部署并绑定公众号凭证 |
-| Git 状态 | `cebcec4`（`main`；更新时 dirty，新增基础模型完整系列） |
-| 修改时间 | `2026-09-23 19:59 CST` |
+| 版本 | `0.5.1` |
+| 阶段 | 草稿 API 已完成真实联调，支持单篇和主副文双图文草稿；公网回调仍待部署 |
+| Git 状态 | `daf161e`（`main`；工作区 dirty，另有未提交的项目复盘改动和 Word 临时锁文件） |
+| 修改时间 | `2026-09-29 17:31 CST` |
 
 ## 1. 已实现链路
 
@@ -93,7 +93,7 @@ order: 1
 ---
 ```
 
-导入前会强制校验：标题、作者和摘要长度；HTML 少于 20000 个字符且小于 1 MB；正文不含 JavaScript；封面和正文图片均为本地 JPG/PNG；文章包含“参考资料”小节和至少一个 HTTP(S) 文档链接。正文图片在创建草稿时先调用微信图片上传接口，HTML 只使用微信返回的 URL。
+导入前会强制校验：标题、作者和摘要长度；HTML 少于 20000 个字符且小于 1 MB；正文不含 JavaScript；封面和正文图片均为本地 JPG/PNG；文章包含“参考资料”小节和至少一个 HTTP(S) 文档链接。正文图片在创建草稿时先调用微信图片上传接口，HTML 只使用微信返回的 URL。若 `content_source_url` 为空，脚本会采用文末 `[阅读原文](...)` 的地址；两处都填写时必须一致。
 
 默认将以下文章转换为公众号 HTML，上传本地配图并写入草稿箱：
 
@@ -118,6 +118,15 @@ npm run wechat:draft
 ```sh
 npm run wechat:draft -- --file content/wechat/tools-skills-and-protocols/interview-side.md
 ```
+
+要把主文和面试副文放进同一份双图文草稿，先 dry-run，再创建；`--file` 的文章排在第一篇，`--side-file` 排在第二篇，两篇各用自己的封面：
+
+```sh
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
+npm run wechat:draft -- --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
+```
+
+双图文仍只创建一份草稿、返回一个 `media_id`；脚本复用两篇文章共有的正文图片上传结果，原有单篇草稿不会被覆盖。
 
 复盘文章示例：
 
@@ -146,5 +155,5 @@ npm run wechat:articles:check
 1. `https://<部署域名>/api/health` 返回 `ok: true`。
 2. 微信公众号后台能成功保存服务器配置。
 3. `npm run wechat:check` 能取得稳定版 `access_token`。
-4. `npm run wechat:draft` 返回 `media_id`，且草稿箱出现一篇文章。
+4. `npm run wechat:draft` 返回 `media_id`，且草稿箱出现单篇或双图文草稿。
 5. 不调用发布或群发接口；发布前继续由人工审阅草稿。

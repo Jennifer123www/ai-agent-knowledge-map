@@ -71,6 +71,31 @@ test("gets a stable token once and creates an unpublished draft", async () => {
   });
 });
 
+test("creates one draft with the main article followed by its side article", async () => {
+  const requests = [];
+  const fetchImpl = async (url, options) => {
+    requests.push({ url, options });
+    if (url.endsWith("/cgi-bin/stable_token")) {
+      return new Response(JSON.stringify({ access_token: "token-value", expires_in: 7200 }));
+    }
+    if (url.includes("/cgi-bin/draft/add")) {
+      return new Response(JSON.stringify({ media_id: "paired-draft-id" }));
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const client = createWechatClient({
+    appId: "test-app-for-paired-draft",
+    appSecret: "test-secret",
+    fetchImpl,
+  });
+  const main = { title: "Main", content: "<p>Main</p>", thumb_media_id: "main-cover" };
+  const side = { title: "Side", content: "<p>Side</p>", thumb_media_id: "side-cover" };
+
+  const result = await client.addDraft([main, side]);
+  assert.equal(result.media_id, "paired-draft-id");
+  assert.deepEqual(JSON.parse(requests[1].options.body), { articles: [main, side] });
+});
+
 test("parses and renders a WeChat article", () => {
   const markdownPath = path.resolve("content/wechat/example/article.md");
   const markdown = `# Demo title

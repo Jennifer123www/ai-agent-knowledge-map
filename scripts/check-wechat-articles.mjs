@@ -251,9 +251,10 @@ for (const [articlePath, registration] of registeredArticles) {
       interviewQuestions.set(topic, topicQuestions);
     }
 
+    const placeholderUrl = `https://mmbiz.qpic.cn/${"x".repeat(180)}`;
     const uploadedUrls = new Map(article.images.slice(1).map((image) => [
       image.source,
-      `https://mmbiz.qpic.cn/placeholder/${encodeURIComponent(path.basename(image.source))}`,
+      placeholderUrl,
     ]));
     const html = renderWechatHtml(article, uploadedUrls);
     statistics.push(
