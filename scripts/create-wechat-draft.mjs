@@ -47,6 +47,7 @@ async function main() {
       authorCharacters: [...article.author].length,
       digest: article.digest,
       digestCharacters: [...article.digest].length,
+      contentSourceUrl: article.contentSourceUrl,
       cover: path.relative(repositoryRoot, article.cover.absolutePath),
       inlineImages: article.images.slice(1).map((image) => path.relative(repositoryRoot, image.absolutePath)),
       htmlCharacters: contentSize.characters,

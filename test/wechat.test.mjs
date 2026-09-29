@@ -134,6 +134,64 @@ Read **this** \`code\` and [source](https://example.com).
   assert.throws(() => renderWechatHtml(article, images, { theme: "purple" }), /Unsupported WeChat theme/);
 });
 
+test("renders image captions and fenced code blocks as distinct elements", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const markdown = [
+    "# Demo title",
+    "",
+    "![cover](./cover.png)",
+    "",
+    "A paragraph with *emphasis* and `a*b`.",
+    "",
+    "![diagram](./diagram.png)",
+    "",
+    "*Caption with `token`.*",
+    "",
+    "```json",
+    "{",
+    '  "key": "<safe>"',
+    "}",
+    "```",
+  ].join("\n");
+  const article = parseWechatArticle(markdown, markdownPath);
+  const html = renderWechatHtml(article, new Map([["./diagram.png", "https://mmbiz.qpic.cn/diagram.png"]]), { theme: "orange" });
+
+  assert.match(html, /<em>emphasis<\/em>/);
+  assert.match(html, /<code[^>]*>a\*b<\/code>/);
+  assert.match(html, /text-align:center;font-size:13px;line-height:1\.6;color:#888888;">Caption with <code/);
+  assert.match(html, /background:#FFF3E6;">/);
+  assert.match(html, /<p[^>]*>\{<\/p><p[^>]*>&nbsp;&nbsp;&quot;key&quot;:&nbsp;&quot;&lt;safe&gt;&quot;<\/p>/);
+  assert.doesNotMatch(html, /\*Caption|```json|<script/);
+});
+
+test("rejects an unclosed fenced code block", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const article = parseWechatArticle([
+    "# Demo title",
+    "",
+    "![cover](./cover.png)",
+    "",
+    "```json",
+    "{}",
+  ].join("\n"), markdownPath);
+  assert.throws(() => renderWechatHtml(article, new Map()), /Unclosed Markdown code fence/);
+});
+
+test("does not upload image syntax shown inside a code block", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const article = parseWechatArticle([
+    "# Demo title",
+    "",
+    "![cover](./cover.png)",
+    "",
+    "```markdown",
+    "![example](./not-a-real-image.png)",
+    "```",
+  ].join("\n"), markdownPath);
+  assert.equal(article.images.length, 1);
+  assert.match(renderWechatHtml(article, new Map()), /!\[example\]\(\.\/not-a-real-image\.png\)/);
+});
+
 test("uses YAML front matter for WeChat draft metadata", () => {
   const markdownPath = path.resolve("content/wechat/example/article.md");
   const markdown = `---
@@ -168,6 +226,41 @@ First paragraph.
   assert.equal(article.order, 2);
   assert.equal(article.cover.source, "./cover.png");
   assert.doesNotMatch(html, /title:|digest:|content_source_url:/);
+});
+
+test("uses the 阅读原文 link when no source URL is configured", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const markdown = [
+    "# Demo title",
+    "",
+    "![cover](./cover.png)",
+    "",
+    "Read the article.",
+    "",
+    "[阅读原文](https://example.com/project)",
+  ].join("\n");
+  const article = parseWechatArticle(markdown, markdownPath);
+  assert.equal(article.contentSourceUrl, "https://example.com/project");
+});
+
+test("rejects mismatched source URLs in metadata and the article footer", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const markdown = [
+    "---",
+    'title: "Demo title"',
+    'author: "Demo author"',
+    'digest: "A short digest"',
+    'cover: "./cover.png"',
+    'content_source_url: "https://example.com/one"',
+    "---",
+    "",
+    "# Demo title",
+    "",
+    "![cover](./cover.png)",
+    "",
+    "[阅读原文](https://example.com/two)",
+  ].join("\n");
+  assert.throws(() => parseWechatArticle(markdown, markdownPath), /content_source_url and 阅读原文 link must match/);
 });
 
 test("enforces WeChat article metadata and HTML limits", () => {

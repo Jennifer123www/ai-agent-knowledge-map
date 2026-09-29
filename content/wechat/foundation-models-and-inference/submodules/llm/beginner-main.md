@@ -3,7 +3,7 @@ title: "大话大语言模型—它为什么能一句接一句"
 author: "三色堇"
 digest: "借一条会议改期通知，看懂 token、注意力、上下文、采样，以及模型什么时候会写得像却写不对。"
 cover: "./assets/llm-cover-wechat-horizontal-v2.png"
-content_source_url: ""
+content_source_url: "https://github.com/Jennifer123www/ai-agent-knowledge-map"
 article_type: "news"
 need_open_comment: 0
 only_fans_can_comment: 0
@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.6.2"
-stage: "复核正文配图与公众号封面的职责边界"
-git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 16:22 CST"
+version: "0.6.3"
+stage: "修复公众号 API 草稿图注、代码块和阅读原文"
+git_state: "基于 b8c188f（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 17:13 CST"
 ---
 
 # 大话大语言模型—它为什么能一句接一句
