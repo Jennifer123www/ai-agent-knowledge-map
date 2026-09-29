@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "skill"
 series_order: 1
-version: "0.1.0"
-stage: "技能子模块面试副文试稿"
-git_state: "418e365（main；本次生成时 dirty）"
-modified_at: "2026-09-20 19:39 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：Skill 怎样从流程说明变成可运行能力
@@ -266,3 +266,5 @@ Skill 适合重复出现、步骤相对稳定、可以定义输入输出和验�
 - [OpenAI 官方文档：Tools 与 Skills](https://developers.openai.com/api/docs/guides/tools-skills)
 - [Anthropic：Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [OpenAI 官方文档：Agents SDK](https://openai.github.io/openai-agents-js/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“工具、技能与协议”继续阅读。

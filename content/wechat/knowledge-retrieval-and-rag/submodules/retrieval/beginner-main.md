@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "retrieval"
 series_order: 5
-version: "0.1.0"
-stage: "知识检索主题之召回重排序首稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 召回与重排序：找到相似句还不够
 
 ![召回与重排序文章封面](./assets/retrieval-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，可看总览、初学者图解和面试题。本文只追一件事：问题来了，系统怎样从很多片段里找到**既相关又适用**的证据。
 
 小林问“2026 年 9 月 15 日在北京住宿 480 元，A 职级能报吗？”虚构资料里旧版上限 450 元，新版自 9 月 1 日起上限 500 元。两条政策都含“北京”“住宿”“上限”，旧版可能与提问字面更像；检索若只按相似程度排序，第一名未必是该用的条款。金额、日期和制度全是示例，不代表真实单位政策。
 
@@ -114,10 +112,10 @@ modified_at: "2026-09-28 15:35 CST"
 
 检索指标也要防止“多取候选就显得更好”的假象。候选召回率随候选数增加通常更容易上升，但生成模型读到的上下文有预算；塞入更多旧版与重复片段，最终答案反而可能变差。报告应同时给出候选规模、前列命中、最终证据质量和时延。数字离开这些条件，几乎无法指导真正的取舍。
 
-项目总览、初学者图解与对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Karpukhin 等：Dense Passage Retrieval for Open-Domain Question Answering](https://arxiv.org/abs/2004.04906)
 - [Nogueira 与 Cho：Passage Re-ranking with BERT](https://arxiv.org/abs/1901.04085)
 - [Cormack 等：Reciprocal Rank Fusion](https://dl.acm.org/doi/10.1145/1571941.1572114)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

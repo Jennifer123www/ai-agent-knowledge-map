@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.1"
-stage: "文档索引原理图图注对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.1.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：知识库怎样避免旧资料答新问题
 
 ![知识库面试题封面](./assets/kb-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，收有总览、初学者图解和面试题。本篇沿用虚构案例：小林问 9 月 15 日北京住宿 480 元能否报销；旧制度上限 450 元，新制度自 9 月 1 日起上限 500 元。题目只考**知识资产是否可靠**，不抢分段长度、向量检索和生成提示词的答案。
 
 ## 问题 1：把 PDF 放进文件夹与建知识库差在哪里？
 
@@ -124,10 +122,10 @@ modified_at: "2026-09-28 17:26 CST"
 
 这也给知识库团队一个清楚的验收出口：资料不是“已入库”就结束，而是可用、可撤回、可追责。
 
-项目总览、初学者图解与面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Lewis 等：Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [W3C：PROV-O](https://www.w3.org/TR/prov-o/)
 - [Microsoft GraphRAG：默认数据流](https://microsoft.github.io/graphrag/index/default_dataflow/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

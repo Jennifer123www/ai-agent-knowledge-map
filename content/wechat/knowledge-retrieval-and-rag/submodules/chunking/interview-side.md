@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "chunking"
 series_order: 4
-version: "0.1.0"
-stage: "知识检索主题之分段面试稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：切文档时怎样保住条件和出处
 
 ![分段面试题封面](./assets/chunk-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，含总览、初学者图解与题目。本篇沿用虚构报销制度：北京住宿 500 元上限，9 月 1 日起只对 A 职级生效。若分段把金额和限制拆开，后续检索就可能把部分事实当完整规则。题目只考**证据单元如何形成**，不重复召回与生成答案。
 
 ## 问题 1：为何不能一律按固定字数切文档？
 
@@ -122,9 +120,9 @@ modified_at: "2026-09-28 15:35 CST"
 
 还可以对每次策略变更做消融：只换切点，不同时换检索模型和生成提示。若正确条款进入候选的比例上升，却引用精度下降，就应检查是否把过大的父级当成最终引用。通过单变量比较，团队才知道具体改动带来了什么。
 
-项目总览、初学者图解及对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Sarthi 等：RAPTOR](https://arxiv.org/abs/2401.18059)
 - [Lewis 等：RAG 论文](https://arxiv.org/abs/2005.11401)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

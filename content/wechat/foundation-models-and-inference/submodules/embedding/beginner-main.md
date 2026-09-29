@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "embedding"
 series_order: 3
-version: "0.2.1"
-stage: "向量嵌入评测图纠错与替代文字对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.2.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 大话向量嵌入：同一个意思为何找不到
@@ -24,7 +24,7 @@ modified_at: "2026-09-28 17:26 CST"
 
 员工搜“出差住酒店最多能报多少”，制度标题却叫《差旅住宿费限额》。字面搜索可能错过它；只按“意思相近”搜索，又可能把去年的标准或上海的标准排在前面。员工真正要的是**当前、本人适用的住宿条款候选**。向量嵌入解决的是前半段——把不同说法拉到一起；它不能独自裁定年份和适用范围。
 
-向量嵌入模型（`embedding model`）把查询或文档编码成一串数字，让两者可以比较。在特定训练目标下，相关内容通常会被编码得更接近。**“更接近”只表示模型学到的相似性，不是条款有效性的证明。**下文追踪这组数字从哪里来、怎样比较，以及为何会在细小条件上出错。项目的[总览、初学者版与面试题](https://github.com/Jennifer123www/ai-agent-knowledge-map)可在仓库阅读。
+向量嵌入模型（`embedding model`）把查询或文档编码成一串数字，让两者可以比较。在特定训练目标下，相关内容通常会被编码得更接近。**“更接近”只表示模型学到的相似性，不是条款有效性的证明。**下文追踪这组数字从哪里来、怎样比较，以及为何会在细小条件上出错。
 
 ## 模型怎样把两种说法放近
 
@@ -120,7 +120,7 @@ modified_at: "2026-09-28 17:26 CST"
 
 线上还要看空结果率、点击或引用、后续重排序变化、权限过滤比例和索引新鲜度。召回高不代表最终答案好，但召回漏掉正确证据，后面再强的生成模型也只能对着错误材料认真发挥。
 
-回到《差旅住宿费限额》，最有价值的测试不是“能否找到住宿资料”，而是**口语问题能否找到现行条款，同时不被相似的旧版、异地、不同职级条款带偏**。向量负责提出候选，后续的版本与权限判断仍需独立完成。其他模块与配套面试题见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
+回到《差旅住宿费限额》，最有价值的测试不是“能否找到住宿资料”，而是**口语问题能否找到现行条款，同时不被相似的旧版、异地、不同职级条款带偏**。向量负责提出候选，后续的版本与权限判断仍需独立完成。
 
 ## 参考资料
 
@@ -128,3 +128,5 @@ modified_at: "2026-09-28 17:26 CST"
 - [MTEB：Massive Text Embedding Benchmark](https://arxiv.org/abs/2210.07316)
 - [FAISS：A Library for Efficient Similarity Search](https://arxiv.org/abs/1702.08734)
 - [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

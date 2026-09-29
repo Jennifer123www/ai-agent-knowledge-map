@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "rag"
 series_order: 3
-version: "0.1.1"
-stage: "RAG 原理论文机制与图注对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.1.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 大话 RAG：资料找到了，回答就可靠吗
 
 ![RAG 子模块封面](./assets/rag-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，提供总览、初学者图解和面试题。这里不教怎样调向量索引，而是看**取回的资料怎样改变一段回答**。
 
 小林拿着一张 480 元的北京住宿发票，问 2026 年 9 月 15 日的费用能否报销。示例里旧制度上限 450 元，新制度自 9 月 1 日起上限 500 元；他自称 A 职级，但系统尚未核实身份，票据真伪与审批状态也未知。所有数字和制度均为**虚构练习材料**。如果助手只说“能报”，它省略的条件比说出的还多。
 
@@ -118,10 +116,10 @@ modified_at: "2026-09-28 17:26 CST"
 
 人工复核应看到完整问题、提供的证据、版本、生成答案和引用位置；自动评分可以辅助筛查，但不能把一个总分当成上线许可。记录样本量和错误类别，比只展示一次漂亮回答更能说明问题。答案若变好，也要确认没有以泄露受限资料为代价。
 
-项目总览、初学者图解及对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Lewis 等：Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [Liu 等：Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)
 - [Es 等：RAGAS，检索增强生成评测研究](https://arxiv.org/abs/2309.15217)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

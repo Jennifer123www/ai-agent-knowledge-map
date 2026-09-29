@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "memorytypes"
 series_order: 3
-version: "0.1.0"
-stage: "记忆类型与用户画像子模块正式面试副文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：四类记忆怎样分才不误用
 
 ![记忆类型与画像面试题封面](./assets/memorytypes-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇只练**信息用途与类别**，不把单条记录的版本事务或删除作业讲成分类题。
 
 共用案例：小林的报销任务里有四条候选信息——票据已识别、上次因缺附件退单、今天制度上限发生变化、小林明确希望写作默认中文简洁。面试官要你说清哪些是当前任务、哪些是经历、哪些应回权威来源、哪些才可能形成受控画像。**“都和小林有关”不是分类理由。**
 
@@ -277,11 +275,11 @@ modified_at: "2026-09-28 CST"
 
 分类题最好最后回到小林那四条信息：任务进度、退单经历、制度事实和语言偏好。分别说去向，再补一句谁能维护、何时过期。能答清楚这些，比把记忆类型念成一串英文更有用。
 
-项目总览、初学者图解和面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)
 - [LangMem：Core Concepts](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [LangChain：How to Build Memory into AI Agents](https://www.langchain.com/blog/how-to-give-your-agent-memory)
 - [NIST Privacy Framework](https://www.nist.gov/privacy-framework)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

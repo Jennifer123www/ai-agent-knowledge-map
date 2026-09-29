@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "memorytypes"
 series_order: 3
-version: "0.1.0"
-stage: "记忆类型与用户画像子模块正式主文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 记忆类型与画像：别把所有过去塞进一个抽屉
 
 ![记忆类型与用户画像封面](./assets/memorytypes-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇回答“**一条信息用来做什么**”，不负责替每条记忆制定写入事务；后者在“记忆写入与更新”里展开。
 
 小林在报销助手里留下四种线索：这笔票据已经识别、上次报销因缺附件被退回、他多次明确希望中文简洁回答、今天的报销制度刚更新。四句话都与“小林”有关，存放与使用方式却不该一样。系统若把它们统统贴上“用户记忆”标签，明天可能把旧制度当新规则，或者把一次退单当成小林长期的个人特征。
 
@@ -110,11 +108,11 @@ modified_at: "2026-09-28 CST"
 
 所以记忆类型这篇的记忆点很简单：**先问这条信息将来拿来做什么，再决定要不要存、放在哪里。**“都是关于同一个人”并不是足够的分类理由。
 
-项目总览、初学者图解与配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)
 - [LangMem：Core Concepts](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [LangChain：How to Build Memory into AI Agents](https://www.langchain.com/blog/how-to-give-your-agent-memory)
 - [NIST Privacy Framework](https://www.nist.gov/privacy-framework)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

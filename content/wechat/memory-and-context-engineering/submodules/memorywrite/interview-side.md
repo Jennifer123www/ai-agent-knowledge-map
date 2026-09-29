@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "memorywrite"
 series_order: 4
-version: "0.1.0"
-stage: "记忆写入与更新子模块正式面试副文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：一条记忆怎样写对、改对
 
 ![记忆写入与更新面试题封面](./assets/memorywrite-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇只考**候选变成有效记录**的过程。记忆的种类、跨会话检索和全系统的删除治理，分别留给其他篇。
 
 共用案例：用户原先明确要求被称作“小王”，后来登录账户说“以后请叫我小林”。与此同时，旧电脑页面、聊天摘要和搜索索引还留着“小王”。面试中先把当前有效值、变更事件和衍生副本分开，很多问题就不容易混成一团。
 
@@ -275,10 +273,10 @@ modified_at: "2026-09-28 CST"
 
 只给最终回答准确率，没测活动记录与衍生副本的状态。
 
-项目总览、图解和配套初学者主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
 - [LangMem：长期记忆的概念与写入方式](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [LangGraph：状态与持久化的设计思路](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

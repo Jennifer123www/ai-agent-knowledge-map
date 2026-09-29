@@ -12,19 +12,19 @@ topic: "core"
 content_level: "submodule"
 submodule: "planning"
 series_order: 4
-version: "0.1.0"
-stage: "任务规划子模块正式面试副文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：会议计划怎么拆、怎么改
 
 ![任务规划面试题封面](./assets/planning-cover.png)
 
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇只训练**任务依赖与候选方案的规划能力**。具体把步骤交给哪款模型、哪个工具是路由问题；运行时的一圈一圈状态更新是执行循环问题。
-
 共用案例：小林要下周跨研发、设计、运营的产品评审会候选时间、房间和邀请草稿，明确暂不发送。周四三组人员空闲但房间被占；周五房间可用但运营尚未确认。会议时长一开始也未说清。面对这些变化，计划必须知道哪一步先做、哪一步能并行、什么结果会使候选失效。
+
+题目只讨论计划本身：怎样表达依赖、候选和重规划。具体工具由谁执行，运行状态如何重试，留给路由与执行循环回答。
 
 ## 问题 1：怎样把会议目标拆成合适粒度的子任务？
 
@@ -256,9 +256,9 @@ modified_at: "2026-09-28 CST"
 
 只让裁判模型给最终邀请文字打分。
 
-项目总览、图解和配套主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

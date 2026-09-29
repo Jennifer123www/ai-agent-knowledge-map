@@ -12,17 +12,17 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "adaptation"
 series_order: 5
-version: "0.2.0"
-stage: "模型适配子模块面试副文精修"
-git_state: "基于 3f5267d（main；修改前 clean）"
-modified_at: "2026-09-28 17:02 CST"
+version: "0.2.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：旧政策答错了该不该微调
 
 ![模型适配面试题封面](./assets/adaptation-cover.png)
 
-退款客服昨天仍按“七天内可退”回答，今天的新政策却缩为“三天内可退”；另一条回答已经引用新政策，却漏掉“退回原支付渠道”的固定提醒。两种错误看上去都叫“答错”，前者先查动态证据，后者才可能涉及稳定行为适配。面试要讲清**何时不训练、训练改了什么、训练后如何验收**。主文与全系列入口见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
+退款客服昨天仍按“七天内可退”回答，今天的新政策却缩为“三天内可退”；另一条回答已经引用新政策，却漏掉“退回原支付渠道”的固定提醒。两种错误看上去都叫“答错”，前者先查动态证据，后者才可能涉及稳定行为适配。面试要讲清**何时不训练、训练改了什么、训练后如何验收**。
 
 ## 问题 1：提示词、RAG 和微调应该怎样选择？
 
@@ -294,11 +294,11 @@ LoRA 是否不会遗忘？不能这样保证。底座冻结缩小了影响范围
 
 若这批客服问题主要由旧政策造成，就先修证据和版本，不把它混进训练收益。若提醒遗漏确实长期存在，再用固定测试集对照提示、模板与微调。对于调用量大而任务窄的场景，另算蒸馏的成本账；对于低频任务，可能根本不值得训练。
 
-主文与其他子模块的题目见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [LoRA：Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
 - [QLoRA：Efficient Finetuning of Quantized LLMs](https://arxiv.org/abs/2305.14314)
 - [DistilBERT](https://arxiv.org/abs/1910.01108)
 - [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

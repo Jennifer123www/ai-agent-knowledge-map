@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "shortterm"
 series_order: 1
-version: "0.1.0"
-stage: "短期状态子模块正式面试副文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：短期状态与中断恢复怎么答
 
 ![短期状态面试题封面](./assets/shortterm-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇只练**任务内状态与恢复**；“长期该记什么”“画像能否保存”不在这一组题里。
 
 共用案例：小林上传住宿票据，系统识别日期和金额后，尚未核对制度，也没有提交；浏览器关闭。第二天小林打开同一任务。追加一条故障变体：提交接口可能曾收到请求，但调用方超时，结果未知。回答时要区分**已识别、已核对、已提交**三种状态，不可互换。
 
@@ -252,10 +250,10 @@ modified_at: "2026-09-28 CST"
 
 短期状态题最稳的收束，是说清**已确认结果、未知结果和可重放动作**三者的区别。遇到小林的报销，先查上次已到哪步，再查外部动作是否真的发生，最后才决定是否继续；这比背“检查点、幂等、持久化”三个名词更有说服力。
 
-项目总览、初学者图解和同题下钻见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
 - [LangGraph：Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph)
 - [LangChain：Deep Agents overview](https://docs.langchain.com/oss/javascript/deepagents/overview)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

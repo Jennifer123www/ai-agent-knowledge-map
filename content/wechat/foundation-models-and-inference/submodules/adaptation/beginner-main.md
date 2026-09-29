@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "adaptation"
 series_order: 5
-version: "0.2.0"
-stage: "模型适配子模块主文精修"
-git_state: "基于 3f5267d（main；修改前 clean）"
-modified_at: "2026-09-28 17:02 CST"
+version: "0.2.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 大话模型适配：旧政策答错了要微调吗
@@ -24,7 +24,7 @@ modified_at: "2026-09-28 17:02 CST"
 
 客服系统昨天仍按“七天内可退”回复，今天的新政策却把某类订单改成“三天内可退”。客服还发现另一种错误：资料明明给对了，回答却经常省略“需要原支付渠道退款”的固定提醒。第一种是**动态事实没跟上**，第二种是**稳定表达没学好**。团队此时问“要不要微调”，其实先得把两类故障分开。
 
-模型适配（`model adaptation`）指让通用模型更适合某项任务的方法。提示、外部证据和规则可先改变输入或约束；监督微调（`SFT`）、低秩适配（`LoRA`）和蒸馏则涉及训练。训练不能自动给一周后生效的新政策提供可引用的原文。本文会把**该改输入、该改模型、该换小模型**三件事分开。项目的[总览、初学者版与面试题](https://github.com/Jennifer123www/ai-agent-knowledge-map)可在仓库阅读。
+模型适配（`model adaptation`）指让通用模型更适合某项任务的方法。提示、外部证据和规则可先改变输入或约束；监督微调（`SFT`）、低秩适配（`LoRA`）和蒸馏则涉及训练。训练不能自动给一周后生效的新政策提供可引用的原文。本文会把**该改输入、该改模型、该换小模型**三件事分开。
 
 ## 答错旧政策与漏掉提醒，是同一种故障吗
 
@@ -118,11 +118,11 @@ QLoRA 进一步以低比特量化形式保存冻结的基础模型，同时训�
 
 成本要算全：除了训练算力，还有清洗、标注、部署兼容和长期回归。若提示模板已达标，就不必为固定提醒维护训练流水线；若每天调用量很大，蒸馏后的专用小模型才可能逐步收回前期投入。回到退款客服，**旧政策错误先修可更新的证据，稳定话术长期失稳才考虑训练**。
 
-系列总览与配套面试题见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [LoRA：Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
 - [QLoRA：Efficient Finetuning of Quantized LLMs](https://arxiv.org/abs/2305.14314)
 - [DistilBERT](https://arxiv.org/abs/1910.01108)
 - [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

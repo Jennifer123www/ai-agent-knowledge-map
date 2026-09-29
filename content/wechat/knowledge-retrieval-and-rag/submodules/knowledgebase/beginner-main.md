@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.1"
-stage: "文档索引原理图与图注对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.1.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 知识库：资料进库之后，谁保证它还管用
 
 ![知识库文章封面](./assets/kb-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，可查看十主题总览、初学者图解和对应面试题。这篇只处理一个地基问题：资料从哪里来，何时才算可用。
 
 小林问助手：“9 月 15 日在北京住酒店，花了 480 元，我是 A 职级，能报吗？”练习用的旧制度写上限 450 元，新制度写 500 元、9 月 1 日起生效。金额、职级、地点和日期都是**虚构示例**。假设两个 PDF 都在文件夹里，甚至都已经上传到系统，助手仍可能抓到旧版。问题未必出在模型；资料入库时，可能没人记录哪版何时生效。
 
@@ -112,10 +110,10 @@ modified_at: "2026-09-28 17:26 CST"
 
 从维护角度看，这批记录还应有清晰的“不可用”状态。解析失败、来源撤回、权限待确认或更新不同步，都不该被压成一个空字符串送给检索器。把原因保存下来，下一环才能选择跳过、提示缺口或交人工，而不是把“没找到”误判为“制度里没有规定”。
 
-项目总览、初学者图解与对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Lewis 等：Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [W3C：PROV-O，资料来源与派生关系模型](https://www.w3.org/TR/prov-o/)
 - [Microsoft GraphRAG：从源文档到派生知识的默认数据流](https://microsoft.github.io/graphrag/index/default_dataflow/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

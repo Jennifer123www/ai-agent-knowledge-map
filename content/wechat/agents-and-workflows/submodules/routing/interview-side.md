@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "routing"
 series_order: 5
-version: "0.1.0"
-stage: "模型与能力路由子模块正式面试副文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：这一步该交给模型、工具还是人
 
 ![模型与能力路由面试题封面](./assets/routing-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇只讨论**当前子任务走哪条处理路径**。计划图的先后依赖和执行循环的状态重试由相邻文章回答，避免把同一组题换个名字再讲一遍。
 
 共用案例：小林要跨研发、设计、运营的下周评审会候选时间、可用房间和邀请草稿，暂不发送。周四三组人空闲但房间被占，周五房间可用但运营未回。系统能访问日历服务、会议室服务、不同成本的语言模型，以及小林的人工确认入口。
 
@@ -258,9 +256,9 @@ modified_at: "2026-09-28 CST"
 
 用一个平均准确率宣称路由安全可靠。
 
-项目总览、图解和配套主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Anthropic: Writing effective tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

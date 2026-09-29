@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "execution"
 series_order: 3
-version: "0.1.0"
-stage: "执行通道子模块面试副文试稿"
-git_state: "a482264（main；本次生成时 dirty）"
-modified_at: "2026-09-20 21:40 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：API、代码沙箱和浏览器自动化怎么选
@@ -293,3 +293,5 @@ API、沙箱和浏览器之间传递数据时，应只传下一步需要的字�
 - [OpenAI 官方文档：Tools](https://developers.openai.com/api/docs/guides/tools)
 - [OpenAI 官方文档：Code interpreter](https://developers.openai.com/api/docs/guides/tools-code-interpreter)
 - [OpenAI 官方文档：Computer use](https://developers.openai.com/api/docs/guides/tools-computer-use)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“工具、技能与协议”继续阅读。

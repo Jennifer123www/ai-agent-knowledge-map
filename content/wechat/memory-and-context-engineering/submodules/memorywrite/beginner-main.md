@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "memorywrite"
 series_order: 4
-version: "0.1.0"
-stage: "记忆写入与更新子模块正式主文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 记忆写入与更新：新称呼来了，旧的怎么办
 
 ![记忆写入与更新封面](./assets/memorywrite-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这一篇只盯**单条候选如何成为当前有效记忆**，以及旧值怎样退出；“应该分成哪种记忆”已在上一组讲过。
 
 小林曾明确要求助手称呼他“小王”，系统据此保存了偏好。后来他说：“以后请叫我小林。”如果系统只把新句子追加到聊天历史，下次检索也许先捞出旧称呼；如果直接把所有历史抹掉，又失去变更的来源。更糟的是，某条自动摘要还写着“小王”，新值刚保存就被旧摘要覆盖。**写入不是存一行文本，而是维护‘现在什么值有效’。**
 
@@ -112,10 +110,10 @@ MemGPT 论文用一段对话展示工作区信息被新消息更新：原有关�
 
 写入频率也要和用途相配。明确的称呼变更可以即时处理；需要综合多次反馈才能判断的偏好，则可先保留为候选，待用户确认或证据充分后再生效。过快会记错，过慢会让用户重复解释；适当的门槛比“永远自动记”或“完全不记”更容易被检验。
 
-项目总览、初学者图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
 - [LangMem：Core Concepts](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [LangGraph：Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

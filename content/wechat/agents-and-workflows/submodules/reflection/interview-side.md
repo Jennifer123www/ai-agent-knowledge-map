@@ -12,19 +12,19 @@ topic: "core"
 content_level: "submodule"
 submodule: "reflection"
 series_order: 6
-version: "0.1.0"
-stage: "反思与纠错子模块正式面试副文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：反思怎样带来有用的第二次尝试
 
 ![反思与纠错面试题封面](./assets/reflection-cover.png)
 
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇只考**失败反馈如何转成下一次可检验的修正**。完整任务图和运行状态机有各自题目，别把每道题都答成“查日志、再试一次”。
-
 共用案例：小林要安排下周三团队评审会，先拿候选时间和邀请草稿，不发送。周四 15:00 人员都空闲，房间 A 返回已占；周五 10:00 有房间，但运营未确认。助手第一次把周四 A 当作可用而失败。它现在该做什么，取决于失败来源、仍有效的证据和重试成本。
+
+题目要追踪第二次尝试到底改变了什么：换证据、换候选还是修参数，并用新结果判断改动是否有效。只写“重新思考”不算修正。
 
 ## 问题 1：什么信号足以触发反思？
 
@@ -258,9 +258,9 @@ Reflexion 的架构将执行轨迹交给评价器，再把反馈转换成语言�
 
 只展示一条成功纠错示范，不给失败样本和分母。
 
-项目总览、图解和配套主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

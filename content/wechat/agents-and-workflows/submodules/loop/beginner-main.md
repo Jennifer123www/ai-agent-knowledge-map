@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "loop"
 series_order: 7
-version: "0.1.0"
-stage: "智能体执行循环子模块正式主文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 智能体执行循环：查完之后怎样知道该停了
 
 ![智能体执行循环封面](./assets/loop-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这篇谈**运行时怎样把一圈圈选择落实为状态变化与明确退出**。计划决定哪些步骤有依赖，路由决定某步交给谁，反思决定失败后怎样修正；执行循环负责读取、执行、观察、回写并停止。
 
 小林要下周跨研发、设计、运营的评审会候选时间、可用房间和邀请草稿，不允许直接发送。助手查到周四 15:00 三组人空闲，房间被占；又发现周五 10:00 房间可用，但运营日历超时。若系统只写一句“我会继续为你安排”，我们不知道它下一圈会查什么、查过的结果存哪里、最多查几次、何时向小林说明缺口。**循环不是让模型忙起来，而是让每一圈都有可检验的状态变化。**
 
@@ -108,9 +106,9 @@ ReAct 图里的语言判断与环境行动交错，提示我们观察应影响�
 
 小林应收到一份准确说明“已核什么、缺什么、是否发送”的交付物。执行循环把计划与反馈落地，但它不靠“转很多圈”证明聪明。每圈读对状态、做对动作、收对观察、该停就停，才让这个会议助手真的可靠。
 
-项目总览、图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

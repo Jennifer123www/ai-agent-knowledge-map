@@ -12,17 +12,15 @@ topic: "context"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.1"
-stage: "总览原理图纠错与图注对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.1.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 知识检索与 RAG：一条制度怎样走到回答里
 
 ![知识检索与 RAG 总览封面](./assets/overview-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，可看主题总览、初学者图解和对应面试题。这一篇先画清资料通向回答的路，具体算法留给五篇子模块文章。
 
 小林问助手：“我 2026 年 9 月 15 日在北京住酒店花了 480 元，是 A 职级，能报吗？”练习资料里旧制度写上限 450 元，新制度从 9 月 1 日起写 500 元；员工身份尚未由系统确认，票据真伪与审批状态也未知。**这些数字和规则都是虚构示例**。一个负责任的系统不能只见 480 小于 500 就答“报销成功”，它得先弄清哪份制度有效、适用于谁、还有哪些事实没核。
 
@@ -116,10 +114,10 @@ modified_at: "2026-09-28 17:26 CST"
 
 主线始终是小林那句“能报吗”。有权限、时间、适用条件和真实来源，回答才能向前走一步；缺哪项就停在哪项。资料不是给模型添谈资，而是给人留一条可以回去核对的路。
 
-项目总览、初学者图解和对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Lewis 等：Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [Liu 等：Lost in the Middle](https://arxiv.org/abs/2307.03172)
 - [Edge 等：From Local to Global: A Graph RAG Approach to Query-Focused Summarization](https://arxiv.org/abs/2404.16130)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

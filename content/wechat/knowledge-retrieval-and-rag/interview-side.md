@@ -12,17 +12,15 @@ topic: "context"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.1"
-stage: "总览原理图图注对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.1.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：一条知识证据怎样走完整条链
 
 ![知识检索总览面试题封面](./assets/overview-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，含初学者总览与面试题。共同案例是虚构的北京住宿：小林 9 月 15 日花 480 元，旧规上限 450，新规 9 月 1 日起上限 500；身份、票据和审批尚待核。总览题只考**跨模块判断**，分段参数、图谱抽取、召回公式与生成提示各留在子模块。
 
 ## 问题 1：五个子模块怎样分工，为什么不能合成“向量库”？
 
@@ -126,10 +124,10 @@ modified_at: "2026-09-28 17:26 CST"
 
 降级结果也应可观察：是知识库超时、身份系统不可用、还是制度本身缺条款？三者都说“暂时无法回答”，用户不知道该补材料还是等待系统恢复。给出具体缺口与下一步，既能帮助用户，也便于运营把故障分派给正确责任人；但不应向无权用户暴露内部系统路径或受限条款内容。
 
-项目总览、初学者图解及对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Lewis 等：Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [Liu 等：Lost in the Middle](https://arxiv.org/abs/2307.03172)
 - [Edge 等：From Local to Global](https://arxiv.org/abs/2404.16130)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

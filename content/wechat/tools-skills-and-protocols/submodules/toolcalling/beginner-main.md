@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "toolcalling"
 series_order: 2
-version: "0.1.0"
-stage: "工具调用子模块主文试稿"
-git_state: "0647092（main；本次生成时 dirty）"
-modified_at: "2026-09-20 20:10 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 工具调用：模型怎样把想法交给程序执行
@@ -136,3 +136,5 @@ modified_at: "2026-09-20 20:10 CST"
 - [OpenAI 官方文档：Function calling](https://developers.openai.com/api/docs/guides/function-calling)
 - [OpenAI 官方文档：Tools](https://developers.openai.com/api/docs/guides/tools)
 - [Anthropic：Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“工具、技能与协议”继续阅读。

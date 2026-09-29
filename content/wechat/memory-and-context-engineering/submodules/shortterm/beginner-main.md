@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "shortterm"
 series_order: 1
-version: "0.1.0"
-stage: "短期状态子模块正式主文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 短期状态：任务停一半，怎样接着做
 
 ![短期状态子模块封面](./assets/shortterm-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，可看记忆与上下文工程总览、初学者图解和面试题。本篇只讲**当前任务的短期状态**；跨会话偏好为何值得长期保存，是下一篇的问题。
 
 小林上传住宿票据，让助手准备一份报销草稿。票面日期和金额已经识别，但还没核对制度，也没提交。就在此时浏览器关闭。第二天小林重开任务：“到哪一步了？”如果系统只保留一段“我在帮你处理”的聊天记录，它仍不知道字段是否真的抽取完成，更不知道提交接口是否曾被调用。真正需要恢复的，是**任务事实与执行位置**，不是昨天的语气。
 
@@ -117,10 +115,10 @@ modified_at: "2026-09-28 CST"
 
 当一笔任务从中断恢复时，短期状态负责把“做到哪步、已确认什么、还缺什么”带回来；外部业务系统负责证明动作究竟发生了没有。**能续上话不等于能续上事。**
 
-项目总览、初学者图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
 - [LangGraph：Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph)
 - [LangChain：Deep Agents overview](https://docs.langchain.com/oss/javascript/deepagents/overview)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

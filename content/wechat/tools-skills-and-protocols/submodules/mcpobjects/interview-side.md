@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "mcpobjects"
 series_order: 5
-version: "0.1.0"
-stage: "MCP 对象子模块面试副文试稿"
-git_state: "40050ef（main；本次生成时 dirty）"
-modified_at: "2026-09-20 22:55 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：MCP 三类对象和调用责任怎么分
@@ -343,3 +343,5 @@ MCP Host 是承载 Agent 的应用，Client 负责一条连接，Server 提供�
 - [Model Context Protocol 官方文档：Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)
 - [MCP 官方文档：Server concepts](https://modelcontextprotocol.io/docs/learn/server-concepts)
 - [MCP 官方文档：Client concepts](https://modelcontextprotocol.io/docs/learn/client-concepts)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“工具、技能与协议”继续阅读。

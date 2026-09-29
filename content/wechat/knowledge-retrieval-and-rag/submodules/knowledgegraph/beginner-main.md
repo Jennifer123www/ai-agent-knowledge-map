@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgegraph"
 series_order: 2
-version: "0.1.0"
-stage: "知识检索主题之知识图谱首稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 知识图谱：当问题需要跨过好几条关系
 
 ![知识图谱文章封面](./assets/kg-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，提供总览、初学者图解和面试题。这里聚焦一件事：当答案藏在几份资料的关系里，怎样把路径找出来，又不把路径误当事实。
 
 沿用一组**虚构的制度数据**：小林是研发部 A 职级员工，2026 年 9 月 15 日在北京住宿 480 元；旧版上限 450 元，新版自 9 月 1 日起上限 500 元。问题“能报吗”看似查一条数字，实际上要把“员工属于哪个部门”“该部门适用哪份制度”“北京是哪个地区档位”“住宿日期落在哪个有效期”连起来。文字检索能找到相似段落，但不一定替我们把每一段关系查对。
 
@@ -114,10 +112,10 @@ GraphRAG 是把图结构用于检索增强生成的一类方法，不是一款�
 
 上线以后还应定期抽查新边与被撤回的边。图谱最容易在刚建好时显得完整，最难的是三个月后仍能解释每条关系为何存在。与其展示一个永远光鲜的节点总数，不如每周确认新增来源是否带来了待审核关系、过期关系是否真正退出线上路径。
 
-项目总览、初学者图解与面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Edge 等：From Local to Global: A Graph RAG Approach to Query-Focused Summarization](https://arxiv.org/abs/2404.16130)
 - [Microsoft GraphRAG：索引数据流](https://microsoft.github.io/graphrag/index/default_dataflow/)
 - [W3C：PROV-O 来源追溯模型](https://www.w3.org/TR/prov-o/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

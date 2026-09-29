@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "connector"
 series_order: 6
-version: "0.1.0"
-stage: "连接器子模块面试副文试稿"
-git_state: "98d818a（main；本次生成时 dirty）"
-modified_at: "2026-09-20 23:25 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：连接器怎样扛住认证、限流和接口变化
@@ -320,3 +320,5 @@ Webhook 到达即处理且先返回成功，没有持久化、去重、乱序和
 - [OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
 - [OpenAI 官方文档：MCP servers and connectors](https://developers.openai.com/api/docs/guides/tools-connectors-mcp)
 - [OpenTelemetry：Traces](https://opentelemetry.io/docs/concepts/signals/traces/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“工具、技能与协议”继续阅读。

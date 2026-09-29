@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.4.0"
-stage: "工具、技能与协议总概览面试副文，已与六个子模块题目去重"
-git_state: "9bfc7e6（main；修改时 dirty，含总概览重写）"
-modified_at: "2026-09-21 00:10 CST"
+version: "0.4.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：怎样设计完整的 Agent 能力扩展层
@@ -316,3 +316,5 @@ Skill、Tool Schema、Server 目录、连接器和业务 API 可能一起变化�
 - [OpenAI 官方文档：Tools](https://developers.openai.com/api/docs/guides/tools)
 - [Model Context Protocol 官方文档：Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)
 - [Anthropic：Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“工具、技能与协议”继续阅读。

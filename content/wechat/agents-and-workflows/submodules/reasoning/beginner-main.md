@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "reasoning"
 series_order: 3
-version: "0.1.0"
-stage: "基于证据的推理子模块正式主文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 基于证据的推理：三组有空还不够开会
 
 ![基于证据的推理封面](./assets/reasoning-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这一篇只讲**证据怎样支撑下一步判断**：不涉及知识库索引怎样建，也不要求展示模型不可核验的内部思维过程。材料来自获准的日历与会议室服务，读者要能沿着出处查回去。
 
 小林要安排下周研发、设计、运营三组都能参加的产品评审，先看候选和草稿，不发送邀请。助手查到三组日历在周四 15:00 都标“空闲”，于是准备写“周四会议已安排”。又查会议室，发现同一时段房间已被别人占用。周五 10:00 有房间，却还没拿到运营组的空闲结果。**周四缺场地，周五缺人员证据**，哪一个都不能直接说“安排好了”。
 
@@ -108,9 +106,9 @@ ReAct 的核心思想之一，是让模型的行动取得环境观察，再据�
 
 小林最终要的不是一段看起来很会分析的文字，而是一两个**有证据、有条件、能继续办理**的会议候选。房间冲突就标冲突，运营未知就留待确认；只有资料真的补齐，结论才升级。基于证据的推理，就是让每个“可以”都找得到那个“凭什么”。
 
-项目总览、图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "rag"
 series_order: 3
-version: "0.1.1"
-stage: "RAG-Sequence 机制与面试图注对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.1.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：RAG 找到材料后，怎样答得有据
 
 ![RAG 面试题封面](./assets/rag-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，含总览、图解及面试题。练习案例仍是虚构的 9 月 15 日北京住宿 480 元、旧版 450 元、新版 9 月 1 日起 500 元。此处只追问**证据进入生成后的责任**；召回算法、分段参数和知识库更新另有文章。
 
 ## 问题 1：RAG 的核心机制到底是什么？
 
@@ -120,10 +118,10 @@ modified_at: "2026-09-28 17:26 CST"
 
 这套检查不要求模型解释不可验证的内部思维，只要求它交出可检查的输入与输出。制度给出的事实、程序算出的比较、仍需人工核验的项目，应在结果中各有位置。能说清这三类内容的来源，RAG 答案才不是一段漂亮的猜测。
 
-项目总览、初学者图解与对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Lewis 等：Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [Liu 等：Lost in the Middle](https://arxiv.org/abs/2307.03172)
 - [Es 等：RAGAS](https://arxiv.org/abs/2309.15217)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

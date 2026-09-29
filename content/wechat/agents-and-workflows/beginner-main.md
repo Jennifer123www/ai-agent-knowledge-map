@@ -12,17 +12,15 @@ topic: "core"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.0"
-stage: "智能体与工作流总览正式主文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 智能体与工作流：会议安排为何会走弯路
 
 ![智能体与工作流封面](./assets/overview-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这里是“智能体与工作流”的总览：先看七个环节怎样接力，具体机制和面试追问再到各子模块下钻。
 
 小林说：“帮我安排下周的跨团队产品评审会。研发、设计、运营都能参加，找间可用的会议室，先把候选时间和邀请文字给我看，**不要直接发送邀请**。”他没有给出准确时长，也没说三个团队的空闲日历是否都能读。助手查到周四下午三组都空闲，会议室却已被别人预订；周五上午房间空着，但运营团队尚未回复。这时再输出一句“安排好了”，既没有解决冲突，也越过了小林要求的确认步骤。
 
@@ -98,9 +96,9 @@ ReAct 研究用语言步骤与外部行动交错来说明：行动把环境信�
 
 这七个子模块并不是七份独立采购清单。角色与指令告诉系统可做什么；证据让判断有依据；计划和路由决定先做哪步、让谁做；反思利用反馈修正；循环把下一步与退出条件执行到底。小林最终收到一份可核对的邀请草稿，而且其他人没有收到擅自发出的会议邀请。**交付物正确、动作受控、过程能解释**，才是这套控制层的共同目标。
 
-项目总览、七个子模块图解和对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

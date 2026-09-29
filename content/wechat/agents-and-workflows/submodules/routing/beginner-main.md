@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "routing"
 series_order: 5
-version: "0.1.0"
-stage: "模型与能力路由子模块正式主文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 模型与能力路由：该查日历还是问人
 
 ![模型与能力路由封面](./assets/routing-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这一篇只谈**当前子任务交给哪条处理路径**：日历、会议室、语言模型或有权限的人。先后依赖在任务规划篇；每轮循环的状态机在执行循环篇。
 
 小林要下周跨研发、设计、运营的评审会候选时间、可用会议室与邀请草稿，不让助手立即发送。系统现在有四类处理路径：日历服务、房间服务、语言模型和等待小林确认。它需要查“运营周五是否空闲”时若选择语言模型猜测，即使写得流畅也没有事实依据；需要写草稿时若一味去查更多房间，则又把时间花错了地方。**路由决定这一步由谁做，做错路径常比选错措辞更糟。**
 
@@ -108,9 +106,9 @@ Anthropic 的路由工作流示意是：先分类输入，再导向专用处理�
 
 路由的好结果，是小林的空闲问题走到了真实日历，房间问题走到了房间服务，草稿走到了语言生成，发送停在他本人确认处。不同路走得清楚，错路能识别、退路能解释，比“什么都交给最强模型”更可靠，也通常更省心。
 
-项目总览、图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Anthropic: Writing effective tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

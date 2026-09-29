@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "reasoning"
 series_order: 3
-version: "0.1.0"
-stage: "基于证据的推理子模块正式面试副文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：候选时间如何经得起证据追问
 
 ![基于证据的推理面试题封面](./assets/reasoning-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇考**外部证据怎样支持一次判断**。资料怎么建索引属于知识检索，步骤怎么排属于规划，循环怎样重试另有专文；这里不拿“展示完整思维链”冒充可验证依据。
 
 共用案例：小林要下周三团队评审会的候选时间和邀请草稿，不允许立即发送。周四 15:00 三团队日历均空闲，但会议室已被占；周五 10:00 房间可用，运营组尚无空闲确认。面试时别把“人员空闲”和“会议可举行”当成同一个命题。
 
@@ -258,9 +256,9 @@ ReAct 展示语言步骤与环境动作交错：行动带回观察，后续判�
 
 只让裁判模型评价文字是否“逻辑清晰”。
 
-项目总览、图解和配套主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

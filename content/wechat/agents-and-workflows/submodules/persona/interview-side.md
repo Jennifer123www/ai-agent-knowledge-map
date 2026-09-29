@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "persona"
 series_order: 1
-version: "0.1.0"
-stage: "角色与职责设定子模块正式面试副文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：角色设定怎样约束实际动作
 
 ![角色设定面试题封面](./assets/persona-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇只练**角色的责任与许可边界**，不重复总览里固定工作流与智能体的选型，也不展开系统提示的具体模板。
 
 共用案例：小林请会议助手找下周跨研发、设计、运营的评审会时间、可用房间和邀请草稿，并明确“不发邀请”。周四人都空闲但房间被占，周五房间空着而运营尚未确认。助手还能读获准的空闲状态，却不能查看他人的私人日历详情，更不能替小林批准发送。
 
@@ -258,9 +256,9 @@ modified_at: "2026-09-28 CST"
 
 只看文风是否符合“专业、热情”，完全不测工具权限。
 
-项目总览、图解和配套主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "reflection"
 series_order: 6
-version: "0.1.0"
-stage: "反思与纠错子模块正式主文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 反思与纠错：会议室被占后还查同一间吗
 
 ![反思与纠错封面](./assets/reflection-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这一篇只看**观察到失败后，怎样找原因、改下一次尝试，并判断还值不值得试**。计划篇讲任务依赖，执行循环篇讲状态转移；反思的重点是“第二次和第一次究竟有什么可检验的不同”。
 
 小林要下周跨研发、设计、运营的评审会候选时间和邀请草稿，不许直接发送。助手查到周四 15:00 三组人员空闲，房间服务却返回“会议室 A 已占用”。它若再向同一个房间、同一个时段发相同查询，很可能得到相同结果；若它说“我反思后认为还是周四最合适”，也没有解决房间冲突。真正有用的修正是换候选房间或时间，并带着新结果重新核对。
 
@@ -108,9 +106,9 @@ Reflexion 论文的结构包含执行者、评价器、自我反思与经验记�
 
 小林最后需要的是一个可行候选或一个清楚的未解决问题。助手收到“房间被占”后，能说出它否定了哪项条件、下一次改哪项参数、何时停止，反思才真正转化为行动。只在答案里多写一句“我已经反思”，不会让会议室凭空空出来。
 
-项目总览、图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

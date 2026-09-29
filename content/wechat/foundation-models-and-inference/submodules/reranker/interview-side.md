@@ -12,17 +12,17 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "reranker"
 series_order: 4
-version: "0.2.0"
-stage: "重排序模型子模块面试副文精修"
-git_state: "基于 3f5267d（main；修改前 clean）"
-modified_at: "2026-09-28 17:02 CST"
+version: "0.2.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：相似制度怎样排出先后
 
 ![重排序模型面试题封面](./assets/reranker-cover.png)
 
-北京四级员工问每晚住宿上限。候选里有现行北京四级条款、北京三级条款、上海四级条款和旧版北京四级条款。题目要解释的是**排序模型怎样逐对比较这些近似材料**，以及它为何不能仅凭高分确认制度有效。主文与系列入口见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
+北京四级员工问每晚住宿上限。候选里有现行北京四级条款、北京三级条款、上海四级条款和旧版北京四级条款。题目要解释的是**排序模型怎样逐对比较这些近似材料**，以及它为何不能仅凭高分确认制度有效。
 
 ## 问题 1：召回模型与重排序模型有什么区别？
 
@@ -294,11 +294,11 @@ Pointwise 对单个候选预测分数或等级；Pairwise 学习同一查询下�
 
 最终要能回答：正确条款是否进入候选、被排到哪里、分数和输入文本是什么、排序器超时时退回哪种顺序。若正确条款已排第一但生成仍引用旧版，故障就不在排序器；继续调它只会越调越忙。
 
-主文、总览及其他子模块面试题见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Passage Re-ranking with BERT](https://arxiv.org/abs/1901.04085)
 - [Sentence Transformers：Retrieve & Re-Rank](https://www.sbert.net/examples/applications/retrieve_rerank/README.html)
 - [BEIR：A Heterogeneous Benchmark for Zero-shot Evaluation](https://arxiv.org/abs/2104.08663)
 - [Learning to Rank for Information Retrieval](https://www.microsoft.com/en-us/research/publication/learning-to-rank-for-information-retrieval/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

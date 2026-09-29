@@ -12,17 +12,15 @@ topic: "foundation"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.2.0"
-stage: "以住宿报销案例重写基础模型与推理总览主文"
-git_state: "基于 aff9be6（main；修改前 clean）"
-modified_at: "2026-09-28 14:37 CST"
+version: "0.2.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 基础模型与推理：一张报销票据背后的接力
 
 ![基础模型与推理总览封面](./assets/foundation-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。仓库按主题整理总览、初学者图解和面试题；这篇先看模型能力怎样在一项任务里接力。
 
 员工上传一张北京酒店的发票，问：“这笔住宿费能报吗？先帮我填一份草稿，别提交。”我们给这道练习题一组明确的示意数据：员工为 A 职级，住宿日期是 **2026 年 9 月 15 日**，票面金额 **480 元**；公司制度库里有旧版“北京住宿上限 450 元”，也有从 **9 月 1 日**生效的新版“上限 500 元”。这些数字仅用于演示技术链路，不代表任何真实单位的报销政策。
 
@@ -110,8 +108,6 @@ modified_at: "2026-09-28 14:37 CST"
 
 回到员工那句话：“能报吗？先填草稿，别提交。”系统应给出的是可追溯的初步判断、明确的待核对项和未提交的草稿状态。五类能力可以帮它更快接近答案，**但没有任何一种模型能单独把“看起来能报”变成“已经报成”**。两者之间，隔着证据、规则、权限和真实回执。
 
-更多总览与下钻内容见 [AI Agent 知识图谱项目仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Stanford CRFM：On the Opportunities and Risks of Foundation Models](https://crfm.stanford.edu/report)
@@ -119,3 +115,5 @@ modified_at: "2026-09-28 14:37 CST"
 - [Muennighoff 等：MTEB: Massive Text Embedding Benchmark](https://arxiv.org/abs/2210.07316)
 - [Nogueira 与 Cho：Passage Re-ranking with BERT](https://arxiv.org/abs/1901.04085)
 - [Hu 等：LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

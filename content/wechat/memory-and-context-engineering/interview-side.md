@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.0"
-stage: "记忆与上下文工程总览正式面试副文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：记忆与上下文工程怎样分层回答
 
 ![记忆与上下文工程面试题封面](./assets/overview-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇是一级模块的总览题，只考跨环节的分工与验证；检查点、单条记忆更新、上下文压缩和删除作业的细题，交给对应子模块。
 
 所有题共用一个案例：小林上传住宿票据，系统识别了金额和日期，正在核对制度时页面关闭。第二天小林问进度，要求中文、先给结论；制度此时出现新版。**员工身份、票据真伪、适用条款和是否已提交均未核实。**回答时别把这些未知项悄悄说成已完成。示例中的报销流程与规则均为虚构。
 
@@ -266,8 +264,6 @@ modified_at: "2026-09-28 CST"
 这组总览题的共同答法是：先说清**哪个信息属于哪一层**，再说它如何进入当前请求，最后给出能查证的边界与评测。细到某个检查点怎么落盘、某条偏好怎么覆盖，去对应子模块练；在总览里把所有实现细节讲完，反而容易把职责讲乱。
 面试官若继续追问，就沿着同一笔报销草稿展开，不临时换一套毫无关联的故事。
 
-项目总览、初学者图解和同主题下钻题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
@@ -275,3 +271,5 @@ modified_at: "2026-09-28 CST"
 - [LangGraph：Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph)
 - [Anthropic：Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - [NIST Privacy Framework](https://www.nist.gov/privacy-framework)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

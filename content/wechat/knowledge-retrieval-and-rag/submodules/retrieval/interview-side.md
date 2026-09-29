@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "retrieval"
 series_order: 5
-version: "0.1.0"
-stage: "知识检索主题之召回重排序面试稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：检索为什么找到了还会选错
 
 ![召回与重排序面试题封面](./assets/retrieval-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，有总览、图解与题目。虚构案例里，小林 9 月 15 日北京住宿 480 元，旧规上限 450，新规 9 月 1 日起上限 500。两版文字都像问题，检索题的核心不是背一个 `Top-k`，而是说清**候选怎样来、哪些不能用、哪些应排前面**。
 
 ## 问题 1：关键词检索和稠密检索怎样选择？
 
@@ -122,10 +120,10 @@ modified_at: "2026-09-28 15:35 CST"
 
 若权限服务或制度元数据本身不可用，检索层应明确返回无法安全选择的状态，而不是退化成全库相似度排序。一个诚实的失败信号，让上游有机会追问或停答；一个看似完整却含无权资料的候选列表，会让后面的每一层都更难补救。
 
-项目总览、初学者图解和面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Karpukhin 等：Dense Passage Retrieval](https://arxiv.org/abs/2004.04906)
 - [Nogueira 与 Cho：Passage Re-ranking with BERT](https://arxiv.org/abs/1901.04085)
 - [Cormack 等：Reciprocal Rank Fusion](https://dl.acm.org/doi/10.1145/1571941.1572114)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

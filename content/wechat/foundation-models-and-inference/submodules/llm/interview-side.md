@@ -12,17 +12,15 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.3.0"
-stage: "案例贯穿稿转为大语言模型子模块正式面试副文"
-git_state: "基于 d379d9b（main；修改前 clean）"
-modified_at: "2026-09-28 13:41 CST"
+version: "0.3.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：大语言模型从原理到验证怎么答
 
 ![大语言模型面试题封面](./assets/llm-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。仓库将总览、初学者文章与面试题按同一模块对应；本篇专练大语言模型题。
 
 这十道题共用一道面试小案例：旧日程是**2026 年 10 月 14 日 14:00—15:00、A302**；用户刚说“改为当天 16:00—17:00、线上，链接还没生成；先写通知草稿，不发送，也不改日历”。候选模型写出的通知看上去很流畅，但把旧地点留了下来，还说“已发送”。你要解释的不只是模型术语，还包括错在哪一环、怎样证明修好了。
 
@@ -286,11 +284,11 @@ modified_at: "2026-09-28 13:41 CST"
 
 面试官若继续问“你怎么知道写对了”，别回答“效果挺好”。拿出普通、冲突、缺值、补入真实链接四类样本，说明每类的预期字段和错误判据。**能指出哪一句无依据、哪个字段用了旧值，比泛称“模型效果不错”更有说服力。**
 
-更多总览与子模块文章见 [项目仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)；可从“基础模型与推理”目录继续读。
-
 ## 参考资料
 
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
 - [Lost in the Middle：How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)
 - [The Curious Case of Neural Text Degeneration](https://arxiv.org/abs/1904.09751)
 - [Efficient Memory Management for Large Language Model Serving with PagedAttention](https://arxiv.org/abs/2309.06180)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "loop"
 series_order: 7
-version: "0.1.0"
-stage: "智能体执行循环子模块正式面试副文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：智能体循环怎样安全结束
 
 ![智能体执行循环面试题封面](./assets/loop-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇关注**运行时状态和退出条件**，不重复计划的搜索策略、路由的分类阈值或反思的语言摘要。面试回答要能说出系统实际记录什么、什么时候再查、什么时候停。
 
 共用案例：小林要跨三团队评审会的候选与邀请草稿，不批准直接发送。周四三组空闲但房间被占；周五房间可用而运营未确认。后台可能收到迟到的房间结果、重复工具回调，或小林在等待时改期。这些变化决定循环是不是受控。
 
@@ -260,9 +258,9 @@ modified_at: "2026-09-28 CST"
 
 只看答案文字，不看真实工具轨迹。
 
-项目总览、图解和配套主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

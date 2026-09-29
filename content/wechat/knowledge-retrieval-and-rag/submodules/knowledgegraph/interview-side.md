@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgegraph"
 series_order: 2
-version: "0.1.0"
-stage: "知识检索主题之知识图谱面试稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：知识图谱与 GraphRAG 何时值得用
 
 ![知识图谱面试题封面](./assets/kg-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，可看总览、初学者图解及题目下钻。以下沿用虚构案例：小林是研发部 A 职级员工，9 月 15 日北京住宿 480 元；旧规上限 450，新规 9 月 1 日起上限 500。面试不应一听“图谱”就画圆圈，先判断是否真的需要关系。
 
 ## 问题 1：知识图谱与向量索引究竟差在哪里？
 
@@ -118,10 +116,10 @@ modified_at: "2026-09-28 15:35 CST"
 
 反过来，若试点显示图谱能找全受影响对象，还要再查“边是否真实、出处能否打开、组织变更能否及时同步”。业务方要的是可依赖的名单，不是一张看似复杂的网络海报。把收益和维护义务同时说出来，答案才完整。
 
-项目总览、初学者图解与对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Edge 等：From Local to Global: A Graph RAG Approach to Query-Focused Summarization](https://arxiv.org/abs/2404.16130)
 - [Microsoft GraphRAG：索引数据流](https://microsoft.github.io/graphrag/index/default_dataflow/)
 - [W3C：PROV-O](https://www.w3.org/TR/prov-o/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

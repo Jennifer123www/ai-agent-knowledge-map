@@ -12,17 +12,15 @@ topic: "context"
 content_level: "submodule"
 submodule: "chunking"
 series_order: 4
-version: "0.1.0"
-stage: "知识检索主题之分段首稿"
-git_state: "基于 6cd3d95（main；修改前 clean）"
-modified_at: "2026-09-28 15:35 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 分段与元数据：别把制度的例外切丢
 
 ![分段与元数据文章封面](./assets/chunk-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，有总览、初学者图解和面试题。这里专讲资料被切成检索单元时会失去什么，以及怎样把它留住。
 
 虚构案例仍是一份差旅制度：北京住宿上限 500 元，自 2026 年 9 月 1 日起对 A 职级生效；旧版上限 450 元。小林 9 月 15 日住宿，发票 480 元。假如程序按固定字数切文档，第一块刚好停在“上限 500 元”，下一块才出现“仅适用于 A 职级”，检索器找到第一块后，回答很可能把 500 元推广给所有员工。问题从切分那一刻就埋下了。
 
@@ -118,10 +116,10 @@ RAPTOR 论文提出另一条路径：先切短文本，再对语义相近片段�
 
 抽检报告可以附上失败片段与原文的并排截图，以及对应问题。这样资料负责人一眼能看出是版面解析、切点还是标签问题，开发者也能拿相同样本回归。比起“本次产生 20 万个 chunk”，一页能解释三个具体错误的报告更接近真正的质量保证。
 
-项目总览、初学者图解和对应面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Sarthi 等：RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval](https://arxiv.org/abs/2401.18059)
 - [Lewis 等：Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [Liu 等：Lost in the Middle](https://arxiv.org/abs/2307.03172)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“知识检索与检索增强生成”继续阅读。

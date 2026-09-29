@@ -12,17 +12,17 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.2.0"
-stage: "多模态模型子模块面试副文精修"
-git_state: "基于 3f5267d（main；修改前 clean）"
-modified_at: "2026-09-28 17:02 CST"
+version: "0.2.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：发票读对字为何还会填错字段
 
 ![多模态模型面试题封面](./assets/multimodal-cover.png)
 
-题目共用主文的发票：照片右上角反光，`680.00` 是含税金额，`38.49` 是税额，日期只写 `9/3`，年份未知。目标是生成**带来源位置、保留缺项的字段草稿**，不替员工提交。面试时别只说“模型能看图”，要追问它从哪块图读到了哪个值，以及读不清时有没有老实停下。主文与全系列入口在[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
+题目共用主文的发票：照片右上角反光，`680.00` 是含税金额，`38.49` 是税额，日期只写 `9/3`，年份未知。目标是生成**带来源位置、保留缺项的字段草稿**，不替员工提交。面试时别只说“模型能看图”，要追问它从哪块图读到了哪个值，以及读不清时有没有老实停下。
 
 ## 问题 1：视觉信息怎样接入语言模型？
 
@@ -290,11 +290,11 @@ OCR-free 文档模型是否意味着不再需要 OCR？不意味着。它提供�
 
 最后说明视觉模型的交接边界：模糊输入请求重拍，关键字段冲突交人工；审核与提交属于后续流程，不由视觉模型的置信表述决定。这样答题重点仍落在**视觉信息如何变成可核对字段**，不会滑回总览的端到端 Agent 设计。
 
-主文、总览与其他子模块的面试题见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Flamingo：a Visual Language Model for Few-Shot Learning](https://arxiv.org/abs/2204.14198)
 - [LLaVA：Visual Instruction Tuning](https://arxiv.org/abs/2304.08485)
 - [GPT-4V System Card](https://cdn.openai.com/papers/GPTV_System_Card.pdf)
 - [Donut：OCR-free Document Understanding Transformer](https://arxiv.org/abs/2111.15664)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

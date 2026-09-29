@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "connector"
 series_order: 6
-version: "0.1.0"
-stage: "连接器子模块主文试稿"
-git_state: "98d818a（main；本次生成时 dirty）"
-modified_at: "2026-09-20 23:25 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 连接器与插件：把外部系统翻译成 Agent 能用的能力
@@ -147,3 +147,5 @@ Agent 问“列出全部未关闭工单”，连接器不能只返回第一页�
 - [OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
 - [OpenAI 官方文档：MCP servers and connectors](https://developers.openai.com/api/docs/guides/tools-connectors-mcp)
 - [OpenTelemetry：Traces](https://opentelemetry.io/docs/concepts/signals/traces/)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“工具、技能与协议”继续阅读。

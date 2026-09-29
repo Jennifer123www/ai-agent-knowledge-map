@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "planning"
 series_order: 4
-version: "0.1.0"
-stage: "任务规划子模块正式主文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 任务规划：一张会议待办清单为何还不够
 
 ![任务规划封面](./assets/planning-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这一篇聚焦**目标如何拆成可执行、可检查的步骤与候选方案**。日历证据怎么判断已在前一篇讲过；模型或工具由谁接手是路由篇；每一圈状态如何转移则属于执行循环。
 
 小林要下周跨研发、设计、运营开产品评审，找可用会议室，先看候选时间和邀请草稿，不发送。一个助手列出“查日历、查房间、写邀请”三项待办，看着像计划，却没说会议时长从哪来、房间要按哪个候选查、三组日历能否并行、周四房间被占后要改哪一步。**计划的价值在依赖与应变，不在待办条目的数量。**
 
@@ -108,9 +106,9 @@ modified_at: "2026-09-28 CST"
 
 最终，小林收到的是一两条有明确缺口的候选，而不是一张永远写不完的待办清单。好的计划让每步能做、做完能验、失败能改、达到目标能停。它不要求模型预知所有突发情况，却要求变化来了以后别再机械走旧路线。
 
-项目总览、图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

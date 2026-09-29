@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "memorygovernance"
 series_order: 6
-version: "0.1.0"
-stage: "记忆治理子模块正式主文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 记忆治理：说了删除，旧偏好还会回来吗
 
 ![记忆治理封面](./assets/memorygovernance-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这篇不讲如何从一句话提取候选，也不讲上下文排序；它只问一件容易被忽略的事：**用户允许保存的信息，谁能看、能留多久、删除后怎样确认真的不再被使用**。
 
 小林曾明确要求，起草邮件时默认“中文、简洁、先给结论”。一段时间后，他打开偏好设置说：“把这条保存的写作偏好删掉，以后别按它写。”界面显示“已删除”，下一次助手却仍按旧偏好起草。排查发现主表删了，搜索索引还有副本，提示词缓存也存着昨日的画像。用户看见的是一个开关；系统背后是一串需要同步退出的地方。
 
@@ -108,10 +106,10 @@ NIST Privacy Framework 提供的是组织识别和管理隐私风险的框架，
 
 治理并非给记忆加一个“设置页”就完成。它贯穿保存目的、读取权限、保留期、删除传播、备份恢复和证据验证。若任何一个环节说不清，用户的删除按钮就可能只删掉了屏幕上的那一行。把每个去向和状态设计出来，才有资格说“这条记忆不再影响你”。
 
-项目总览、初学者图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [NIST Privacy Framework](https://www.nist.gov/privacy-framework/privacy-framework)
 - [LangMem：长期记忆的概念与写入方式](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [OWASP Top 10 for Large Language Model Applications 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

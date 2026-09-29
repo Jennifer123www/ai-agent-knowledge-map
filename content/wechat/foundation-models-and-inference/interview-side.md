@@ -12,17 +12,15 @@ topic: "foundation"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.2.0"
-stage: "以住宿报销案例重写基础模型与推理总览面试副文"
-git_state: "基于 aff9be6（main；修改前 clean）"
-modified_at: "2026-09-28 14:37 CST"
+version: "0.2.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：五类模型怎样接力写报销草稿
 
 ![基础模型与推理面试总览封面](./assets/foundation-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。仓库按同一主题对应总览、初学者内容与面试题；这篇只练跨模型协作，不抢先推导单个模型的训练细节。
 
 九道题共用一份示意材料：A 职级员工上传北京酒店发票，票面 **480 元**、住宿日期 **2026 年 9 月 15 日**；制度库里既有旧版上限 **450 元**，又有 **9 月 1 日**生效的新版上限 **500 元**。员工只要求判断并填写**草稿，不提交**。金额、日期和制度均为练习设定，面试时要把它们当作待核对的输入，不当作真实公司的政策。
 
@@ -267,8 +265,6 @@ modified_at: "2026-09-28 14:37 CST"
 
 这组总览题可以压成一条答题线：**先界定输入与动作，再分配模型能力；把证据和规则接上，逐段验证，最后给出降级与回退。**具体机制留给各子模块。
 
-继续阅读可回到 [AI Agent 知识图谱项目仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，沿“基础模型与推理”的五个子模块下钻。
-
 ## 参考资料
 
 - [Stanford CRFM：On the Opportunities and Risks of Foundation Models](https://crfm.stanford.edu/report)
@@ -276,3 +272,5 @@ modified_at: "2026-09-28 14:37 CST"
 - [Muennighoff 等：MTEB: Massive Text Embedding Benchmark](https://arxiv.org/abs/2210.07316)
 - [Nogueira 与 Cho：Passage Re-ranking with BERT](https://arxiv.org/abs/1901.04085)
 - [Hu 等：LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

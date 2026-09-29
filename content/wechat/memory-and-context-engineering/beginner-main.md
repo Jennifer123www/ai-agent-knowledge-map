@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.0"
-stage: "记忆与上下文工程总览正式主文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 记忆与上下文工程：该记什么，该看什么
 
 ![记忆与上下文工程总览封面](./assets/overview-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。网站里有同主题的初学者图解和面试题；这组推文先讲六个子模块如何接力，具体机制分别留给下钻文章。
 
 小林上传一张住宿票据，请助手准备报销草稿。系统已经识别出票面金额和日期，正等着核对当天适用的制度；这时页面关闭了。第二天小林回来问：“到哪一步了？请用中文，先给结论。”与此同时，报销制度也刚更新。**票据是否真实、员工身份、制度适用性和是否完成提交都尚未核实**；这里的报销情境是教学示例，不代表任何真实公司的制度。
 
@@ -105,8 +103,6 @@ modified_at: "2026-09-28 CST"
 
 这组文章的后六篇，会分别把这些环节展开。读完总览只需要带走一个判断：**该记的是经过筛选、可管理的信息；该给模型看的是当前任务必要且可信的信息。**两者相互配合，却不是同一个开关。
 
-项目的模块总览、初学者图解和面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
@@ -115,3 +111,5 @@ modified_at: "2026-09-28 CST"
 - [LangGraph：Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph)
 - [Anthropic：Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - [NIST Privacy Framework](https://www.nist.gov/privacy-framework)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

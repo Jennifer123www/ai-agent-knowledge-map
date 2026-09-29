@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "reranker"
 series_order: 4
-version: "0.2.0"
-stage: "重排序模型子模块主文精修"
-git_state: "基于 3f5267d（main；修改前 clean）"
-modified_at: "2026-09-28 17:02 CST"
+version: "0.2.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 大话重排序：相似条款谁该排前面
@@ -24,7 +24,7 @@ modified_at: "2026-09-28 17:02 CST"
 
 北京四级员工问“出差每晚最多能报多少”。第一轮搜索找来五十段含“住宿”的资料：北京四级现行条款、北京三级条款、上海四级条款，还有去年的北京四级标准。员工需要的是**适用条款及其限制条件**；而“北京”“四级”“住宿”这几个字每段都沾边，靠主题相近还排不出可靠顺序。
 
-重排序模型（`reranker`）只接手已有候选，把提问与每一段一起读，给出相对相关性。它像拿着问题核对文件的编辑，能指出哪段更像在回答“北京四级”的问题；**它不负责证明条款尚有效、员工有权查看，也不能补出没进候选的文件。**本组面试题沿用同一批候选，仓库还有[知识图谱总览与初学者内容](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
+重排序模型（`reranker`）只接手已有候选，把提问与每一段一起读，给出相对相关性。它像拿着问题核对文件的编辑，能指出哪段更像在回答“北京四级”的问题；**它不负责证明条款尚有效、员工有权查看，也不能补出没进候选的文件。
 
 ## 主题都相近，为什么还要逐段比较
 
@@ -120,7 +120,7 @@ Pointwise 数据容易构造，但单独分数未必形成最好的相对顺序�
 
 难负样本尤其重要。它们与问题主题相似，却因地区、时间、角色或否定条件不适用。若评测只有一眼就能分开的正负样本，模型很容易拿高分，上线却在真正相似的制度之间翻车。
 
-回到北京四级员工的问题，旧版和无权限条款应先由硬规则剔除；在剩余相似候选里，排序器应把北京四级条款排到异地和不同职级条款前面。离线仍可用旧版作难例，检验模型是否被措辞误导，**但线上不能指望相关分数替代有效期判断**。同一体系的其他模块与面试题见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
+回到北京四级员工的问题，旧版和无权限条款应先由硬规则剔除；在剩余相似候选里，排序器应把北京四级条款排到异地和不同职级条款前面。离线仍可用旧版作难例，检验模型是否被措辞误导，**但线上不能指望相关分数替代有效期判断**。
 
 ## 参考资料
 
@@ -128,3 +128,5 @@ Pointwise 数据容易构造，但单独分数未必形成最好的相对顺序�
 - [Sentence Transformers：Retrieve & Re-Rank](https://www.sbert.net/examples/applications/retrieve_rerank/README.html)
 - [Learning to Rank for Information Retrieval](https://www.microsoft.com/en-us/research/publication/learning-to-rank-for-information-retrieval/)
 - [BEIR：A Heterogeneous Benchmark for Zero-shot Evaluation](https://arxiv.org/abs/2104.08663)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

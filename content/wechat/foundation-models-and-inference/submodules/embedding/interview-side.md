@@ -12,17 +12,17 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "embedding"
 series_order: 3
-version: "0.2.1"
-stage: "向量嵌入评测图替代文字对齐"
-git_state: "基于 47c0ee0（main；修改前 clean）"
-modified_at: "2026-09-28 17:26 CST"
+version: "0.2.2"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：向量相似为何找错住宿条款
 
 ![向量嵌入面试题封面](./assets/embedding-cover.png)
 
-员工问“出差住酒店最多能报多少”，制度标题却是《差旅住宿费限额》；候选里又混着旧版、异地和不同职级条款。题目要回答的是：**编码模型怎样让不同说法靠近，又为何把相似但不适用的条款也拉近。**面试副文与主文共用这个例子，重点放在表示、距离与训练；权限和制度效力只作边界。系列入口见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
+员工问“出差住酒店最多能报多少”，制度标题却是《差旅住宿费限额》；候选里又混着旧版、异地和不同职级条款。题目要回答的是：**编码模型怎样让不同说法靠近，又为何把相似但不适用的条款也拉近。**面试副文与主文共用这个例子，重点放在表示、距离与训练；权限和制度效力只作边界。
 
 ## 问题 1：向量嵌入的本质是什么？
 
@@ -294,11 +294,11 @@ modified_at: "2026-09-28 17:26 CST"
 
 这组实验要留下模型版本、输入前缀、切分版本、距离度量及候选列表，下一次升级才能复现。**这里验证的是嵌入表示是否把正确材料带进候选，不是整个检索增强生成系统是否答对。**
 
-主文与系列总览见[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Sentence-BERT](https://arxiv.org/abs/1908.10084)
 - [MTEB：Massive Text Embedding Benchmark](https://arxiv.org/abs/2210.07316)
 - [FAISS：A Library for Efficient Similarity Search](https://arxiv.org/abs/1702.08734)
 - [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。

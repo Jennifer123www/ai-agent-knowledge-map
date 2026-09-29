@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "longterm"
 series_order: 2
-version: "0.1.0"
-stage: "长期记忆子模块正式面试副文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：长期记忆如何留下有用的过去
 
 ![长期记忆面试题封面](./assets/longterm-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇练**跨会话持久信息**；怎样把一条候选安全写入、如何处理数据库并发更新，另见“记忆写入与更新”。
 
 共用案例：小林多次明确要求，给他的写作草稿默认中文、简洁、先给结论。几天后他请助手写一封报销进度邮件，本轮没有重述该偏好；又在另一轮临时要求“这次请写英文”。旧偏好有来源，但不能压过眼前的明确例外。面试时始终用这两个请求解释取舍，不要临时换成一个无关的购物故事。
 
@@ -275,11 +273,11 @@ modified_at: "2026-09-28 CST"
 
 这组题的主线很短：长期记忆要服务**未来确有价值的任务**，不是给模型一份无限长的旧聊天。回答任何一个细题，都回到小林的两封邮件：哪条偏好有来源，本轮要不要读，新要求是否冲突，错了能不能定位。
 
-项目总览、初学者图解和同题下钻见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
 - [LangMem：Core Concepts](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [Anthropic：Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

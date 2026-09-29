@@ -12,17 +12,15 @@ topic: "core"
 content_level: "submodule"
 submodule: "persona"
 series_order: 1
-version: "0.1.0"
-stage: "角色与职责设定子模块正式主文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 角色与职责设定：助手到底能安排到哪一步
 
 ![角色与职责设定封面](./assets/persona-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这一篇只问会议助手**对谁负责、允许交付什么、到哪里必须停下**。具体提示词写法、候选时间搜索与执行循环分别在后面的文章讲。
 
 小林请助手安排下周跨研发、设计、运营的产品评审。他要一两个可行时段、可用会议室和邀请文字，明说“先给我看，不要直接发送”。助手如果回答“好的，我是最懂会议安排的高级秘书”，听着热情，却没有告诉我们它能否读三组日历、可不可以代订房间、遇到未授权日历要怎么处理。**角色不是一句人设台词，而是可检查的职责契约。**
 
@@ -104,9 +102,9 @@ ReAct 把能改变环境的动作与语言中的判断步骤区分开。用于�
 
 角色设定的结果，应该是小林收到有依据的候选和草稿，清楚知道哪些尚未落实，其他人也没有收到擅自发出的邀请。定义得体面不算成功，**系统在边界题里也照着做**才算。后续指令篇会讲怎样组织请求文字，但无论提示写得多好，真实权限都不能从一句自我介绍里长出来。
 
-项目总览、图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。

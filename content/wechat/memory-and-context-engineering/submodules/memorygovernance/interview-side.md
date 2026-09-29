@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "memorygovernance"
 series_order: 6
-version: "0.1.0"
-stage: "记忆治理子模块正式面试副文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：记忆删除怎样不留尾巴
 
 ![记忆治理面试题封面](./assets/memorygovernance-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇从**治理与验证**角度提问，不重复“如何提取候选、怎样覆盖单条称呼”的写入题。涉及期限与义务时，应说明具体产品政策和适用要求，不把工程建议冒充普遍法律结论。
 
 共用案例：小林此前允许助手保存“写邮件默认中文、简洁、先给结论”。现在他在账户设置中删除这条偏好。主表处理成功后，检索索引、提示词缓存和一份旧备份里还有它；另有一位同部门同事可能通过相似查询误命中这条记录。请围绕这条偏好说清：什么时候算删除完成，怎样证明另一位用户看不到它。
 
@@ -269,10 +267,10 @@ modified_at: "2026-09-28 CST"
 
 把异步传播说成瞬时强一致，却没有任何状态或失败处理。
 
-项目总览、初学者图解和配套主文见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [NIST Privacy Framework](https://www.nist.gov/privacy-framework/privacy-framework)
 - [LangMem：长期记忆的概念与写入方式](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [OWASP Top 10 for Large Language Model Applications 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

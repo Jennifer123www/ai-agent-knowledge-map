@@ -12,17 +12,15 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "longterm"
 series_order: 2
-version: "0.1.0"
-stage: "长期记忆子模块正式主文"
-git_state: "基于 7378a4f（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 长期记忆：隔几天再聊，凭什么还能接上
 
 ![长期记忆子模块封面](./assets/longterm-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。本篇聚焦**跨会话还可能用得上的信息**；本次任务停在哪个节点，是短期状态的事。
 
 小林几次明确说：“给我的说明请用中文，尽量简洁，先给结论。”几天后，他重新打开助手，请它起草一封报销进度邮件。这一轮只说了邮件的收件人和事实，没有重复表达习惯。助手若能按其已确认的偏好组织草稿，体验会连贯；若它凭一次偶然措辞认定小林“讨厌详细解释”，或者把别人的偏好用在小林身上，这份“记性”就成了麻烦。
 
@@ -108,11 +106,11 @@ modified_at: "2026-09-28 CST"
 
 若小林问“你为什么写得这么简短”，系统至少应能回答“根据你此前明确保存的偏好”，并给出查看或更正入口；如果实际没有这条记录，就不要编一个听起来体贴的理由。
 
-项目总览、初学者图解和配套面试题见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)
 - [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560)
 - [LangMem：Core Concepts](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
 - [Anthropic：Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“记忆与上下文工程”继续阅读。

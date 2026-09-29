@@ -12,17 +12,15 @@ topic: "core"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.1.0"
-stage: "智能体与工作流总览正式面试副文"
-git_state: "基于 7369612（main；创建系列前工作区 clean）"
-modified_at: "2026-09-28 CST"
+version: "0.1.1"
+stage: "统一推文开头与文末阅读入口"
+git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:49 CST"
 ---
 
 # 面试题：智能体与工作流怎么分工
 
 ![智能体与工作流面试题封面](./assets/overview-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。这一组考**系统层的取舍与交接**。角色字段、提示词模板、计划搜索、路由阈值、反思文本和循环状态机的细节分别在七个下钻组，不用在总览重复答一遍。
 
 共用案例：小林要安排下周的跨团队产品评审，研发、设计、运营都能参加；要查可用会议室，先给候选时间和邀请草稿，**未经确认不能发送**。周四三组人员空闲但房间被占，周五房间可用而运营尚未回复。以下每道题都落回这两个互有缺口的候选，不临时换成无关的购物 Agent。
 
@@ -281,9 +279,9 @@ modified_at: "2026-09-28 CST"
 
 把所有回归归咎于模型版本，忽略工具与策略变更。
 
-项目总览、配套主文和七个子模块见 [AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。
-
 ## 参考资料
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“智能体与工作流”继续阅读。
