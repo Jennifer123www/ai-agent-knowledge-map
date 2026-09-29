@@ -1,6 +1,6 @@
 ---
-title: "大话大语言模型：它为什么能一句接一句"
-author: "三色堇絮絮念"
+title: "大话大语言模型—它为什么能一句接一句"
+author: "三色堇"
 digest: "借一条会议改期通知，看懂 token、注意力、上下文、采样，以及模型什么时候会写得像却写不对。"
 cover: "./assets/llm-cover.png"
 content_source_url: ""
@@ -12,17 +12,15 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.3.0"
-stage: "案例贯穿稿转为大语言模型子模块正式主文"
-git_state: "基于 d379d9b（main；修改前 clean）"
-modified_at: "2026-09-28 13:41 CST"
+version: "0.3.1"
+stage: "对齐 Word 终版开头与结尾并删除重复项目说明"
+git_state: "基于 70ab820（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 13:44 CST"
 ---
 
-# 大话大语言模型：它为什么能一句接一句
+# 大话大语言模型—它为什么能一句接一句
 
 ![大语言模型子模块封面](./assets/llm-cover.png)
-
-项目入口：[AI Agent 知识图谱仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)。项目按总览、初学者图解和面试题组织内容；本篇聚焦大语言模型怎样生成与核对文字。
 
 同事让你写一条会议改期通知。旧日程写着：**2026 年 10 月 14 日 14:00—15:00，A302 会议室**。刚收到的新要求是：**改为当天 16:00—17:00，改成线上；会议链接还没生成；先写草稿，不发送，也不改日历**。
 
@@ -129,11 +127,11 @@ modified_at: "2026-09-28 13:41 CST"
 
 大语言模型能把一句接成下一句，是因为它会把文字转成 `token`，结合上下文算出候选，再逐步生成。要让这条通知写对，就把“哪条消息更新、哪些字段未知、哪些动作没做”交代清楚，并核对每个关键陈述。**会写是一种能力；写出的事实有据可查，是另一道要求。**
 
-想看它在 AI Agent 中的位置，可回到 [项目总览仓库](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。
-
 ## 参考资料
 
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
 - [Lost in the Middle：How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)
 - [The Curious Case of Neural Text Degeneration](https://arxiv.org/abs/1904.09751)
 - [Efficient Memory Management for Large Language Model Serving with PagedAttention](https://arxiv.org/abs/2309.06180)
+
+想看本文在 AI Agent 中的位置，可点击下方 [阅读原文](https://github.com/Jennifer123www/ai-agent-knowledge-map)，从“基础模型与推理”继续阅读。
