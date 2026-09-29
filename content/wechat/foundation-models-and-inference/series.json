@@ -72,11 +72,7 @@
         "submodules/llm/assets/llm-sampling.png",
         "submodules/llm/assets/llm-reliability.png",
         "submodules/llm/assets/llm-principle.png",
-        "submodules/llm/assets/llm-rnn-comparison.png",
-        "submodules/llm/assets/llm-subagent-link-test.png",
-        "submodules/llm/assets/llm-repeat-link-experiment.png",
-        "submodules/llm/assets/llm-context-comparison.png",
-        "submodules/llm/assets/llm-eval-cases.png"
+        "submodules/llm/assets/llm-rnn-comparison.png"
       ],
       "articles": {
         "beginner": {
@@ -84,14 +80,14 @@
           "focus": "以会议改期通知为贯穿案例，讲清 token 预测、自注意力、上下文、采样、事实边界、结构化结果和推理时延。",
           "outline": [
             "输入的文字怎样拆成 token",
-            "自回归模型怎样逐步生成通知及一次子 Agent 实测",
+            "自回归模型怎样逐步生成通知",
             "自注意力怎样联系旧日程与新要求",
             "长上下文为何仍可能漏读更新",
-            "采样参数怎样改变措辞及四次真实回答实验",
+            "采样参数怎样改变措辞",
             "流畅文字为何可能缺少事实依据",
             "怎样输出并核对结构化草稿",
-            "预填充、解码、缓存及长短上下文实测",
-            "怎样用真实截屏记录冲突与缺值样本"
+            "预填充、解码与缓存怎样影响时延",
+            "怎样用冲突与缺值样本验证通知"
           ]
         },
         "interview": {
