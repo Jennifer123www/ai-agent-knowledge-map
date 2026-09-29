@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 1,
+  "topic": "orchestration",
+  "title": "多智能体协作",
+  "draftPlan": {
+    "outlineSections": { "min": 8, "max": 10 },
+    "targetChineseCharacters": { "min": 3200, "max": 3500 }
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "contentLevel": "overview",
+      "submodule": "",
+      "seriesOrder": 0,
+      "promptFile": "prompts.md",
+      "principleImage": "assets/orchestration-principle.png",
+      "images": [
+        "assets/orchestration-cover-main-wechat.png",
+        "assets/orchestration-cover-interview-wechat.png",
+        "assets/orchestration-choice.png",
+        "assets/orchestration-task-contract.png",
+        "assets/orchestration-patterns.png",
+        "assets/orchestration-failure-budget.png",
+        "assets/orchestration-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "beginner-main.md",
+          "focus": "以供应商选型报告为贯穿案例，解释固定工作流、状态图、多智能体、主管调度和任务交接怎样组合，并判断何时根本不该增加 Agent。",
+          "outline": [
+            "一份供应商选型报告为何不等于多开几个聊天窗口",
+            "单 Agent、工作流和多智能体分别适合什么任务",
+            "五个子模块在整条链路上的分工",
+            "子任务怎样写成可验收的任务契约",
+            "顺序、并行、主管与交接四种常见结构",
+            "共享状态、证据和权限怎样控制",
+            "错误如何沿协作链放大",
+            "怎样用质量、时延和成本证明协作值得",
+            "从单 Agent 逐步演进的实施顺序"
+          ]
+        },
+        "interview": {
+          "path": "interview-side.md",
+          "focus": "围绕同一份供应商选型报告，回答单 Agent 与多 Agent 取舍、协作模式、任务契约、状态一致性、错误传播、评测和安全降级。",
+          "questionBoundary": {
+            "include": ["单 Agent 与多 Agent 选型", "协作模式", "任务契约", "共享状态", "跨角色验收", "总体评测", "成本与停止条件"],
+            "exclude": ["固定工作流节点实现", "检查点存储细节", "Supervisor 路由算法", "Handoff 输入过滤 API"]
+          },
+          "outline": [
+            "什么时候多智能体值得用",
+            "五个子模块如何接成端到端链路",
+            "顺序、并行、主管和交接怎样选择",
+            "任务契约应包含哪些字段",
+            "共享状态和证据怎样避免串线",
+            "如何阻断错误放大",
+            "怎样控制调用预算与停止条件",
+            "如何设计单 Agent 基线和端到端评测",
+            "服务退化时怎样安全降级"
+          ]
+        }
+      }
+    },
+    {
+      "id": "workflow",
+      "contentLevel": "submodule",
+      "submodule": "workflow",
+      "seriesOrder": 1,
+      "promptFile": "submodules/workflow/prompts.md",
+      "principleImage": "submodules/workflow/assets/workflow-principle.png",
+      "images": [
+        "submodules/workflow/assets/workflow-cover-main-wechat.png",
+        "submodules/workflow/assets/workflow-cover-interview-wechat.png",
+        "submodules/workflow/assets/workflow-fixed-path.png",
+        "submodules/workflow/assets/workflow-branching.png",
+        "submodules/workflow/assets/workflow-idempotency.png",
+        "submodules/workflow/assets/workflow-observability.png",
+        "submodules/workflow/assets/workflow-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/workflow/beginner-main.md",
+          "focus": "以差旅报销草稿为案例，解释工作流怎样把模型和工具放进固定步骤、条件分支与补偿路径，重点说明可预测性、幂等和异常处理。",
+          "outline": [
+            "为什么报销草稿不需要多个 Agent 自由讨论",
+            "工作流的节点、边和条件分别表示什么",
+            "模型节点与确定性代码怎样分工",
+            "条件分支怎样处理缺票据和超标准",
+            "重试为什么必须配合幂等键",
+            "写操作失败后怎样补偿或停下",
+            "状态、日志与回执怎样留下证据",
+            "什么时候固定流程开始不够用",
+            "怎样用案例集验收工作流"
+          ]
+        },
+        "interview": {
+          "path": "submodules/workflow/interview-side.md",
+          "focus": "沿用报销草稿案例，考察工作流与 Agent 的边界、分支设计、幂等重试、补偿、超时、可观测性和版本发布。",
+          "questionBoundary": {
+            "include": ["工作流与 Agent 边界", "条件分支", "重试与幂等", "补偿事务", "超时", "可观测性", "流程评测"],
+            "exclude": ["多 Agent 角色分工", "Supervisor 动态委派", "Handoff 上下文打包"]
+          },
+          "outline": [
+            "工作流和 Agent 有什么差别",
+            "怎样划分模型节点与代码节点",
+            "条件分支和异常分支怎样设计",
+            "重试为什么可能重复扣款或提交",
+            "补偿与回滚有什么区别",
+            "超时和取消怎样传递",
+            "怎样记录一次完整执行",
+            "流程版本怎样灰度和回退",
+            "怎样构造工作流测试集"
+          ]
+        }
+      }
+    },
+    {
+      "id": "stategraph",
+      "contentLevel": "submodule",
+      "submodule": "stategraph",
+      "seriesOrder": 2,
+      "promptFile": "submodules/stategraph/prompts.md",
+      "principleImage": "submodules/stategraph/assets/stategraph-principle.png",
+      "images": [
+        "submodules/stategraph/assets/stategraph-cover-main-wechat.png",
+        "submodules/stategraph/assets/stategraph-cover-interview-wechat.png",
+        "submodules/stategraph/assets/stategraph-state-object.png",
+        "submodules/stategraph/assets/stategraph-transition.png",
+        "submodules/stategraph/assets/stategraph-checkpoint.png",
+        "submodules/stategraph/assets/stategraph-recovery.png",
+        "submodules/stategraph/assets/stategraph-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/stategraph/beginner-main.md",
+          "focus": "以中断的研究报告任务为案例，解释显式状态、转移条件、检查点、并行分支合并和恢复语义，区分任务状态与聊天记录。",
+          "outline": [
+            "浏览器关闭后任务为什么不能只靠聊天续上",
+            "状态对象应保存哪些事实",
+            "节点和转移条件怎样限制下一步",
+            "检查点保存的不是一句进度口号",
+            "并行分支怎样合并而不覆盖",
+            "重放时哪些步骤能做哪些不能重做",
+            "人工暂停怎样从同一状态恢复",
+            "状态过期、迁移和清理怎样处理",
+            "怎样做故障注入测试"
+          ]
+        },
+        "interview": {
+          "path": "submodules/stategraph/interview-side.md",
+          "focus": "沿用研究任务中断案例，考察状态建模、转移守卫、检查点、一致性、并行合并、故障恢复、人工中断和状态迁移。",
+          "questionBoundary": {
+            "include": ["状态对象", "转移条件", "检查点", "并发合并", "重放语义", "人工中断", "状态迁移"],
+            "exclude": ["多 Agent 角色设计", "主管路由", "跨 Agent 交接话术"]
+          },
+          "outline": [
+            "状态与聊天历史怎样区分",
+            "状态字段怎样建模",
+            "转移守卫怎样避免非法跳步",
+            "检查点何时保存",
+            "并行更新怎样解决冲突",
+            "失败恢复为什么不能盲目重放",
+            "人工中断如何继续原任务",
+            "图和状态版本怎样迁移",
+            "如何用故障注入验收"
+          ]
+        }
+      }
+    },
+    {
+      "id": "multiagent",
+      "contentLevel": "submodule",
+      "submodule": "multiagent",
+      "seriesOrder": 3,
+      "promptFile": "submodules/multiagent/prompts.md",
+      "principleImage": "submodules/multiagent/assets/multiagent-principle.png",
+      "images": [
+        "submodules/multiagent/assets/multiagent-cover-main-wechat.png",
+        "submodules/multiagent/assets/multiagent-cover-interview-wechat.png",
+        "submodules/multiagent/assets/multiagent-fit.png",
+        "submodules/multiagent/assets/multiagent-parallel.png",
+        "submodules/multiagent/assets/multiagent-evidence.png",
+        "submodules/multiagent/assets/multiagent-evaluation.png",
+        "submodules/multiagent/assets/multiagent-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/multiagent/beginner-main.md",
+          "focus": "以三路产品调研为案例，解释多智能体的适用条件、并行与顺序协作、最小上下文、证据交付、冲突处理及协调成本。",
+          "outline": [
+            "三名专家同时开工为什么未必更快",
+            "什么样的子任务适合独立分工",
+            "并行、顺序和评审结构怎样选择",
+            "每个 Agent 应拿到多少上下文",
+            "中间产物怎样带证据与未决项",
+            "两个结论冲突时怎样处理",
+            "权限、预算和停止条件怎样限制",
+            "如何比较单 Agent 与多 Agent",
+            "什么时候应退回更简单的方案"
+          ]
+        },
+        "interview": {
+          "path": "submodules/multiagent/interview-side.md",
+          "focus": "沿用三路产品调研案例，考察多智能体适用条件、任务分解、通信结构、上下文隔离、冲突消解、错误传播和收益评测。",
+          "questionBoundary": {
+            "include": ["多 Agent 适用条件", "任务分解", "并行协作", "上下文隔离", "证据交付", "冲突消解", "协作收益"],
+            "exclude": ["工作流幂等实现", "检查点存储", "Supervisor 具体路由策略", "人工审批接口"]
+          },
+          "outline": [
+            "什么时候多 Agent 优于单 Agent",
+            "子任务边界怎样划分",
+            "并行和顺序怎样选择",
+            "Agent 之间应该传什么",
+            "共享状态怎样避免污染",
+            "错误怎样沿链路放大",
+            "结论冲突怎样裁定",
+            "预算与停止条件怎样设置",
+            "怎样做对照评测"
+          ]
+        }
+      }
+    },
+    {
+      "id": "supervisor",
+      "contentLevel": "submodule",
+      "submodule": "supervisor",
+      "seriesOrder": 4,
+      "promptFile": "submodules/supervisor/prompts.md",
+      "principleImage": "submodules/supervisor/assets/supervisor-principle.png",
+      "images": [
+        "submodules/supervisor/assets/supervisor-cover-main-wechat.png",
+        "submodules/supervisor/assets/supervisor-cover-interview-wechat.png",
+        "submodules/supervisor/assets/supervisor-contract.png",
+        "submodules/supervisor/assets/supervisor-routing.png",
+        "submodules/supervisor/assets/supervisor-conflict.png",
+        "submodules/supervisor/assets/supervisor-budget.png",
+        "submodules/supervisor/assets/supervisor-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/supervisor/beginner-main.md",
+          "focus": "以主管协调市场、技术和财务调研为案例，解释动态委派、任务契约、结果验收、冲突补证、预算和防循环设计。",
+          "outline": [
+            "主管为什么不能只是转发消息",
+            "总目标怎样拆成可验收子任务",
+            "专家选择和路由依据是什么",
+            "任务契约怎样限制输出和权限",
+            "主管怎样验收而不是照单全收",
+            "证据冲突时怎样追问和补证",
+            "怎样防止重复委派和无限循环",
+            "预算、超时和人工升级怎样控制",
+            "怎样评测主管本身"
+          ]
+        },
+        "interview": {
+          "path": "submodules/supervisor/interview-side.md",
+          "focus": "沿用三专家调研案例，考察主管模式与交接模式区别、动态路由、任务契约、验收、冲突处理、循环控制、预算和主管评测。",
+          "questionBoundary": {
+            "include": ["主管模式", "专家路由", "任务契约", "结果验收", "冲突补证", "防循环", "预算控制", "主管评测"],
+            "exclude": ["固定工作流分支", "图状态存储", "多 Agent 总体选型", "Handoff 人工审批细节"]
+          },
+          "outline": [
+            "主管模式与交接模式的区别",
+            "专家路由怎样设计",
+            "任务契约包含哪些字段",
+            "主管怎样验收专家结果",
+            "专家冲突怎样处理",
+            "怎样避免重复委派",
+            "预算和超时如何控制",
+            "主管失败怎样降级",
+            "如何专项评测主管"
+          ]
+        }
+      }
+    },
+    {
+      "id": "handoff",
+      "contentLevel": "submodule",
+      "submodule": "handoff",
+      "seriesOrder": 5,
+      "promptFile": "submodules/handoff/prompts.md",
+      "principleImage": "submodules/handoff/assets/handoff-principle.png",
+      "images": [
+        "submodules/handoff/assets/handoff-cover-main-wechat.png",
+        "submodules/handoff/assets/handoff-cover-interview-wechat.png",
+        "submodules/handoff/assets/handoff-package.png",
+        "submodules/handoff/assets/handoff-control.png",
+        "submodules/handoff/assets/handoff-human.png",
+        "submodules/handoff/assets/handoff-resume.png",
+        "submodules/handoff/assets/handoff-principle.png"
+      ],
+      "articles": {
+        "beginner": {
+          "path": "submodules/handoff/beginner-main.md",
+          "focus": "以退款请求从客服 Agent 交给退款专家、再因高金额交给人工审批为案例，解释控制权、交接包、上下文过滤、暂停恢复和责任记录。",
+          "outline": [
+            "换了处理者为什么不该让用户从头再说",
+            "交接和调用专家工具有什么区别",
+            "交接包应包含哪些事实和未决项",
+            "接收方应该看到多少历史",
+            "控制权和责任怎样明确转移",
+            "何时必须交给人而不是另一个 Agent",
+            "暂停后怎样从同一状态继续",
+            "交接失败和来回踢皮球怎样避免",
+            "怎样验收一次交接"
+          ]
+        },
+        "interview": {
+          "path": "submodules/handoff/interview-side.md",
+          "focus": "沿用退款升级案例，考察 Handoff 与 Agent-as-tool、交接输入、上下文过滤、授权、人工参与、暂停恢复、循环和审计。",
+          "questionBoundary": {
+            "include": ["Handoff 与工具调用", "交接输入", "上下文过滤", "控制权", "人工审批", "暂停恢复", "交接循环", "审计"],
+            "exclude": ["多 Agent 总体选型", "Supervisor 动态任务分解", "工作流补偿实现"]
+          },
+          "outline": [
+            "Handoff 与 Agent-as-tool 的区别",
+            "交接触发条件怎样设计",
+            "交接包应包含哪些字段",
+            "怎样过滤历史与敏感信息",
+            "交接时怎样重新校验权限",
+            "人工参与怎样暂停和恢复",
+            "怎样避免循环交接",
+            "交接失败怎样回退",
+            "如何评测和审计交接"
+          ]
+        }
+      }
+    }
+  ]
+}
