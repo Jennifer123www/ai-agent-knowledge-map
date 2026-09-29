@@ -12,10 +12,10 @@ topic: "improvement"
 content_level: "submodule"
 submodule: "shortterm"
 series_order: 1
-version: "0.1.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.1.2"
+stage: "复用机制图补齐第五张正文配图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：短期状态与中断恢复怎么答
@@ -31,6 +31,8 @@ modified_at: "2026-09-29 13:49 CST"
 状态应足以让后续节点做正确决策，并能说明重要结果的来源。对于报销草稿，至少包含任务标识、当前节点、已核字段与原件引用、外部动作状态、版本和更新时间。可由原始数据稳定重算、且成本不高的内容，不必复制到每个检查点。
 
 ![状态字段示意](./assets/shortterm-state.png)
+
+![有限窗口内的工作区与消息队列](./assets/shortterm-principle.png)
 
 ### 答题点
 

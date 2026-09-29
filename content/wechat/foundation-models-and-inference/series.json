@@ -15,7 +15,8 @@
       "promptFile": "prompts.md",
       "principleImage": "assets/foundation-principle.png",
       "images": [
-        "assets/foundation-cover.png",
+        "assets/foundation-cover-main-wechat.png",
+        "assets/foundation-cover-interview-wechat.png",
         "assets/foundation-model-team.png",
         "assets/foundation-data-flow.png",
         "assets/foundation-selection.png",
@@ -67,13 +68,14 @@
       "promptFile": "submodules/llm/prompts.md",
       "principleImage": "submodules/llm/assets/llm-principle.png",
       "images": [
-        "submodules/llm/assets/llm-cover.png",
         "submodules/llm/assets/llm-cover-wechat-horizontal-v2.png",
+        "submodules/llm/assets/llm-cover-interview-wechat.png",
         "submodules/llm/assets/llm-token-generation.png",
         "submodules/llm/assets/llm-sampling.png",
         "submodules/llm/assets/llm-evidence-audit.png",
         "submodules/llm/assets/llm-principle.png",
-        "submodules/llm/assets/llm-rnn-comparison.png"
+        "submodules/llm/assets/llm-rnn-comparison.png",
+        "submodules/llm/assets/llm-context-conflict.png"
       ],
       "articles": {
         "beginner": {
@@ -121,12 +123,14 @@
       "promptFile": "submodules/multimodal/prompts.md",
       "principleImage": "submodules/multimodal/assets/multimodal-principle.png",
       "images": [
-        "submodules/multimodal/assets/multimodal-cover.png",
+        "submodules/multimodal/assets/multimodal-cover-main-wechat.png",
+        "submodules/multimodal/assets/multimodal-cover-interview-wechat.png",
         "submodules/multimodal/assets/multimodal-encoding.png",
         "submodules/multimodal/assets/multimodal-alignment.png",
         "submodules/multimodal/assets/multimodal-document.png",
         "submodules/multimodal/assets/multimodal-validation.png",
-        "submodules/multimodal/assets/multimodal-principle.png"
+        "submodules/multimodal/assets/multimodal-principle.png",
+        "submodules/multimodal/assets/multimodal-field-trace.png"
       ],
       "articles": {
         "beginner": {
@@ -173,12 +177,14 @@
       "promptFile": "submodules/embedding/prompts.md",
       "principleImage": "submodules/embedding/assets/embedding-principle.png",
       "images": [
-        "submodules/embedding/assets/embedding-cover.png",
+        "submodules/embedding/assets/embedding-cover-main-wechat.png",
+        "submodules/embedding/assets/embedding-cover-interview-wechat.png",
         "submodules/embedding/assets/embedding-space.png",
         "submodules/embedding/assets/embedding-retrieval.png",
         "submodules/embedding/assets/embedding-chunking.png",
         "submodules/embedding/assets/embedding-evaluation.png",
-        "submodules/embedding/assets/embedding-principle.png"
+        "submodules/embedding/assets/embedding-principle.png",
+        "submodules/embedding/assets/embedding-metric-comparison.png"
       ],
       "articles": {
         "beginner": {
@@ -225,12 +231,14 @@
       "promptFile": "submodules/reranker/prompts.md",
       "principleImage": "submodules/reranker/assets/reranker-principle.png",
       "images": [
-        "submodules/reranker/assets/reranker-cover.png",
+        "submodules/reranker/assets/reranker-cover-main-wechat.png",
+        "submodules/reranker/assets/reranker-cover-interview-wechat.png",
         "submodules/reranker/assets/reranker-two-stage.png",
         "submodules/reranker/assets/reranker-cross-encoder.png",
         "submodules/reranker/assets/reranker-policy.png",
         "submodules/reranker/assets/reranker-evaluation.png",
-        "submodules/reranker/assets/reranker-principle.png"
+        "submodules/reranker/assets/reranker-principle.png",
+        "submodules/reranker/assets/reranker-learning-objectives.png"
       ],
       "articles": {
         "beginner": {
@@ -277,12 +285,14 @@
       "promptFile": "submodules/adaptation/prompts.md",
       "principleImage": "submodules/adaptation/assets/adaptation-principle.png",
       "images": [
-        "submodules/adaptation/assets/adaptation-cover.png",
+        "submodules/adaptation/assets/adaptation-cover-main-wechat.png",
+        "submodules/adaptation/assets/adaptation-cover-interview-wechat.png",
         "submodules/adaptation/assets/adaptation-decision.png",
         "submodules/adaptation/assets/adaptation-lora.png",
         "submodules/adaptation/assets/adaptation-distillation.png",
         "submodules/adaptation/assets/adaptation-release.png",
-        "submodules/adaptation/assets/adaptation-principle.png"
+        "submodules/adaptation/assets/adaptation-principle.png",
+        "submodules/adaptation/assets/adaptation-diagnosis-matrix.png"
       ],
       "articles": {
         "beginner": {

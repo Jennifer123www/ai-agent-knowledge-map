@@ -2,7 +2,7 @@
 title: "面试题：五类模型怎样接力写报销草稿"
 author: "三色堇絮絮念"
 digest: "用同一张住宿票据练习九道系统级问题：模型分工、证据、选型、评测、发布、排障与安全降级。"
-cover: "./assets/foundation-cover.png"
+cover: "./assets/foundation-cover-interview-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用文章专属公众号封面并移除正文重复封面"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：五类模型怎样接力写报销草稿
-
-![基础模型与推理面试总览封面](./assets/foundation-cover.png)
 
 九道题共用一份示意材料：A 职级员工上传北京酒店发票，票面 **480 元**、住宿日期 **2026 年 9 月 15 日**；制度库里既有旧版上限 **450 元**，又有 **9 月 1 日**生效的新版上限 **500 元**。员工只要求判断并填写**草稿，不提交**。金额、日期和制度均为练习设定，面试时要把它们当作待核对的输入，不当作真实公司的政策。
 

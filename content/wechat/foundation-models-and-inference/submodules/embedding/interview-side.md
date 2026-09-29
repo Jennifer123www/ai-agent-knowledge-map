@@ -2,7 +2,7 @@
 title: "面试题：向量相似为何找错住宿条款"
 author: "三色堇絮絮念"
 digest: "用‘酒店最多报多少’检索制度的案例，考察双塔表示、距离度量、难负样本、版本迁移和模型专项评测。"
-cover: "./assets/embedding-cover.png"
+cover: "./assets/embedding-cover-interview-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "embedding"
 series_order: 3
-version: "0.2.2"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.3"
+stage: "改用面试专属封面并补充距离度量对比图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：向量相似为何找错住宿条款
-
-![向量嵌入面试题封面](./assets/embedding-cover.png)
 
 员工问“出差住酒店最多能报多少”，制度标题却是《差旅住宿费限额》；候选里又混着旧版、异地和不同职级条款。题目要回答的是：**编码模型怎样让不同说法靠近，又为何把相似但不适用的条款也拉近。**面试副文与主文共用这个例子，重点放在表示、距离与训练；权限和制度效力只作边界。
 
@@ -56,6 +54,8 @@ modified_at: "2026-09-29 13:49 CST"
 ### 原理
 
 余弦关注方向，点积同时受方向和模长影响，欧氏距离衡量几何距离。向量归一化后，余弦和点积在排序上可能等价。选择应与模型训练方式、输出规范和索引能力保持一致。
+
+![余弦、点积与欧氏距离的比较](./assets/embedding-metric-comparison.png)
 
 ### 答题点
 

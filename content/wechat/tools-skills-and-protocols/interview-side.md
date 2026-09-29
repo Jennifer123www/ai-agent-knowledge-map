@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.4.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.4.2"
+stage: "复用机制图补齐第五张正文配图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：怎样设计完整的 Agent 能力扩展层
@@ -29,6 +29,8 @@ modified_at: "2026-09-29 13:49 CST"
 ### 原理
 
 能力扩展层把模型意图转成真实动作。合理分层应把任务方法、动作契约、执行环境、连接协议、能力对象和具体系统适配分开，让每层有独立责任和演进边界。
+
+![Agent 的判断、行动与观察闭环](./assets/capabilities-principle.png)
 
 ### 答题点
 

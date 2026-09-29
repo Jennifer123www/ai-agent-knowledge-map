@@ -2,7 +2,7 @@
 title: "面试题：大语言模型从原理到验证怎么答"
 author: "三色堇絮絮念"
 digest: "用同一条会议改期通知串起十道题：模型怎么写、哪里会错，以及怎样给出可验证的面试回答。"
-cover: "./assets/llm-cover.png"
+cover: "./assets/llm-cover-interview-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.3.2"
-stage: "将通用可靠性护栏图改为会议案例的逐句证据核对图"
-git_state: "基于 876189f（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 15:35 CST"
+version: "0.3.3"
+stage: "改用面试专属封面并补充长上下文冲突原理图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：大语言模型从原理到验证怎么答
-
-![大语言模型面试题封面](./assets/llm-cover.png)
 
 这十道题共用一道面试小案例：旧日程是**2026 年 10 月 14 日 14:00—15:00、A302**；用户刚说“改为当天 16:00—17:00、线上，链接还没生成；先写通知草稿，不发送，也不改日历”。候选模型写出的通知看上去很流畅，但把旧地点留了下来，还说“已发送”。你要解释的不只是模型术语，还包括错在哪一环、怎样证明修好了。
 
@@ -109,6 +107,8 @@ modified_at: "2026-09-29 15:35 CST"
 ### 原理
 
 窗口大小说明能容纳多少 token，不等于每条证据都被稳定利用。重复转发的旧日程、相互矛盾的记录和重要信息的位置，会改变模型回答的难度。长上下文研究观察到特定任务中的中部信息利用下降，但不应把它说成所有模型的固定定律。
+
+![旧日程与新要求的上下文冲突](./assets/llm-context-conflict.png)
 
 ### 答题点
 

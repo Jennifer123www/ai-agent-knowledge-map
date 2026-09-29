@@ -2,7 +2,7 @@
 title: "大话向量嵌入：同一个意思为何找不到"
 author: "三色堇絮絮念"
 digest: "从‘酒店最多报多少’找不到《差旅住宿费限额》说起，讲清向量怎样学会相似，又会在哪些条件上看走眼。"
-cover: "./assets/embedding-cover.png"
+cover: "./assets/embedding-cover-main-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "embedding"
 series_order: 3
-version: "0.2.2"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.3"
+stage: "改用文章专属公众号封面并移除正文重复封面"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 大话向量嵌入：同一个意思为何找不到
-
-![向量嵌入子模块封面](./assets/embedding-cover.png)
 
 员工搜“出差住酒店最多能报多少”，制度标题却叫《差旅住宿费限额》。字面搜索可能错过它；只按“意思相近”搜索，又可能把去年的标准或上海的标准排在前面。员工真正要的是**当前、本人适用的住宿条款候选**。向量嵌入解决的是前半段——把不同说法拉到一起；它不能独自裁定年份和适用范围。
 

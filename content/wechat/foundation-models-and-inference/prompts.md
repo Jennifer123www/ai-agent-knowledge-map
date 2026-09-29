@@ -1,11 +1,16 @@
 # 基础模型与推理总览配图提示词
 
-统一规格：1536x1024 PNG，暖白纸张背景，深灰线条，梅红、青绿、橙色少量点缀，中文编辑型信息图。文字必须逐字准确，字号大，留白充足，无水印、无 Logo、无长段落。框架图可使用 `gpt-image-2`；原理图优先使用可复现的结构图渲染。
+版本：0.2.0；修订时间：2026-09-29 16:22 CST；依据提交：`549c2cc`（`main`；修订前仅有 Word 临时锁文件未跟踪）。
 
-1. `foundation-cover.png`：封面。五个岗位围绕一个 AI Agent 工作台协作，标题“基础模型与推理”，标签“大语言模型”“多模态”“向量嵌入”“重排序”“模型适配”。
-2. `foundation-model-team.png`：五类模型像五位专业队员，标签“生成”“感知”“召回”“精排”“适配”，中央标签“Agent”。
-3. `foundation-data-flow.png`：从用户问题、图片或文档进入，依次经过“理解输入”“寻找证据”“筛选证据”“生成结果”“规则验证”。
-4. `foundation-selection.png`：模型选型三角，三个角分别为“质量”“时延”“成本”，中央标签“任务风险”。
-5. `foundation-production.png`：生产闭环，标签“离线评测”“灰度发布”“线上监控”“失败回退”“版本记录”。
+正文配图统一为 1536×1024 PNG；公众号封面图统一为 900×383 PNG。暖白纸张背景，深灰线条，梅红、青绿、橙色少量点缀，中文编辑型信息图。文字必须逐字准确，字号大，留白充足，无水印、无 Logo、无长段落。框架图可使用 `gpt-image-2`；原理图优先使用可复现的结构图渲染。
 
-6. `foundation-principle.png`：原理图。依据 [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) Figure 1 改绘。保留“问题 → 查询编码器”“文档索引 → 检索候选”“候选 → 生成模型 → 带引用回答”；新增重排序时标明“可选工程扩展”。图注：“依据 Lewis 等，Figure 1 改绘；重排序为工程扩展。”
+1. `foundation-cover-main-wechat.png`：主文封面。标题“基础模型与推理”，副标题“一张报销票据背后的模型接力”；画面从酒店发票依次连接“看图、检索、排序、生成、核验”，突出“草稿，不提交”。
+2. `foundation-cover-interview-wechat.png`：面试副文封面。标题“面试题：五类模型怎样接力写报销草稿”；画面以酒店发票为起点，展示五段能力接力和最终核验清单。
+3. `foundation-model-team.png`：五类模型像五位专业队员，标签“生成”“感知”“召回”“精排”“适配”，中央标签“Agent”。
+4. `foundation-data-flow.png`：从用户问题、图片或文档进入，依次经过“理解输入”“寻找证据”“筛选证据”“生成结果”“规则验证”。
+5. `foundation-selection.png`：模型选型三角，三个角分别为“质量”“时延”“成本”，中央标签“任务风险”。
+6. `foundation-production.png`：生产闭环，标签“离线评测”“灰度发布”“线上监控”“失败回退”“版本记录”。
+
+7. `foundation-principle.png`：原理图。依据 [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) Figure 1 改绘。保留“问题 → 查询编码器”“文档索引 → 检索候选”“候选 → 生成模型 → 带引用回答”；新增重排序时标明“可选工程扩展”。图注：“依据 Lewis 等，Figure 1 改绘；重排序为工程扩展。”
+
+两张封面图由内置图像生成工具生成后缩放为 900×383；已逐张复核标题、中文标签、接力顺序和中央安全区。正文不重复插入封面图。

@@ -211,7 +211,7 @@ const diagrams = [
     draw: () => {
       let s = box(90, 375, 230, 125, "输入 x", "任务样本", blue);
       s += box(470, 235, 310, 140, "基础权重 W", "冻结，不参与更新", muted);
-      s += box(470, 590, 310, 140, "低秩矩阵 A · B", "训练得到 ΔW = BA", orange);
+      s += box(470, 590, 310, 140, "低秩矩阵 B · A", "训练得到 ΔW = BA", orange);
       s += `<circle cx="940" cy="475" r="52" fill="#fff7f2" stroke="${orange}" stroke-width="3"/>` + eq(940, 487, "+", orange);
       s += box(1130, 400, 330, 145, "输出 h", "h = Wx + BAx", teal);
       s += pathLine("M320 435H390V303H470") + pathLine("M320 455H390V660H470");

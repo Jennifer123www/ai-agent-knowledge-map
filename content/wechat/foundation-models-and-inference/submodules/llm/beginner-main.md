@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.6.1"
-stage: "移除正文重复封面并将通用护栏图改为逐句证据核对图"
-git_state: "基于 876189f（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 15:35 CST"
+version: "0.6.2"
+stage: "复核正文配图与公众号封面的职责边界"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 大话大语言模型—它为什么能一句接一句

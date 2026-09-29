@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "toolcalling"
 series_order: 2
-version: "0.1.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.1.2"
+stage: "复用机制图补齐第五张正文配图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：Tool Calling 如何做到可控可验收
@@ -25,6 +25,8 @@ modified_at: "2026-09-29 13:49 CST"
 ![工具调用五步闭环](./assets/toolcalling-flow.png)
 
 总概览已经回答了“模型提议、程序执行”。这一篇往下追四层：工具契约怎么写，格式约束和业务校验怎么分，多个调用怎么处理，结果怎样回到任务闭环。回答时要落到请求和执行，不要只报 SDK 名称。
+
+![工具调用的执行边界](./assets/toolcalling-principle.png)
 
 ## 问题 1：一个工具定义怎样设计才容易被模型正确选择？
 

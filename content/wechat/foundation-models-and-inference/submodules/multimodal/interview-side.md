@@ -2,7 +2,7 @@
 title: "面试题：发票读对字为何还会填错字段"
 author: "三色堇絮絮念"
 digest: "围绕一张反光发票，回答视觉编码、图文连接、OCR 与 VLM、字段定位、缺项处理和评测。"
-cover: "./assets/multimodal-cover.png"
+cover: "./assets/multimodal-cover-interview-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用面试专属封面并补充字段溯源原理图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：发票读对字为何还会填错字段
-
-![多模态模型面试题封面](./assets/multimodal-cover.png)
 
 题目共用主文的发票：照片右上角反光，`680.00` 是含税金额，`38.49` 是税额，日期只写 `9/3`，年份未知。目标是生成**带来源位置、保留缺项的字段草稿**，不替员工提交。面试时别只说“模型能看图”，要追问它从哪块图读到了哪个值，以及读不清时有没有老实停下。
 
@@ -237,6 +235,8 @@ OCR-free 文档模型是否意味着不再需要 OCR？不意味着。它提供�
 ### 原理
 
 视觉定位把答案与图片区域、页面或视频时间段绑定。系统可以要求模型返回边界框、页码和字段值，再用 OCR、裁剪复查或规则验证。它把自然语言结论变成可检查的证据对象。
+
+![字符、坐标与字段的溯源关系](./assets/multimodal-field-trace.png)
 
 ### 答题点
 

@@ -105,7 +105,9 @@ for (const manifestPath of manifestPaths) {
     const declaredImages = new Set(imageNames);
     const principleImage = String(group.principleImage || "").trim();
     groupImageUsage.set(groupLabel, { declaredImages, usedImages: new Set() });
-    if (declaredImages.size < 5) fail(groupLabel, "at least 5 image names must be declared");
+    if (declaredImages.size < 6) {
+      fail(groupLabel, "at least 6 image names must be declared: 1 cover and 5 body images");
+    }
     if (!principleImage) fail(groupLabel, "principleImage is required");
     else {
       if (!declaredImages.has(principleImage)) fail(groupLabel, "principleImage must be declared in images");
@@ -218,8 +220,9 @@ for (const [articlePath, registration] of registeredArticles) {
         throw new Error(`image is not declared in series.json: ${imageName}`);
       }
     }
-    if (article.images.length < 5) {
-      throw new Error(`At least 5 local images are required, including the cover (${article.images.length}/5)`);
+    const bodyImages = article.images.slice(1);
+    if (bodyImages.length < 5) {
+      throw new Error(`At least 5 local body images are required; the cover does not count (${bodyImages.length}/5)`);
     }
     if (registration.role === "beginner" && !usedImages.has(registration.principleImage)) {
       throw new Error(`Beginner main article must use declared principle image: ${registration.principleImage}`);
@@ -255,7 +258,7 @@ for (const [articlePath, registration] of registeredArticles) {
     const html = renderWechatHtml(article, uploadedUrls);
     statistics.push(
       `${relativePath}: title=${[...article.title].length}/32, author=${[...article.author].length}/16, `
-      + `digest=${[...article.digest].length}/120, Chinese=${chineseCharacters}, images=${article.images.length}, `
+      + `digest=${[...article.digest].length}/120, Chinese=${chineseCharacters}, bodyImages=${bodyImages.length}, cover=1, `
       + `references=${referenceLinks.length}, HTML=${[...html].length}/20000 chars, `
       + `${Buffer.byteLength(html, "utf8")}/1048576 bytes`,
     );

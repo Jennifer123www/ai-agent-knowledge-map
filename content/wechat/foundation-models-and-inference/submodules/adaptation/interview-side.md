@@ -2,7 +2,7 @@
 title: "面试题：旧政策答错了该不该微调"
 author: "三色堇絮絮念"
 digest: "以退款客服答错旧政策、漏掉固定提醒为例，考察 SFT、LoRA、QLoRA、蒸馏、遗忘和验收。"
-cover: "./assets/adaptation-cover.png"
+cover: "./assets/adaptation-cover-interview-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "adaptation"
 series_order: 5
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用面试专属封面并补充适配故障诊断图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：旧政策答错了该不该微调
-
-![模型适配面试题封面](./assets/adaptation-cover.png)
 
 退款客服昨天仍按“七天内可退”回答，今天的新政策却缩为“三天内可退”；另一条回答已经引用新政策，却漏掉“退回原支付渠道”的固定提醒。两种错误看上去都叫“答错”，前者先查动态证据，后者才可能涉及稳定行为适配。面试要讲清**何时不训练、训练改了什么、训练后如何验收**。
 
@@ -29,6 +27,8 @@ modified_at: "2026-09-29 13:49 CST"
 ### 原理
 
 提示改变当前请求的任务说明，`RAG` 从外部资料补入可更新证据，微调则通过训练改变模型参数或适配器。七天变三天，应先保证新政策被正确引用；漏掉固定提醒，先试提示、模板或结构化约束。若有足够标注样本，且简单方案反复失稳，再考虑监督微调。**微调不是政策版本管理器。**
+
+![从故障类型选择模型适配办法](./assets/adaptation-diagnosis-matrix.png)
 
 ![模型适配方法选择树](./assets/adaptation-decision.png)
 

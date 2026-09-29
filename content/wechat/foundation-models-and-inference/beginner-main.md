@@ -2,7 +2,7 @@
 title: "基础模型与推理：一张报销票据背后的接力"
 author: "三色堇絮絮念"
 digest: "用一张住宿票据看懂生成、看图、召回、重排序和模型适配怎样配合，以及哪些判断必须交还给规则和人。"
-cover: "./assets/foundation-cover.png"
+cover: "./assets/foundation-cover-main-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "overview"
 submodule: ""
 series_order: 0
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用文章专属公众号封面并移除正文重复封面"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 基础模型与推理：一张报销票据背后的接力
-
-![基础模型与推理总览封面](./assets/foundation-cover.png)
 
 员工上传一张北京酒店的发票，问：“这笔住宿费能报吗？先帮我填一份草稿，别提交。”我们给这道练习题一组明确的示意数据：员工为 A 职级，住宿日期是 **2026 年 9 月 15 日**，票面金额 **480 元**；公司制度库里有旧版“北京住宿上限 450 元”，也有从 **9 月 1 日**生效的新版“上限 500 元”。这些数字仅用于演示技术链路，不代表任何真实单位的报销政策。
 

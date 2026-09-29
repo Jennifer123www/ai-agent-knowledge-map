@@ -2,7 +2,7 @@
 title: "大话重排序：相似条款谁该排前面"
 author: "三色堇絮絮念"
 digest: "北京四级员工问住宿上限，候选里混着上海和旧版条款。交叉编码器怎样排，又为什么不能替制度裁决？"
-cover: "./assets/reranker-cover.png"
+cover: "./assets/reranker-cover-main-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "reranker"
 series_order: 4
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用文章专属公众号封面并移除正文重复封面"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 大话重排序：相似条款谁该排前面
-
-![重排序模型子模块封面](./assets/reranker-cover.png)
 
 北京四级员工问“出差每晚最多能报多少”。第一轮搜索找来五十段含“住宿”的资料：北京四级现行条款、北京三级条款、上海四级条款，还有去年的北京四级标准。员工需要的是**适用条款及其限制条件**；而“北京”“四级”“住宿”这几个字每段都沾边，靠主题相近还排不出可靠顺序。
 

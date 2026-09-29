@@ -248,6 +248,109 @@ def llm_evidence_audit():
     save(im, "submodules/llm/assets/llm-evidence-audit.png")
 
 
+def llm_context_conflict():
+    im, d = base(
+        "旧日程与新要求怎样避免串线",
+        "先按来源和时间整理事实，再让模型只改动已经确认的字段",
+        "上下文冲突",
+        "上下文装得下两份记录，不代表模型会自动选对较新的那一份",
+    )
+    box(d, (90, 360, 430, 510), "旧日程\n14:00 · A302", PLUM_PALE, 29)
+    box(d, (90, 625, 430, 775), "新要求\n16:00 · 线上", TEAL_PALE, 29)
+    box(d, (575, 460, 955, 675), "按时间、来源和指令\n整理有效字段", "#FFFFFF", 30)
+    box(d, (1100, 360, 1445, 510), "保留\n16:00 · 线上", TEAL_PALE, 29)
+    box(d, (1100, 625, 1445, 775), "待补\n会议链接", ORANGE_PALE, 29)
+    arrow(d, (441, 435), (564, 525), PLUM)
+    arrow(d, (441, 700), (564, 610), TEAL)
+    arrow(d, (966, 525), (1089, 435), TEAL)
+    arrow(d, (966, 610), (1089, 700), ORANGE)
+    label(d, (764, 745), "没有发送回执，就不写“邀请已发出”", 27, PLUM, "mm")
+    save(im, "submodules/llm/assets/llm-context-conflict.png")
+
+
+def multimodal_field_trace():
+    im, d = base(
+        "读对字符后，怎样确认字段",
+        "把字符、坐标、标签和最终字段连起来，才能回到原图复核",
+        "字段溯源",
+        "最终 JSON 只是结果；原图区域与字段关系才是可核对的证据",
+    )
+    box(d, (90, 390, 365, 675), "原图区域\n金额栏\n税额栏\n日期栏", "#FFFFFF", 28)
+    box(d, (480, 390, 770, 675), "字符 + 坐标\n680.00\n38.49\n9/3", PLUM_PALE, 28)
+    box(d, (885, 390, 1175, 675), "标签关系\n含税金额\n税额\n开票日期", TEAL_PALE, 28)
+    box(d, (1290, 390, 1445, 675), "字段草稿\n待核对", ORANGE_PALE, 27)
+    arrow(d, (376, 532), (469, 532), ORANGE)
+    arrow(d, (781, 532), (874, 532), ORANGE)
+    arrow(d, (1186, 532), (1279, 532), ORANGE)
+    box(d, (390, 748, 1140, 835), "缺少年份：保留缺项，不自行补成完整日期", "#FFFFFF", 27)
+    save(im, "submodules/multimodal/assets/multimodal-field-trace.png")
+
+
+def embedding_metric_comparison():
+    im, d = base(
+        "三种距离比较的对象不同",
+        "先确认模型怎样训练、向量是否归一化，再选择相似度计算",
+        "距离度量",
+        "距离公式不能脱离模型训练目标和索引配置单独决定",
+    )
+    cards = [
+        ((90, 370, 475, 740), "余弦相似度", "比较方向\n弱化向量长度\n常配合归一化", TEAL_PALE),
+        ((575, 370, 960, 740), "点积", "方向与长度都参与\n可直接用于最大内积检索\n分值受尺度影响", PLUM_PALE),
+        ((1060, 370, 1445, 740), "欧氏距离", "比较空间距离\n对尺度敏感\n归一化后与余弦相关", ORANGE_PALE),
+    ]
+    for bounds, head, detail, fill in cards:
+        d.rounded_rectangle(bounds, radius=22, fill=fill, outline=OUTLINE, width=3)
+        x0, y0, x1, y1 = bounds
+        label(d, ((x0+x1)//2, y0+76), head, 35, INK, "mm")
+        for idx, line in enumerate(detail.split("\n")):
+            label(d, ((x0+x1)//2, y0+168+idx*62), line, 27, MUTED, "mm")
+    box(d, (350, 790, 1185, 865), "同一批候选必须使用同一套编码、归一化与距离配置", "#FFFFFF", 26)
+    save(im, "submodules/embedding/assets/embedding-metric-comparison.png")
+
+
+def reranker_learning_objectives():
+    im, d = base(
+        "排序模型可以从三种信号学习",
+        "看单条、比一对或看整列，训练目标与标注成本并不相同",
+        "排序学习",
+        "训练样本应来自真实召回候选，尤其要包含主题相近但不适用的难负样本",
+    )
+    cards = [
+        ((90, 375, 475, 745), "Pointwise", "单个候选\n预测相关等级\n数据容易构造", PLUM_PALE),
+        ((575, 375, 960, 745), "Pairwise", "两个候选\n学习谁应靠前\n候选对数量较多", TEAL_PALE),
+        ((1060, 375, 1445, 745), "Listwise", "整个列表\n贴近排序指标\n标注与训练更复杂", ORANGE_PALE),
+    ]
+    for bounds, head, detail, fill in cards:
+        d.rounded_rectangle(bounds, radius=22, fill=fill, outline=OUTLINE, width=3)
+        x0, y0, x1, y1 = bounds
+        label(d, ((x0+x1)//2, y0+77), head, 35, INK, "mm")
+        for idx, line in enumerate(detail.split("\n")):
+            label(d, ((x0+x1)//2, y0+174+idx*62), line, 27, MUTED, "mm")
+    save(im, "submodules/reranker/assets/reranker-learning-objectives.png")
+
+
+def adaptation_diagnosis_matrix():
+    im, d = base(
+        "先按故障类型选办法",
+        "旧事实、固定格式、稳定行为和部署成本，不该都交给微调",
+        "适配诊断",
+        "每条路线都要用独立样本验收，不能拿训练数据证明自己有效",
+    )
+    rows = [
+        ("动态事实过期", "更新知识与检索", TEAL_PALE),
+        ("固定字段遗漏", "模板或结构约束", ORANGE_PALE),
+        ("稳定行为反复失误", "SFT / LoRA", PLUM_PALE),
+        ("调用量大且任务清楚", "蒸馏小模型", TEAL_PALE),
+    ]
+    y = 350
+    for problem, route, fill in rows:
+        box(d, (120, y, 650, y+105), problem, "#FFFFFF", 28)
+        arrow(d, (661, y+52), (825, y+52), ORANGE)
+        box(d, (836, y, 1415, y+105), route, fill, 28)
+        y += 125
+    save(im, "submodules/adaptation/assets/adaptation-diagnosis-matrix.png")
+
+
 def adaptation_distillation():
     im, d = base(
         "小模型怎样向大模型学习",
@@ -321,6 +424,11 @@ def main():
         reranker_evaluation,
         llm_sampling,
         llm_evidence_audit,
+        llm_context_conflict,
+        multimodal_field_trace,
+        embedding_metric_comparison,
+        reranker_learning_objectives,
+        adaptation_diagnosis_matrix,
         adaptation_distillation,
         adaptation_lora,
         multimodal_encoding,

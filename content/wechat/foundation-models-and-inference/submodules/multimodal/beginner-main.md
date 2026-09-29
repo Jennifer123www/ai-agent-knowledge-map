@@ -2,7 +2,7 @@
 title: "大话多模态模型：一张发票为什么会读错"
 author: "三色堇絮絮念"
 digest: "拿一张反光发票，拆开视觉编码、图文连接、字段定位和复核：字读对了，金额也可能填错。"
-cover: "./assets/multimodal-cover.png"
+cover: "./assets/multimodal-cover-main-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用文章专属公众号封面并移除正文重复封面"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 大话多模态模型：一张发票为什么会读错
-
-![多模态模型子模块封面](./assets/multimodal-cover.png)
 
 员工上传一张酒店发票的照片：右上角有反光，金额栏能看见 `680.00`，税额栏是 `38.49`，日期写成 `9/3`，却没有标年份。员工要的是一份**可核对的字段草稿**，不是系统替他猜出完整日期，更不是直接提交报销。这个任务看着像“认字”，真正难的是把字、位置和字段关系一起读对。
 

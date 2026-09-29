@@ -2,7 +2,7 @@
 title: "大话模型适配：旧政策答错了要微调吗"
 author: "三色堇絮絮念"
 digest: "客服把每周更新的退款政策答错。先辨别缺事实还是缺稳定话术，再看微调、LoRA 和蒸馏值不值得做。"
-cover: "./assets/adaptation-cover.png"
+cover: "./assets/adaptation-cover-main-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "adaptation"
 series_order: 5
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用文章专属公众号封面并统一 LoRA 矩阵标注"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 大话模型适配：旧政策答错了要微调吗
-
-![模型适配子模块封面](./assets/adaptation-cover.png)
 
 客服系统昨天仍按“七天内可退”回复，今天的新政策却把某类订单改成“三天内可退”。客服还发现另一种错误：资料明明给对了，回答却经常省略“需要原支付渠道退款”的固定提醒。第一种是**动态事实没跟上**，第二种是**稳定表达没学好**。团队此时问“要不要微调”，其实先得把两类故障分开。
 

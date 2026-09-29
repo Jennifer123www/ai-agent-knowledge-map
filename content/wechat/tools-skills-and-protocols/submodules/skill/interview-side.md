@@ -12,10 +12,10 @@ topic: "capabilities"
 content_level: "submodule"
 submodule: "skill"
 series_order: 1
-version: "0.1.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.1.2"
+stage: "复用机制图补齐第五张正文配图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：Skill 怎样从流程说明变成可运行能力
@@ -29,6 +29,8 @@ modified_at: "2026-09-29 13:49 CST"
 ### 原理
 
 Tool 是一个可调用动作的契约，描述输入、输出和副作用；Skill 是一套面向任务的执行方法，描述什么时候使用、按什么步骤做、用哪些工具和资料、产出什么结果。Skill 可以编排多个 Tool，也可以包含人工判断和验收步骤。
+
+![技能按需加载的机制](./assets/skill-principle.png)
 
 ### 答题点
 

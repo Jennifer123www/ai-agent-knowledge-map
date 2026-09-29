@@ -1,14 +1,16 @@
 # 多模态模型子模块配图提示词
 
-版本：0.2.0；修订时间：2026-09-28 17:26 CST；依据提交：`47c0ee0`（`main`，修订前 clean）。
+版本：0.3.0；修订时间：2026-09-29 16:22 CST；依据提交：`549c2cc`（`main`；修订前仅有 Word 临时锁文件未跟踪）。
 
-统一规格：1536x1024 PNG，暖白背景，青绿、梅红、蓝色点缀，中文清晰，无水印、无 Logo。原有成片使用 `gpt-image-2`；本轮纠错图 `multimodal-encoding.png` 由 `scripts/render-foundation-figure-fixes.py` 确定性绘制。
+正文配图统一为 1536×1024 PNG；公众号封面图统一为 900×383 PNG。暖白背景，青绿、梅红、蓝色点缀，中文清晰，无水印、无 Logo。封面图使用内置图像生成工具；结构图 `multimodal-encoding.png` 与 `multimodal-field-trace.png` 由 `scripts/render-foundation-figure-fixes.py` 确定性绘制。
 
-1. `multimodal-cover.png`：封面，发票、图表、语音波形和文字汇入模型，标题“多模态模型”，副标题“让 Agent 不只会读字”。
-2. `multimodal-encoding.png`：图片、声音、文字分别经视觉、音频、文本编码器得到各自特征，再按任务对齐或融合；具体模型可能只支持部分模态，不能暗示原始输入共用一个编码器。
-3. `multimodal-alignment.png`：视觉特征通过桥接层进入语言模型，标签“视觉编码器”“连接层”“语言模型”“回答”。
-4. `multimodal-document.png`：一页复杂单据被拆成“版面”“表格”“小字”“印章”四类观察对象。
-5. `multimodal-validation.png`：识别结果进入复核链，标签“模型提取”“格式校验”“业务规则”“人工复核”。
-6. `multimodal-principle.png`：原理图。依据 [Visual Instruction Tuning / LLaVA](https://arxiv.org/abs/2304.08485) 第 3 节改绘。保留“图像 → 视觉编码器 → 投影层 → 语言模型”，文字指令另一路进入语言模型；省略训练目标与完整参数细节。图注：“依据 Liu 等，LLaVA 第 3 节改绘。”
+1. `multimodal-cover-main-wechat.png`：主文封面图。标题“大话多模态模型”“一张发票为什么会读错”；反光发票、放大区域和字段卡片共同表达“读字不等于填对字段”。案例字段固定为日期“9/3（年份缺失）”、含税金额“680.00”和税额“38.49”，不得生成其他日期或金额。
+2. `multimodal-cover-interview-wechat.png`：面试副文封面图。标题“面试题：发票读对字”“为何还会填错字段”；展示 OCR 字符框、区域连线和字段卡片，并故意把已正确识别的 `680.00` 与 `38.49` 映射到错误字段，以解释字段关系错误；日期固定为“9/3（年份未知）”。
+3. `multimodal-encoding.png`：图片、声音、文字分别经视觉、音频、文本编码器得到各自特征，再按任务对齐或融合；具体模型可能只支持部分模态，不能暗示原始输入共用一个编码器。
+4. `multimodal-alignment.png`：视觉特征通过桥接层进入语言模型，标签“视觉编码器”“连接层”“语言模型”“回答”。
+5. `multimodal-document.png`：一页复杂单据被拆成“版面”“表格”“小字”“印章”四类观察对象。
+6. `multimodal-validation.png`：识别结果进入复核链，标签“模型提取”“格式校验”“业务规则”“人工复核”。
+7. `multimodal-field-trace.png`：字段溯源结构图。固定链路为“原图区域 → 字符与坐标 → 字段标签 → 字段草稿”，用金额 `680.00` 和税额 `38.49` 展示同一字符必须保留位置与标签关系。
+8. `multimodal-principle.png`：原理图。依据 [Visual Instruction Tuning / LLaVA](https://arxiv.org/abs/2304.08485) 第 3 节改绘。保留“图像 → 视觉编码器 → 投影层 → 语言模型”，文字指令另一路进入语言模型；省略训练目标与完整参数细节。图注：“依据 Liu 等，LLaVA 第 3 节改绘。”
 
-复核：已目视检查新图的中文、编码路径与箭头。
+复核：已目视检查新图的中文、编码路径、字段溯源箭头和封面图中央安全区；正文不重复插入封面图。

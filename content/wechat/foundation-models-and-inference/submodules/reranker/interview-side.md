@@ -2,7 +2,7 @@
 title: "面试题：相似制度怎样排出先后"
 author: "三色堇絮絮念"
 digest: "用北京四级住宿条款的相似候选，考察交叉编码、候选规模、分数校准、排序指标与训练数据。"
-cover: "./assets/reranker-cover.png"
+cover: "./assets/reranker-cover-interview-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "reranker"
 series_order: 4
-version: "0.2.1"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.2.2"
+stage: "改用面试专属封面并补充排序学习目标图"
+git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
+modified_at: "2026-09-29 16:22 CST"
 ---
 
 # 面试题：相似制度怎样排出先后
-
-![重排序模型面试题封面](./assets/reranker-cover.png)
 
 北京四级员工问每晚住宿上限。候选里有现行北京四级条款、北京三级条款、上海四级条款和旧版北京四级条款。题目要解释的是**排序模型怎样逐对比较这些近似材料**，以及它为何不能仅凭高分确认制度有效。
 
@@ -237,6 +235,8 @@ MRR 关注第一个相关结果，NDCG 考虑多结果与分级相关性，Preci
 ### 原理
 
 Pointwise 对单个候选预测分数或等级；Pairwise 学习同一查询下两个候选的先后偏好；Listwise 直接针对候选列表与目标排序优化。它们从单项判断逐步靠近整体排序，但数据和训练复杂度也提高。
+
+![Pointwise、Pairwise 与 Listwise 的训练差别](./assets/reranker-learning-objectives.png)
 
 ### 答题点
 
