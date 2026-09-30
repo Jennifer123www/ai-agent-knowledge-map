@@ -31,7 +31,7 @@
     {
       "id": "knowledgebase", "contentLevel": "submodule", "submodule": "knowledgebase", "seriesOrder": 1,
       "promptFile": "submodules/01-knowledgebase/prompts.md", "principleImage": "submodules/01-knowledgebase/assets/kb-principle.png",
-      "images": ["submodules/01-knowledgebase/assets/kb-cover.png", "submodules/01-knowledgebase/assets/kb-source.png", "submodules/01-knowledgebase/assets/kb-principle.png", "submodules/01-knowledgebase/assets/kb-version.png", "submodules/01-knowledgebase/assets/kb-access.png", "submodules/01-knowledgebase/assets/kb-refresh.png"],
+      "images": ["submodules/01-knowledgebase/assets/kb-cover-main-wechat.png", "submodules/01-knowledgebase/assets/kb-cover-interview-wechat.png", "submodules/01-knowledgebase/assets/kb-source.png", "submodules/01-knowledgebase/assets/kb-principle.png", "submodules/01-knowledgebase/assets/kb-version.png", "submodules/01-knowledgebase/assets/kb-access.png", "submodules/01-knowledgebase/assets/kb-refresh.png"],
       "articles": {
         "beginner": {
           "path": "submodules/01-knowledgebase/beginner-main.md",

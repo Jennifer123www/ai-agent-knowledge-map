@@ -2,7 +2,7 @@
 title: "知识库：资料进库之后，谁保证它还管用"
 author: "三色堇絮絮念"
 digest: "用两版住宿制度讲清知识库的来源、解析、版本、权限、更新和撤回。"
-cover: "./assets/kb-cover.png"
+cover: "./assets/kb-cover-main-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.2"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.1.3"
+stage: "按文章主案例重做主文封面并移除正文重复首图"
+git_state: "基于 c6db753（main；修改前仅有未跟踪的推文终稿目录）"
+modified_at: "2026-09-30 14:27 CST"
 ---
 
 # 知识库：资料进库之后，谁保证它还管用
-
-![知识库文章封面](./assets/kb-cover.png)
 
 小林问助手：“9 月 15 日在北京住酒店，花了 480 元，我是 A 职级，能报吗？”练习用的旧制度写上限 450 元，新制度写 500 元、9 月 1 日起生效。金额、职级、地点和日期都是**虚构示例**。假设两个 PDF 都在文件夹里，甚至都已经上传到系统，助手仍可能抓到旧版。问题未必出在模型；资料入库时，可能没人记录哪版何时生效。
 

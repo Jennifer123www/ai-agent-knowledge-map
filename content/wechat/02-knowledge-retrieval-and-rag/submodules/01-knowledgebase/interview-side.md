@@ -2,7 +2,7 @@
 title: "面试题：知识库怎样避免旧资料答新问题"
 author: "三色堇絮絮念"
 digest: "八道题拆开知识库的来源、解析、版本、权限、更新与撤回，不把检索算法混进来。"
-cover: "./assets/kb-cover.png"
+cover: "./assets/kb-cover-interview-wechat.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,15 +12,13 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.2"
-stage: "统一推文开头与文末阅读入口"
-git_state: "基于 f06e71e（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 13:49 CST"
+version: "0.1.3"
+stage: "按版本审计主题重做面试副文封面并移除正文重复首图"
+git_state: "基于 c6db753（main；修改前仅有未跟踪的推文终稿目录）"
+modified_at: "2026-09-30 14:27 CST"
 ---
 
 # 面试题：知识库怎样避免旧资料答新问题
-
-![知识库面试题封面](./assets/kb-cover.png)
 
 ## 问题 1：把 PDF 放进文件夹与建知识库差在哪里？
 
