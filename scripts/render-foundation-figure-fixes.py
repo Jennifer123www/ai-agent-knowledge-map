@@ -588,26 +588,18 @@ def multimodal_evaluation():
 
 
 def main():
-    # These LLM images were later replaced with hand-reviewed, higher-detail figures.
-    # Keep their renderer functions for reproducibility, but do not overwrite the curated assets.
+    # LLM assets and the mobile-first multimodal assets are curated separately.
+    # Keep old renderers for history; do not overwrite the 1000×1450 mobile figures.
     for renderer in (
         embedding_chunking,
         embedding_evaluation,
         reranker_two_stage,
         reranker_evaluation,
-        multimodal_field_trace,
         embedding_metric_comparison,
         reranker_learning_objectives,
         adaptation_diagnosis_matrix,
         adaptation_distillation,
         adaptation_lora,
-        multimodal_encoding,
-        multimodal_document,
-        multimodal_validation,
-        multimodal_alignment,
-        multimodal_ocr_vlm,
-        multimodal_document_diagnosis,
-        multimodal_evaluation,
     ):
         renderer()
 

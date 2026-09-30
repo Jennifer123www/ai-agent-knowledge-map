@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.3.0"
-stage: "按项目规范精修多模态主文、图注与案例边界"
-git_state: "基于 99640ae（main；修改前本文无未提交改动）"
-modified_at: "2026-09-30 11:43 CST"
+version: "0.3.1"
+stage: "重绘手机端正文图，核正 LLaVA 架构出处"
+git_state: "基于 efead2f（main；本文修订中，另有无关的未跟踪文件）"
+modified_at: "2026-09-30 14:34 CST"
 ---
 
 # 大话多模态模型：一张发票为什么会读错
@@ -48,7 +48,7 @@ modified_at: "2026-09-30 11:43 CST"
 
 ![视觉特征怎样接入语言模型](./assets/multimodal-principle.png)
 
-*依据 Liu 等人的 LLaVA 论文第 3 节改绘：图像特征经投影层接入语言模型，文字指令另一路输入；省略训练细节。*
+*依据 Liu 等人的 LLaVA 论文第 4.1 节改绘：图像特征经投影层接入语言模型，文字指令另一路输入；省略训练细节。*
 
 视觉特征与文字 `token` 的表示并不天然兼容，需要按模型架构接起来。上图所示的 LLaVA 路线用投影层把视觉特征映射到语言模型可接收的表示，再与文字指令一起参与生成。Flamingo 则使用重采样器和交叉注意力。**上图解释的是一种图文连接方式，不是所有多模态模型的统一内部结构。**
 
