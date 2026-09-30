@@ -135,7 +135,7 @@ First **paragraph**.
   assert.doesNotMatch(html, /cover\.png/);
 });
 
-test("renders an orange WeChat theme without changing the green default", () => {
+test("renders the orange WeChat theme by default and keeps green optional", () => {
   const markdownPath = path.resolve("content/wechat/example/article.md");
   const article = parseWechatArticle(`# Demo title
 
@@ -152,8 +152,8 @@ Read **this** \`code\` and [source](https://example.com).
 - One item
 `, markdownPath);
   const images = new Map();
-  const green = renderWechatHtml(article, images);
-  const orange = renderWechatHtml(article, images, { theme: "orange" });
+  const orange = renderWechatHtml(article, images);
+  const green = renderWechatHtml(article, images, { theme: "green" });
 
   assert.match(green, /border-left:4px solid #16865b/);
   assert.match(green, /color:#25312c/);

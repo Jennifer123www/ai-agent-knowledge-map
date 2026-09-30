@@ -11,7 +11,7 @@ const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 const defaultArticle = "content/wechat/05-tools-skills-and-protocols/beginner-main.md";
 
 function parseArguments(argv) {
-  const result = { file: defaultArticle, sideFile: null, theme: "green", dryRun: false };
+  const result = { file: defaultArticle, sideFile: null, theme: "orange", dryRun: false };
   let hasExplicitMainFile = false;
   for (let index = 0; index < argv.length; index += 1) {
     if (argv[index] === "--file") {
