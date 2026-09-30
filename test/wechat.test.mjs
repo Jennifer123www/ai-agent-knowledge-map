@@ -166,6 +166,22 @@ Read **this** \`code\` and [source](https://example.com).
   assert.throws(() => renderWechatHtml(article, images, { theme: "purple" }), /Unsupported WeChat theme/);
 });
 
+test("renders a memory point as an orange heading followed by a quote box", () => {
+  const markdownPath = path.resolve("content/wechat/example/article.md");
+  const article = parseWechatArticle(`# Demo title
+
+![cover](./cover.png)
+
+### 记忆点
+
+> 先数模型要处理的片段，再谈窗口和成本。
+`, markdownPath);
+
+  const html = renderWechatHtml(article, new Map());
+  assert.match(html, /<h3[^>]*color:#C85D12[^>]*>记忆点<\/h3><blockquote[^>]*background:#FFF9F2[^>]*>先数模型要处理的片段，再谈窗口和成本。<\/blockquote>/);
+  assert.doesNotMatch(html, /记忆点：/);
+});
+
 test("renders image captions and fenced code blocks as distinct elements", () => {
   const markdownPath = path.resolve("content/wechat/example/article.md");
   const markdown = [
