@@ -60,7 +60,7 @@ def arrow(draw, start, end, color=TEAL, width=6):
 def base(title, subtitle, category, footnote):
     im = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(im)
-    d.rectangle((0, 0, 21, H), fill=PLUM)
+    # Keep the outer margin plain; a full-height decorative stripe adds no information.
     label(d, (88, 80), category, 27, PLUM)
     label(d, (88, 131), title, 59)
     label(d, (90, 228), subtitle, 30, MUTED)
@@ -72,6 +72,10 @@ def base(title, subtitle, category, footnote):
 
 def save(im, relative):
     path = ROOT / relative
+    paper_rgb = Image.new("RGB", (1, 1), PAPER).getpixel((0, 0))
+    left_margin = im.crop((0, 0, 60, H))
+    if left_margin.getextrema() != tuple((channel, channel) for channel in paper_rgb):
+        raise ValueError(f"Decorative mark in the left margin: {relative}")
     path.parent.mkdir(parents=True, exist_ok=True)
     im.save(path, optimize=True)
 
@@ -270,19 +274,38 @@ def llm_context_conflict():
 
 def multimodal_field_trace():
     im, d = base(
-        "读对字符后，怎样确认字段",
-        "把字符、坐标、标签和最终字段连起来，才能回到原图复核",
+        "三个读数，怎样对应三个字段",
+        "从原图位置逐项连到识别字符和字段草稿，缺失的年份保持未知",
         "字段溯源",
-        "最终 JSON 只是结果；原图区域与字段关系才是可核对的证据",
+        "A / B / C 是图中区域标记，不是实测坐标；草稿仍须回到原图复核",
     )
-    box(d, (90, 390, 365, 675), "原图区域\n金额栏\n税额栏\n日期栏", "#FFFFFF", 28)
-    box(d, (480, 390, 770, 675), "字符 + 坐标\n680.00\n38.49\n9/3", PLUM_PALE, 28)
-    box(d, (885, 390, 1175, 675), "标签关系\n含税金额\n税额\n开票日期", TEAL_PALE, 28)
-    box(d, (1290, 390, 1445, 675), "字段草稿\n待核对", ORANGE_PALE, 27)
-    arrow(d, (376, 532), (469, 532), ORANGE)
-    arrow(d, (781, 532), (874, 532), ORANGE)
-    arrow(d, (1186, 532), (1279, 532), ORANGE)
-    box(d, (390, 748, 1140, 835), "缺少年份：保留缺项，不自行补成完整日期", "#FFFFFF", 27)
+    for x, heading in ((90, "发票原图（示意）"), (535, "字符与区域"), (1015, "字段草稿")):
+        label(d, (x, 347), heading, 30, PLUM)
+
+    rows = [
+        (474, "A", "含税金额", "680.00", "含税金额 = 680.00", "可核对", TEAL_PALE),
+        (604, "B", "税额", "38.49", "税额 = 38.49", "可核对", TEAL_PALE),
+        (734, "C", "开票日期", "9/3", "开票日期 = 9/3", "年份未知", ORANGE_PALE),
+    ]
+    for y, region, source_label, value, field_value, status, fill in rows:
+        d.rounded_rectangle((90, y-55, 445, y+55), radius=18, fill="#FFFFFF", outline=OUTLINE, width=3)
+        d.rounded_rectangle((110, y-39, 152, y+3), radius=12, fill=PLUM_PALE)
+        label(d, (131, y-18), region, 23, PLUM, "mm")
+        label(d, (168, y-18), source_label, 27, INK, "lm")
+        label(d, (168, y+22), value, 30, INK, "lm")
+
+        d.rounded_rectangle((535, y-55, 925, y+55), radius=18, fill=PLUM_PALE, outline=OUTLINE, width=3)
+        label(d, (562, y-18), f"区域 {region}  →  {value}", 29, INK, "lm")
+        label(d, (562, y+24), "保留来源位置", 24, MUTED, "lm")
+
+        d.rounded_rectangle((1015, y-55, 1445, y+55), radius=18, fill=fill, outline=OUTLINE, width=3)
+        label(d, (1042, y-18), field_value, 28, INK, "lm")
+        label(d, (1042, y+24), status, 24, TEAL if status == "可核对" else PLUM, "lm")
+
+        arrow(d, (456, y), (524, y), ORANGE)
+        arrow(d, (936, y), (1004, y), ORANGE)
+
+    label(d, (768, 843), "读出字符只是第一步；标签、位置和缺项状态必须一并保存", 27, MUTED, "mm")
     save(im, "submodules/02-multimodal/assets/multimodal-field-trace.png")
 
 
@@ -416,15 +439,162 @@ def multimodal_encoding():
     save(im, "submodules/02-multimodal/assets/multimodal-encoding.png")
 
 
+def multimodal_document():
+    im, d = base(
+        "同一页发票，要同时读四种线索",
+        "数值离开标签和所在区域，就可能填进错误字段",
+        "单据版面",
+        "发票为教学示意；字段数值沿用正文案例，不代表真实票据",
+    )
+    d.rounded_rectangle((370, 324, 1164, 857), radius=18, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (410, 355), "酒店发票（示意）", 33)
+    label(d, (900, 355), "开票日期  9/3", 27)
+    label(d, (900, 393), "年份未标", 24, PLUM)
+    d.line((410, 435, 1125, 435), fill=OUTLINE, width=2)
+    d.rounded_rectangle((410, 467, 1125, 614), radius=12, fill=TEAL_PALE, outline=OUTLINE, width=2)
+    label(d, (438, 488), "项目", 26, MUTED)
+    label(d, (722, 488), "数量", 26, MUTED)
+    label(d, (893, 488), "含税金额", 26, MUTED)
+    d.line((430, 533, 1105, 533), fill=OUTLINE, width=2)
+    label(d, (438, 552), "住宿服务", 29)
+    label(d, (727, 552), "1", 29)
+    label(d, (908, 552), "680.00", 32, TEAL)
+    label(d, (452, 663), "税额", 28)
+    label(d, (940, 663), "38.49", 32, TEAL)
+    d.line((410, 725, 1125, 725), fill=OUTLINE, width=2)
+    label(d, (420, 762), "小字：开票信息以原件为准", 25, MUTED)
+    d.ellipse((985, 759, 1105, 831), outline=PLUM, width=3)
+    label(d, (1045, 795), "印章区", 23, PLUM, "mm")
+
+    for bounds, title, detail, target in [
+        ((90, 345, 336, 457), "版面", "标题与日期位置", (360, 382)),
+        ((1200, 477, 1445, 589), "表格", "列名决定金额含义", (1175, 540)),
+        ((90, 695, 336, 807), "小字", "说明不能略读", (360, 760)),
+        ((1200, 731, 1445, 843), "印章", "独立区域核验", (1175, 786)),
+    ]:
+        d.rounded_rectangle(bounds, radius=15, fill=PLUM_PALE, outline=OUTLINE, width=2)
+        label(d, (bounds[0]+20, bounds[1]+18), title, 30, PLUM)
+        label(d, (bounds[0]+20, bounds[1]+68), detail, 23, INK)
+        start = (bounds[2]+9, (bounds[1]+bounds[3])//2) if bounds[0] < 400 else (bounds[0]-9, (bounds[1]+bounds[3])//2)
+        arrow(d, start, target, TEAL, 4)
+    save(im, "submodules/02-multimodal/assets/multimodal-document.png")
+
+
+def multimodal_validation():
+    im, d = base(
+        "同样是读数，为什么日期不能通过",
+        "金额能解析，不等于缺少年份的日期也能补全",
+        "字段校验",
+        "业务规则还需制度和历史记录；图片本身不能证明可报销",
+    )
+    label(d, (92, 350), "模型读数", 29, PLUM)
+    label(d, (535, 350), "格式与字段关系", 29, PLUM)
+    label(d, (1070, 350), "可核对草稿", 29, PLUM)
+    box(d, (90, 397, 431, 572), "含税金额  680.00\n税额  38.49", "#FFFFFF", 29)
+    box(d, (535, 397, 945, 572), "金额格式可解析\n两项分别核对标签", TEAL_PALE, 28)
+    box(d, (1060, 397, 1445, 572), "保留两项读数\n等待原图复核", TEAL_PALE, 28)
+    arrow(d, (442, 485), (524, 485), ORANGE)
+    arrow(d, (956, 485), (1049, 485), ORANGE)
+    box(d, (90, 631, 431, 806), "开票日期  9/3", "#FFFFFF", 30)
+    box(d, (535, 631, 945, 806), "缺少年份\n不能通过完整日期校验", ORANGE_PALE, 27)
+    box(d, (1060, 631, 1445, 806), "保留 9/3\n年份 = 未知", ORANGE_PALE, 28)
+    arrow(d, (442, 719), (524, 719), ORANGE)
+    arrow(d, (956, 719), (1049, 719), ORANGE)
+    save(im, "submodules/02-multimodal/assets/multimodal-validation.png")
+
+
+def multimodal_alignment():
+    im, d = base(
+        "连接层能补回被缩掉的小字吗",
+        "同一张发票的两种输入方式，决定语言模型能看到哪些线索",
+        "面试原理",
+        "连接层映射已有视觉特征，不能从缺失的像素中还原发票小字",
+    )
+    box(d, (90, 469, 376, 661), "同一张发票\n含税金额 680.00\n税额 38.49", "#FFFFFF", 26)
+    label(d, (463, 347), "输入给视觉编码器", 27, PLUM)
+    label(d, (1070, 347), "连接层送入语言模型", 27, PLUM)
+    box(d, (485, 390, 954, 534), "整页缩得太小\n小字、小数点可能消失", ORANGE_PALE, 27)
+    box(d, (1060, 390, 1445, 534), "只能映射残缺特征\n回答易漏字段", ORANGE_PALE, 27)
+    box(d, (485, 609, 954, 753), "金额栏局部放大\n保留标签与 680.00", TEAL_PALE, 27)
+    box(d, (1060, 609, 1445, 753), "映射较清晰的特征\n仍须回原图复核", TEAL_PALE, 27)
+    arrow(d, (387, 554), (474, 462), ORANGE)
+    arrow(d, (387, 568), (474, 681), TEAL)
+    arrow(d, (965, 462), (1049, 462), ORANGE)
+    arrow(d, (965, 681), (1049, 681), TEAL)
+    label(d, (767, 825), "问题不在“说得不够流畅”，而在“看进去时已丢信息”", 27, MUTED, "mm")
+    save(im, "submodules/02-multimodal/assets/multimodal-alignment.png")
+
+
+def multimodal_ocr_vlm():
+    im, d = base(
+        "OCR 与视觉语言模型，各补哪块短板",
+        "同一张发票：认出字符与判断字段归属是两项检查",
+        "面试选型",
+        "两条路线都要回到原图；结果一致，也不能补出不存在的年份",
+    )
+    box(d, (90, 354, 488, 520), "发票原图\n680.00 · 38.49 · 9/3", "#FFFFFF", 29)
+    box(d, (655, 346, 1055, 492), "OCR\n给字符与文字框位置", PLUM_PALE, 27)
+    box(d, (655, 599, 1055, 745), "视觉语言模型\n给字段关系候选", TEAL_PALE, 27)
+    arrow(d, (499, 432), (644, 419), ORANGE)
+    arrow(d, (499, 440), (644, 672), ORANGE)
+    box(d, (1190, 353, 1445, 496), "字符是否读对？\n框在哪里？", "#FFFFFF", 24)
+    box(d, (1190, 601, 1445, 744), "金额和税额\n是否填反？", "#FFFFFF", 24)
+    arrow(d, (1066, 419), (1179, 419), PLUM)
+    arrow(d, (1066, 672), (1179, 672), TEAL)
+    box(d, (220, 775, 1295, 859), "组合：先定位字符，再判字段关系，最后按原图复核", ORANGE_PALE, 28)
+    save(im, "submodules/02-multimodal/assets/multimodal-ocr-vlm.png")
+
+
+def multimodal_document_diagnosis():
+    im, d = base(
+        "表格和小字，常在哪一步出错",
+        "对同一张发票，分别定位输入损失与关系错误",
+        "面试诊断",
+        "先判断信息是没看见、看错了，还是看见后配错字段",
+    )
+    cases = [
+        (395, "缩图过度", "小数点或小字消失", "保留原图，放大金额栏", PLUM_PALE),
+        (570, "拆开行列", "680.00 离开含税金额标签", "连同列名和坐标复核", TEAL_PALE),
+        (745, "日期缺项", "9/3 没写年份", "年份标未知，不自行补全", ORANGE_PALE),
+    ]
+    for y, source, failure, action, fill in cases:
+        box(d, (90, y-53, 395, y+53), source, "#FFFFFF", 31)
+        box(d, (520, y-53, 985, y+53), failure, fill, 29)
+        box(d, (1110, y-53, 1445, y+53), action, "#FFFFFF", 26)
+        arrow(d, (406, y), (509, y), ORANGE)
+        arrow(d, (996, y), (1099, y), TEAL)
+    save(im, "submodules/02-multimodal/assets/multimodal-document-diagnosis.png")
+
+
+def multimodal_evaluation():
+    im, d = base(
+        "评测别只看最终字段有没有填对",
+        "把错误拆到字符、字段归属与缺项处理，才知道怎么修",
+        "面试评测",
+        "只列评测维度与修复方向；图中没有虚构测试成绩",
+    )
+    cases = [
+        (395, "字符读错", "金额字符准确率", "补拍或放大原图", PLUM_PALE),
+        (570, "字段填反", "字段归属 + 区域定位", "核查标签与坐标", TEAL_PALE),
+        (745, "无据补年份", "缺项保留率", "年份未知，交人工补证", ORANGE_PALE),
+    ]
+    for y, error, measure, response, fill in cases:
+        box(d, (90, y-53, 395, y+53), error, "#FFFFFF", 31)
+        box(d, (520, y-53, 985, y+53), measure, fill, 29)
+        box(d, (1110, y-53, 1445, y+53), response, "#FFFFFF", 26)
+        arrow(d, (406, y), (509, y), ORANGE)
+        arrow(d, (996, y), (1099, y), TEAL)
+    save(im, "submodules/02-multimodal/assets/multimodal-evaluation.png")
+
+
 def main():
+    # These LLM images were later replaced with hand-reviewed, higher-detail figures.
+    # Keep their renderer functions for reproducibility, but do not overwrite the curated assets.
     for renderer in (
         embedding_chunking,
         embedding_evaluation,
         reranker_two_stage,
         reranker_evaluation,
-        llm_sampling,
-        llm_evidence_audit,
-        llm_context_conflict,
         multimodal_field_trace,
         embedding_metric_comparison,
         reranker_learning_objectives,
@@ -432,6 +602,12 @@ def main():
         adaptation_distillation,
         adaptation_lora,
         multimodal_encoding,
+        multimodal_document,
+        multimodal_validation,
+        multimodal_alignment,
+        multimodal_ocr_vlm,
+        multimodal_document_diagnosis,
+        multimodal_evaluation,
     ):
         renderer()
 

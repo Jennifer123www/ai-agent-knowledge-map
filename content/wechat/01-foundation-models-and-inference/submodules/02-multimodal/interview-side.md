@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.2.2"
-stage: "改用面试专属封面并补充字段溯源原理图"
-git_state: "基于 549c2cc（main；修改前仅有 Word 临时锁文件未跟踪）"
-modified_at: "2026-09-29 16:22 CST"
+version: "0.2.3"
+stage: "按面试题的判断任务重绘配图，减少与主文重复"
+git_state: "基于 e870cb0（main；修订前有本次配图改动与未跟踪推文终稿目录）"
+modified_at: "2026-09-30 12:10 CST"
 ---
 
 # 面试题：发票读对字为何还会填错字段
@@ -55,7 +55,7 @@ modified_at: "2026-09-29 16:22 CST"
 
 `OCR`（光学字符识别）可读出 `680.00`、`38.49` 及文字框坐标；视觉语言模型（`VLM`）还可尝试判断它们分别属于“含税金额”还是“税额”。固定版式、大批量抽取可以先用 OCR；版面变化大或需要关系判断时再用 VLM。两者一致也不自动补出 `9/3` 所缺的年份。
 
-![多模态输入编码流程](./assets/multimodal-encoding.png)
+![OCR 与视觉语言模型在发票字段识别中的分工](./assets/multimodal-ocr-vlm.png)
 
 ### 答题点
 
@@ -107,7 +107,7 @@ OCR-free 文档模型是否意味着不再需要 OCR？不意味着。它提供�
 
 这类任务要求同时理解像素细节、二维布局和语义约定。缩放可能抹掉小字；表格单元格离开行列标题就失去含义；图表数值还受坐标轴、图例和单位影响。任何一层错误都会传到答案。
 
-![复杂文档中的四类观察对象](./assets/multimodal-document.png)
+![发票小字和表格字段的错误诊断](./assets/multimodal-document-diagnosis.png)
 
 ### 答题点
 
@@ -184,7 +184,7 @@ OCR-free 文档模型是否意味着不再需要 OCR？不意味着。它提供�
 
 评测必须覆盖真实输入变化和任务风险。除了最终答案，还应标注字符、字段、区域、页码、动作和证据，让错误能分解为识别、关系理解、生成或执行问题。
 
-![多模态结果的验证链](./assets/multimodal-validation.png)
+![多模态字段错误的分层评测](./assets/multimodal-evaluation.png)
 
 ### 答题点
 

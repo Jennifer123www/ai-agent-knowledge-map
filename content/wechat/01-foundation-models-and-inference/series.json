@@ -134,7 +134,10 @@
         "submodules/02-multimodal/assets/multimodal-document.png",
         "submodules/02-multimodal/assets/multimodal-validation.png",
         "submodules/02-multimodal/assets/multimodal-principle.png",
-        "submodules/02-multimodal/assets/multimodal-field-trace.png"
+        "submodules/02-multimodal/assets/multimodal-field-trace.png",
+        "submodules/02-multimodal/assets/multimodal-ocr-vlm.png",
+        "submodules/02-multimodal/assets/multimodal-document-diagnosis.png",
+        "submodules/02-multimodal/assets/multimodal-evaluation.png"
       ],
       "articles": {
         "beginner": {
