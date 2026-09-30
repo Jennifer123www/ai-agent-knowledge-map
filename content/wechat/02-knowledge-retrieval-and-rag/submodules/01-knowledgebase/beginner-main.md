@@ -12,10 +12,10 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.4"
-stage: "按微信标题遮罩安全区重做主文封面"
-git_state: "基于 a3fc386（main；修改前含其他未提交的规范修订与未跟踪的推文终稿目录）"
-modified_at: "2026-09-30 15:43 CST"
+version: "0.1.5"
+stage: "将主文封面底部标题遮罩安全区由约 25% 调整为约 15%"
+git_state: "基于 a5b9114（main；修改前工作区干净）"
+modified_at: "2026-09-30 17:07 CST"
 ---
 
 # 知识库：资料进库之后，谁保证它还管用

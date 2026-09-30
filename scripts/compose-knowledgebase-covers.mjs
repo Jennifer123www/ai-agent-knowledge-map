@@ -22,9 +22,10 @@ const specs = [
     source: mainSource,
     output: "kb-cover-main-wechat.png",
     svg: ({ image }) => `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="383" viewBox="0 0 900 383">
-      <image href="data:image/png;base64,${image}" x="0" y="0" width="900" height="383" preserveAspectRatio="xMidYMid slice"/>
+      <rect x="0" y="0" width="900" height="383" fill="#fbf8f0"/>
+      <image href="data:image/png;base64,${image}" x="0" y="70" width="900" height="383" preserveAspectRatio="xMidYMid slice"/>
       <rect x="0" y="0" width="900" height="124" fill="#fffaf2" opacity="0.46"/>
-      <rect x="0" y="287" width="900" height="96" fill="#fbf8f0" opacity="0.97"/>
+      <rect x="0" y="325" width="900" height="58" fill="#fbf8f0" opacity="0.97"/>
       <text x="450" y="59" text-anchor="middle" font-family="Songti SC,STSongti-SC-Black,PingFang SC,sans-serif" font-size="58" font-weight="900" fill="#22272a">知识<tspan fill="#1c756b">库</tspan></text>
       <text x="450" y="105" text-anchor="middle" font-family="Songti SC,STSongti-SC-Black,PingFang SC,sans-serif" font-size="30" font-weight="760" fill="#2b3033">资料进库之后，谁保证它还管用</text>
     </svg>`,
