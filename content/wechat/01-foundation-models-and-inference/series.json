@@ -75,7 +75,11 @@
         "submodules/01-llm/assets/llm-evidence-audit.png",
         "submodules/01-llm/assets/llm-principle.png",
         "submodules/01-llm/assets/llm-rnn-comparison.png",
-        "submodules/01-llm/assets/llm-context-conflict.png"
+        "submodules/01-llm/assets/llm-context-conflict.png",
+        "submodules/01-llm/assets/llm-token-cost.png",
+        "submodules/01-llm/assets/llm-structured-truth.png",
+        "submodules/01-llm/assets/llm-cache-comparison.png",
+        "submodules/01-llm/assets/llm-evaluation-matrix.png"
       ],
       "articles": {
         "beginner": {
