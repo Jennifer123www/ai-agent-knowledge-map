@@ -12,10 +12,10 @@ topic: "context"
 content_level: "submodule"
 submodule: "knowledgebase"
 series_order: 1
-version: "0.1.3"
-stage: "按文章主案例重做主文封面并移除正文重复首图"
-git_state: "基于 c6db753（main；修改前仅有未跟踪的推文终稿目录）"
-modified_at: "2026-09-30 14:27 CST"
+version: "0.1.4"
+stage: "按微信标题遮罩安全区重做主文封面"
+git_state: "基于 a3fc386（main；修改前含其他未提交的规范修订与未跟踪的推文终稿目录）"
+modified_at: "2026-09-30 15:43 CST"
 ---
 
 # 知识库：资料进库之后，谁保证它还管用
