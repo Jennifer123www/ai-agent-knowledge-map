@@ -25,7 +25,9 @@ const splitTitle = (value, max = 12) => {
   if (chars.length) lines[2] += chars.join("");
   return lines;
 };
-const groupDirectory = (group) => group.id === "overview" ? "" : `submodules/${group.id}`;
+const groupDirectory = (module, group) => group.id === "overview"
+  ? ""
+  : `submodules/${String(module.groups.indexOf(group)).padStart(2, "0")}-${group.id}`;
 
 for (const module of modules) {
   const source = sources[module.slug];
@@ -53,7 +55,7 @@ for (const module of modules) {
         <text x="54" y="${subtitleY + 18}" font-family="PingFang SC,Noto Sans CJK SC,sans-serif" font-size="20" font-weight="520" fill="#4f5b61">${esc(group.id === "overview" ? "一级模块总览" : `子模块 ${String(index).padStart(2, "0")} · ${group.name}`)}</text>
       </svg>`;
       const svgPath = path.join(tempRoot, `${module.slug}-${group.id}-${kind}.svg`);
-      const output = path.join(root, "content", "wechat", module.slug, groupDirectory(group), "assets", `${group.prefix}-cover-${kind}-wechat.png`);
+      const output = path.join(root, "content", "wechat", module.directory, groupDirectory(module, group), "assets", `${group.prefix}-cover-${kind}-wechat.png`);
       await mkdir(path.dirname(output), { recursive: true });
       await writeFile(svgPath, svg);
       await execFile("sips", ["-s", "format", "png", svgPath, "--out", output]);

@@ -65,20 +65,20 @@
       "contentLevel": "submodule",
       "submodule": "workflow",
       "seriesOrder": 1,
-      "promptFile": "submodules/workflow/prompts.md",
-      "principleImage": "submodules/workflow/assets/workflow-principle.png",
+      "promptFile": "submodules/01-workflow/prompts.md",
+      "principleImage": "submodules/01-workflow/assets/workflow-principle.png",
       "images": [
-        "submodules/workflow/assets/workflow-cover-main-wechat.png",
-        "submodules/workflow/assets/workflow-cover-interview-wechat.png",
-        "submodules/workflow/assets/workflow-fixed-path.png",
-        "submodules/workflow/assets/workflow-branching.png",
-        "submodules/workflow/assets/workflow-idempotency.png",
-        "submodules/workflow/assets/workflow-observability.png",
-        "submodules/workflow/assets/workflow-principle.png"
+        "submodules/01-workflow/assets/workflow-cover-main-wechat.png",
+        "submodules/01-workflow/assets/workflow-cover-interview-wechat.png",
+        "submodules/01-workflow/assets/workflow-fixed-path.png",
+        "submodules/01-workflow/assets/workflow-branching.png",
+        "submodules/01-workflow/assets/workflow-idempotency.png",
+        "submodules/01-workflow/assets/workflow-observability.png",
+        "submodules/01-workflow/assets/workflow-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/workflow/beginner-main.md",
+          "path": "submodules/01-workflow/beginner-main.md",
           "focus": "以差旅报销草稿为案例，解释工作流怎样把模型和工具放进固定步骤、条件分支与补偿路径，重点说明可预测性、幂等和异常处理。",
           "outline": [
             "为什么报销草稿不需要多个 Agent 自由讨论",
@@ -93,7 +93,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/workflow/interview-side.md",
+          "path": "submodules/01-workflow/interview-side.md",
           "focus": "沿用报销草稿案例，考察工作流与 Agent 的边界、分支设计、幂等重试、补偿、超时、可观测性和版本发布。",
           "questionBoundary": {
             "include": ["工作流与 Agent 边界", "条件分支", "重试与幂等", "补偿事务", "超时", "可观测性", "流程评测"],
@@ -118,20 +118,20 @@
       "contentLevel": "submodule",
       "submodule": "stategraph",
       "seriesOrder": 2,
-      "promptFile": "submodules/stategraph/prompts.md",
-      "principleImage": "submodules/stategraph/assets/stategraph-principle.png",
+      "promptFile": "submodules/02-stategraph/prompts.md",
+      "principleImage": "submodules/02-stategraph/assets/stategraph-principle.png",
       "images": [
-        "submodules/stategraph/assets/stategraph-cover-main-wechat.png",
-        "submodules/stategraph/assets/stategraph-cover-interview-wechat.png",
-        "submodules/stategraph/assets/stategraph-state-object.png",
-        "submodules/stategraph/assets/stategraph-transition.png",
-        "submodules/stategraph/assets/stategraph-checkpoint.png",
-        "submodules/stategraph/assets/stategraph-recovery.png",
-        "submodules/stategraph/assets/stategraph-principle.png"
+        "submodules/02-stategraph/assets/stategraph-cover-main-wechat.png",
+        "submodules/02-stategraph/assets/stategraph-cover-interview-wechat.png",
+        "submodules/02-stategraph/assets/stategraph-state-object.png",
+        "submodules/02-stategraph/assets/stategraph-transition.png",
+        "submodules/02-stategraph/assets/stategraph-checkpoint.png",
+        "submodules/02-stategraph/assets/stategraph-recovery.png",
+        "submodules/02-stategraph/assets/stategraph-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/stategraph/beginner-main.md",
+          "path": "submodules/02-stategraph/beginner-main.md",
           "focus": "以中断的研究报告任务为案例，解释显式状态、转移条件、检查点、并行分支合并和恢复语义，区分任务状态与聊天记录。",
           "outline": [
             "浏览器关闭后任务为什么不能只靠聊天续上",
@@ -146,7 +146,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/stategraph/interview-side.md",
+          "path": "submodules/02-stategraph/interview-side.md",
           "focus": "沿用研究任务中断案例，考察状态建模、转移守卫、检查点、一致性、并行合并、故障恢复、人工中断和状态迁移。",
           "questionBoundary": {
             "include": ["状态对象", "转移条件", "检查点", "并发合并", "重放语义", "人工中断", "状态迁移"],
@@ -171,20 +171,20 @@
       "contentLevel": "submodule",
       "submodule": "multiagent",
       "seriesOrder": 3,
-      "promptFile": "submodules/multiagent/prompts.md",
-      "principleImage": "submodules/multiagent/assets/multiagent-principle.png",
+      "promptFile": "submodules/03-multiagent/prompts.md",
+      "principleImage": "submodules/03-multiagent/assets/multiagent-principle.png",
       "images": [
-        "submodules/multiagent/assets/multiagent-cover-main-wechat.png",
-        "submodules/multiagent/assets/multiagent-cover-interview-wechat.png",
-        "submodules/multiagent/assets/multiagent-fit.png",
-        "submodules/multiagent/assets/multiagent-parallel.png",
-        "submodules/multiagent/assets/multiagent-evidence.png",
-        "submodules/multiagent/assets/multiagent-evaluation.png",
-        "submodules/multiagent/assets/multiagent-principle.png"
+        "submodules/03-multiagent/assets/multiagent-cover-main-wechat.png",
+        "submodules/03-multiagent/assets/multiagent-cover-interview-wechat.png",
+        "submodules/03-multiagent/assets/multiagent-fit.png",
+        "submodules/03-multiagent/assets/multiagent-parallel.png",
+        "submodules/03-multiagent/assets/multiagent-evidence.png",
+        "submodules/03-multiagent/assets/multiagent-evaluation.png",
+        "submodules/03-multiagent/assets/multiagent-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/multiagent/beginner-main.md",
+          "path": "submodules/03-multiagent/beginner-main.md",
           "focus": "以三路产品调研为案例，解释多智能体的适用条件、并行与顺序协作、最小上下文、证据交付、冲突处理及协调成本。",
           "outline": [
             "三名专家同时开工为什么未必更快",
@@ -199,7 +199,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/multiagent/interview-side.md",
+          "path": "submodules/03-multiagent/interview-side.md",
           "focus": "沿用三路产品调研案例，考察多智能体适用条件、任务分解、通信结构、上下文隔离、冲突消解、错误传播和收益评测。",
           "questionBoundary": {
             "include": ["多 Agent 适用条件", "任务分解", "并行协作", "上下文隔离", "证据交付", "冲突消解", "协作收益"],
@@ -224,20 +224,20 @@
       "contentLevel": "submodule",
       "submodule": "supervisor",
       "seriesOrder": 4,
-      "promptFile": "submodules/supervisor/prompts.md",
-      "principleImage": "submodules/supervisor/assets/supervisor-principle.png",
+      "promptFile": "submodules/04-supervisor/prompts.md",
+      "principleImage": "submodules/04-supervisor/assets/supervisor-principle.png",
       "images": [
-        "submodules/supervisor/assets/supervisor-cover-main-wechat.png",
-        "submodules/supervisor/assets/supervisor-cover-interview-wechat.png",
-        "submodules/supervisor/assets/supervisor-contract.png",
-        "submodules/supervisor/assets/supervisor-routing.png",
-        "submodules/supervisor/assets/supervisor-conflict.png",
-        "submodules/supervisor/assets/supervisor-budget.png",
-        "submodules/supervisor/assets/supervisor-principle.png"
+        "submodules/04-supervisor/assets/supervisor-cover-main-wechat.png",
+        "submodules/04-supervisor/assets/supervisor-cover-interview-wechat.png",
+        "submodules/04-supervisor/assets/supervisor-contract.png",
+        "submodules/04-supervisor/assets/supervisor-routing.png",
+        "submodules/04-supervisor/assets/supervisor-conflict.png",
+        "submodules/04-supervisor/assets/supervisor-budget.png",
+        "submodules/04-supervisor/assets/supervisor-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/supervisor/beginner-main.md",
+          "path": "submodules/04-supervisor/beginner-main.md",
           "focus": "以主管协调市场、技术和财务调研为案例，解释动态委派、任务契约、结果验收、冲突补证、预算和防循环设计。",
           "outline": [
             "主管为什么不能只是转发消息",
@@ -252,7 +252,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/supervisor/interview-side.md",
+          "path": "submodules/04-supervisor/interview-side.md",
           "focus": "沿用三专家调研案例，考察主管模式与交接模式区别、动态路由、任务契约、验收、冲突处理、循环控制、预算和主管评测。",
           "questionBoundary": {
             "include": ["主管模式", "专家路由", "任务契约", "结果验收", "冲突补证", "防循环", "预算控制", "主管评测"],
@@ -277,20 +277,20 @@
       "contentLevel": "submodule",
       "submodule": "handoff",
       "seriesOrder": 5,
-      "promptFile": "submodules/handoff/prompts.md",
-      "principleImage": "submodules/handoff/assets/handoff-principle.png",
+      "promptFile": "submodules/05-handoff/prompts.md",
+      "principleImage": "submodules/05-handoff/assets/handoff-principle.png",
       "images": [
-        "submodules/handoff/assets/handoff-cover-main-wechat.png",
-        "submodules/handoff/assets/handoff-cover-interview-wechat.png",
-        "submodules/handoff/assets/handoff-package.png",
-        "submodules/handoff/assets/handoff-control.png",
-        "submodules/handoff/assets/handoff-human.png",
-        "submodules/handoff/assets/handoff-resume.png",
-        "submodules/handoff/assets/handoff-principle.png"
+        "submodules/05-handoff/assets/handoff-cover-main-wechat.png",
+        "submodules/05-handoff/assets/handoff-cover-interview-wechat.png",
+        "submodules/05-handoff/assets/handoff-package.png",
+        "submodules/05-handoff/assets/handoff-control.png",
+        "submodules/05-handoff/assets/handoff-human.png",
+        "submodules/05-handoff/assets/handoff-resume.png",
+        "submodules/05-handoff/assets/handoff-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/handoff/beginner-main.md",
+          "path": "submodules/05-handoff/beginner-main.md",
           "focus": "以退款请求从客服 Agent 交给退款专家、再因高金额交给人工审批为案例，解释控制权、交接包、上下文过滤、暂停恢复和责任记录。",
           "outline": [
             "换了处理者为什么不该让用户从头再说",
@@ -305,7 +305,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/handoff/interview-side.md",
+          "path": "submodules/05-handoff/interview-side.md",
           "focus": "沿用退款升级案例，考察 Handoff 与 Agent-as-tool、交接输入、上下文过滤、授权、人工参与、暂停恢复、循环和审计。",
           "questionBoundary": {
             "include": ["Handoff 与工具调用", "交接输入", "上下文过滤", "控制权", "人工审批", "暂停恢复", "交接循环", "审计"],

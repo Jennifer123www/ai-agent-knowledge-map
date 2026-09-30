@@ -66,20 +66,20 @@
       "contentLevel": "submodule",
       "submodule": "trace",
       "seriesOrder": 1,
-      "promptFile": "submodules/trace/prompts.md",
-      "principleImage": "submodules/trace/assets/trace-tree.png",
+      "promptFile": "submodules/01-trace/prompts.md",
+      "principleImage": "submodules/01-trace/assets/trace-tree.png",
       "images": [
-        "submodules/trace/assets/trace-cover-main-wechat.png",
-        "submodules/trace/assets/trace-cover-interview-wechat.png",
-        "submodules/trace/assets/trace-tree.png",
-        "submodules/trace/assets/trace-span-fields.png",
-        "submodules/trace/assets/trace-diagnosis.png",
-        "submodules/trace/assets/trace-sampling.png",
-        "submodules/trace/assets/trace-privacy.png"
+        "submodules/01-trace/assets/trace-cover-main-wechat.png",
+        "submodules/01-trace/assets/trace-cover-interview-wechat.png",
+        "submodules/01-trace/assets/trace-tree.png",
+        "submodules/01-trace/assets/trace-span-fields.png",
+        "submodules/01-trace/assets/trace-diagnosis.png",
+        "submodules/01-trace/assets/trace-sampling.png",
+        "submodules/01-trace/assets/trace-privacy.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/trace/beginner-main.md",
+          "path": "submodules/01-trace/beginner-main.md",
           "focus": "以一张错误退款工单为案例，解释 Trace、Span、父子关系、上下文传播、版本字段、采样和隐私治理，展示怎样从最终错误回到具体步骤。",
           "outline": [
             "一句错误退款结论为何不能只查最终答案",
@@ -95,7 +95,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/trace/interview-side.md",
+          "path": "submodules/01-trace/interview-side.md",
           "focus": "沿用错误退款案例，考察 Trace 与日志区别、Span 粒度、跨服务传播、版本记录、根因定位、采样、敏感数据治理和追踪质量评测。",
           "questionBoundary": {
             "include": ["Trace 与 Span", "上下文传播", "Span 粒度", "版本关联", "轨迹诊断", "采样策略", "隐私治理", "追踪完整性"],
@@ -121,20 +121,20 @@
       "contentLevel": "submodule",
       "submodule": "offlineeval",
       "seriesOrder": 2,
-      "promptFile": "submodules/offlineeval/prompts.md",
-      "principleImage": "submodules/offlineeval/assets/offlineeval-harness.png",
+      "promptFile": "submodules/02-offlineeval/prompts.md",
+      "principleImage": "submodules/02-offlineeval/assets/offlineeval-harness.png",
       "images": [
-        "submodules/offlineeval/assets/offlineeval-cover-main-wechat.png",
-        "submodules/offlineeval/assets/offlineeval-cover-interview-wechat.png",
-        "submodules/offlineeval/assets/offlineeval-harness.png",
-        "submodules/offlineeval/assets/offlineeval-dataset.png",
-        "submodules/offlineeval/assets/offlineeval-graders.png",
-        "submodules/offlineeval/assets/offlineeval-slices.png",
-        "submodules/offlineeval/assets/offlineeval-release-gate.png"
+        "submodules/02-offlineeval/assets/offlineeval-cover-main-wechat.png",
+        "submodules/02-offlineeval/assets/offlineeval-cover-interview-wechat.png",
+        "submodules/02-offlineeval/assets/offlineeval-harness.png",
+        "submodules/02-offlineeval/assets/offlineeval-dataset.png",
+        "submodules/02-offlineeval/assets/offlineeval-graders.png",
+        "submodules/02-offlineeval/assets/offlineeval-slices.png",
+        "submodules/02-offlineeval/assets/offlineeval-release-gate.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/offlineeval/beginner-main.md",
+          "path": "submodules/02-offlineeval/beginner-main.md",
           "focus": "以 300 个历史售后工单比较新旧版本为案例，解释评测目标、数据集、环境快照、规则评分、模型评分、人工校准、分层结果和发布门槛。",
           "outline": [
             "新版本看起来更顺为何仍不能上线",
@@ -150,7 +150,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/offlineeval/interview-side.md",
+          "path": "submodules/02-offlineeval/interview-side.md",
           "focus": "围绕 300 个工单对照，考察任务成功定义、数据集版本、环境隔离、评分器组合、LLM 裁判偏差、切片报告、显著性与发布门槛。",
           "questionBoundary": {
             "include": ["评测目标", "数据集设计", "沙盒与环境快照", "评分器选择", "LLM 裁判校准", "分层报告", "数据污染", "回归门槛"],
@@ -176,20 +176,20 @@
       "contentLevel": "submodule",
       "submodule": "monitoring",
       "seriesOrder": 3,
-      "promptFile": "submodules/monitoring/prompts.md",
-      "principleImage": "submodules/monitoring/assets/monitoring-signals.png",
+      "promptFile": "submodules/03-monitoring/prompts.md",
+      "principleImage": "submodules/03-monitoring/assets/monitoring-signals.png",
       "images": [
-        "submodules/monitoring/assets/monitoring-cover-main-wechat.png",
-        "submodules/monitoring/assets/monitoring-cover-interview-wechat.png",
-        "submodules/monitoring/assets/monitoring-signals.png",
-        "submodules/monitoring/assets/monitoring-slices.png",
-        "submodules/monitoring/assets/monitoring-alert.png",
-        "submodules/monitoring/assets/monitoring-degrade.png",
-        "submodules/monitoring/assets/monitoring-slo.png"
+        "submodules/03-monitoring/assets/monitoring-cover-main-wechat.png",
+        "submodules/03-monitoring/assets/monitoring-cover-interview-wechat.png",
+        "submodules/03-monitoring/assets/monitoring-signals.png",
+        "submodules/03-monitoring/assets/monitoring-slices.png",
+        "submodules/03-monitoring/assets/monitoring-alert.png",
+        "submodules/03-monitoring/assets/monitoring-degrade.png",
+        "submodules/03-monitoring/assets/monitoring-slo.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/monitoring/beginner-main.md",
+          "path": "submodules/03-monitoring/beginner-main.md",
           "focus": "以搜索服务变慢导致部分售后任务超时为案例，解释业务、过程、资源和风险信号，分位数与切片、SLO、告警、降级和事后验证。",
           "outline": [
             "接口都返回 200 为何用户仍说系统坏了",
@@ -205,7 +205,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/monitoring/interview-side.md",
+          "path": "submodules/03-monitoring/interview-side.md",
           "focus": "沿用搜索服务退化案例，考察信号分层、分母、P95/P99、维度切片、SLO、告警疲劳、异常处置、成本监控和监控有效性。",
           "questionBoundary": {
             "include": ["任务与过程指标", "分位数与切片", "SLO 与错误预算", "告警设计", "异常处置", "降级回滚", "成本监控", "监控验收"],
@@ -231,20 +231,20 @@
       "contentLevel": "submodule",
       "submodule": "release",
       "seriesOrder": 4,
-      "promptFile": "submodules/release/prompts.md",
-      "principleImage": "submodules/release/assets/release-experiment.png",
+      "promptFile": "submodules/04-release/prompts.md",
+      "principleImage": "submodules/04-release/assets/release-experiment.png",
       "images": [
-        "submodules/release/assets/release-cover-main-wechat.png",
-        "submodules/release/assets/release-cover-interview-wechat.png",
-        "submodules/release/assets/release-experiment.png",
-        "submodules/release/assets/release-version-bundle.png",
-        "submodules/release/assets/release-rollout.png",
-        "submodules/release/assets/release-guardrails.png",
-        "submodules/release/assets/release-rollback.png"
+        "submodules/04-release/assets/release-cover-main-wechat.png",
+        "submodules/04-release/assets/release-cover-interview-wechat.png",
+        "submodules/04-release/assets/release-experiment.png",
+        "submodules/04-release/assets/release-version-bundle.png",
+        "submodules/04-release/assets/release-rollout.png",
+        "submodules/04-release/assets/release-guardrails.png",
+        "submodules/04-release/assets/release-rollback.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/release/beginner-main.md",
+          "path": "submodules/04-release/beginner-main.md",
           "focus": "以更换检索切分策略为案例，解释版本包、离线对照、影子流量、灰度、随机 A/B、护栏指标、停止条件和回滚，区分相关与因果。",
           "outline": [
             "新版指标上涨为何不能立刻归功于新策略",
@@ -260,7 +260,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/release/interview-side.md",
+          "path": "submodules/04-release/interview-side.md",
           "focus": "围绕检索策略发布，考察版本对象、实验假设、离线基线、影子与灰度区别、随机化、护栏指标、样本偏差、在途任务和回滚。",
           "questionBoundary": {
             "include": ["版本包", "实验假设", "影子流量", "灰度发布", "A/B 随机化", "护栏指标", "停止规则", "在途任务", "回滚"],
@@ -286,20 +286,20 @@
       "contentLevel": "submodule",
       "submodule": "feedback",
       "seriesOrder": 5,
-      "promptFile": "submodules/feedback/prompts.md",
-      "principleImage": "submodules/feedback/assets/feedback-loop.png",
+      "promptFile": "submodules/05-feedback/prompts.md",
+      "principleImage": "submodules/05-feedback/assets/feedback-loop.png",
       "images": [
-        "submodules/feedback/assets/feedback-cover-main-wechat.png",
-        "submodules/feedback/assets/feedback-cover-interview-wechat.png",
-        "submodules/feedback/assets/feedback-loop.png",
-        "submodules/feedback/assets/feedback-signals.png",
-        "submodules/feedback/assets/feedback-attribution.png",
-        "submodules/feedback/assets/feedback-sample.png",
-        "submodules/feedback/assets/feedback-prioritization.png"
+        "submodules/05-feedback/assets/feedback-cover-main-wechat.png",
+        "submodules/05-feedback/assets/feedback-cover-interview-wechat.png",
+        "submodules/05-feedback/assets/feedback-loop.png",
+        "submodules/05-feedback/assets/feedback-signals.png",
+        "submodules/05-feedback/assets/feedback-attribution.png",
+        "submodules/05-feedback/assets/feedback-sample.png",
+        "submodules/05-feedback/assets/feedback-prioritization.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/feedback/beginner-main.md",
+          "path": "submodules/05-feedback/beginner-main.md",
           "focus": "以客服频繁修改退款摘要中的金额为案例，解释显式反馈、行为信号、业务结果、轨迹关联、错误归因、样本回流、优先级和受控实验。",
           "outline": [
             "一排差评为何仍说不清该改哪里",
@@ -315,7 +315,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/feedback/interview-side.md",
+          "path": "submodules/05-feedback/interview-side.md",
           "focus": "沿用金额纠错案例，考察反馈信号含义、轨迹关联、标签设计、归因、样本清洗、优先级、实验验证、偏差与隐私治理。",
           "questionBoundary": {
             "include": ["显式与隐式反馈", "业务结果", "轨迹关联", "错误标签", "根因归类", "样本清洗", "优先级", "实验验证", "反馈隐私"],

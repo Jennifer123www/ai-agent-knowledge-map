@@ -8,7 +8,7 @@ import { prepareWechatArticleImage } from "../lib/wechat/image.mjs";
 import { parseWechatArticle, renderWechatHtml, validateWechatHtml } from "../lib/wechat/markdown.mjs";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const defaultArticle = "content/wechat/tools-skills-and-protocols/beginner-main.md";
+const defaultArticle = "content/wechat/05-tools-skills-and-protocols/beginner-main.md";
 
 function parseArguments(argv) {
   const result = { file: defaultArticle, sideFile: null, theme: "green", dryRun: false };

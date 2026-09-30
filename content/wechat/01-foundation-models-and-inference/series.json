@@ -65,21 +65,21 @@
       "contentLevel": "submodule",
       "submodule": "llm",
       "seriesOrder": 1,
-      "promptFile": "submodules/llm/prompts.md",
-      "principleImage": "submodules/llm/assets/llm-principle.png",
+      "promptFile": "submodules/01-llm/prompts.md",
+      "principleImage": "submodules/01-llm/assets/llm-principle.png",
       "images": [
-        "submodules/llm/assets/llm-cover-wechat-horizontal-v2.png",
-        "submodules/llm/assets/llm-cover-interview-wechat.png",
-        "submodules/llm/assets/llm-token-generation.png",
-        "submodules/llm/assets/llm-sampling.png",
-        "submodules/llm/assets/llm-evidence-audit.png",
-        "submodules/llm/assets/llm-principle.png",
-        "submodules/llm/assets/llm-rnn-comparison.png",
-        "submodules/llm/assets/llm-context-conflict.png"
+        "submodules/01-llm/assets/llm-cover-wechat-horizontal-v2.png",
+        "submodules/01-llm/assets/llm-cover-interview-wechat.png",
+        "submodules/01-llm/assets/llm-token-generation.png",
+        "submodules/01-llm/assets/llm-sampling.png",
+        "submodules/01-llm/assets/llm-evidence-audit.png",
+        "submodules/01-llm/assets/llm-principle.png",
+        "submodules/01-llm/assets/llm-rnn-comparison.png",
+        "submodules/01-llm/assets/llm-context-conflict.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/llm/beginner-main.md",
+          "path": "submodules/01-llm/beginner-main.md",
           "focus": "以会议改期通知为贯穿案例，讲清 token 预测、自注意力、上下文、采样、事实边界、结构化结果和推理时延。",
           "outline": [
             "输入的文字怎样拆成 token",
@@ -94,7 +94,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/llm/interview-side.md",
+          "path": "submodules/01-llm/interview-side.md",
           "focus": "沿用会议改期案例，回答分词成本、生成、自注意力、长上下文、采样、事实核对、结构化输出、缓存和评测。",
           "questionBoundary": {
             "include": ["token 成本", "自回归生成", "自注意力", "上下文利用", "采样参数", "事实核对", "结构化输出", "缓存与时延", "模型评测"],
@@ -120,21 +120,21 @@
       "contentLevel": "submodule",
       "submodule": "multimodal",
       "seriesOrder": 2,
-      "promptFile": "submodules/multimodal/prompts.md",
-      "principleImage": "submodules/multimodal/assets/multimodal-principle.png",
+      "promptFile": "submodules/02-multimodal/prompts.md",
+      "principleImage": "submodules/02-multimodal/assets/multimodal-principle.png",
       "images": [
-        "submodules/multimodal/assets/multimodal-cover-main-wechat.png",
-        "submodules/multimodal/assets/multimodal-cover-interview-wechat.png",
-        "submodules/multimodal/assets/multimodal-encoding.png",
-        "submodules/multimodal/assets/multimodal-alignment.png",
-        "submodules/multimodal/assets/multimodal-document.png",
-        "submodules/multimodal/assets/multimodal-validation.png",
-        "submodules/multimodal/assets/multimodal-principle.png",
-        "submodules/multimodal/assets/multimodal-field-trace.png"
+        "submodules/02-multimodal/assets/multimodal-cover-main-wechat.png",
+        "submodules/02-multimodal/assets/multimodal-cover-interview-wechat.png",
+        "submodules/02-multimodal/assets/multimodal-encoding.png",
+        "submodules/02-multimodal/assets/multimodal-alignment.png",
+        "submodules/02-multimodal/assets/multimodal-document.png",
+        "submodules/02-multimodal/assets/multimodal-validation.png",
+        "submodules/02-multimodal/assets/multimodal-principle.png",
+        "submodules/02-multimodal/assets/multimodal-field-trace.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/multimodal/beginner-main.md",
+          "path": "submodules/02-multimodal/beginner-main.md",
           "focus": "以一张有反光、日期写作 9/3 的酒店发票为主案例，讲视觉编码、图文连接、版面关系、定位与字段核对；音频和界面仅作边界对照。",
           "outline": [
             "反光发票的输入、缺项与核对目标",
@@ -149,7 +149,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/multimodal/interview-side.md",
+          "path": "submodules/02-multimodal/interview-side.md",
           "focus": "沿用同一张反光发票，考察视觉编码、图文连接、OCR 与 VLM 取舍、多图定位和字段级评测；系统级权限与工具执行只交代边界。",
           "questionBoundary": {
             "include": ["视觉编码", "跨模态对齐", "OCR 与 VLM", "多图输入", "界面定位", "多模态评测"],
@@ -174,21 +174,21 @@
       "contentLevel": "submodule",
       "submodule": "embedding",
       "seriesOrder": 3,
-      "promptFile": "submodules/embedding/prompts.md",
-      "principleImage": "submodules/embedding/assets/embedding-principle.png",
+      "promptFile": "submodules/03-embedding/prompts.md",
+      "principleImage": "submodules/03-embedding/assets/embedding-principle.png",
       "images": [
-        "submodules/embedding/assets/embedding-cover-main-wechat.png",
-        "submodules/embedding/assets/embedding-cover-interview-wechat.png",
-        "submodules/embedding/assets/embedding-space.png",
-        "submodules/embedding/assets/embedding-retrieval.png",
-        "submodules/embedding/assets/embedding-chunking.png",
-        "submodules/embedding/assets/embedding-evaluation.png",
-        "submodules/embedding/assets/embedding-principle.png",
-        "submodules/embedding/assets/embedding-metric-comparison.png"
+        "submodules/03-embedding/assets/embedding-cover-main-wechat.png",
+        "submodules/03-embedding/assets/embedding-cover-interview-wechat.png",
+        "submodules/03-embedding/assets/embedding-space.png",
+        "submodules/03-embedding/assets/embedding-retrieval.png",
+        "submodules/03-embedding/assets/embedding-chunking.png",
+        "submodules/03-embedding/assets/embedding-evaluation.png",
+        "submodules/03-embedding/assets/embedding-principle.png",
+        "submodules/03-embedding/assets/embedding-metric-comparison.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/embedding/beginner-main.md",
+          "path": "submodules/03-embedding/beginner-main.md",
           "focus": "以‘酒店最多报多少’和《差旅住宿费限额》的表达差异为主案例，解释嵌入的训练目标、双塔、相似度及表示失真；索引和切分只讲它们如何改变模型输入与评测。",
           "outline": [
             "口语提问和正式制度标题为何对不上",
@@ -203,7 +203,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/embedding/interview-side.md",
+          "path": "submodules/03-embedding/interview-side.md",
           "focus": "聚焦嵌入表示与训练、距离度量、双塔输入、维度和模型版本；近邻索引及混合检索只作为判断嵌入质量时的对照变量。",
           "questionBoundary": {
             "include": ["向量语义", "相似度", "向量维度", "近邻索引", "查询与文档编码", "模型迁移", "召回评测"],
@@ -228,21 +228,21 @@
       "contentLevel": "submodule",
       "submodule": "reranker",
       "seriesOrder": 4,
-      "promptFile": "submodules/reranker/prompts.md",
-      "principleImage": "submodules/reranker/assets/reranker-principle.png",
+      "promptFile": "submodules/04-reranker/prompts.md",
+      "principleImage": "submodules/04-reranker/assets/reranker-principle.png",
       "images": [
-        "submodules/reranker/assets/reranker-cover-main-wechat.png",
-        "submodules/reranker/assets/reranker-cover-interview-wechat.png",
-        "submodules/reranker/assets/reranker-two-stage.png",
-        "submodules/reranker/assets/reranker-cross-encoder.png",
-        "submodules/reranker/assets/reranker-policy.png",
-        "submodules/reranker/assets/reranker-evaluation.png",
-        "submodules/reranker/assets/reranker-principle.png",
-        "submodules/reranker/assets/reranker-learning-objectives.png"
+        "submodules/04-reranker/assets/reranker-cover-main-wechat.png",
+        "submodules/04-reranker/assets/reranker-cover-interview-wechat.png",
+        "submodules/04-reranker/assets/reranker-two-stage.png",
+        "submodules/04-reranker/assets/reranker-cross-encoder.png",
+        "submodules/04-reranker/assets/reranker-policy.png",
+        "submodules/04-reranker/assets/reranker-evaluation.png",
+        "submodules/04-reranker/assets/reranker-principle.png",
+        "submodules/04-reranker/assets/reranker-learning-objectives.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/reranker/beginner-main.md",
+          "path": "submodules/04-reranker/beginner-main.md",
           "focus": "以北京四级员工住宿条款的相似候选为主案例，解释交叉编码器怎样逐对打分、候选规模和截断怎样影响排序，明确分数不等于制度效力。",
           "outline": [
             "相似的北京、上海与旧版条款怎样混入候选",
@@ -257,7 +257,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/reranker/interview-side.md",
+          "path": "submodules/04-reranker/interview-side.md",
           "focus": "聚焦交叉编码器、逐对打分、候选截断、阈值校准、延迟优化和排序训练；权限、版本过滤及生成验证只说明模型输出不能替代它们。",
           "questionBoundary": {
             "include": ["交叉编码器", "候选规模", "排序分数", "规则融合", "延迟优化", "排序指标", "回退"],
@@ -282,21 +282,21 @@
       "contentLevel": "submodule",
       "submodule": "adaptation",
       "seriesOrder": 5,
-      "promptFile": "submodules/adaptation/prompts.md",
-      "principleImage": "submodules/adaptation/assets/adaptation-principle.png",
+      "promptFile": "submodules/05-adaptation/prompts.md",
+      "principleImage": "submodules/05-adaptation/assets/adaptation-principle.png",
       "images": [
-        "submodules/adaptation/assets/adaptation-cover-main-wechat.png",
-        "submodules/adaptation/assets/adaptation-cover-interview-wechat.png",
-        "submodules/adaptation/assets/adaptation-decision.png",
-        "submodules/adaptation/assets/adaptation-lora.png",
-        "submodules/adaptation/assets/adaptation-distillation.png",
-        "submodules/adaptation/assets/adaptation-release.png",
-        "submodules/adaptation/assets/adaptation-principle.png",
-        "submodules/adaptation/assets/adaptation-diagnosis-matrix.png"
+        "submodules/05-adaptation/assets/adaptation-cover-main-wechat.png",
+        "submodules/05-adaptation/assets/adaptation-cover-interview-wechat.png",
+        "submodules/05-adaptation/assets/adaptation-decision.png",
+        "submodules/05-adaptation/assets/adaptation-lora.png",
+        "submodules/05-adaptation/assets/adaptation-distillation.png",
+        "submodules/05-adaptation/assets/adaptation-release.png",
+        "submodules/05-adaptation/assets/adaptation-principle.png",
+        "submodules/05-adaptation/assets/adaptation-diagnosis-matrix.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/adaptation/beginner-main.md",
+          "path": "submodules/05-adaptation/beginner-main.md",
           "focus": "以客服把每周更新的退款政策答错为主案例，先分清动态事实与稳定话术，再讲 SFT、LoRA、QLoRA 和蒸馏的训练机制与验收。",
           "outline": [
             "旧退款政策与固定话术为何是两种故障",
@@ -311,7 +311,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/adaptation/interview-side.md",
+          "path": "submodules/05-adaptation/interview-side.md",
           "focus": "沿用客服退款案例，聚焦适配病因、SFT、LoRA/QLoRA、蒸馏、训练数据与遗忘；只在必要处解释动态知识应外置。",
           "questionBoundary": {
             "include": ["适配路径", "监督微调", "LoRA", "QLoRA", "蒸馏", "训练数据", "灾难性遗忘", "发布治理"],

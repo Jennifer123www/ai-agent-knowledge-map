@@ -98,7 +98,7 @@ const diagrams = [
     },
   },
   {
-    file: "foundation-models-and-inference/submodules/llm/assets/llm-principle.png",
+    file: "01-foundation-models-and-inference/submodules/01-llm/assets/llm-principle.png",
     source: "Vaswani et al., Attention Is All You Need (2017), Figure 2；因果掩码见 §3.2.3",
     title: "自注意力：从 Q/K/V 到当前表示",
     draw: () => {
@@ -117,7 +117,7 @@ const diagrams = [
     },
   },
   {
-    file: "foundation-models-and-inference/submodules/llm/assets/llm-rnn-comparison.png",
+    file: "01-foundation-models-and-inference/submodules/01-llm/assets/llm-rnn-comparison.png",
     source: "Vaswani et al. (2017), §4 / Table 1；比较的是同层输入表示的计算",
     title: "RNN 与自注意力：同一层怎样处理输入",
     draw: () => {
@@ -140,7 +140,7 @@ const diagrams = [
     },
   },
   {
-    file: "foundation-models-and-inference/submodules/llm/assets/llm-token-generation.png",
+    file: "01-foundation-models-and-inference/submodules/01-llm/assets/llm-token-generation.png",
     source: "自回归解码示意：每轮预测一个 token，直到结束标记或达到上限",
     title: "一次生成：预测下一个 token",
     draw: () => {
@@ -157,7 +157,7 @@ const diagrams = [
     },
   },
   {
-    file: "foundation-models-and-inference/submodules/multimodal/assets/multimodal-principle.png",
+    file: "01-foundation-models-and-inference/submodules/02-multimodal/assets/multimodal-principle.png",
     source: "Liu et al., Visual Instruction Tuning / LLaVA (2023), §3；教学简化",
     title: "视觉特征怎样接入语言模型",
     draw: () => {
@@ -173,7 +173,7 @@ const diagrams = [
     },
   },
   {
-    file: "foundation-models-and-inference/submodules/embedding/assets/embedding-principle.png",
+    file: "01-foundation-models-and-inference/submodules/03-embedding/assets/embedding-principle.png",
     source: "Reimers & Gurevych, Sentence-BERT (2019), Figure 2；双塔推理简化",
     title: "双塔编码：查询和文档在同一空间比较",
     draw: () => {
@@ -189,7 +189,7 @@ const diagrams = [
     },
   },
   {
-    file: "foundation-models-and-inference/submodules/reranker/assets/reranker-principle.png",
+    file: "01-foundation-models-and-inference/submodules/04-reranker/assets/reranker-principle.png",
     source: "Nogueira & Cho, Passage Re-ranking with BERT (2019), §2；联合输入简化",
     title: "交叉编码器：查询与候选一起阅读",
     draw: () => {
@@ -205,7 +205,7 @@ const diagrams = [
     },
   },
   {
-    file: "foundation-models-and-inference/submodules/adaptation/assets/adaptation-principle.png",
+    file: "01-foundation-models-and-inference/submodules/05-adaptation/assets/adaptation-principle.png",
     source: "Hu et al., LoRA (2021), §4 / Figure 1；低秩增量示意",
     title: "LoRA：冻结底座，只训练增量",
     draw: () => {
@@ -237,7 +237,7 @@ const diagrams = [
     },
   },
   {
-    file: "tools-skills-and-protocols/submodules/skill/assets/skill-principle.png",
+    file: "05-tools-skills-and-protocols/submodules/01-skill/assets/skill-principle.png",
     source: "Agent Skills specification, progressive disclosure / SKILL.md；技能发现机制",
     title: "技能按需加载：先识别，再读正文与资源",
     draw: () => {
@@ -253,7 +253,7 @@ const diagrams = [
     },
   },
   {
-    file: "tools-skills-and-protocols/submodules/toolcalling/assets/toolcalling-principle.png",
+    file: "05-tools-skills-and-protocols/submodules/02-toolcalling/assets/toolcalling-principle.png",
     source: "MCP specification (2025-06-18), server/tools；Tool Calling 通用执行边界",
     title: "工具调用：模型给出意图，应用负责执行",
     draw: () => {
@@ -269,7 +269,7 @@ const diagrams = [
     },
   },
   {
-    file: "tools-skills-and-protocols/submodules/execution/assets/execution-principle.png",
+    file: "05-tools-skills-and-protocols/submodules/03-execution/assets/execution-principle.png",
     source: "OpenAI Computer Use guide；观察—动作—再观察机制，按执行层边界改绘",
     title: "浏览器执行：一次动作必须有新观察",
     draw: () => {
@@ -285,7 +285,7 @@ const diagrams = [
     },
   },
   {
-    file: "tools-skills-and-protocols/submodules/mcp/assets/mcp-principle.png",
+    file: "05-tools-skills-and-protocols/submodules/04-mcp/assets/mcp-principle.png",
     source: "MCP specification (2025-06-18), Basic / Lifecycle；初始化时序",
     title: "MCP 初始化：协商后再调用能力",
     draw: () => {
@@ -300,7 +300,7 @@ const diagrams = [
     },
   },
   {
-    file: "tools-skills-and-protocols/submodules/mcpobjects/assets/mcpobjects-principle.png",
+    file: "05-tools-skills-and-protocols/submodules/05-mcpobjects/assets/mcpobjects-principle.png",
     source: "MCP specification (2025-06-18), Architecture / Tools / Resources / Prompts",
     title: "MCP 三种对象：请求路径并不相同",
     draw: () => {
@@ -316,7 +316,7 @@ const diagrams = [
     },
   },
   {
-    file: "tools-skills-and-protocols/submodules/connector/assets/connector-principle.png",
+    file: "05-tools-skills-and-protocols/submodules/06-connector/assets/connector-principle.png",
     source: "RFC 9700 (OAuth 2.0 Security BCP), §§2–4；授权委托与资源调用简化",
     title: "连接器：凭据停在服务端，模型只提业务意图",
     draw: () => {

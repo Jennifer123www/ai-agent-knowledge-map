@@ -6,7 +6,7 @@ import { promisify } from "node:util";
 
 // These SVGs are only drawing intermediates. Public assets are PNG files.
 const root = path.resolve(import.meta.dirname, "..");
-const outRoot = path.join(root, "content/wechat/multi-agent-collaboration");
+const outRoot = path.join(root, "content/wechat/06-multi-agent-collaboration");
 const execFile = promisify(execFileCallback);
 const W = 1536;
 const H = 1024;
@@ -253,12 +253,12 @@ const diagrams = [
 
   // Workflow
   {
-    file: "submodules/workflow/assets/workflow-fixed-path.png", title: "固定工作流：报销草稿沿着已知路径走", eyebrow: "流程图",
+    file: "submodules/01-workflow/assets/workflow-fixed-path.png", title: "固定工作流：报销草稿沿着已知路径走", eyebrow: "流程图",
     source: "Anthropic prompt chaining / routing patterns；差旅报销案例改绘",
     draw: () => flow([["读取申请", "字段与票据"], ["校验规则", "金额、日期、标准"], ["模型写说明", "只组织文字"], ["人工确认", "核对异常"], ["提交草稿", "记录回执"]], "模型负责不确定的文字工作，规则与写操作交给确定性节点。"),
   },
   {
-    file: "submodules/workflow/assets/workflow-branching.png", title: "条件分支：异常不能挤进同一条直线", eyebrow: "分支图",
+    file: "submodules/01-workflow/assets/workflow-branching.png", title: "条件分支：异常不能挤进同一条直线", eyebrow: "分支图",
     source: "工作流条件路由与异常处理；差旅报销案例",
     draw: () => stateMachine(
       [["读取申请", "入口"], ["资料齐全", "正常分支"], ["缺少票据", "退回补充"], ["金额合规", "继续"], ["超过标准", "人工审批"], ["生成草稿", "统一出口"]],
@@ -267,7 +267,7 @@ const diagrams = [
     ),
   },
   {
-    file: "submodules/workflow/assets/workflow-idempotency.png", title: "重试不等于再提交一次", eyebrow: "机制图",
+    file: "submodules/01-workflow/assets/workflow-idempotency.png", title: "重试不等于再提交一次", eyebrow: "机制图",
     source: "幂等写入与补偿模式；报销提交案例",
     draw: () => compare(
       { title: "危险重试", items: [["第一次提交", "服务端已成功"], ["客户端超时", "没有收到回执"], ["再次提交", "可能生成两条申请"]] },
@@ -276,7 +276,7 @@ const diagrams = [
     ),
   },
   {
-    file: "submodules/workflow/assets/workflow-observability.png", title: "一条工作流要留下哪些证据", eyebrow: "观测图",
+    file: "submodules/01-workflow/assets/workflow-observability.png", title: "一条工作流要留下哪些证据", eyebrow: "观测图",
     source: "工作流可观测性清单；节点、输入摘要、输出、回执与耗时",
     draw: () => contract([
       ["运行标识", "同一次报销任务使用统一 run_id"],
@@ -287,14 +287,14 @@ const diagrams = [
     ], "日志不是堆满原文；敏感数据要脱敏，关键回执要可追溯。", "一次运行应保存的关键证据"),
   },
   {
-    file: "submodules/workflow/assets/workflow-principle.png", title: "工作流的核心：确定路径包住不确定模型", eyebrow: "原理示意图",
+    file: "submodules/01-workflow/assets/workflow-principle.png", title: "工作流的核心：确定路径包住不确定模型", eyebrow: "原理示意图",
     source: "Anthropic, Building Effective AI Agents：prompt chaining、routing、parallelization",
     draw: () => flow([["确定性输入", "结构化字段"], ["代码校验", "规则与权限"], ["模型节点", "理解或生成"], ["代码验收", "格式与事实"], ["受控写入", "幂等并留回执"]], "模型节点可以不确定，但进入和离开它的边界必须可检查。"),
   },
 
   // State graph
   {
-    file: "submodules/stategraph/assets/stategraph-state-object.png", title: "状态对象保存事实，不保存一句“做到一半”", eyebrow: "结构图",
+    file: "submodules/02-stategraph/assets/stategraph-state-object.png", title: "状态对象保存事实，不保存一句“做到一半”", eyebrow: "结构图",
     source: "LangGraph persistence / checkpoints；研究报告案例",
     draw: () => contract([
       ["目标", "完成三家模型平台的对比报告"],
@@ -305,7 +305,7 @@ const diagrams = [
     ], "聊天记录可以辅助理解，但不能替代可验证的任务状态。", "研究任务的显式状态"),
   },
   {
-    file: "submodules/stategraph/assets/stategraph-transition.png", title: "状态转移要经过守卫条件", eyebrow: "状态图",
+    file: "submodules/02-stategraph/assets/stategraph-transition.png", title: "状态转移要经过守卫条件", eyebrow: "状态图",
     source: "Harel, Statecharts (1987)；结合 Agent 任务图改绘",
     draw: () => stateMachine(
       [["待执行", "入口"], ["资料检索", "运行中"], ["等待补充", "人工输入"], ["事实核验", "运行中"], ["等待审批", "人工确认"], ["已完成", "终态"]],
@@ -314,17 +314,17 @@ const diagrams = [
     ),
   },
   {
-    file: "submodules/stategraph/assets/stategraph-checkpoint.png", title: "检查点必须同时保存状态与副作用回执", eyebrow: "恢复图",
+    file: "submodules/02-stategraph/assets/stategraph-checkpoint.png", title: "检查点必须同时保存状态与副作用回执", eyebrow: "恢复图",
     source: "LangGraph checkpoint persistence；结合幂等恢复语义改绘",
     draw: () => checkpoint("恢复时先读回执：可重放的计算继续，不可重放的写操作先确认。"),
   },
   {
-    file: "submodules/stategraph/assets/stategraph-recovery.png", title: "故障恢复的三步判断", eyebrow: "决策图",
+    file: "submodules/02-stategraph/assets/stategraph-recovery.png", title: "故障恢复的三步判断", eyebrow: "决策图",
     source: "持久化执行与故障恢复工程实践；研究报告案例",
     draw: () => flow([["读取检查点", "最后一致状态"], ["核对外部回执", "写操作是否成功"], ["判定动作类型", "可重放 / 不可重放"], ["恢复或转人工", "保留原 run_id"]], "恢复不是“从最后一句继续”，而是从最后一个可信状态继续。"),
   },
   {
-    file: "submodules/stategraph/assets/stategraph-principle.png", title: "状态图：状态、节点与转移共同约束任务", eyebrow: "原理示意图",
+    file: "submodules/02-stategraph/assets/stategraph-principle.png", title: "状态图：状态、节点与转移共同约束任务", eyebrow: "原理示意图",
     source: "Harel, Statecharts (1987)；LangGraph persistence；教学简化",
     draw: () => cycle([
       ["读取状态", "目标与中间产物"], ["检查守卫", "是否允许进入节点"], ["执行节点", "模型或工具"], ["写入检查点", "状态与动作回执"], ["选择转移", "继续、暂停或结束"],
@@ -333,7 +333,7 @@ const diagrams = [
 
   // Multi-agent
   {
-    file: "submodules/multiagent/assets/multiagent-fit.png", title: "什么任务值得拆给多个 Agent", eyebrow: "判断图",
+    file: "submodules/03-multiagent/assets/multiagent-fit.png", title: "什么任务值得拆给多个 Agent", eyebrow: "判断图",
     source: "Anthropic parallelization / orchestrator-workers；多智能体工程实践",
     draw: () => matrix(
       ["能独立完成", "依赖很强", "需不同权限", "需同一口径"],
@@ -343,7 +343,7 @@ const diagrams = [
     ),
   },
   {
-    file: "submodules/multiagent/assets/multiagent-parallel.png", title: "并行协作：共享任务，不共享全部思考过程", eyebrow: "协作图",
+    file: "submodules/03-multiagent/assets/multiagent-parallel.png", title: "并行协作：共享任务，不共享全部思考过程", eyebrow: "协作图",
     source: "Anthropic parallelization；三路产品调研案例",
     draw: () => hub(["统一任务单", "相同范围、截止时间与格式"], [
       ["市场 Agent", "份额、客户与生态"],
@@ -353,7 +353,7 @@ const diagrams = [
     ], "各 Agent 只拿必要上下文，结果通过结构化交付汇合。"),
   },
   {
-    file: "submodules/multiagent/assets/multiagent-evidence.png", title: "Agent 交付的不是一句结论", eyebrow: "交付图",
+    file: "submodules/03-multiagent/assets/multiagent-evidence.png", title: "Agent 交付的不是一句结论", eyebrow: "交付图",
     source: "多智能体中间产物规范；证据、未知项与冲突字段",
     draw: () => contract([
       ["结论", "一句话说明发现，不用形容词代替判断"],
@@ -364,7 +364,7 @@ const diagrams = [
     ], "没有证据和边界的“专业意见”，只会把核验成本推给下一个人。", "结构化交付：结论之外还要交什么"),
   },
   {
-    file: "submodules/multiagent/assets/multiagent-evaluation.png", title: "多 Agent 必须与更简单方案做对照", eyebrow: "评测图",
+    file: "submodules/03-multiagent/assets/multiagent-evaluation.png", title: "多 Agent 必须与更简单方案做对照", eyebrow: "评测图",
     source: "Agent evaluation engineering；单 Agent 与多 Agent 对照实验",
     draw: () => compare(
       { title: "单 Agent 基线", items: [["任务成功率", "同一案例集"], ["事实错误率", "同一验收口径"], ["成本与延迟", "完整链路统计"]] },
@@ -373,7 +373,7 @@ const diagrams = [
     ),
   },
   {
-    file: "submodules/multiagent/assets/multiagent-principle.png", title: "多智能体：独立产出经共享状态汇合", eyebrow: "原理示意图",
+    file: "submodules/03-multiagent/assets/multiagent-principle.png", title: "多智能体：独立产出经共享状态汇合", eyebrow: "原理示意图",
     source: "Wu et al., AutoGen (2023), Figure 1；Anthropic orchestrator-workers；教学简化",
     draw: () => hub(["共享状态", "目标、任务单、证据与预算"], [
       ["Agent A", "独立上下文与工具"],
@@ -385,7 +385,7 @@ const diagrams = [
 
   // Supervisor
   {
-    file: "submodules/supervisor/assets/supervisor-contract.png", title: "主管下发任务时必须带齐五件事", eyebrow: "任务单",
+    file: "submodules/04-supervisor/assets/supervisor-contract.png", title: "主管下发任务时必须带齐五件事", eyebrow: "任务单",
     source: "OpenAI Agents SDK manager pattern；任务契约工程实践",
     draw: () => contract([
       ["任务目标", "核对三家供应商的技术风险"],
@@ -396,7 +396,7 @@ const diagrams = [
     ], "主管的第一份产物不是答案，而是可执行、可验收的任务单。", "主管下发的任务单"),
   },
   {
-    file: "submodules/supervisor/assets/supervisor-routing.png", title: "专家路由看能力，也看权限和负载", eyebrow: "路由图",
+    file: "submodules/04-supervisor/assets/supervisor-routing.png", title: "专家路由看能力，也看权限和负载", eyebrow: "路由图",
     source: "OpenAI Agents SDK orchestration；动态路由工程实践",
     draw: () => matrix(
       ["能力匹配", "数据权限", "当前负载", "历史质量"],
@@ -406,19 +406,19 @@ const diagrams = [
     ),
   },
   {
-    file: "submodules/supervisor/assets/supervisor-conflict.png", title: "结论冲突时，主管先补证再裁定", eyebrow: "冲突处理",
+    file: "submodules/04-supervisor/assets/supervisor-conflict.png", title: "结论冲突时，主管先补证再裁定", eyebrow: "冲突处理",
     source: "多智能体验收与冲突消解；供应商调研案例",
     draw: () => flow([["发现冲突", "同一指标两个答案"], ["核对口径", "版本、时间、范围"], ["要求补证", "回到一手来源"], ["记录分歧", "无法消除就明示"], ["人工裁定", "高风险结论"]], "主管不能用“多数票”替代事实核验。"),
   },
   {
-    file: "submodules/supervisor/assets/supervisor-budget.png", title: "防循环：每次委派都消耗可见预算", eyebrow: "控制图",
+    file: "submodules/04-supervisor/assets/supervisor-budget.png", title: "防循环：每次委派都消耗可见预算", eyebrow: "控制图",
     source: "Agent runtime budgets；防止重复委派和无效对话",
     draw: () => cycle([
       ["检查缺口", "是否真的需要继续"], ["扣减预算", "轮次、token、时间"], ["委派一次", "记录任务指纹"], ["验收增量", "是否增加新证据"], ["停止或升级", "无增量就转人工"],
     ], "主管循环", "每轮都要产生可验收增量", "同一任务指纹重复出现，应直接拦截而不是继续转发。"),
   },
   {
-    file: "submodules/supervisor/assets/supervisor-principle.png", title: "主管模式：统一保留控制权，专家只交付结果", eyebrow: "原理示意图",
+    file: "submodules/04-supervisor/assets/supervisor-principle.png", title: "主管模式：统一保留控制权，专家只交付结果", eyebrow: "原理示意图",
     source: "OpenAI Agents SDK manager pattern；Anthropic orchestrator-workers；教学简化",
     draw: () => hub(["主管 Agent", "拆分、路由、验收与合并"], [
       ["市场专家", "返回市场证据"],
@@ -430,7 +430,7 @@ const diagrams = [
 
   // Handoff
   {
-    file: "submodules/handoff/assets/handoff-package.png", title: "一次合格交接需要一个最小上下文包", eyebrow: "交接包",
+    file: "submodules/05-handoff/assets/handoff-package.png", title: "一次合格交接需要一个最小上下文包", eyebrow: "交接包",
     source: "OpenAI Agents SDK handoffs；任务交接工程实践",
     draw: () => contract([
       ["用户目标", "申请订单退款，不是咨询退款政策"],
@@ -441,7 +441,7 @@ const diagrams = [
     ], "交接包越长不一定越好，关键是事实、状态、边界和下一步。", "最小交接包：接手后能继续工作"),
   },
   {
-    file: "submodules/handoff/assets/handoff-control.png", title: "主管调用与任务交接的控制权不同", eyebrow: "对比图",
+    file: "submodules/05-handoff/assets/handoff-control.png", title: "主管调用与任务交接的控制权不同", eyebrow: "对比图",
     source: "OpenAI Agents SDK orchestration / handoffs",
     draw: () => compare(
       { title: "主管调用专家", items: [["谁面对用户", "主管始终在场"], ["专家返回什么", "结构化结果"], ["谁生成最终答复", "主管"]] },
@@ -450,17 +450,17 @@ const diagrams = [
     ),
   },
   {
-    file: "submodules/handoff/assets/handoff-human.png", title: "人工参与不是终点，而是受控暂停", eyebrow: "人工回路",
+    file: "submodules/05-handoff/assets/handoff-human.png", title: "人工参与不是终点，而是受控暂停", eyebrow: "人工回路",
     source: "OpenAI Agents SDK human-in-the-loop；审批与恢复语义",
     draw: () => flow([["Agent 提议动作", "退款金额与理由"], ["运行时暂停", "冻结当前状态"], ["人工查看证据", "批准、拒绝或修改"], ["写回决定", "带审批人与时间"], ["从原状态恢复", "继续或安全结束"]], "审批结果必须进入状态，不能只留在聊天消息里。"),
   },
   {
-    file: "submodules/handoff/assets/handoff-resume.png", title: "交接后恢复：新 Agent 先确认，再行动", eyebrow: "恢复图",
+    file: "submodules/05-handoff/assets/handoff-resume.png", title: "交接后恢复：新 Agent 先确认，再行动", eyebrow: "恢复图",
     source: "Handoff state transfer 与业务副作用控制；退款案例",
     draw: () => flow([["读取交接包", "目标与已知事实"], ["核对关键字段", "订单、身份、动作回执"], ["补问缺口", "只问未知信息"], ["声明下一步", "让用户知道谁在处理"], ["执行受控动作", "留业务回执"]], "新 Agent 不应重新盘问，也不能假装之前的动作已经完成。"),
   },
   {
-    file: "submodules/handoff/assets/handoff-principle.png", title: "任务交接：上下文与控制权一起转移", eyebrow: "原理示意图",
+    file: "submodules/05-handoff/assets/handoff-principle.png", title: "任务交接：上下文与控制权一起转移", eyebrow: "原理示意图",
     source: "OpenAI Agents SDK handoffs / human-in-the-loop；教学简化",
     draw: () => flow([["分诊 Agent", "识别退款意图"], ["准备交接包", "事实、状态、未决项"], ["退款 Agent", "接管会话与任务"], ["人工审批", "高风险动作"], ["恢复并回执", "同一任务继续"]], "Handoff 不是转发一句话，而是把责任、状态和权限边界交给下一位。"),
   },

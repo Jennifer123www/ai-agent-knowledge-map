@@ -62,10 +62,14 @@ for (const manifestPath of manifestPaths) {
   const topic = String(manifest.topic || "").trim();
   const seriesType = String(manifest.seriesType || "module").trim();
   const groups = Array.isArray(manifest.groups) ? manifest.groups : [];
+  const seriesDirectory = path.basename(seriesRoot);
   const outlinePlan = manifest.draftPlan?.outlineSections;
   const characterPlan = manifest.draftPlan?.targetChineseCharacters;
   if (manifest.schemaVersion !== 1) fail(manifestLabel, "schemaVersion must be 1");
   if (!topic) fail(manifestLabel, "topic is required");
+  if (!/^\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(seriesDirectory)) {
+    fail(manifestLabel, "series directory must use the <nn>-<topic> lowercase-English format");
+  }
   if (!new Set(["module", "independent"]).has(seriesType)) {
     fail(manifestLabel, "seriesType must be module or independent");
   }
@@ -99,9 +103,21 @@ for (const manifestPath of manifestPaths) {
     seriesOrders.add(seriesOrder);
 
     const promptFile = String(group.promptFile || "").trim();
+    const expectedSubmoduleDirectory = contentLevel === "submodule"
+      ? `submodules/${String(seriesOrder).padStart(2, "0")}-${id}/`
+      : "";
+    const validateGroupPath = (relativePath, field) => {
+      if (contentLevel === "submodule" && !relativePath.startsWith(expectedSubmoduleDirectory)) {
+        fail(groupLabel, `${field} must start with ${expectedSubmoduleDirectory}`);
+      }
+      if (contentLevel === "overview" && relativePath.startsWith("submodules/")) {
+        fail(groupLabel, `${field} for overview must stay in the series root`);
+      }
+    };
     let promptMarkdown = "";
     if (!promptFile) fail(groupLabel, "promptFile is required");
     else {
+      validateGroupPath(promptFile, "promptFile");
       try { promptMarkdown = await readFile(seriesPath(seriesRoot, promptFile), "utf8"); }
       catch { fail(groupLabel, `missing prompt file ${promptFile}`); }
     }
@@ -115,12 +131,14 @@ for (const manifestPath of manifestPaths) {
     }
     if (!principleImage) fail(groupLabel, "principleImage is required");
     else {
+      validateGroupPath(principleImage, "principleImage");
       if (!declaredImages.has(principleImage)) fail(groupLabel, "principleImage must be declared in images");
       if (!promptMarkdown.includes(path.basename(principleImage))) {
         fail(groupLabel, `prompt file must document principle image ${path.basename(principleImage)}`);
       }
     }
     for (const imageName of declaredImages) {
+      validateGroupPath(imageName, "image path");
       if (!/\.(?:png|jpe?g)$/i.test(imageName)) fail(groupLabel, `unsupported image type: ${imageName}`);
       try { await access(seriesPath(seriesRoot, imageName)); }
       catch { fail(groupLabel, `missing image ${imageName}`); }
@@ -139,6 +157,7 @@ for (const manifestPath of manifestPaths) {
         fail(groupLabel, `${role}.path is required`);
         continue;
       }
+      validateGroupPath(relativePath, `${role}.path`);
       if (!String(entry.focus || "").trim()) fail(groupLabel, `${role}.focus is required`);
       if (outline.length < 8 || outline.length > 10) {
         fail(groupLabel, `${role}.outline must contain 8-10 planned sections (${outline.length})`);

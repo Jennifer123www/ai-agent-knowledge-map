@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.3` |
-| 阶段 | 双图文草稿支持独立专题的非面试副文；公网回调仍待部署 |
-| Git 状态 | 基于 `9b187ce`（`main`；修改前另有未跟踪的评测系列与编辑器临时文件） |
-| 修改时间 | `2026-09-29 20:02 CST` |
+| 版本 | `0.5.4` |
+| 阶段 | 草稿命令与系列说明同步使用带序号的模块、子模块目录；公网回调仍待部署 |
+| Git 状态 | 基于 `12635a2`（`main`；修改前仅有未跟踪的推文终稿目录） |
+| 修改时间 | `2026-09-30 10:05 CST` |
 
 ## 1. 已实现链路
 
@@ -44,7 +44,7 @@ PORT=3000
 
 ```sh
 npm test
-npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
 npm run wechat:serve
 ```
 
@@ -95,19 +95,19 @@ order: 1
 
 导入前会强制校验：标题、作者和摘要长度；HTML 少于 20000 个字符且小于 1 MB；正文不含 JavaScript；封面和正文图片均为本地 JPG/PNG；文章包含“参考资料”小节和至少一个 HTTP(S) 文档链接。正文图片在创建草稿时先调用微信图片上传接口，HTML 只使用微信返回的 URL。若 `content_source_url` 为空，脚本会采用文末 `[阅读原文](...)` 的地址；两处都填写时必须一致。
 
-当前脚本不带参数时会把 `content/wechat/tools-skills-and-protocols/beginner-main.md` 作为单篇、绿色主题草稿导入，只用于兼容旧命令和单篇烟测。**正式主副文交付必须显式指定两篇路径及 `--theme orange`**，不要依赖这个默认值。
+当前脚本不带参数时会把 `content/wechat/05-tools-skills-and-protocols/beginner-main.md` 作为单篇、绿色主题草稿导入，只用于兼容旧命令和单篇烟测。**正式主副文交付必须显式指定两篇路径及 `--theme orange`**，不要依赖这个默认值。
 
-该主题包含 1 组总概览和 6 组子模块，共 14 篇 Markdown。子模块文章位于 `content/wechat/tools-skills-and-protocols/submodules/<child>/`，其主副文路径以 `series.json` 为准。
+该主题包含 1 组总概览和 6 组子模块，共 14 篇 Markdown。子模块文章位于 `content/wechat/05-tools-skills-and-protocols/submodules/<child>/`，其主副文路径以 `series.json` 为准。
 
-项目复盘系列位于 `content/wechat/project-retrospective/`，在 `series.json` 标记为 `independent`，包含“我是如何引导 AI 生成一份 AI Agent 知识图谱的”主文和一篇非面试形式的踩坑指南。两篇仍作为一组接受校验和双图文 dry-run；独立专题可超过 5000 个中文字符，但不能超过公众号 HTML 限额。
+项目复盘系列位于 `content/wechat/11-project-retrospective/`，在 `series.json` 标记为 `independent`，包含“我是如何引导 AI 生成一份 AI Agent 知识图谱的”主文和一篇非面试形式的踩坑指南。两篇仍作为一组接受校验和双图文 dry-run；独立专题可超过 5000 个中文字符，但不能超过公众号 HTML 限额。
 
-基础模型系列位于 `content/wechat/foundation-models-and-inference/`，包含 1 组总概览和大语言模型、多模态模型、向量嵌入、重排序、模型适配 5 组子模块，共 12 篇 Markdown 与 30 张本地配图。各组文章路径、题目边界、提纲和配图以该目录的 `series.json` 为准。
+基础模型系列位于 `content/wechat/01-foundation-models-and-inference/`，包含 1 组总概览和大语言模型、多模态模型、向量嵌入、重排序、模型适配 5 组子模块，共 12 篇 Markdown 与 30 张本地配图。各组文章路径、题目边界、提纲和配图以该目录的 `series.json` 为准。
 
 同组主文和副文默认写入**同一份双图文草稿**：`--file` 的主文排第一篇，`--side-file` 的副文排第二篇，两篇各用自己的封面。每组运行一次双图文 dry-run，通过后再创建：
 
 ```sh
-npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
-npm run wechat:draft -- --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
+npm run wechat:draft -- --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
 ```
 
 脚本只调用草稿接口 `draft/add`，不会调用发布或群发接口。双图文只创建一份草稿、返回一个 `media_id`；脚本复用两篇共有的正文图片上传结果，原有草稿不会被覆盖。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
@@ -117,13 +117,13 @@ npm run wechat:draft -- --theme orange --file content/wechat/foundation-models-a
 复盘文章示例：
 
 ```sh
-npm run wechat:draft -- --dry-run --theme orange --file content/wechat/project-retrospective/beginner-main.md --side-file content/wechat/project-retrospective/interview-side.md
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/11-project-retrospective/beginner-main.md --side-file content/wechat/11-project-retrospective/interview-side.md
 ```
 
 基础模型系列示例：
 
 ```sh
-npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/beginner-main.md --side-file content/wechat/foundation-models-and-inference/interview-side.md
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/01-foundation-models-and-inference/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/interview-side.md
 ```
 
 微信正文图片按 1 MB 上限预检。本机 macOS 运行时，超限 PNG 会通过系统自带的 `sips` 临时压缩为 JPEG 后上传；临时文件在命令结束时删除，源图片不会改动。其他系统需要预先把正文图片压缩到 1 MB 以下。

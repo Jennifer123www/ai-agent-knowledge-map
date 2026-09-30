@@ -30,16 +30,16 @@
     },
     {
       "id": "persona", "contentLevel": "submodule", "submodule": "persona", "seriesOrder": 1,
-      "promptFile": "submodules/persona/prompts.md", "principleImage": "submodules/persona/assets/persona-principle.png",
-      "images": ["submodules/persona/assets/persona-cover.png", "submodules/persona/assets/persona-contract.png", "submodules/persona/assets/persona-boundary.png", "submodules/persona/assets/persona-handoff.png", "submodules/persona/assets/persona-test.png", "submodules/persona/assets/persona-principle.png"],
+      "promptFile": "submodules/01-persona/prompts.md", "principleImage": "submodules/01-persona/assets/persona-principle.png",
+      "images": ["submodules/01-persona/assets/persona-cover.png", "submodules/01-persona/assets/persona-contract.png", "submodules/01-persona/assets/persona-boundary.png", "submodules/01-persona/assets/persona-handoff.png", "submodules/01-persona/assets/persona-test.png", "submodules/01-persona/assets/persona-principle.png"],
       "articles": {
         "beginner": {
-          "path": "submodules/persona/beginner-main.md",
+          "path": "submodules/01-persona/beginner-main.md",
           "focus": "会议助手只负责读日历、给候选和草拟通知，拆解服务对象、动作边界、输入输出契约、能力集合与交接条件；不展开具体提示模板或执行循环。",
           "outline": ["一句万能人设为何不够", "服务对象和交付物怎么定", "允许和禁止的动作怎么写", "角色契约怎样接住输入", "允许动作集合怎样约束候选", "何时把任务交给人", "角色与真实权限为何要一致", "如何用反例验收职责边界"]
         },
         "interview": {
-          "path": "submodules/persona/interview-side.md",
+          "path": "submodules/01-persona/interview-side.md",
           "focus": "围绕会议助手职责定义、动作分级、契约、权限映射、越界处理和角色边界评测。",
           "questionBoundary": {
             "include": ["角色服务对象", "允许动作集合", "输入输出契约", "角色与权限映射", "职责越界交接", "边界评测"],
@@ -51,16 +51,16 @@
     },
     {
       "id": "prompt", "contentLevel": "submodule", "submodule": "prompt", "seriesOrder": 2,
-      "promptFile": "submodules/prompt/prompts.md", "principleImage": "submodules/prompt/assets/prompt-principle.png",
-      "images": ["submodules/prompt/assets/prompt-cover.png", "submodules/prompt/assets/prompt-layers.png", "submodules/prompt/assets/prompt-schema.png", "submodules/prompt/assets/prompt-injection.png", "submodules/prompt/assets/prompt-test.png", "submodules/prompt/assets/prompt-principle.png"],
+      "promptFile": "submodules/02-prompt/prompts.md", "principleImage": "submodules/02-prompt/assets/prompt-principle.png",
+      "images": ["submodules/02-prompt/assets/prompt-cover.png", "submodules/02-prompt/assets/prompt-layers.png", "submodules/02-prompt/assets/prompt-schema.png", "submodules/02-prompt/assets/prompt-injection.png", "submodules/02-prompt/assets/prompt-test.png", "submodules/02-prompt/assets/prompt-principle.png"],
       "articles": {
         "beginner": {
-          "path": "submodules/prompt/beginner-main.md",
+          "path": "submodules/02-prompt/beginner-main.md",
           "focus": "会议助手接到用户本轮请求和外部日历文字，讲系统约束、任务输入、工具资料分层、结构化输出和程序校验；不把提示词当权限系统。",
           "outline": ["一句请安排为何会有歧义", "长期指令与当前任务分开", "不可信日历文本怎样标记", "提示词里哪些字段必须明确", "输出格式与业务正确性区别", "缺值和冲突怎样写进协议", "为何仍需程序校验与权限", "怎样做版本和注入回归"]
         },
         "interview": {
-          "path": "submodules/prompt/interview-side.md",
+          "path": "submodules/02-prompt/interview-side.md",
           "focus": "围绕指令层级、输入隔离、模板字段、结构化结果、缺值表达、注入与提示版本评测。",
           "questionBoundary": {
             "include": ["长期与本轮指令", "工具输出隔离", "提示字段", "结构化输出", "缺值处理", "提示注入", "提示版本评测"],
@@ -72,16 +72,16 @@
     },
     {
       "id": "reasoning", "contentLevel": "submodule", "submodule": "reasoning", "seriesOrder": 3,
-      "promptFile": "submodules/reasoning/prompts.md", "principleImage": "submodules/reasoning/assets/reasoning-principle.png",
-      "images": ["submodules/reasoning/assets/reasoning-cover.png", "submodules/reasoning/assets/reasoning-evidence.png", "submodules/reasoning/assets/reasoning-conflict.png", "submodules/reasoning/assets/reasoning-claim.png", "submodules/reasoning/assets/reasoning-test.png", "submodules/reasoning/assets/reasoning-principle.png"],
+      "promptFile": "submodules/03-reasoning/prompts.md", "principleImage": "submodules/03-reasoning/assets/reasoning-principle.png",
+      "images": ["submodules/03-reasoning/assets/reasoning-cover.png", "submodules/03-reasoning/assets/reasoning-evidence.png", "submodules/03-reasoning/assets/reasoning-conflict.png", "submodules/03-reasoning/assets/reasoning-claim.png", "submodules/03-reasoning/assets/reasoning-test.png", "submodules/03-reasoning/assets/reasoning-principle.png"],
       "articles": {
         "beginner": {
-          "path": "submodules/reasoning/beginner-main.md",
+          "path": "submodules/03-reasoning/beginner-main.md",
           "focus": "用三团队空闲表和会议室结果，讲可核查的外部证据如何支持候选时间、冲突与缺值如何处理，以及为何不应索取不可验证的内部思维过程。",
           "outline": ["看似合理的时间为何可能错", "证据与结论怎样一一对应", "工具观察为何改变判断", "冲突记录如何仲裁", "缺一团队信息时为什么要停", "公开依据与内部思维的区别", "怎样表达不确定与待确认", "如何用改动证据测推理稳定性"]
         },
         "interview": {
-          "path": "submodules/reasoning/interview-side.md",
+          "path": "submodules/03-reasoning/interview-side.md",
           "focus": "考察证据链、观察更新、冲突仲裁、缺值处理、可审计中间产物与基于证据的专项评测。",
           "questionBoundary": {
             "include": ["事实证据映射", "工具观察更新", "冲突证据", "缺值与不确定", "可核验中间产物", "证据变更评测"],
@@ -93,16 +93,16 @@
     },
     {
       "id": "planning", "contentLevel": "submodule", "submodule": "planning", "seriesOrder": 4,
-      "promptFile": "submodules/planning/prompts.md", "principleImage": "submodules/planning/assets/planning-principle.png",
-      "images": ["submodules/planning/assets/planning-cover.png", "submodules/planning/assets/planning-dependency.png", "submodules/planning/assets/planning-critical.png", "submodules/planning/assets/planning-replan.png", "submodules/planning/assets/planning-test.png", "submodules/planning/assets/planning-principle.png"],
+      "promptFile": "submodules/04-planning/prompts.md", "principleImage": "submodules/04-planning/assets/planning-principle.png",
+      "images": ["submodules/04-planning/assets/planning-cover.png", "submodules/04-planning/assets/planning-dependency.png", "submodules/04-planning/assets/planning-critical.png", "submodules/04-planning/assets/planning-replan.png", "submodules/04-planning/assets/planning-test.png", "submodules/04-planning/assets/planning-principle.png"],
       "articles": {
         "beginner": {
-          "path": "submodules/planning/beginner-main.md",
+          "path": "submodules/04-planning/beginner-main.md",
           "focus": "把跨团队会议目标拆为收集约束、查日历、查会议室、比较候选、草拟通知，讲依赖图、可执行性、重排与预算；不展开每轮执行状态机。",
           "outline": ["列清单为何还不是计划", "目标怎样拆成可验收步骤", "依赖与并行怎样安排", "候选时间搜索为何有分支", "工具结果变化怎样重排", "计划怎样绑定动作权限", "何时放弃搜索并求确认", "怎样评测计划而不只看结果"]
         },
         "interview": {
-          "path": "submodules/planning/interview-side.md",
+          "path": "submodules/04-planning/interview-side.md",
           "focus": "考察任务分解、依赖图、搜索剪枝、局部重排、预算、计划可执行性与计划专项评测。",
           "questionBoundary": {
             "include": ["任务粒度", "依赖与并行", "候选搜索", "计划可执行性", "局部重排", "预算剪枝", "计划评测"],
@@ -114,16 +114,16 @@
     },
     {
       "id": "routing", "contentLevel": "submodule", "submodule": "routing", "seriesOrder": 5,
-      "promptFile": "submodules/routing/prompts.md", "principleImage": "submodules/routing/assets/routing-principle.png",
-      "images": ["submodules/routing/assets/routing-cover.png", "submodules/routing/assets/routing-features.png", "submodules/routing/assets/routing-paths.png", "submodules/routing/assets/routing-fallback.png", "submodules/routing/assets/routing-test.png", "submodules/routing/assets/routing-principle.png"],
+      "promptFile": "submodules/05-routing/prompts.md", "principleImage": "submodules/05-routing/assets/routing-principle.png",
+      "images": ["submodules/05-routing/assets/routing-cover.png", "submodules/05-routing/assets/routing-features.png", "submodules/05-routing/assets/routing-paths.png", "submodules/05-routing/assets/routing-fallback.png", "submodules/05-routing/assets/routing-test.png", "submodules/05-routing/assets/routing-principle.png"],
       "articles": {
         "beginner": {
-          "path": "submodules/routing/beginner-main.md",
+          "path": "submodules/05-routing/beginner-main.md",
           "focus": "会议助手根据任务类型、风险、权限、成本与时限选择日历、会议室查询、模型或人工路径；讲可解释策略、拒绝与降级，不讨论计划图算法。",
           "outline": ["为什么每一步不走同一路", "从请求提取路由特征", "硬规则与模型分类怎样分工", "候选路径如何比较", "错误路由会造成什么损失", "服务不可用时怎样退回", "人工节点何时必需", "如何按任务分组测路由"]
         },
         "interview": {
-          "path": "submodules/routing/interview-side.md",
+          "path": "submodules/05-routing/interview-side.md",
           "focus": "考察路由特征、硬约束、分类器、质量成本时延取舍、错误路由、回退和专项评测。",
           "questionBoundary": {
             "include": ["路由特征", "硬规则与分类", "路径选择", "质量成本时延", "回退", "人工节点", "路由评测"],
@@ -135,16 +135,16 @@
     },
     {
       "id": "reflection", "contentLevel": "submodule", "submodule": "reflection", "seriesOrder": 6,
-      "promptFile": "submodules/reflection/prompts.md", "principleImage": "submodules/reflection/assets/reflection-principle.png",
-      "images": ["submodules/reflection/assets/reflection-cover.png", "submodules/reflection/assets/reflection-feedback.png", "submodules/reflection/assets/reflection-diagnose.png", "submodules/reflection/assets/reflection-retry.png", "submodules/reflection/assets/reflection-test.png", "submodules/reflection/assets/reflection-principle.png"],
+      "promptFile": "submodules/06-reflection/prompts.md", "principleImage": "submodules/06-reflection/assets/reflection-principle.png",
+      "images": ["submodules/06-reflection/assets/reflection-cover.png", "submodules/06-reflection/assets/reflection-feedback.png", "submodules/06-reflection/assets/reflection-diagnose.png", "submodules/06-reflection/assets/reflection-retry.png", "submodules/06-reflection/assets/reflection-test.png", "submodules/06-reflection/assets/reflection-principle.png"],
       "articles": {
         "beginner": {
-          "path": "submodules/reflection/beginner-main.md",
+          "path": "submodules/06-reflection/beginner-main.md",
           "focus": "会议室查询失败后用真实反馈定位原因、修正候选与重试；区分客观反馈和模型自夸，设置次数与停止条件。",
           "outline": ["查不到会议室后的第一反应", "反馈究竟来自哪里", "错误怎样归因而非空想", "反思如何产生可执行修正", "重试为何不能原样再来", "成功和停止怎样判断", "反思记录要不要长期保存", "怎样衡量纠错的净收益"]
         },
         "interview": {
-          "path": "submodules/reflection/interview-side.md",
+          "path": "submodules/06-reflection/interview-side.md",
           "focus": "考察反馈来源、归因、反思产物、重试差异、终止、记忆边界和纠错收益评测。",
           "questionBoundary": {
             "include": ["外部反馈", "错误归因", "语言反思", "重试差异", "次数上限", "经验保存", "纠错评测"],
@@ -156,16 +156,16 @@
     },
     {
       "id": "loop", "contentLevel": "submodule", "submodule": "loop", "seriesOrder": 7,
-      "promptFile": "submodules/loop/prompts.md", "principleImage": "submodules/loop/assets/loop-principle.png",
-      "images": ["submodules/loop/assets/loop-cover.png", "submodules/loop/assets/loop-state.png", "submodules/loop/assets/loop-transition.png", "submodules/loop/assets/loop-stop.png", "submodules/loop/assets/loop-test.png", "submodules/loop/assets/loop-principle.png"],
+      "promptFile": "submodules/07-loop/prompts.md", "principleImage": "submodules/07-loop/assets/loop-principle.png",
+      "images": ["submodules/07-loop/assets/loop-cover.png", "submodules/07-loop/assets/loop-state.png", "submodules/07-loop/assets/loop-transition.png", "submodules/07-loop/assets/loop-stop.png", "submodules/07-loop/assets/loop-test.png", "submodules/07-loop/assets/loop-principle.png"],
       "articles": {
         "beginner": {
-          "path": "submodules/loop/beginner-main.md",
+          "path": "submodules/07-loop/beginner-main.md",
           "focus": "把读状态、选择、执行、观察、更新、停止落实为会议助手的有限状态机；讲预算、幂等、暂停和终止，不重复规划与反思细节。",
           "outline": ["为什么一次回答不能代替循环", "一圈有哪些状态和事件", "观察结果怎样写回状态", "下一圈为何不能照搬上一圈", "工具失败与重试怎么限制", "人工确认怎样暂停与恢复", "四种停止结果如何区分", "怎样用轨迹测试执行循环"]
         },
         "interview": {
-          "path": "submodules/loop/interview-side.md",
+          "path": "submodules/07-loop/interview-side.md",
           "focus": "考察循环状态机、观察更新、重试幂等、预算、暂停恢复、完成与失败终止、轨迹评测。",
           "questionBoundary": {
             "include": ["循环状态机", "事件与状态更新", "幂等重试", "预算", "暂停恢复", "终止状态", "轨迹评测"],

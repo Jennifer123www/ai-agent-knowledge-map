@@ -47,7 +47,7 @@ const sources = {
 
 export const modules = [
   {
-    slug: "governance", topic: "governance", title: "安全、权限与治理", stage: "第八模块公众号推文初稿",
+    slug: "governance", directory: "08-governance", topic: "governance", title: "安全、权限与治理", stage: "第八模块公众号推文初稿",
     intro: "治理不是在成品外面加一圈警告，而是从身份、权限、审批、凭据、护栏到审计连续回答：谁能让系统做什么，哪些动作必须停下来等人，以及事后能否还原责任和事实。",
     overviewSources: [sources.nistCore, sources.nistGenai, sources.owaspAgentic],
     groups: [
@@ -187,7 +187,7 @@ export const modules = [
     ],
   },
   {
-    slug: "runtime", topic: "runtime", title: "系统设计、运行时与成本", stage: "第九模块公众号推文初稿",
+    slug: "runtime", directory: "09-runtime", topic: "runtime", title: "系统设计、运行时与成本", stage: "第九模块公众号推文初稿",
     intro: "智能体从一次演示变成长期服务，难点会从“模型能不能答”转向“任务能否恢复、资源是否隔离、事件会不会重复、流量如何治理、版本如何回滚以及费用是否失控”。",
     overviewSources: [sources.k8sObserve, sources.k8sHpa, sources.a2a],
     groups: [
@@ -365,7 +365,7 @@ export const modules = [
     ],
   },
   {
-    slug: "applications", topic: "applications", title: "应用落地与项目实践", stage: "第十模块公众号推文初稿",
+    slug: "applications", directory: "10-applications", topic: "applications", title: "应用落地与项目实践", stage: "第十模块公众号推文初稿",
     intro: "落地智能体不是先挑一个最强模型，再把业务塞进去；而是先找清任务、证据、动作和责任边界，再判断哪些环节适合语言模型，哪些必须交给检索、代码、工作流或人。",
     overviewSources: [sources.gaia, sources.webarena, sources.swebench, sources.rt2],
     groups: [
@@ -514,9 +514,11 @@ const safeTitle = (value) => {
 };
 const sourceList = (items) => items.map(([label, url]) => `- [${label}](${url})`).join("\n");
 const compactList = (items) => items.join("、");
-const groupDirectory = (group) => group.id === "overview" ? "" : `submodules/${group.id}`;
-const articlePath = (group, name) => path.posix.join(groupDirectory(group), name);
-const assetPath = (group, name) => path.posix.join(groupDirectory(group), "assets", `${group.prefix}-${name}.png`);
+const groupDirectory = (module, group) => group.id === "overview"
+  ? ""
+  : `submodules/${String(module.groups.indexOf(group)).padStart(2, "0")}-${group.id}`;
+const articlePath = (module, group, name) => path.posix.join(groupDirectory(module, group), name);
+const assetPath = (module, group, name) => path.posix.join(groupDirectory(module, group), "assets", `${group.prefix}-${name}.png`);
 const articleAsset = (group, name) => `./assets/${group.prefix}-${name}.png`;
 
 function metadata(module, group, role) {
@@ -620,21 +622,21 @@ function manifest(module) {
       contentLevel: group.id === "overview" ? "overview" : "submodule",
       submodule: group.submodule,
       seriesOrder: index,
-      promptFile: articlePath(group, "prompts.md"),
-      principleImage: assetPath(group, "principle"),
+      promptFile: articlePath(module, group, "prompts.md"),
+      principleImage: assetPath(module, group, "principle"),
       images: [
-        assetPath(group, "cover-main-wechat"), assetPath(group, "cover-interview-wechat"),
-        assetPath(group, "principle"), assetPath(group, "inputs"), assetPath(group, "failure"),
-        assetPath(group, "controls"), assetPath(group, "verification"),
+        assetPath(module, group, "cover-main-wechat"), assetPath(module, group, "cover-interview-wechat"),
+        assetPath(module, group, "principle"), assetPath(module, group, "inputs"), assetPath(module, group, "failure"),
+        assetPath(module, group, "controls"), assetPath(module, group, "verification"),
       ],
       articles: {
         beginner: {
-          path: articlePath(group, "beginner-main.md"),
+          path: articlePath(module, group, "beginner-main.md"),
           focus: group.scenario,
           outline: ["问题与目标", "核心原理", "关键输入", "典型失效", "控制组合", "风险取舍", "验证方法", "模块关系", "落地步骤", "记忆结论"],
         },
         interview: {
-          path: articlePath(group, "interview-side.md"),
+          path: articlePath(module, group, "interview-side.md"),
           focus: `围绕“${group.scenario.slice(0, 78)}”回答原理、边界、取舍和落地。`,
           questionBoundary: {
             include: [group.name, "原理链路", "输入契约", "失效模式", "控制组合", "上线验证", "成本与取舍"],
@@ -650,9 +652,9 @@ function manifest(module) {
 if (process.argv[1] && path.resolve(process.argv[1]) === import.meta.filename) {
   for (const module of modules) {
     if (requestedModules.size && !requestedModules.has(module.slug)) continue;
-    const moduleRoot = path.join(root, "content", "wechat", module.slug);
+    const moduleRoot = path.join(root, "content", "wechat", module.directory);
     for (const group of module.groups) {
-      const groupRoot = path.join(moduleRoot, groupDirectory(group));
+      const groupRoot = path.join(moduleRoot, groupDirectory(module, group));
       await mkdir(path.join(groupRoot, "assets"), { recursive: true });
       await writeFile(path.join(groupRoot, "beginner-main.md"), mainArticle(module, group));
       await writeFile(path.join(groupRoot, "interview-side.md"), interviewArticle(module, group));

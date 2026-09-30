@@ -85,20 +85,20 @@
       "contentLevel": "submodule",
       "submodule": "researchagent",
       "seriesOrder": 1,
-      "promptFile": "submodules/researchagent/prompts.md",
-      "principleImage": "submodules/researchagent/assets/researchagent-principle.png",
+      "promptFile": "submodules/01-researchagent/prompts.md",
+      "principleImage": "submodules/01-researchagent/assets/researchagent-principle.png",
       "images": [
-        "submodules/researchagent/assets/researchagent-cover-main-wechat.png",
-        "submodules/researchagent/assets/researchagent-cover-interview-wechat.png",
-        "submodules/researchagent/assets/researchagent-principle.png",
-        "submodules/researchagent/assets/researchagent-inputs.png",
-        "submodules/researchagent/assets/researchagent-failure.png",
-        "submodules/researchagent/assets/researchagent-controls.png",
-        "submodules/researchagent/assets/researchagent-verification.png"
+        "submodules/01-researchagent/assets/researchagent-cover-main-wechat.png",
+        "submodules/01-researchagent/assets/researchagent-cover-interview-wechat.png",
+        "submodules/01-researchagent/assets/researchagent-principle.png",
+        "submodules/01-researchagent/assets/researchagent-inputs.png",
+        "submodules/01-researchagent/assets/researchagent-failure.png",
+        "submodules/01-researchagent/assets/researchagent-controls.png",
+        "submodules/01-researchagent/assets/researchagent-verification.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/researchagent/beginner-main.md",
+          "path": "submodules/01-researchagent/beginner-main.md",
           "focus": "采购部门要求比较三家云服务商的合规、价格和服务能力。研究智能体很快给出一份流畅报告，却把旧价格、营销博客和另一地区的合规证书混在一起。引用链接存在，但并不支持紧挨着的结论。",
           "outline": [
             "问题与目标",
@@ -114,7 +114,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/researchagent/interview-side.md",
+          "path": "submodules/01-researchagent/interview-side.md",
           "focus": "围绕“采购部门要求比较三家云服务商的合规、价格和服务能力。研究智能体很快给出一份流畅报告，却把旧价格、营销博客和另一地区的合规证书混在一起。引用链接存在，但并不支”回答原理、边界、取舍和落地。",
           "questionBoundary": {
             "include": [
@@ -152,20 +152,20 @@
       "contentLevel": "submodule",
       "submodule": "codingagent",
       "seriesOrder": 2,
-      "promptFile": "submodules/codingagent/prompts.md",
-      "principleImage": "submodules/codingagent/assets/codingagent-principle.png",
+      "promptFile": "submodules/02-codingagent/prompts.md",
+      "principleImage": "submodules/02-codingagent/assets/codingagent-principle.png",
       "images": [
-        "submodules/codingagent/assets/codingagent-cover-main-wechat.png",
-        "submodules/codingagent/assets/codingagent-cover-interview-wechat.png",
-        "submodules/codingagent/assets/codingagent-principle.png",
-        "submodules/codingagent/assets/codingagent-inputs.png",
-        "submodules/codingagent/assets/codingagent-failure.png",
-        "submodules/codingagent/assets/codingagent-controls.png",
-        "submodules/codingagent/assets/codingagent-verification.png"
+        "submodules/02-codingagent/assets/codingagent-cover-main-wechat.png",
+        "submodules/02-codingagent/assets/codingagent-cover-interview-wechat.png",
+        "submodules/02-codingagent/assets/codingagent-principle.png",
+        "submodules/02-codingagent/assets/codingagent-inputs.png",
+        "submodules/02-codingagent/assets/codingagent-failure.png",
+        "submodules/02-codingagent/assets/codingagent-controls.png",
+        "submodules/02-codingagent/assets/codingagent-verification.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/codingagent/beginner-main.md",
+          "path": "submodules/02-codingagent/beginner-main.md",
           "focus": "用户报告导出 CSV 时包含逗号的字段会错列。编程智能体没有运行测试，直接把所有字符串都加上双引号，结果修好一个样本，却破坏了已有转义规则。代码能编译，问题仍然没有被严格定义。",
           "outline": [
             "问题与目标",
@@ -181,7 +181,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/codingagent/interview-side.md",
+          "path": "submodules/02-codingagent/interview-side.md",
           "focus": "围绕“用户报告导出 CSV 时包含逗号的字段会错列。编程智能体没有运行测试，直接把所有字符串都加上双引号，结果修好一个样本，却破坏了已有转义规则。代码能编译，问题”回答原理、边界、取舍和落地。",
           "questionBoundary": {
             "include": [
@@ -219,20 +219,20 @@
       "contentLevel": "submodule",
       "submodule": "dataagent",
       "seriesOrder": 3,
-      "promptFile": "submodules/dataagent/prompts.md",
-      "principleImage": "submodules/dataagent/assets/dataagent-principle.png",
+      "promptFile": "submodules/03-dataagent/prompts.md",
+      "principleImage": "submodules/03-dataagent/assets/dataagent-principle.png",
       "images": [
-        "submodules/dataagent/assets/dataagent-cover-main-wechat.png",
-        "submodules/dataagent/assets/dataagent-cover-interview-wechat.png",
-        "submodules/dataagent/assets/dataagent-principle.png",
-        "submodules/dataagent/assets/dataagent-inputs.png",
-        "submodules/dataagent/assets/dataagent-failure.png",
-        "submodules/dataagent/assets/dataagent-controls.png",
-        "submodules/dataagent/assets/dataagent-verification.png"
+        "submodules/03-dataagent/assets/dataagent-cover-main-wechat.png",
+        "submodules/03-dataagent/assets/dataagent-cover-interview-wechat.png",
+        "submodules/03-dataagent/assets/dataagent-principle.png",
+        "submodules/03-dataagent/assets/dataagent-inputs.png",
+        "submodules/03-dataagent/assets/dataagent-failure.png",
+        "submodules/03-dataagent/assets/dataagent-controls.png",
+        "submodules/03-dataagent/assets/dataagent-verification.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/dataagent/beginner-main.md",
+          "path": "submodules/03-dataagent/beginner-main.md",
           "focus": "管理层问“华东区收入为什么下降”。智能体生成 SQL 后发现本月收入少了 12%，便归因于新客减少。后来分析师发现查询把含税金额和未税金额混用，还漏掉退款冲销。语句语法正确，业务口径却错了。",
           "outline": [
             "问题与目标",
@@ -248,7 +248,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/dataagent/interview-side.md",
+          "path": "submodules/03-dataagent/interview-side.md",
           "focus": "围绕“管理层问“华东区收入为什么下降”。智能体生成 SQL 后发现本月收入少了 12%，便归因于新客减少。后来分析师发现查询把含税金额和未税金额混用，还漏掉退款冲”回答原理、边界、取舍和落地。",
           "questionBoundary": {
             "include": [
@@ -286,20 +286,20 @@
       "contentLevel": "submodule",
       "submodule": "processagent",
       "seriesOrder": 4,
-      "promptFile": "submodules/processagent/prompts.md",
-      "principleImage": "submodules/processagent/assets/processagent-principle.png",
+      "promptFile": "submodules/04-processagent/prompts.md",
+      "principleImage": "submodules/04-processagent/assets/processagent-principle.png",
       "images": [
-        "submodules/processagent/assets/processagent-cover-main-wechat.png",
-        "submodules/processagent/assets/processagent-cover-interview-wechat.png",
-        "submodules/processagent/assets/processagent-principle.png",
-        "submodules/processagent/assets/processagent-inputs.png",
-        "submodules/processagent/assets/processagent-failure.png",
-        "submodules/processagent/assets/processagent-controls.png",
-        "submodules/processagent/assets/processagent-verification.png"
+        "submodules/04-processagent/assets/processagent-cover-main-wechat.png",
+        "submodules/04-processagent/assets/processagent-cover-interview-wechat.png",
+        "submodules/04-processagent/assets/processagent-principle.png",
+        "submodules/04-processagent/assets/processagent-inputs.png",
+        "submodules/04-processagent/assets/processagent-failure.png",
+        "submodules/04-processagent/assets/processagent-controls.png",
+        "submodules/04-processagent/assets/processagent-verification.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/processagent/beginner-main.md",
+          "path": "submodules/04-processagent/beginner-main.md",
           "focus": "客户在聊天里申请退款，智能体判断理由合理并回复“已经办理”。实际上支付接口超时，工单状态却提前写成完成；重试又创建第二笔退款。聊天流畅地结束了，资金和业务状态却分成三份。",
           "outline": [
             "问题与目标",
@@ -315,7 +315,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/processagent/interview-side.md",
+          "path": "submodules/04-processagent/interview-side.md",
           "focus": "围绕“客户在聊天里申请退款，智能体判断理由合理并回复“已经办理”。实际上支付接口超时，工单状态却提前写成完成；重试又创建第二笔退款。聊天流畅地结束了，资金和业务状”回答原理、边界、取舍和落地。",
           "questionBoundary": {
             "include": [
@@ -353,20 +353,20 @@
       "contentLevel": "submodule",
       "submodule": "officeagent",
       "seriesOrder": 5,
-      "promptFile": "submodules/officeagent/prompts.md",
-      "principleImage": "submodules/officeagent/assets/officeagent-principle.png",
+      "promptFile": "submodules/05-officeagent/prompts.md",
+      "principleImage": "submodules/05-officeagent/assets/officeagent-principle.png",
       "images": [
-        "submodules/officeagent/assets/officeagent-cover-main-wechat.png",
-        "submodules/officeagent/assets/officeagent-cover-interview-wechat.png",
-        "submodules/officeagent/assets/officeagent-principle.png",
-        "submodules/officeagent/assets/officeagent-inputs.png",
-        "submodules/officeagent/assets/officeagent-failure.png",
-        "submodules/officeagent/assets/officeagent-controls.png",
-        "submodules/officeagent/assets/officeagent-verification.png"
+        "submodules/05-officeagent/assets/officeagent-cover-main-wechat.png",
+        "submodules/05-officeagent/assets/officeagent-cover-interview-wechat.png",
+        "submodules/05-officeagent/assets/officeagent-principle.png",
+        "submodules/05-officeagent/assets/officeagent-inputs.png",
+        "submodules/05-officeagent/assets/officeagent-failure.png",
+        "submodules/05-officeagent/assets/officeagent-controls.png",
+        "submodules/05-officeagent/assets/officeagent-verification.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/officeagent/beginner-main.md",
+          "path": "submodules/05-officeagent/beginner-main.md",
           "focus": "销售会议结束后，智能体整理纪要并准备跟进邮件。它把上一位客户的折扣方案带进当前草稿，又从昵称猜错了收件人。若系统把“生成完成”和“发送成功”放在同一个按钮后面，一次小混淆就会直接触达外部客户。",
           "outline": [
             "问题与目标",
@@ -382,7 +382,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/officeagent/interview-side.md",
+          "path": "submodules/05-officeagent/interview-side.md",
           "focus": "围绕“销售会议结束后，智能体整理纪要并准备跟进邮件。它把上一位客户的折扣方案带进当前草稿，又从昵称猜错了收件人。若系统把“生成完成”和“发送成功”放在同一个按钮后”回答原理、边界、取舍和落地。",
           "questionBoundary": {
             "include": [
@@ -420,20 +420,20 @@
       "contentLevel": "submodule",
       "submodule": "embodied",
       "seriesOrder": 6,
-      "promptFile": "submodules/embodied/prompts.md",
-      "principleImage": "submodules/embodied/assets/embodied-principle.png",
+      "promptFile": "submodules/06-embodied/prompts.md",
+      "principleImage": "submodules/06-embodied/assets/embodied-principle.png",
       "images": [
-        "submodules/embodied/assets/embodied-cover-main-wechat.png",
-        "submodules/embodied/assets/embodied-cover-interview-wechat.png",
-        "submodules/embodied/assets/embodied-principle.png",
-        "submodules/embodied/assets/embodied-inputs.png",
-        "submodules/embodied/assets/embodied-failure.png",
-        "submodules/embodied/assets/embodied-controls.png",
-        "submodules/embodied/assets/embodied-verification.png"
+        "submodules/06-embodied/assets/embodied-cover-main-wechat.png",
+        "submodules/06-embodied/assets/embodied-cover-interview-wechat.png",
+        "submodules/06-embodied/assets/embodied-principle.png",
+        "submodules/06-embodied/assets/embodied-inputs.png",
+        "submodules/06-embodied/assets/embodied-failure.png",
+        "submodules/06-embodied/assets/embodied-controls.png",
+        "submodules/06-embodied/assets/embodied-verification.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/embodied/beginner-main.md",
+          "path": "submodules/06-embodied/beginner-main.md",
           "focus": "仓库机器人收到“把桌上的红杯放进周转箱”。视觉系统把红色清洁剂瓶识别成杯子，语言计划又选择了经过人员通道的最短路径。数字世界里的错答可以删除，物理世界里的误抓和碰撞却可能已经发生。",
           "outline": [
             "问题与目标",
@@ -449,7 +449,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/embodied/interview-side.md",
+          "path": "submodules/06-embodied/interview-side.md",
           "focus": "围绕“仓库机器人收到“把桌上的红杯放进周转箱”。视觉系统把红色清洁剂瓶识别成杯子，语言计划又选择了经过人员通道的最短路径。数字世界里的错答可以删除，物理世界里的误”回答原理、边界、取舍和落地。",
           "questionBoundary": {
             "include": [

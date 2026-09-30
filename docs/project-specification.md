@@ -4,11 +4,11 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 规范版本 | `1.23.0` |
+| 规范版本 | `1.24.0` |
 | 适用项目版本 | `0.5.0` |
-| 阶段 | 十个技术主题的公众号系列已完成首轮覆盖 |
-| 文档基线 | 基于 `5d31161`（`main`；修改前另有未跟踪的应用系列与编辑器临时文件） |
-| 修改时间 | `2026-09-29 20:43 CST` |
+| 阶段 | 公众号一级模块与子模块目录统一增加两位序号 |
+| 文档基线 | 基于 `12635a2`（`main`；修改前仅有未跟踪的推文终稿目录） |
+| 修改时间 | `2026-09-30 10:05 CST` |
 
 ## 1. 目标与边界
 
@@ -94,14 +94,14 @@ ai-agent-knowledge-map/
 │   └── signature.mjs
 ├── content/
 │   └── wechat/                    # 面向公众号的模块化文章资产
-│       └── <topic>/
+│       └── <nn>-<topic>/
 │           ├── series.json       # 模块、文章、题目边界、提纲与配图清单
 │           ├── beginner-main.md   # 一级模块总概览主文
 │           ├── interview-side.md  # 一级模块总概览面试副文
 │           ├── prompts.md         # 总概览配图提示词与渲染记录
 │           ├── assets/            # 总概览 PNG/JPG 配图
 │           └── submodules/
-│               └── <child>/
+│               └── <nn>-<child>/
 │                   ├── beginner-main.md   # 子模块主文
 │                   ├── interview-side.md  # 子模块面试副文
 │                   ├── prompts.md         # 子模块配图提示词
@@ -131,11 +131,12 @@ ai-agent-knowledge-map/
 规则：
 
 1. 技术目录和程序文件使用小写英文，必要时用连字符，例如 `site-search.js`；公众号文章的 Markdown、提示词和图片放在对应系列目录。不要恢复旧的 `outputs/` 或 Word 终稿目录。
-2. 新页面应放入明确的栏目目录，不要在 `site/` 根目录堆叠专题页。
-3. 公共行为放入 `site/assets/js/`；仅被一个页面使用、且数据量不大的交互逻辑可留在该页面的内联脚本中。
-4. 新增站点媒体资源应放在 `site/assets/` 的按类型子目录中，并提供有意义的英文小写文件名和 `alt` 文本；公众号配图按 5.3.4 节存放在对应文章组的 `assets/` 中。
-5. 公众号文章属于 `content/wechat/` 内容资产，不直接混入 `site/` 发布目录。
-6. 公众号凭证只保存在被 Git 忽略的 `.env` 或部署平台的服务端环境变量中；禁止写入 `site/`、文档、测试夹具和日志。
+2. `content/wechat/` 下的一级模块目录使用两位序号前缀，格式为 `<nn>-<topic>`；`submodules/` 下的子模块也按各自 `series.json` 的 `seriesOrder` 使用 `<nn>-<child>`。序号只负责文件夹排序，`topic`、`submodule` 和组 `id` 等稳定标识不附加序号。
+3. 新页面应放入明确的栏目目录，不要在 `site/` 根目录堆叠专题页。
+4. 公共行为放入 `site/assets/js/`；仅被一个页面使用、且数据量不大的交互逻辑可留在该页面的内联脚本中。
+5. 新增站点媒体资源应放在 `site/assets/` 的按类型子目录中，并提供有意义的英文小写文件名和 `alt` 文本；公众号配图按 5.3.4 节存放在对应文章组的 `assets/` 中。
+6. 公众号文章属于 `content/wechat/` 内容资产，不直接混入 `site/` 发布目录。
+7. 公众号凭证只保存在被 Git 忽略的 `.env` 或部署平台的服务端环境变量中；禁止写入 `site/`、文档、测试夹具和日志。
 
 ## 4. 路由、导航与搜索
 
@@ -338,7 +339,7 @@ npm run check
 git diff --check
 
 # 修改公众号文章：以下路径只是示例，整组使用主副文双图文 dry-run
-npm run wechat:draft -- --dry-run --theme orange --file content/wechat/foundation-models-and-inference/submodules/llm/beginner-main.md --side-file content/wechat/foundation-models-and-inference/submodules/llm/interview-side.md
+npm run wechat:draft -- --dry-run --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
 
 # 修改公众号服务端接入
 npm test

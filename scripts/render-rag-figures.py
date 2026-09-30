@@ -7,7 +7,7 @@ from math import atan2, cos, sin
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = Path(__file__).resolve().parents[1] / "content/wechat/knowledge-retrieval-and-rag"
+ROOT = Path(__file__).resolve().parents[1] / "content/wechat/02-knowledge-retrieval-and-rag"
 FONT_CANDIDATES = [
     Path("/System/Library/Fonts/Hiragino Sans GB.ttc"),
     Path("/System/Library/Fonts/STHeiti Medium.ttc"),
@@ -167,7 +167,7 @@ def parallel_retrieval():
     d.line((826, 735, 925, 735, 925, 580), fill=ORANGE, width=5)
     arrow(d, (925, 580), (994, 580), ORANGE)
     footer(d, "候选合并后，再判断权限、有效期与最终排序")
-    out = ROOT / "submodules/retrieval/assets/retrieval-candidates.png"
+    out = ROOT / "submodules/05-retrieval/assets/retrieval-candidates.png"
     im.save(out, optimize=True)
 
 
@@ -186,7 +186,7 @@ def citation_map():
         text(d, (1165, y+57), source, 32, color, "mm")
         arrow(d, (660, y+57), (890, y+57), color)
     footer(d, "没有独立证据的断言只能标待核，不能写成已完成")
-    out = ROOT / "submodules/rag/assets/rag-citation.png"
+    out = ROOT / "submodules/03-rag/assets/rag-citation.png"
     im.save(out, optimize=True)
 
 
@@ -341,49 +341,49 @@ def main():
     flows = [
         ("assets/overview-cover.png", "知识检索与 RAG", "先找证据，再组织回答", [("业务问题", "480 元能报吗"), ("找到资料", "新版与旧版"), ("有限结论", "附出处待核验")], "示意案例：制度与金额均为虚构"),
         ("assets/overview-route.png", "五段接力怎样走", "资料进入回答之前，要经过选择与核对", [("知识库", "原文与版本"), ("分段", "可定位证据"), ("检索", "选适用条款"), ("生成", "回答附出处")], "知识图谱按需加入，不是每个问题的必经站"),
-        ("submodules/knowledgebase/assets/kb-cover.png", "知识库：先管好资料", "文件进库不等于问题就能答对", [("定来源", "谁负责发布"), ("留版本", "何时生效"), ("建索引", "可查可回溯")], "把制度当作有生命周期的知识资产"),
-        ("submodules/knowledgebase/assets/kb-version.png", "制度按生效日判断", "旧版和新版同时存在，并非只留最新一份", [("旧版", "上限 450 元"), ("9 月 1 日", "新版生效"), ("新版", "上限 500 元")], "示意数值；查询还需匹配地点、职级和日期"),
-        ("submodules/knowledgebase/assets/kb-refresh.png", "更新与撤回同样重要", "索引不能比原文多活一辈子", [("发布", "记录版本"), ("更新", "重建索引"), ("撤回", "停止返回")], "回看审计日志，确认旧数据是否仍可被查到"),
-        ("submodules/knowledgegraph/assets/kg-cover.png", "知识图谱：把关系讲明白", "有些问题不缺片段，缺的是连接线", [("识别实体", "员工与部门"), ("连接关系", "适用何制度"), ("核对原文", "落到哪一条")], "图谱给路径，原文给证据"),
-        ("submodules/knowledgegraph/assets/kg-query.png", "沿关系找适用条款", "多跳查询要把每一步的出处带回来", [("员工", "属于研发部"), ("研发部", "适用差旅规"), ("条款", "北京住宿")], "任何一条边过期，路径都可能失效"),
-        ("submodules/rag/assets/rag-cover.png", "RAG：先查再答", "把外部证据带进当前回答", [("提出问题", "要判断什么"), ("取回证据", "哪个版本适用"), ("生成回答", "每句可核验")], "RAG 并不保证检索和理解永远正确"),
-        ("submodules/chunking/assets/chunk-cover.png", "分段：别把例外切丢", "切开前先看文档的骨架", [("识别结构", "标题与表格"), ("保存条件", "例外与脚注"), ("形成片段", "能回原文")], "块太小会丢条件，块太大不易定位"),
-        ("submodules/chunking/assets/chunk-document.png", "先解析，再分段", "文档顺序比固定字数更重要", [("版面", "页眉表格脚注"), ("结构", "章节与条款"), ("证据", "条件完整片段")], "跨页表格的标题不能留在上一页"),
-        ("submodules/retrieval/assets/retrieval-cover.png", "检索：找得到，也要选得对", "让当前有效的证据走到前面", [("广泛召回", "别漏目标"), ("硬过滤", "排除不适用"), ("精细排序", "优先有用片段")], "最相似不一定最适用"),
-        ("submodules/retrieval/assets/retrieval-filter.png", "硬条件先过闸", "分数高也不能越过权限和生效期", [("权限", "此人可见"), ("适用", "地点与职级"), ("时间", "当日已生效")], "过滤条件要随查询身份进入日志与评测"),
-        ("submodules/retrieval/assets/retrieval-citation.png", "引用回到原文", "片段 ID 不等于可供读者核对的地址", [("候选片段", "保存稳定 ID"), ("来源定位", "文档页码条款"), ("展示引用", "读者可打开")], "引用打开后须与回答中的断言相匹配"),
-        ("submodules/retrieval/assets/retrieval-metrics.png", "分开衡量召回与排序", "不要只看最终回答是否好听", [("候选召回", "正确条款在吗"), ("前列排序", "是否排得够前"), ("引用核验", "能否定位出处")], "每项指标都要有问题集、证据标注和分母"),
+        ("submodules/01-knowledgebase/assets/kb-cover.png", "知识库：先管好资料", "文件进库不等于问题就能答对", [("定来源", "谁负责发布"), ("留版本", "何时生效"), ("建索引", "可查可回溯")], "把制度当作有生命周期的知识资产"),
+        ("submodules/01-knowledgebase/assets/kb-version.png", "制度按生效日判断", "旧版和新版同时存在，并非只留最新一份", [("旧版", "上限 450 元"), ("9 月 1 日", "新版生效"), ("新版", "上限 500 元")], "示意数值；查询还需匹配地点、职级和日期"),
+        ("submodules/01-knowledgebase/assets/kb-refresh.png", "更新与撤回同样重要", "索引不能比原文多活一辈子", [("发布", "记录版本"), ("更新", "重建索引"), ("撤回", "停止返回")], "回看审计日志，确认旧数据是否仍可被查到"),
+        ("submodules/02-knowledgegraph/assets/kg-cover.png", "知识图谱：把关系讲明白", "有些问题不缺片段，缺的是连接线", [("识别实体", "员工与部门"), ("连接关系", "适用何制度"), ("核对原文", "落到哪一条")], "图谱给路径，原文给证据"),
+        ("submodules/02-knowledgegraph/assets/kg-query.png", "沿关系找适用条款", "多跳查询要把每一步的出处带回来", [("员工", "属于研发部"), ("研发部", "适用差旅规"), ("条款", "北京住宿")], "任何一条边过期，路径都可能失效"),
+        ("submodules/03-rag/assets/rag-cover.png", "RAG：先查再答", "把外部证据带进当前回答", [("提出问题", "要判断什么"), ("取回证据", "哪个版本适用"), ("生成回答", "每句可核验")], "RAG 并不保证检索和理解永远正确"),
+        ("submodules/04-chunking/assets/chunk-cover.png", "分段：别把例外切丢", "切开前先看文档的骨架", [("识别结构", "标题与表格"), ("保存条件", "例外与脚注"), ("形成片段", "能回原文")], "块太小会丢条件，块太大不易定位"),
+        ("submodules/04-chunking/assets/chunk-document.png", "先解析，再分段", "文档顺序比固定字数更重要", [("版面", "页眉表格脚注"), ("结构", "章节与条款"), ("证据", "条件完整片段")], "跨页表格的标题不能留在上一页"),
+        ("submodules/05-retrieval/assets/retrieval-cover.png", "检索：找得到，也要选得对", "让当前有效的证据走到前面", [("广泛召回", "别漏目标"), ("硬过滤", "排除不适用"), ("精细排序", "优先有用片段")], "最相似不一定最适用"),
+        ("submodules/05-retrieval/assets/retrieval-filter.png", "硬条件先过闸", "分数高也不能越过权限和生效期", [("权限", "此人可见"), ("适用", "地点与职级"), ("时间", "当日已生效")], "过滤条件要随查询身份进入日志与评测"),
+        ("submodules/05-retrieval/assets/retrieval-citation.png", "引用回到原文", "片段 ID 不等于可供读者核对的地址", [("候选片段", "保存稳定 ID"), ("来源定位", "文档页码条款"), ("展示引用", "读者可打开")], "引用打开后须与回答中的断言相匹配"),
+        ("submodules/05-retrieval/assets/retrieval-metrics.png", "分开衡量召回与排序", "不要只看最终回答是否好听", [("候选召回", "正确条款在吗"), ("前列排序", "是否排得够前"), ("引用核验", "能否定位出处")], "每项指标都要有问题集、证据标注和分母"),
     ]
     for spec in flows:
         flow(*spec)
     compares = [
         ("assets/overview-boundary.png", "三种常见失效", "错误来自资料、权限与信息缺口，不是一种毛病", ("旧版制度", ["先比生效日期", "再看适用地区", "不可误用旧规则"]), ("无权或缺值", ["权限不足就不泄露", "关键字段缺失就追问", "不能假装已核验"]), "把错误分开记录，修复才会落到正确环节"),
-        ("submodules/knowledgebase/assets/kb-access.png", "看得见由谁决定", "知识库记录要保留访问范围", ("资料侧", ["来源标注权限域", "撤回时连索引失效", "保留审计记录"]), ("查询侧", ["按当前身份过滤", "结果只含可见资料", "不把权限交给模型猜"]), "权限控制发生在检索之前，不靠生成模型遮掩"),
-        ("submodules/knowledgegraph/assets/kg-sources.png", "三类知识源", "不同资料适合回答不同问题", ("原文与业务表", ["原文给完整条款", "业务表给当前状态", "都要有责任来源"]), ("知识图谱", ["记录实体间关系", "适合多跳路径", "结论仍回原文"]), "向量索引是查找结构，不是另一份权威事实"),
-        ("submodules/knowledgegraph/assets/kg-contrast.png", "语义相近与关系成立", "两种证据路线不能互相冒充", ("向量索引", ["找相似措辞", "适合模糊问法", "相似不等于适用"]), ("关系图谱", ["走实体与关系", "适合多跳问法", "边需要出处与时间"]), "选型看问题类型，不看哪个名词更新潮"),
-        ("submodules/rag/assets/rag-citation.png", "断言逐条挂证据", "引用不是放在段末的装饰", ("能证实", ["480 元来自票据", "500 元来自新版条款", "日期满足生效条件"]), ("尚待核", ["发票真伪未知", "审批状态未知", "不能写已提交"]), "回答边界不超过证据边界"),
-        ("submodules/chunking/assets/chunk-error.png", "错误切法与正确切法", "把例外与主条款拆散，会改变读者看到的含义", ("错误：分离", ["片段 A：上限 500", "片段 B：仅 A 职级", "单看 A 会过度概括"]), ("正确：连贯", ["同一证据单元", "或有父条款链接", "查询时补足条件"]), "目标不是最大限度切碎，而是让每块可用于判断"),
+        ("submodules/01-knowledgebase/assets/kb-access.png", "看得见由谁决定", "知识库记录要保留访问范围", ("资料侧", ["来源标注权限域", "撤回时连索引失效", "保留审计记录"]), ("查询侧", ["按当前身份过滤", "结果只含可见资料", "不把权限交给模型猜"]), "权限控制发生在检索之前，不靠生成模型遮掩"),
+        ("submodules/02-knowledgegraph/assets/kg-sources.png", "三类知识源", "不同资料适合回答不同问题", ("原文与业务表", ["原文给完整条款", "业务表给当前状态", "都要有责任来源"]), ("知识图谱", ["记录实体间关系", "适合多跳路径", "结论仍回原文"]), "向量索引是查找结构，不是另一份权威事实"),
+        ("submodules/02-knowledgegraph/assets/kg-contrast.png", "语义相近与关系成立", "两种证据路线不能互相冒充", ("向量索引", ["找相似措辞", "适合模糊问法", "相似不等于适用"]), ("关系图谱", ["走实体与关系", "适合多跳问法", "边需要出处与时间"]), "选型看问题类型，不看哪个名词更新潮"),
+        ("submodules/03-rag/assets/rag-citation.png", "断言逐条挂证据", "引用不是放在段末的装饰", ("能证实", ["480 元来自票据", "500 元来自新版条款", "日期满足生效条件"]), ("尚待核", ["发票真伪未知", "审批状态未知", "不能写已提交"]), "回答边界不超过证据边界"),
+        ("submodules/04-chunking/assets/chunk-error.png", "错误切法与正确切法", "把例外与主条款拆散，会改变读者看到的含义", ("错误：分离", ["片段 A：上限 500", "片段 B：仅 A 职级", "单看 A 会过度概括"]), ("正确：连贯", ["同一证据单元", "或有父条款链接", "查询时补足条件"]), "目标不是最大限度切碎，而是让每块可用于判断"),
     ]
     for spec in compares:
         compare(*spec)
     criteria("assets/overview-evaluation.png", "系统验收看四件事", "四项分别评测，不能用最终答案遮住中间错误", [("来源", "权威且更新"), ("检索", "证据进候选"), ("生成", "断言有支持"), ("治理", "权限不越界")], "各项有独立指标和失败记录")
-    criteria("submodules/knowledgebase/assets/kb-source.png", "源头先说清", "每份资料同时记录三类信息", [("原始来源", "文件或业务表"), ("责任人", "谁批准更新"), ("可用范围", "谁能看到")], "这三项是并列字段，不是处理步骤", "资料档案")
-    criteria("submodules/knowledgegraph/assets/kg-provenance.png", "关系也需要证据", "一条边同时保存关系、出处与审核状态", [("关系", "部门适用制度"), ("出处", "发布文件位置"), ("状态", "已核或待核")], "抽取得到的边不能自动升级为权威事实", "关系档案")
-    criteria("submodules/rag/assets/rag-question.png", "先拆问题，再下结论", "“能报吗”至少包含四个待核事实", [("票据", "金额与日期"), ("员工", "职级和部门"), ("制度", "地区与生效期"), ("状态", "审批是否完成")], "四类事实分别找来源；缺失时追问或停判", "并列待核")
-    criteria("submodules/rag/assets/rag-context.png", "证据包不能只放原文", "每个检索片段应附带适用条件和出处", [("条款正文", "金额上限"), ("适用范围", "职级与地点"), ("版本来源", "生效日与链接")], "旧版与新版冲突时，先判适用性再概括", "证据包字段")
-    criteria("submodules/rag/assets/rag-abstain.png", "证据决定回答边界", "三种状态对应三种处理，彼此不是先后步骤", [("证据足够", "给有限结论"), ("证据冲突", "指出冲突"), ("条件缺失", "追问或停答")], "拒答不是失败；编造肯定结论才是失败", "分支判断")
-    criteria("submodules/chunking/assets/chunk-metadata.png", "片段的随身证件", "每个片段同时保留三类元数据", [("来源", "文档与页码"), ("适用", "时间与权限"), ("定位", "条款与父节点")], "元数据丢失后，检索相似度无法补救", "片段字段")
-    criteria("submodules/chunking/assets/chunk-test.png", "分段怎样验收", "三项分别检查，不能用一项替代另一项", [("可召回", "命中目标条款"), ("可理解", "条件不缺失"), ("可定位", "回原文核对")], "用普通、冲突、缺值、新增四类问题抽检")
+    criteria("submodules/01-knowledgebase/assets/kb-source.png", "源头先说清", "每份资料同时记录三类信息", [("原始来源", "文件或业务表"), ("责任人", "谁批准更新"), ("可用范围", "谁能看到")], "这三项是并列字段，不是处理步骤", "资料档案")
+    criteria("submodules/02-knowledgegraph/assets/kg-provenance.png", "关系也需要证据", "一条边同时保存关系、出处与审核状态", [("关系", "部门适用制度"), ("出处", "发布文件位置"), ("状态", "已核或待核")], "抽取得到的边不能自动升级为权威事实", "关系档案")
+    criteria("submodules/03-rag/assets/rag-question.png", "先拆问题，再下结论", "“能报吗”至少包含四个待核事实", [("票据", "金额与日期"), ("员工", "职级和部门"), ("制度", "地区与生效期"), ("状态", "审批是否完成")], "四类事实分别找来源；缺失时追问或停判", "并列待核")
+    criteria("submodules/03-rag/assets/rag-context.png", "证据包不能只放原文", "每个检索片段应附带适用条件和出处", [("条款正文", "金额上限"), ("适用范围", "职级与地点"), ("版本来源", "生效日与链接")], "旧版与新版冲突时，先判适用性再概括", "证据包字段")
+    criteria("submodules/03-rag/assets/rag-abstain.png", "证据决定回答边界", "三种状态对应三种处理，彼此不是先后步骤", [("证据足够", "给有限结论"), ("证据冲突", "指出冲突"), ("条件缺失", "追问或停答")], "拒答不是失败；编造肯定结论才是失败", "分支判断")
+    criteria("submodules/04-chunking/assets/chunk-metadata.png", "片段的随身证件", "每个片段同时保留三类元数据", [("来源", "文档与页码"), ("适用", "时间与权限"), ("定位", "条款与父节点")], "元数据丢失后，检索相似度无法补救", "片段字段")
+    criteria("submodules/04-chunking/assets/chunk-test.png", "分段怎样验收", "三项分别检查，不能用一项替代另一项", [("可召回", "命中目标条款"), ("可理解", "条件不缺失"), ("可定位", "回原文核对")], "用普通、冲突、缺值、新增四类问题抽检")
     source_map()
     parallel_retrieval()
     citation_map()
     principles = [
         ("assets/overview-principle.png", "问题怎样借外部资料回答", "原始 RAG：问题既触发检索，也进入生成模型", "overview", "依据 Lewis 等 Figure 1 改绘；引用与权限是工程补充"),
-        ("submodules/knowledgebase/assets/kb-principle.png", "外部资料如何成为可查索引", "资料治理补在原始 RAG 文档索引之前", "kb", "依据 Lewis 等 Figure 1 的文档索引部分改绘"),
-        ("submodules/knowledgegraph/assets/kg-principle.png", "GraphRAG 怎样做全局归纳", "图与社区摘要适合跨材料主题问题", "kg", "依据 Edge 等 Figure 1 改绘；具体条款需回原文"),
-        ("submodules/rag/assets/rag-principle.png", "候选文档怎样影响生成", "原论文 RAG-Sequence：按检索概率合并候选输出", "rag", "依据 Lewis 等 Figure 1、§2.1 改绘；引用是工程扩展"),
-        ("submodules/chunking/assets/chunk-principle.png", "长文怎样保留不同尺度", "分层摘要与父子定位是两种不同策略", "chunk", "左侧依据 RAPTOR Figure 1 改绘；右侧父子定位为另一路线"),
-        ("submodules/retrieval/assets/retrieval-principle.png", "先快找，再细排", "双编码器召回与联合编码重排并不相同", "retrieval", "依据 DPR §2.1 与 Passage Re-ranking with BERT §2 改绘"),
+        ("submodules/01-knowledgebase/assets/kb-principle.png", "外部资料如何成为可查索引", "资料治理补在原始 RAG 文档索引之前", "kb", "依据 Lewis 等 Figure 1 的文档索引部分改绘"),
+        ("submodules/02-knowledgegraph/assets/kg-principle.png", "GraphRAG 怎样做全局归纳", "图与社区摘要适合跨材料主题问题", "kg", "依据 Edge 等 Figure 1 改绘；具体条款需回原文"),
+        ("submodules/03-rag/assets/rag-principle.png", "候选文档怎样影响生成", "原论文 RAG-Sequence：按检索概率合并候选输出", "rag", "依据 Lewis 等 Figure 1、§2.1 改绘；引用是工程扩展"),
+        ("submodules/04-chunking/assets/chunk-principle.png", "长文怎样保留不同尺度", "分层摘要与父子定位是两种不同策略", "chunk", "左侧依据 RAPTOR Figure 1 改绘；右侧父子定位为另一路线"),
+        ("submodules/05-retrieval/assets/retrieval-principle.png", "先快找，再细排", "双编码器召回与联合编码重排并不相同", "retrieval", "依据 DPR §2.1 与 Passage Re-ranking with BERT §2 改绘"),
     ]
     for spec in principles:
         principle(*spec)

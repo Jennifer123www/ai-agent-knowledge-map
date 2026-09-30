@@ -113,7 +113,9 @@ function drawVerification(group) {
 }
 
 function groupRoot(module, group) {
-  return path.join(root, "content", "wechat", module.slug, group.id === "overview" ? "" : `submodules/${group.id}`);
+  const groupIndex = module.groups.indexOf(group);
+  const groupDirectory = group.id === "overview" ? "" : `submodules/${String(groupIndex).padStart(2, "0")}-${group.id}`;
+  return path.join(root, "content", "wechat", module.directory, groupDirectory);
 }
 
 for (const module of modules) {

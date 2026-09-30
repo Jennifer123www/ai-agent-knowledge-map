@@ -8,7 +8,7 @@ from pathlib import Path
 from math import atan2, cos, sin
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = Path(__file__).resolve().parents[1] / "content/wechat/memory-and-context-engineering"
+ROOT = Path(__file__).resolve().parents[1] / "content/wechat/03-memory-and-context-engineering"
 FONT_CANDIDATES = [
     Path("/System/Library/Fonts/Hiragino Sans GB.ttc"),
     Path("/System/Library/Fonts/STHeiti Medium.ttc"),
@@ -177,7 +177,7 @@ GROUPS = {
         ],
     },
     "shortterm": {
-        "dir": "submodules/shortterm/assets", "prefix": "shortterm", "title": "短期状态", "subtitle": "任务停一半，也要知道从哪里继续",
+        "dir": "submodules/01-shortterm/assets", "prefix": "shortterm", "title": "短期状态", "subtitle": "任务停一半，也要知道从哪里继续",
         "cover": [("识别票据", "留下识别结果"), ("等待校验", "记住当前节点"), ("恢复任务", "避免重复动作")],
         "figures": [
             ("state", "cards", "检查点需要哪些字段", "保存可恢复的状态，不保存一团含糊摘要", [("任务标识", "谁的哪一笔报销"), ("当前节点", "已识别，待政策校验"), ("关键输出", "票据字段和来源"), ("动作状态", "未提交、待确认")], "原始票据可用稳定引用保存，不必把整张图塞入状态"),
@@ -187,7 +187,7 @@ GROUPS = {
         ],
     },
     "longterm": {
-        "dir": "submodules/longterm/assets", "prefix": "longterm", "title": "长期记忆", "subtitle": "跨会话沿用有用信息，也允许更正",
+        "dir": "submodules/02-longterm/assets", "prefix": "longterm", "title": "长期记忆", "subtitle": "跨会话沿用有用信息，也允许更正",
         "cover": [("候选偏好", "反复要求中文"), ("受控保存", "有来源和范围"), ("下次取回", "当前任务确实需要")],
         "figures": [
             ("vs-history", "compare", "记忆不是聊天录像", "原始历史保留发生过什么；记忆供未来任务使用", ("聊天历史", ["长而杂", "含一次性内容", "适合复盘原话"]), ("受控记忆", ["经过筛选", "附来源与时效", "可更正与删除"]), "不要把整段聊天摘要成一个永久不变的用户结论"),
@@ -197,7 +197,7 @@ GROUPS = {
         ],
     },
     "memorytypes": {
-        "dir": "submodules/memorytypes/assets", "prefix": "memorytypes", "title": "记忆类型与用户画像", "subtitle": "先看用途，再决定放进哪个抽屉",
+        "dir": "submodules/03-memorytypes/assets", "prefix": "memorytypes", "title": "记忆类型与用户画像", "subtitle": "先看用途，再决定放进哪个抽屉",
         "cover": [("任务", "这次报销到哪步"), ("经历", "上次为何退回"), ("偏好", "只记必要的习惯")],
         "figures": [
             ("taxonomy", "cards", "四种信息不要混放", "这里按用途讲，分类不是固定数据库表名", [("工作记忆", "当前任务状态"), ("情景记忆", "可复盘的经历"), ("语义记忆", "已核的稳定事实"), ("用户画像", "受控偏好与约束")], "一条内容可能跨类，但用途与保留规则要说清"),
@@ -207,7 +207,7 @@ GROUPS = {
         ],
     },
     "memorywrite": {
-        "dir": "submodules/memorywrite/assets", "prefix": "memorywrite", "title": "记忆写入与更新", "subtitle": "新称呼来了，旧称呼不能假装没看见",
+        "dir": "submodules/04-memorywrite/assets", "prefix": "memorywrite", "title": "记忆写入与更新", "subtitle": "新称呼来了，旧称呼不能假装没看见",
         "cover": [("新说法", "请改叫小林"), ("核实意图", "仅本次还是以后"), ("更新记录", "覆盖旧值有版本")],
         "figures": [
             ("gate", "cards", "写入前过四道门", "候选信息不等于已确认的长期记忆", [("来源", "用户明确说了什么"), ("用途", "未来任务是否需要"), ("敏感", "是否应当保存"), ("范围", "本次还是持续适用")], "任何一道门不过，都可以选择不写入"),
@@ -217,7 +217,7 @@ GROUPS = {
         ],
     },
     "contextbuild": {
-        "dir": "submodules/contextbuild/assets", "prefix": "contextbuild", "title": "上下文构造", "subtitle": "窗口有边界，放进去的东西要有用又可信",
+        "dir": "submodules/05-contextbuild/assets", "prefix": "contextbuild", "title": "上下文构造", "subtitle": "窗口有边界，放进去的东西要有用又可信",
         "cover": [("先筛", "权限、时间、来源"), ("再排", "任务与关键证据"), ("后核", "没有把网页当命令")],
         "figures": [
             ("selection", "flow", "上下文选择顺序", "先做硬过滤，再比较相关性", [("候选材料", "旧新制度"), ("硬过滤", "权限与生效"), ("排优先级", "与问题相关"), ("构造输入", "标来源与边界")], "分数高的旧制度不能越过生效期"),
@@ -227,7 +227,7 @@ GROUPS = {
         ],
     },
     "memorygovernance": {
-        "dir": "submodules/memorygovernance/assets", "prefix": "memorygovernance", "title": "记忆治理", "subtitle": "能保存，也要能限制、改正和删除",
+        "dir": "submodules/06-memorygovernance/assets", "prefix": "memorygovernance", "title": "记忆治理", "subtitle": "能保存，也要能限制、改正和删除",
         "cover": [("明确用途", "为什么要记"), ("限制读取", "谁能看"), ("删除闭环", "副本一起处理")],
         "figures": [
             ("access", "cards", "读取权限分四层", "记忆可检索，不等于所有 Agent 都能用", [("用户", "只能读本人范围"), ("租户", "组织之间隔离"), ("用途", "当前任务必要"), ("日志", "不泄露原文")], "在检索前过滤，不依赖模型承诺保密"),

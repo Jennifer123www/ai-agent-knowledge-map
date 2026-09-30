@@ -5,7 +5,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 
 const root = path.resolve(import.meta.dirname, "..");
-const outRoot = path.join(root, "content/wechat/evaluation-observability-and-improvement");
+const outRoot = path.join(root, "content/wechat/07-evaluation-observability-and-improvement");
 const execFile = promisify(execFileCallback);
 const sources = Object.fromEntries(process.argv.slice(2).map((arg) => {
   const index = arg.indexOf("=");
@@ -20,27 +20,27 @@ const groups = {
     interview: ["面试题", "评测、可观测性", "与持续优化", "怎样证明智能体真的可靠"],
   },
   trace: {
-    dir: "submodules/trace/assets", prefix: "trace",
+    dir: "submodules/01-trace/assets", prefix: "trace",
     main: ["链路追踪", "一句错答", "从哪里开始", "从结果回到证据与版本"],
     interview: ["链路追踪 · 面试题", "一条 Trace", "应该记录什么", "Span、采样与隐私治理"],
   },
   offlineeval: {
-    dir: "submodules/offlineeval/assets", prefix: "offlineeval",
+    dir: "submodules/02-offlineeval/assets", prefix: "offlineeval",
     main: ["离线评测", "先在模拟考场", "里见真章", "同一题目，同一环境，再比版本"],
     interview: ["离线评测 · 面试题", "离线成绩", "怎样避免虚高", "数据集、评分器与发布门槛"],
   },
   monitoring: {
-    dir: "submodules/monitoring/assets", prefix: "monitoring",
+    dir: "submodules/03-monitoring/assets", prefix: "monitoring",
     main: ["线上监控", "系统没报错", "为何用户仍不满", "穿过 HTTP 200 看见真实任务"],
     interview: ["线上监控 · 面试题", "Agent 监控", "到底看什么", "信号、SLO、告警与降级"],
   },
   release: {
-    dir: "submodules/release/assets", prefix: "release",
+    dir: "submodules/04-release/assets", prefix: "release",
     main: ["版本、实验与发布", "变好不能", "只凭感觉", "让每次改动都能归因与回退"],
     interview: ["版本发布 · 面试题", "Agent 怎样", "灰度与回滚", "影子、A/B、护栏与在途任务"],
   },
   feedback: {
-    dir: "submodules/feedback/assets", prefix: "feedback",
+    dir: "submodules/05-feedback/assets", prefix: "feedback",
     main: ["反馈闭环", "把差评变成", "可验证问题", "先归因，再优化，最后实验"],
     interview: ["反馈闭环 · 面试题", "怎样让反馈", "真正推动改进", "信号、样本、优先级与隐私"],
   },

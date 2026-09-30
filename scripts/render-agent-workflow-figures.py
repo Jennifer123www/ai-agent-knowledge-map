@@ -9,7 +9,7 @@ from math import atan2, cos, sin
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = Path(__file__).resolve().parents[1] / "content/wechat/agents-and-workflows"
+ROOT = Path(__file__).resolve().parents[1] / "content/wechat/04-agents-and-workflows"
 FONTS = [
     Path("/System/Library/Fonts/Hiragino Sans GB.ttc"),
     Path("/System/Library/Fonts/STHeiti Medium.ttc"),

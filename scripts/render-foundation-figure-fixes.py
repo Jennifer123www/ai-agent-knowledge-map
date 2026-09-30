@@ -10,7 +10,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 
-ROOT = Path(__file__).resolve().parents[1] / "content/wechat/foundation-models-and-inference"
+ROOT = Path(__file__).resolve().parents[1] / "content/wechat/01-foundation-models-and-inference"
 FONT_CANDIDATES = [
     Path("/System/Library/Fonts/Hiragino Sans GB.ttc"),
     Path("/System/Library/Fonts/STHeiti Medium.ttc"),
@@ -97,7 +97,7 @@ def embedding_chunking():
     box(d, (215, 674, 690, 795), "随片段保存：来源、版本、适用范围", "#FFFFFF", 27)
     box(d, (840, 674, 1320, 795), "查询时：按身份与日期过滤", "#FFFFFF", 28)
     arrow(d, (702, 735), (828, 735), TEAL)
-    save(im, "submodules/embedding/assets/embedding-chunking.png")
+    save(im, "submodules/03-embedding/assets/embedding-chunking.png")
 
 
 def embedding_evaluation():
@@ -125,7 +125,7 @@ def embedding_evaluation():
                  ((1111, 444), (1179, 548)), ((1111, 704), (1179, 614))]:
         arrow(d, a, b, ORANGE)
     label(d, (484, 790), "标注资料不会“生成”召回结果", 28, PLUM)
-    save(im, "submodules/embedding/assets/embedding-evaluation.png")
+    save(im, "submodules/03-embedding/assets/embedding-evaluation.png")
 
 
 def reranker_two_stage():
@@ -147,7 +147,7 @@ def reranker_two_stage():
     arrow(d, (450, 570), (545, 570), ORANGE)
     arrow(d, (917, 570), (1009, 570), ORANGE)
     label(d, (729, 711), "只在已召回的集合内排序", 26, MUTED, "mm")
-    save(im, "submodules/reranker/assets/reranker-two-stage.png")
+    save(im, "submodules/04-reranker/assets/reranker-two-stage.png")
 
 
 def reranker_evaluation():
@@ -168,7 +168,7 @@ def reranker_evaluation():
     label(d, (163, 649), "质量：MRR、NDCG", 31, TEAL)
     label(d, (163, 706), "代价：p95 时延、调用成本", 31, PLUM)
     label(d, (164, 788), "先定题集和基线，再谈是否改善", 28, MUTED)
-    save(im, "submodules/reranker/assets/reranker-evaluation.png")
+    save(im, "submodules/04-reranker/assets/reranker-evaluation.png")
 
 
 def llm_sampling():
@@ -193,7 +193,7 @@ def llm_sampling():
                  ((1050, 490), (1108, 490))]:
         arrow(d, a, b, ORANGE)
     box(d, (283, 708, 1248, 808), "可单独设置，也可同时设置；具体实现顺序以推理系统为准", "#FFFFFF", 27)
-    save(im, "submodules/llm/assets/llm-sampling.png")
+    save(im, "submodules/01-llm/assets/llm-sampling.png")
 
 
 def llm_evidence_audit():
@@ -245,7 +245,7 @@ def llm_evidence_audit():
 
     d.rounded_rectangle((300, 820, 1236, 878), radius=20, fill=ORANGE_PALE)
     label(d, (768, 849), "流畅度看语言；事实是否成立，要看证据", 29, PLUM, "mm")
-    save(im, "submodules/llm/assets/llm-evidence-audit.png")
+    save(im, "submodules/01-llm/assets/llm-evidence-audit.png")
 
 
 def llm_context_conflict():
@@ -265,7 +265,7 @@ def llm_context_conflict():
     arrow(d, (966, 525), (1089, 435), TEAL)
     arrow(d, (966, 610), (1089, 700), ORANGE)
     label(d, (764, 745), "没有发送回执，就不写“邀请已发出”", 27, PLUM, "mm")
-    save(im, "submodules/llm/assets/llm-context-conflict.png")
+    save(im, "submodules/01-llm/assets/llm-context-conflict.png")
 
 
 def multimodal_field_trace():
@@ -283,7 +283,7 @@ def multimodal_field_trace():
     arrow(d, (781, 532), (874, 532), ORANGE)
     arrow(d, (1186, 532), (1279, 532), ORANGE)
     box(d, (390, 748, 1140, 835), "缺少年份：保留缺项，不自行补成完整日期", "#FFFFFF", 27)
-    save(im, "submodules/multimodal/assets/multimodal-field-trace.png")
+    save(im, "submodules/02-multimodal/assets/multimodal-field-trace.png")
 
 
 def embedding_metric_comparison():
@@ -305,7 +305,7 @@ def embedding_metric_comparison():
         for idx, line in enumerate(detail.split("\n")):
             label(d, ((x0+x1)//2, y0+168+idx*62), line, 27, MUTED, "mm")
     box(d, (350, 790, 1185, 865), "同一批候选必须使用同一套编码、归一化与距离配置", "#FFFFFF", 26)
-    save(im, "submodules/embedding/assets/embedding-metric-comparison.png")
+    save(im, "submodules/03-embedding/assets/embedding-metric-comparison.png")
 
 
 def reranker_learning_objectives():
@@ -326,7 +326,7 @@ def reranker_learning_objectives():
         label(d, ((x0+x1)//2, y0+77), head, 35, INK, "mm")
         for idx, line in enumerate(detail.split("\n")):
             label(d, ((x0+x1)//2, y0+174+idx*62), line, 27, MUTED, "mm")
-    save(im, "submodules/reranker/assets/reranker-learning-objectives.png")
+    save(im, "submodules/04-reranker/assets/reranker-learning-objectives.png")
 
 
 def adaptation_diagnosis_matrix():
@@ -348,7 +348,7 @@ def adaptation_diagnosis_matrix():
         arrow(d, (661, y+52), (825, y+52), ORANGE)
         box(d, (836, y, 1415, y+105), route, fill, 28)
         y += 125
-    save(im, "submodules/adaptation/assets/adaptation-diagnosis-matrix.png")
+    save(im, "submodules/05-adaptation/assets/adaptation-diagnosis-matrix.png")
 
 
 def adaptation_distillation():
@@ -369,7 +369,7 @@ def adaptation_distillation():
                  ((1036, 480), (1094, 480))]:
         arrow(d, a, b, ORANGE)
     box(d, (235, 687, 1300, 802), "另测：新版能否答对、旧版能否拒用、缺条件能否追问", ORANGE_PALE, 28)
-    save(im, "submodules/adaptation/assets/adaptation-distillation.png")
+    save(im, "submodules/05-adaptation/assets/adaptation-distillation.png")
 
 
 def adaptation_lora():
@@ -387,7 +387,7 @@ def adaptation_lora():
     arrow(d, (482, 701), (669, 604), PLUM)
     arrow(d, (1086, 578), (1229, 578), ORANGE)
     label(d, (755, 756), "再评测：新规、旧规、缺失条件", 29, TEAL)
-    save(im, "submodules/adaptation/assets/adaptation-lora.png")
+    save(im, "submodules/05-adaptation/assets/adaptation-lora.png")
 
 
 def multimodal_encoding():
@@ -413,7 +413,7 @@ def multimodal_encoding():
     d.line((1149, 583, 1189, 583), fill=TEAL, width=5)
     d.line((1149, 749, 1189, 749), fill=TEAL, width=5)
     arrow(d, (1189, 583), (1219, 583), TEAL)
-    save(im, "submodules/multimodal/assets/multimodal-encoding.png")
+    save(im, "submodules/02-multimodal/assets/multimodal-encoding.png")
 
 
 def main():

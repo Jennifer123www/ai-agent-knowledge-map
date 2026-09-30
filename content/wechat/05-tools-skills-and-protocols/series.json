@@ -67,20 +67,20 @@
       "contentLevel": "submodule",
       "submodule": "skill",
       "seriesOrder": 1,
-      "promptFile": "submodules/skill/prompts.md",
-      "principleImage": "submodules/skill/assets/skill-principle.png",
+      "promptFile": "submodules/01-skill/prompts.md",
+      "principleImage": "submodules/01-skill/assets/skill-principle.png",
       "images": [
-        "submodules/skill/assets/skill-cover.png",
-        "submodules/skill/assets/skill-discovery.png",
-        "submodules/skill/assets/skill-execution.png",
-        "submodules/skill/assets/skill-method-tool.png",
-        "submodules/skill/assets/skill-recovery.png",
-        "submodules/skill/assets/skill-versioning.png",
-        "submodules/skill/assets/skill-principle.png"
+        "submodules/01-skill/assets/skill-cover.png",
+        "submodules/01-skill/assets/skill-discovery.png",
+        "submodules/01-skill/assets/skill-execution.png",
+        "submodules/01-skill/assets/skill-method-tool.png",
+        "submodules/01-skill/assets/skill-recovery.png",
+        "submodules/01-skill/assets/skill-versioning.png",
+        "submodules/01-skill/assets/skill-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/skill/beginner-main.md",
+          "path": "submodules/01-skill/beginner-main.md",
           "focus": "讲清 Skill 的发现、执行、验收、恢复、版本化和安全治理。",
           "outline": [
             "重复任务为什么需要技能",
@@ -94,7 +94,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/skill/interview-side.md",
+          "path": "submodules/01-skill/interview-side.md",
           "focus": "聚焦技能边界、匹配、验收、版本、恢复、编排和第三方技能治理。",
           "questionBoundary": {
             "include": ["Skill 与 Tool", "技能发现", "技能评测", "版本回归", "检查点恢复", "技能安全"],
@@ -118,19 +118,19 @@
       "contentLevel": "submodule",
       "submodule": "toolcalling",
       "seriesOrder": 2,
-      "promptFile": "submodules/toolcalling/prompts.md",
-      "principleImage": "submodules/toolcalling/assets/toolcalling-principle.png",
+      "promptFile": "submodules/02-toolcalling/prompts.md",
+      "principleImage": "submodules/02-toolcalling/assets/toolcalling-principle.png",
       "images": [
-        "submodules/toolcalling/assets/toolcalling-contract.png",
-        "submodules/toolcalling/assets/toolcalling-cover.png",
-        "submodules/toolcalling/assets/toolcalling-flow.png",
-        "submodules/toolcalling/assets/toolcalling-result.png",
-        "submodules/toolcalling/assets/toolcalling-validation.png",
-        "submodules/toolcalling/assets/toolcalling-principle.png"
+        "submodules/02-toolcalling/assets/toolcalling-contract.png",
+        "submodules/02-toolcalling/assets/toolcalling-cover.png",
+        "submodules/02-toolcalling/assets/toolcalling-flow.png",
+        "submodules/02-toolcalling/assets/toolcalling-result.png",
+        "submodules/02-toolcalling/assets/toolcalling-validation.png",
+        "submodules/02-toolcalling/assets/toolcalling-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/toolcalling/beginner-main.md",
+          "path": "submodules/02-toolcalling/beginner-main.md",
           "focus": "讲清结构化调用闭环、工具契约、执行校验、调用标识和结果回传。",
           "outline": [
             "模型为什么不直接执行函数",
@@ -144,7 +144,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/toolcalling/interview-side.md",
+          "path": "submodules/02-toolcalling/interview-side.md",
           "focus": "聚焦工具定义、严格模式、并行调用、结果语义、tool choice、幂等和错误设计。",
           "questionBoundary": {
             "include": ["工具契约", "严格模式", "并行调用", "结果回传", "tool choice", "调用 ID 与幂等"],
@@ -168,20 +168,20 @@
       "contentLevel": "submodule",
       "submodule": "execution",
       "seriesOrder": 3,
-      "promptFile": "submodules/execution/prompts.md",
-      "principleImage": "submodules/execution/assets/execution-principle.png",
+      "promptFile": "submodules/03-execution/prompts.md",
+      "principleImage": "submodules/03-execution/assets/execution-principle.png",
       "images": [
-        "submodules/execution/assets/execution-browser.png",
-        "submodules/execution/assets/execution-choice.png",
-        "submodules/execution/assets/execution-confirm.png",
-        "submodules/execution/assets/execution-cover.png",
-        "submodules/execution/assets/execution-decision.png",
-        "submodules/execution/assets/execution-sandbox.png",
-        "submodules/execution/assets/execution-principle.png"
+        "submodules/03-execution/assets/execution-browser.png",
+        "submodules/03-execution/assets/execution-choice.png",
+        "submodules/03-execution/assets/execution-confirm.png",
+        "submodules/03-execution/assets/execution-cover.png",
+        "submodules/03-execution/assets/execution-decision.png",
+        "submodules/03-execution/assets/execution-sandbox.png",
+        "submodules/03-execution/assets/execution-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/execution/beginner-main.md",
+          "path": "submodules/03-execution/beginner-main.md",
           "focus": "比较 API、隔离代码和浏览器执行的适用场景、风险、恢复与演进。",
           "outline": [
             "三种执行通道",
@@ -195,7 +195,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/execution/interview-side.md",
+          "path": "submodules/03-execution/interview-side.md",
           "focus": "聚焦通道选型、沙箱、浏览器脆弱性、结果确认、凭据和跨通道追踪。",
           "questionBoundary": {
             "include": ["执行通道选型", "沙箱隔离", "浏览器自动化", "权威状态", "产物验收", "登录凭据"],
@@ -219,20 +219,20 @@
       "contentLevel": "submodule",
       "submodule": "mcp",
       "seriesOrder": 4,
-      "promptFile": "submodules/mcp/prompts.md",
-      "principleImage": "submodules/mcp/assets/mcp-principle.png",
+      "promptFile": "submodules/04-mcp/prompts.md",
+      "principleImage": "submodules/04-mcp/assets/mcp-principle.png",
       "images": [
-        "submodules/mcp/assets/mcp-compatibility.png",
-        "submodules/mcp/assets/mcp-cover.png",
-        "submodules/mcp/assets/mcp-discovery.png",
-        "submodules/mcp/assets/mcp-layers.png",
-        "submodules/mcp/assets/mcp-local-remote.png",
-        "submodules/mcp/assets/mcp-security.png",
-        "submodules/mcp/assets/mcp-principle.png"
+        "submodules/04-mcp/assets/mcp-compatibility.png",
+        "submodules/04-mcp/assets/mcp-cover.png",
+        "submodules/04-mcp/assets/mcp-discovery.png",
+        "submodules/04-mcp/assets/mcp-layers.png",
+        "submodules/04-mcp/assets/mcp-local-remote.png",
+        "submodules/04-mcp/assets/mcp-security.png",
+        "submodules/04-mcp/assets/mcp-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/mcp/beginner-main.md",
+          "path": "submodules/04-mcp/beginner-main.md",
           "focus": "解释 MCP 的协议范围、数据层、传输层、发现、状态、安全与兼容。",
           "outline": [
             "为什么需要共同连接规则",
@@ -246,7 +246,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/mcp/interview-side.md",
+          "path": "submodules/04-mcp/interview-side.md",
           "focus": "聚焦协议分层、发现协商、本地远程、安全、兼容、通知和降级。",
           "questionBoundary": {
             "include": ["数据层与传输层", "版本协商", "本地与远程", "协议授权边界", "通知与长任务", "降级"],
@@ -270,20 +270,20 @@
       "contentLevel": "submodule",
       "submodule": "mcpobjects",
       "seriesOrder": 5,
-      "promptFile": "submodules/mcpobjects/prompts.md",
-      "principleImage": "submodules/mcpobjects/assets/mcpobjects-principle.png",
+      "promptFile": "submodules/05-mcpobjects/prompts.md",
+      "principleImage": "submodules/05-mcpobjects/assets/mcpobjects-principle.png",
       "images": [
-        "submodules/mcpobjects/assets/mcpobjects-cover.png",
-        "submodules/mcpobjects/assets/mcpobjects-elicitation.png",
-        "submodules/mcpobjects/assets/mcpobjects-primitives.png",
-        "submodules/mcpobjects/assets/mcpobjects-roles.png",
-        "submodules/mcpobjects/assets/mcpobjects-routing.png",
-        "submodules/mcpobjects/assets/mcpobjects-security.png",
-        "submodules/mcpobjects/assets/mcpobjects-principle.png"
+        "submodules/05-mcpobjects/assets/mcpobjects-cover.png",
+        "submodules/05-mcpobjects/assets/mcpobjects-elicitation.png",
+        "submodules/05-mcpobjects/assets/mcpobjects-primitives.png",
+        "submodules/05-mcpobjects/assets/mcpobjects-roles.png",
+        "submodules/05-mcpobjects/assets/mcpobjects-routing.png",
+        "submodules/05-mcpobjects/assets/mcpobjects-security.png",
+        "submodules/05-mcpobjects/assets/mcpobjects-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/mcpobjects/beginner-main.md",
+          "path": "submodules/05-mcpobjects/beginner-main.md",
           "focus": "分清 Host、Client、Server 和 Tools、Resources、Prompts、Elicitation。",
           "outline": [
             "角色关系",
@@ -297,7 +297,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/mcpobjects/interview-side.md",
+          "path": "submodules/05-mcpobjects/interview-side.md",
           "focus": "聚焦角色、三类对象语义、对象级授权、组合、Elicitation 和对象目录治理。",
           "questionBoundary": {
             "include": ["Host/Client/Server", "三类对象", "对象级授权", "Elicitation", "Resource 缓存", "Prompt 治理"],
@@ -321,21 +321,21 @@
       "contentLevel": "submodule",
       "submodule": "connector",
       "seriesOrder": 6,
-      "promptFile": "submodules/connector/prompts.md",
-      "principleImage": "submodules/connector/assets/connector-principle.png",
+      "promptFile": "submodules/06-connector/prompts.md",
+      "principleImage": "submodules/06-connector/assets/connector-principle.png",
       "images": [
-        "submodules/connector/assets/connector-adapter.png",
-        "submodules/connector/assets/connector-auth.png",
-        "submodules/connector/assets/connector-cover.png",
-        "submodules/connector/assets/connector-errors.png",
-        "submodules/connector/assets/connector-evolution.png",
-        "submodules/connector/assets/connector-plugin.png",
-        "submodules/connector/assets/connector-reliability.png",
-        "submodules/connector/assets/connector-principle.png"
+        "submodules/06-connector/assets/connector-adapter.png",
+        "submodules/06-connector/assets/connector-auth.png",
+        "submodules/06-connector/assets/connector-cover.png",
+        "submodules/06-connector/assets/connector-errors.png",
+        "submodules/06-connector/assets/connector-evolution.png",
+        "submodules/06-connector/assets/connector-plugin.png",
+        "submodules/06-connector/assets/connector-reliability.png",
+        "submodules/06-connector/assets/connector-principle.png"
       ],
       "articles": {
         "beginner": {
-          "path": "submodules/connector/beginner-main.md",
+          "path": "submodules/06-connector/beginner-main.md",
           "focus": "解释具体系统适配、认证、字段翻译、可靠调用、事件、缓存和插件治理。",
           "outline": [
             "连接器为何不是转发层",
@@ -349,7 +349,7 @@
           ]
         },
         "interview": {
-          "path": "submodules/connector/interview-side.md",
+          "path": "submodules/06-connector/interview-side.md",
           "focus": "聚焦适配边界、凭据、分页限流、错误、演进、事件、缓存和测试矩阵。",
           "questionBoundary": {
             "include": ["连接器边界", "身份凭据", "分页限流", "错误归一", "契约演进", "Webhook", "缓存一致性"],
