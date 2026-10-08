@@ -1,6 +1,7 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { validateChineseCharacterCount } from "../lib/wechat/article-policy.mjs";
+import { readRasterDimensions } from "../lib/wechat/image-dimensions.mjs";
 import { parseWechatArticle, renderWechatHtml } from "../lib/wechat/markdown.mjs";
 
 const root = process.cwd();
@@ -125,6 +126,11 @@ for (const manifestPath of manifestPaths) {
     const imageNames = Array.isArray(group.images) ? group.images : [];
     const declaredImages = new Set(imageNames);
     const principleImage = String(group.principleImage || "").trim();
+    const beginnerImageAspectMin = group.beginnerImageAspectMin;
+    if (beginnerImageAspectMin !== undefined &&
+        (!Number.isFinite(beginnerImageAspectMin) || beginnerImageAspectMin < 1.35)) {
+      fail(groupLabel, "beginnerImageAspectMin must be at least 1.35 when set");
+    }
     groupImageUsage.set(groupLabel, { declaredImages, usedImages: new Set() });
     if (declaredImages.size < 6) {
       fail(groupLabel, "at least 6 image names must be declared: 1 cover and 5 body images");
@@ -191,6 +197,7 @@ for (const manifestPath of manifestPaths) {
         role,
         declaredImages,
         principleImage,
+        beginnerImageAspectMin,
       });
     }
   }
@@ -250,6 +257,14 @@ for (const [articlePath, registration] of registeredArticles) {
     const bodyImages = article.images.slice(1);
     if (bodyImages.length < 5) {
       throw new Error(`At least 5 local body images are required; the cover does not count (${bodyImages.length}/5)`);
+    }
+    if (registration.role === "beginner" && Number.isFinite(registration.beginnerImageAspectMin)) {
+      for (const image of bodyImages) {
+        const { width, height } = await readRasterDimensions(image.absolutePath);
+        if (width / height < registration.beginnerImageAspectMin) {
+          throw new Error(`beginner body image must be landscape (width/height >= ${registration.beginnerImageAspectMin}): ${image.source} is ${width}x${height}`);
+        }
+      }
     }
     if (registration.role === "beginner" && !usedImages.has(registration.principleImage)) {
       throw new Error(`Beginner main article must use declared principle image: ${registration.principleImage}`);

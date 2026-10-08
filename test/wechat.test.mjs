@@ -4,6 +4,7 @@ import path from "node:path";
 import { handleWechatCallback } from "../lib/wechat/callback.mjs";
 import { createWechatClient } from "../lib/wechat/client.mjs";
 import { validateChineseCharacterCount } from "../lib/wechat/article-policy.mjs";
+import { rasterDimensions } from "../lib/wechat/image-dimensions.mjs";
 import { createWechatSignature } from "../lib/wechat/signature.mjs";
 import { parseWechatArticle, renderWechatHtml, validateWechatHtml } from "../lib/wechat/markdown.mjs";
 
@@ -11,6 +12,20 @@ test("independent-topic articles may exceed the module word ceiling", () => {
   assert.doesNotThrow(() => validateChineseCharacterCount(5001, { independent: true }));
   assert.throws(() => validateChineseCharacterCount(5001), /3000-5000/);
   assert.throws(() => validateChineseCharacterCount(2999, { independent: true }), /at least 3000/);
+});
+
+test("reads PNG dimensions for the main-article landscape gate", () => {
+  const png = Buffer.alloc(24);
+  Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]).copy(png);
+  png.writeUInt32BE(1536, 16);
+  png.writeUInt32BE(1024, 20);
+  assert.deepEqual(rasterDimensions(png), { width: 1536, height: 1024 });
+  assert.throws(() => rasterDimensions(Buffer.from("bad")), /dimensions/);
+});
+
+test("reads JPEG dimensions for the main-article landscape gate", () => {
+  const jpeg = Buffer.from([0xff, 0xd8, 0xff, 0xc0, 0x00, 0x07, 0x08, 0x04, 0x00, 0x06, 0x00]);
+  assert.deepEqual(rasterDimensions(jpeg), { width: 1536, height: 1024 });
 });
 
 test("creates the official WeChat SHA-1 callback signature", () => {

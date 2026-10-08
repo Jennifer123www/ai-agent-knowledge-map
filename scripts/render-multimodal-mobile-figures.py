@@ -1,4 +1,4 @@
-"""Draw mobile-first, source-checkable figures for the multimodal WeChat pair.
+"""Draw the multimodal interview article's mobile-first portrait figures.
 
 Run with the bundled Python that includes Pillow. These figures are deliberately
 drawn from exact labels and case facts; image generation is used only for covers.
@@ -37,13 +37,6 @@ def base(title, kicker):
     text(d, 70, 112, title, 55)
     d.line((70, 208, 930, 208), fill=LINE, width=3)
     return im, d
-
-
-def card(d, y, h, heading, lines=(), color="white", x=70, w=860):
-    d.rounded_rectangle((x, y, x+w, y+h), radius=24, fill=color, outline=LINE, width=3)
-    text(d, x+34, y+27, heading, 45, INK)
-    for index, line in enumerate(lines):
-        text(d, x+34, y+91+index*54, line, 39, MUTED)
 
 
 def arrow(d, y1, y2, label=None, x=500, fill=ORANGE):
@@ -91,71 +84,8 @@ def invoice(d, x, y, w, h, readable=True):
             d.rounded_rectangle((x+26, ry+8, x+w-35, ry+28), radius=7, fill=LINE)
 
 
-def encoding():
-    im, d = base("不同输入，先各自编码", "输入编码 · 主文")
-    lanes = (
-        (275, "发票照片", "视觉编码器", "图像特征", TEAL_BG, TEAL),
-        (570, "语音录音", "音频编码器", "声音特征", PLUM_BG, PLUM),
-        (865, "文字提问", "文本编码", "文字表示", ORANGE_BG, ORANGE),
-    )
-    for y, source, encoder, feature, fill, accent in lanes:
-        box(d, (75, y, 270, y+200), "white")
-        box(d, (365, y+32, 645, y+164), fill, accent)
-        box(d, (735, y+32, 925, y+164), "white", accent)
-        if source == "发票照片":
-            d.rectangle((120, y+40, 225, y+130), outline=accent, width=4)
-            for i in range(3):
-                d.line((135, y+62+i*23, 207, y+62+i*23), fill=accent, width=4)
-        elif source == "语音录音":
-            for i, ht in enumerate((28, 55, 91, 48, 76, 32)):
-                xx = 115+i*23
-                d.line((xx, y+106-ht//2, xx, y+106+ht//2), fill=accent, width=6)
-        else:
-            text(d, 108, y+57, "金额？", 42, accent)
-        text(d, 103, y+157, source, 33, INK)
-        text(d, 402, y+73, encoder, 39)
-        text(d, 764, y+73, feature, 36)
-        h_arrow(d, 279, y+100, 354, accent)
-        h_arrow(d, 654, y+100, 725, accent)
-    ribbon(d, 1190, ("本例只用图片和文字两路；", "可用模态取决于具体模型。"), TEAL_BG)
-    save(im, "multimodal-encoding.png")
-
-
-def principle():
-    im, d = base("图像怎样接入语言模型", "LLaVA 原理 · 主文")
-    card(d, 264, 160, "发票照片", ("像素输入",), "white")
-    arrow(d, 425, 468)
-    card(d, 485, 160, "视觉编码器", ("提取图像特征",), TEAL_BG)
-    arrow(d, 647, 690)
-    card(d, 705, 160, "可训练投影层", ("图像特征转为语言表示",), PLUM_BG, x=70, w=520)
-    card(d, 705, 160, "文字提问", ("含税金额？",), "white", x=625, w=305)
-    arrow(d, 867, 919, x=330)
-    arrow(d, 867, 919, x=777)
-    card(d, 934, 198, "语言模型", ("同时接收文字提问：", "“含税金额是多少？”"), ORANGE_BG)
-    arrow(d, 1134, 1182)
-    ribbon(d, 1198, ("输出候选答案；字段是否正确，", "还要回原图核对。"), TEAL_BG)
-    save(im, "multimodal-principle.png")
-
-
-def document():
-    im, d = base("一张发票，四类线索", "单据版面 · 主文")
-    card(d, 260, 905, "酒店发票（教学示意）", (), "white")
-    d.line((104, 346, 896, 346), fill=LINE, width=3)
-    text(d, 108, 386, "版面：标题、日期所在区域", 42, PLUM)
-    text(d, 135, 460, "开票日期   9/3", 43)
-    text(d, 135, 520, "年份未标", 39, ORANGE)
-    d.rounded_rectangle((105, 604, 895, 858), radius=18, fill=TEAL_BG)
-    text(d, 135, 628, "表格：列名决定数值含义", 42, TEAL)
-    text(d, 140, 706, "含税金额     680.00", 45)
-    text(d, 140, 776, "税额             38.49", 45)
-    text(d, 108, 899, "小字：需放大查看原文", 42, PLUM)
-    text(d, 108, 981, "印章：另一区域，不能替代金额", 39, PLUM)
-    ribbon(d, 1210, ("数值要连同旁边的标签核对；", "9/3 没有年份，不能补猜。"))
-    save(im, "multimodal-document.png")
-
-
 def field_trace():
-    im, d = base("每个字段都能指回原图", "字段溯源 · 主副文共用")
+    im, d = base("每个字段都能指回原图", "字段溯源 · 面试")
     text(d, 90, 265, "原图区域", 37, TEAL)
     text(d, 386, 265, "识别读数", 37, PLUM)
     text(d, 690, 265, "草稿字段", 37, ORANGE)
@@ -179,26 +109,6 @@ def field_trace():
         h_arrow(d, 607, y+109, 650)
     ribbon(d, 1281, ("A / B / C 仅为示意区域；", "每个草稿字段都要能回溯。"), TEAL_BG)
     save(im, "multimodal-field-trace.png")
-
-
-def validation():
-    im, d = base("能读到，不等于能通过", "字段验证 · 主文")
-    invoice(d, 275, 265, 450, 322)
-    text(d, 97, 635, "同一张原图，分两条校验路径", 41, MUTED)
-    d.line((500, 695, 500, 746), fill=ORANGE, width=7)
-    d.line((265, 745, 735, 745), fill=ORANGE, width=7)
-    d.line((265, 745, 265, 787), fill=ORANGE, width=7)
-    d.line((735, 745, 735, 787), fill=ORANGE, width=7)
-    box(d, (72, 800, 473, 1129), TEAL_BG, TEAL)
-    box(d, (527, 800, 928, 1129), ORANGE_BG, ORANGE)
-    text(d, 106, 846, "金额 / 税额", 42, TEAL)
-    text(d, 106, 920, "读数可解析", 37)
-    text(d, 106, 974, "标签与区域须复核", 37)
-    text(d, 561, 846, "日期 9/3", 42, ORANGE)
-    text(d, 561, 920, "年份缺失", 37)
-    text(d, 561, 974, "保持未知，不补猜", 37)
-    ribbon(d, 1211, ("图像读数不是报销结论；", "是否通过还要核对制度与记录。"), PLUM_BG)
-    save(im, "multimodal-validation.png")
 
 
 def alignment():
@@ -295,6 +205,5 @@ def evaluation():
 
 
 if __name__ == "__main__":
-    for make in (encoding, principle, document, field_trace, validation,
-                 alignment, ocr_vlm, diagnosis, evaluation):
+    for make in (field_trace, alignment, ocr_vlm, diagnosis, evaluation):
         make()

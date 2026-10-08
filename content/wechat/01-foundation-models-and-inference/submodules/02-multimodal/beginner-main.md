@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.4.1"
-stage: "修订主文封面与正文图，补清发票标签和读数的关系"
-git_state: "基于 998be1d（main；修改前工作区干净）"
-modified_at: "2026-10-08 17:40 CST"
+version: "0.4.2"
+stage: "把五张主文教学图改为 3:2 横版，并与副文配图分开维护"
+git_state: "基于 8c7588f（main；修改前工作区干净）"
+modified_at: "2026-10-08 17:53 CST"
 ---
 
 # 大话多模态模型：一张发票为什么会读错
@@ -70,7 +70,7 @@ LLaVA 也不是唯一结构。Flamingo 先把数量不定的视觉特征压成�
 
 ## 读出的值，怎样回到原图核对
 
-![发票字段从原图到草稿的溯源路径](./assets/multimodal-field-trace.png)
+![发票字段从原图到草稿的溯源路径](./assets/multimodal-field-trace-main.png)
 
 *`680.00`、`38.49` 与 `9/3` 各有自己的原文区域和字段关系；图中 A/B/C 是示意标记，不是实测坐标。*
 

@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.3.1"
-stage: "修订副文封面和诊断、评测图，厘清 LLaVA 与 UReader 的出处"
-git_state: "基于 998be1d（main；修改前工作区干净）"
-modified_at: "2026-10-08 17:40 CST"
+version: "0.3.2"
+stage: "字段溯源图改为副文专用，主文另绘横版"
+git_state: "基于 8c7588f（main；修改前工作区干净）"
+modified_at: "2026-10-08 18:04 CST"
 ---
 
 # 面试题：发票读对字为何还会填错字段
