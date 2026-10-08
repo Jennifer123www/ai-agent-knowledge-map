@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.4.2"
-stage: "将记忆点改为独立标题和浅橙引用框"
-git_state: "基于 30932b8（main；修改前仅有未跟踪的推文终稿目录）"
-modified_at: "2026-09-30 11:53 CST"
+version: "0.4.3"
+stage: "按中央小缩略图规则重做原理与验证主题封面"
+git_state: "基于 6d57e8f（main；修改前有无关的多模态文章改动）"
+modified_at: "2026-10-08 09:46 CST"
 ---
 
 # 面试题：大语言模型从原理到验证怎么答

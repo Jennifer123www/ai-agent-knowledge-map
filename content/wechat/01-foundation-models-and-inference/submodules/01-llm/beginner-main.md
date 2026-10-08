@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "llm"
 series_order: 1
-version: "0.6.6"
-stage: "将引子标题统一为下期预告"
-git_state: "基于 540c77e（main 与 origin/main 同步；另有未跟踪的推文终稿目录）"
-modified_at: "2026-09-30 10:30 CST"
+version: "0.6.7"
+stage: "按 15% 遮罩安全区与自回归生成主题重做主文封面"
+git_state: "基于 6d57e8f（main；修改前有无关的多模态文章改动）"
+modified_at: "2026-10-08 09:46 CST"
 ---
 
 # 大话大语言模型—它为什么能一句接一句
