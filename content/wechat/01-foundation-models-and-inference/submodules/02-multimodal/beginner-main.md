@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.4.0"
-stage: "补足视觉编码、图文连接和字段定位机制，合并重复结论"
-git_state: "基于 6d57e8f（main；修改前工作区干净）"
-modified_at: "2026-10-08 09:50 CST"
+version: "0.4.1"
+stage: "修订主文封面与正文图，补清发票标签和读数的关系"
+git_state: "基于 998be1d（main；修改前工作区干净）"
+modified_at: "2026-10-08 17:40 CST"
 ---
 
 # 大话多模态模型：一张发票为什么会读错

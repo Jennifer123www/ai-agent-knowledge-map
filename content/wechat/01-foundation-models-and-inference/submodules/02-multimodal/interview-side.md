@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.3.0"
-stage: "重选多模态机制、选型、定位和评测题，减少与主文重合"
-git_state: "基于 6d57e8f（main；修改前工作区干净）"
-modified_at: "2026-10-08 09:50 CST"
+version: "0.3.1"
+stage: "修订副文封面和诊断、评测图，厘清 LLaVA 与 UReader 的出处"
+git_state: "基于 998be1d（main；修改前工作区干净）"
+modified_at: "2026-10-08 17:40 CST"
 ---
 
 # 面试题：发票读对字为何还会填错字段
@@ -32,7 +32,7 @@ UReader 的做法提供一个可讨论的解法：保留缩小的整页视图，
 
 ![视觉特征与语言模型的连接](./assets/multimodal-alignment.png)
 
-*整页缩小与局部放大是本例示意；整页加裁块、记录裁块位置的机制可对照 [UReader 论文第 3.1—3.2 节](https://arxiv.org/html/2310.05126)。图中不表示像素增加后一定识别正确。*
+*整页缩小与局部放大是本例示意，不是论文实测图。视觉特征接入语言模型可对照 [LLaVA 第 4.1 节](https://arxiv.org/html/2304.08485#S4.SS1)；整页加裁块、记录裁块位置可对照 [UReader 第 3.1—3.2 节](https://arxiv.org/html/2310.05126)。局部放大也不保证一定识别正确。*
 
 ### 答题点
 
