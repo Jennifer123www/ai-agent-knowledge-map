@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "multimodal"
 series_order: 2
-version: "0.3.2"
-stage: "字段溯源图改为副文专用，主文另绘横版"
-git_state: "基于 8c7588f（main；修改前工作区干净）"
-modified_at: "2026-10-08 18:04 CST"
+version: "0.3.3"
+stage: "移除面试配图底部重复说明条，保留图注中的必要限定"
+git_state: "基于 8aff1b6（main；修改前工作区干净）"
+modified_at: "2026-10-08 18:18 CST"
 ---
 
 # 面试题：发票读对字为何还会填错字段

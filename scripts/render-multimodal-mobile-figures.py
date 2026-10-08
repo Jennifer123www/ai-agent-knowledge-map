@@ -46,18 +46,11 @@ def arrow(d, y1, y2, label=None, x=500, fill=ORANGE):
         text(d, x+33, (y1+y2)//2, label, 35, MUTED, "lm")
 
 
-def ribbon(d, y, lines, fill=ORANGE_BG):
-    h = 76 + 56*(len(lines)-1)
-    d.rounded_rectangle((70, y, 930, y+h), radius=20, fill=fill)
-    for i, line in enumerate(lines):
-        text(d, 102, y+19+i*55, line, 39, INK)
-
-
-def save(im, name):
+def save(im, name, height):
     # The outer margin is intentionally bare: no decorative left stripe.
     if im.crop((0, 0, 40, H)).getpixel((0, H//2)) != Image.new("RGB", (1, 1), BG).getpixel((0, 0)):
         raise ValueError(f"Unexpected mark at left edge: {name}")
-    im.save(ASSETS / name, optimize=True)
+    im.crop((0, 0, W, height)).save(ASSETS / name, optimize=True)
 
 
 def h_arrow(d, x1, y, x2, fill=ORANGE):
@@ -107,8 +100,7 @@ def field_trace():
         text(d, 688, y+135, status, 38, ORANGE if region == "C" else TEAL)
         h_arrow(d, 332, y+109, 370)
         h_arrow(d, 607, y+109, 650)
-    ribbon(d, 1281, ("A / B / C 仅为示意区域；", "每个草稿字段都要能回溯。"), TEAL_BG)
-    save(im, "multimodal-field-trace.png")
+    save(im, "multimodal-field-trace.png", 1245)
 
 
 def alignment():
@@ -136,8 +128,7 @@ def alignment():
     d.line((740, 1007, 740, 1080), fill=TEAL, width=6)
     box(d, (185, 1090, 815, 1220), PLUM_BG, PLUM)
     text(d, 256, 1132, "连接层只能映射已有特征", 41, PLUM)
-    ribbon(d, 1281, ("丢失的小字不能在连接层补回。",), "white")
-    save(im, "multimodal-alignment.png")
+    save(im, "multimodal-alignment.png", 1285)
 
 
 def ocr_vlm():
@@ -158,8 +149,7 @@ def ocr_vlm():
     text(d, 557, 828, "含税金额 ← 680.00", 34)
     text(d, 557, 905, "税额 ← 38.49", 34)
     text(d, 557, 982, "日期 ← 9/3", 34)
-    ribbon(d, 1178, ("最终按原图标签、位置复核；", "两路一致也不能补出年份。"), ORANGE_BG)
-    save(im, "multimodal-ocr-vlm.png")
+    save(im, "multimodal-ocr-vlm.png", 1165)
 
 
 def diagnosis():
@@ -179,7 +169,7 @@ def diagnosis():
         h_arrow(d, 544, y+140, 606, accent)
         for i, action in enumerate(actions):
             text(d, 652, y+98+i*51, action, 36)
-    save(im, "multimodal-document-diagnosis.png")
+    save(im, "multimodal-document-diagnosis.png", 1340)
 
 
 def evaluation():
@@ -200,8 +190,7 @@ def evaluation():
         text(d, 204, y+105, sample, 35)
         h_arrow(d, 583, y+109, 672, accent)
         text(d, 704, y+79, metric, 37, accent)
-    ribbon(d, 1280, ("还要分别核对原图区域与标签；", "不拿字符正确率代替字段正确率。"), "white")
-    save(im, "multimodal-evaluation.png")
+    save(im, "multimodal-evaluation.png", 1285)
 
 
 if __name__ == "__main__":

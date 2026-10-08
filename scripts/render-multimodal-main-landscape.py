@@ -14,7 +14,7 @@ FONT = next(str(p) for p in (
     Path("/System/Library/Fonts/STHeiti Medium.ttc"),
     Path("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"),
 ) if p.exists())
-W, H = 1536, 1024
+W, H = 1536, 900
 BG, INK, MUTED = "#FBF8F3", "#28383C", "#53656B"
 TEAL, TEAL_BG = "#187A78", "#E3F0ED"
 PLUM, PLUM_BG = "#795069", "#F2E9EF"
@@ -48,11 +48,6 @@ def base(kicker, title):
     return image, draw
 
 
-def footer(draw, message):
-    box(draw, (70, 905, 1466, 981), "white", "white", 15)
-    text(draw, 105, 920, message, 43)
-
-
 def save(image, name):
     image.save(ASSETS / name, optimize=True)
 
@@ -83,7 +78,6 @@ def encoding():
         text(draw, 1168, y+43, feature, 47)
         arrow(draw, 401, y+77, 545, accent)
         arrow(draw, 981, y+77, 1118, accent)
-    footer(draw, "本例只走图片与文字两路；是否支持音频取决于具体模型。")
     save(image, "multimodal-encoding.png")
 
 
@@ -108,7 +102,6 @@ def principle():
     box(draw, (547, 657, 1118, 794), "white", LINE)
     text(draw, 582, 691, "提问：含税金额？", 46)
     arrow(draw, 1130, 725, 1195, ORANGE)
-    footer(draw, "原理图依据 LLaVA 第 4.1 节；字段正确与否仍须核对原图。")
     save(image, "multimodal-principle.png")
 
 
@@ -137,7 +130,6 @@ def document():
         text(draw, 943, y+17, heading, 39, accent)
         text(draw, 943, y+76, finding, 40)
         arrow(draw, 807, source_y, 895, accent)
-    footer(draw, "数值要连同旁边标签核对；9/3 没有年份，不能补猜。")
     save(image, "multimodal-document.png")
 
 
@@ -164,7 +156,6 @@ def field_trace():
         else:
             text(draw, 1195 if mark == "B" else 1278, y, value, 40, accent)
         arrow(draw, 587, y+27, 1011, accent)
-    footer(draw, "A / B / C 是教学标记，不是实测坐标；缺失的年份不能出现。")
     save(image, "multimodal-field-trace-main.png")
 
 
@@ -188,7 +179,6 @@ def validation():
     text(draw, 791, 692, "草稿保留未知，不补成完整日期", 42)
     arrow(draw, 585, 399, 734, TEAL)
     arrow(draw, 585, 706, 734, ORANGE)
-    footer(draw, "图像读数不是报销结论；是否通过另查制度与记录。")
     save(image, "multimodal-validation.png")
 
 
