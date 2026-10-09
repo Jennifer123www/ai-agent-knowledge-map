@@ -82,6 +82,201 @@ def save(im, relative):
     im.save(path, optimize=True)
 
 
+def foundation_receipt_case():
+    im, d = base(
+        "先把票据上的三个字段看清楚",
+        "练习场景：只整理可回看原图的草稿，不做报销审批",
+        "场景复现",
+        "",
+    )
+    d.rounded_rectangle((100, 350, 735, 850), radius=28, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (145, 413), "住宿票据", 44, PLUM)
+    d.line((145, 478, 685, 478), fill=OUTLINE, width=3)
+    for y, name, value in (
+        (530, "住宿日期", "2026 年 9 月 15 日"),
+        (628, "住宿地点", "北京"),
+        (726, "票面金额", "480.00 元"),
+    ):
+        label(d, (145, y), name, 32, MUTED, "lm")
+        label(d, (685, y), value, 35, INK, "rm")
+        d.line((145, y+44, 685, y+44), fill=OUTLINE, width=2)
+    arrow(d, (760, 602), (850, 602), ORANGE)
+    d.rounded_rectangle((865, 360, 1440, 835), radius=28, fill=TEAL_PALE, outline=OUTLINE, width=3)
+    label(d, (905, 425), "待核对的字段草稿", 42, TEAL)
+    for y, value in (
+        (530, "金额：480 元  ←  票面"),
+        (622, "日期：9 月 15 日  ←  票面"),
+        (714, "职级：A  ←  员工自述"),
+    ):
+        label(d, (905, y), value, 31, INK, "lm")
+    label(d, (905, 787), "状态：未提交", 34, PLUM, "lm")
+    save(im, "assets/foundation-receipt-case.png")
+
+
+def foundation_role_boundary():
+    im, d = base(
+        "四种在线能力，一种离线改进",
+        "模型适配不在每笔请求后现场训练；规则校验也不是模型输出",
+        "能力分工",
+        "",
+    )
+    stages = (
+        (95, "多模态", "图片 → 字段候选", PLUM_PALE, PLUM),
+        (462, "向量嵌入", "问题 → 召回候选", TEAL_PALE, TEAL),
+        (829, "重排序", "候选 → 阅读顺序", ORANGE_PALE, ORANGE),
+        (1196, "语言模型", "证据 → 草稿说明", PLUM_PALE, PLUM),
+    )
+    for x, name, detail, fill, color in stages:
+        d.rounded_rectangle((x, 375, x+245, 582), radius=24, fill=fill, outline=OUTLINE, width=3)
+        label(d, (x+123, 438), name, 33, color, "mm")
+        label(d, (x+123, 514), detail, 23, INK, "mm")
+    for x in (352, 719, 1086):
+        arrow(d, (x, 482), (x+97, 482), ORANGE, 5)
+    d.rounded_rectangle((95, 625, 1441, 716), radius=20, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (768, 670), "规则与业务系统：生效日期 · 身份 · 格式 · 动作权限", 31, INK, "mm")
+    d.rounded_rectangle((225, 760, 1311, 867), radius=22, fill=TEAL_PALE, outline=OUTLINE, width=3)
+    label(d, (768, 813), "模型适配：根据积累的失败样本调整提示、数据或模型", 31, TEAL, "mm")
+    save(im, "assets/foundation-role-boundary.png")
+
+
+def foundation_rag_case():
+    im, d = base(
+        "相关条款先找来，适用条件再核对",
+        "旧版 450 元与新版 500 元都可能被检索到；排序第一不等于有效",
+        "证据路径",
+        "",
+    )
+    box(d, (90, 360, 405, 505), "问题与查询编码", PLUM_PALE, 31)
+    box(d, (90, 675, 405, 820), "制度原文与索引", TEAL_PALE, 31)
+    box(d, (515, 437, 820, 743), "", ORANGE_PALE)
+    label(d, (668, 490), "召回候选", 38, ORANGE, "mm")
+    label(d, (668, 565), "旧版 450 元", 30, INK, "mm")
+    label(d, (668, 635), "新版 500 元", 30, INK, "mm")
+    box(d, (920, 445, 1160, 735), "", TEAL_PALE)
+    label(d, (1040, 515), "核适用", 36, TEAL, "mm")
+    label(d, (1040, 590), "日期 · 职级", 26, INK, "mm")
+    label(d, (1040, 650), "权限 · 版本", 26, INK, "mm")
+    box(d, (1270, 474, 1448, 703), "", PLUM_PALE)
+    label(d, (1359, 545), "生成", 34, PLUM, "mm")
+    label(d, (1359, 615), "草稿", 31, INK, "mm")
+    arrow(d, (415, 435), (504, 535), PLUM)
+    arrow(d, (415, 745), (504, 645), TEAL)
+    arrow(d, (832, 589), (909, 589), ORANGE)
+    arrow(d, (1172, 589), (1259, 589), TEAL)
+    save(im, "assets/foundation-rag-case.png")
+
+
+def foundation_route_matrix():
+    im, d = base(
+        "问题不同，调用的能力也不同",
+        "按输入、证据需求和动作风险选路径，不让所有请求排同一条队",
+        "按需路由",
+        "",
+    )
+    rows = (
+        (365, "问报销入口", "查入口资料 → 回答", "不读票据", PLUM_PALE),
+        (540, "只抄住宿日期", "看图 → 字段候选", "不判断可报", TEAL_PALE),
+        (715, "生成报销草稿", "看图 → 查制度 → 核适用 → 草稿", "不调用提交", ORANGE_PALE),
+    )
+    for y, task, path, boundary, fill in rows:
+        d.rounded_rectangle((95, y, 1440, y+138), radius=22, fill=fill, outline=OUTLINE, width=3)
+        label(d, (125, y+70), task, 35, INK, "lm")
+        label(d, (528, y+70), path, 31, INK, "lm")
+        label(d, (1400, y+70), boundary, 30, PLUM, "rm")
+    save(im, "assets/foundation-route-matrix.png")
+
+
+def foundation_release_checks():
+    im, d = base(
+        "一张成功样张，证明不了整条链",
+        "上线前把读图、找规、适用性和动作边界分别验收",
+        "评测与发布",
+        "",
+    )
+    cases = (
+        (92, "读图", "反光时 480 会不会读成 430？", PLUM_PALE),
+        (448, "召回", "新版 500 元是否进入候选？", TEAL_PALE),
+        (804, "适用", "9 月 15 日是否用对生效版本？", ORANGE_PALE),
+        (1160, "动作", "用户只要草稿，有没有误提交？", PLUM_PALE),
+    )
+    for x, name, question, fill in cases:
+        d.rounded_rectangle((x, 390, x+280, 670), radius=23, fill=fill, outline=OUTLINE, width=3)
+        label(d, (x+140, 458), name, 38, PLUM, "mm")
+        first, second = question[:10], question[10:]
+        label(d, (x+140, 550), first, 25, INK, "mm")
+        label(d, (x+140, 595), second, 25, INK, "mm")
+    d.rounded_rectangle((255, 750, 1280, 860), radius=22, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (767, 805), "发布记录：图像模型 + 索引快照 + 排序器 + 提示 + 规则", 30, TEAL, "mm")
+    save(im, "assets/foundation-release-checks.png")
+
+
+def foundation_answer_contract():
+    im, d = base(
+        "“可以报”至少要拆成四个前提",
+        "每个关键字段带出处；没有证据的条件保持待核对",
+        "面试答题",
+        "",
+    )
+    evidence = (
+        (105, "金额 480", "票面区域", PLUM_PALE),
+        (463, "A 职级", "身份系统", TEAL_PALE),
+        (821, "上限 500", "有效制度", ORANGE_PALE),
+        (1179, "草稿状态", "工具回执", PLUM_PALE),
+    )
+    for x, claim, source, fill in evidence:
+        d.rounded_rectangle((x, 410, x+255, 655), radius=23, fill=fill, outline=OUTLINE, width=3)
+        label(d, (x+128, 475), claim, 32, INK, "mm")
+        label(d, (x+128, 585), source, 30, TEAL, "mm")
+        d.line((x+35, 530, x+220, 530), fill=OUTLINE, width=3)
+    d.rounded_rectangle((350, 745, 1185, 850), radius=22, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (767, 795), "只证实金额未超上限 ≠ 整单审批通过", 34, PLUM, "mm")
+    save(im, "assets/foundation-answer-contract.png")
+
+
+def foundation_eval_board():
+    im, d = base(
+        "分段找错，整件任务验收",
+        "同一批标注样本既看组件表现，也看最终草稿是否可信",
+        "面试评测",
+        "",
+    )
+    rows = (
+        (365, "读图", "金额、日期与原图是否一致", PLUM_PALE),
+        (480, "检索", "正确条款是否进入候选", TEAL_PALE),
+        (595, "适用", "制度版本、日期与职级是否吻合", ORANGE_PALE),
+        (710, "端到端", "正确草稿率、误提交数、人工接管率", PLUM_PALE),
+    )
+    for y, name, measure, fill in rows:
+        d.rounded_rectangle((105, y, 1430, y+88), radius=18, fill=fill, outline=OUTLINE, width=2)
+        label(d, (145, y+44), name, 31, PLUM, "lm")
+        label(d, (425, y+44), measure, 30, INK, "lm")
+    save(im, "assets/foundation-eval-board.png")
+
+
+def foundation_debug_trace():
+    im, d = base(
+        "又答成 450 元，先查新版在哪一站丢了",
+        "同一任务标识串起索引、过滤、排序、上下文与草稿",
+        "故障定位",
+        "",
+    )
+    checks = (
+        (98, "① 索引", "新版已入库？", PLUM_PALE),
+        (430, "② 过滤", "日期与权限挡住了？", TEAL_PALE),
+        (762, "③ 排序", "新版排到哪里？", ORANGE_PALE),
+        (1094, "④ 生成", "证据给了却没用？", PLUM_PALE),
+    )
+    for x, name, question, fill in checks:
+        d.rounded_rectangle((x, 445, x+285, 680), radius=24, fill=fill, outline=OUTLINE, width=3)
+        label(d, (x+143, 505), name, 32, PLUM, "mm")
+        label(d, (x+143, 597), question, 25, INK, "mm")
+    for x in (392, 724, 1056):
+        arrow(d, (x, 560), (x+28, 560), ORANGE, 5)
+    d.rounded_rectangle((280, 765, 1250, 860), radius=22, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (765, 810), "每一步都保留输入、输出和版本；不能只看最后一句错答", 30, TEAL, "mm")
+    save(im, "assets/foundation-debug-trace.png")
+
+
 def embedding_chunking():
     im, d = base(
         "版本条件也得跟着条款入库",
@@ -650,6 +845,14 @@ def main():
     # Keep old renderers for history; do not overwrite the 1000×1450 mobile figures.
     selected = set(sys.argv[1:])
     for renderer in (
+        foundation_receipt_case,
+        foundation_role_boundary,
+        foundation_rag_case,
+        foundation_route_matrix,
+        foundation_release_checks,
+        foundation_answer_contract,
+        foundation_eval_board,
+        foundation_debug_trace,
         embedding_chunking,
         embedding_evaluation,
         reranker_two_stage,

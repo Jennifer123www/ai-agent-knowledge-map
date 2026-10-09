@@ -13,15 +13,18 @@
       "submodule": "",
       "seriesOrder": 0,
       "promptFile": "prompts.md",
-      "principleImage": "assets/foundation-principle.png",
+      "principleImage": "assets/foundation-rag-case.png",
       "images": [
-        "assets/foundation-cover-main-wechat.png",
-        "assets/foundation-cover-interview-wechat.png",
-        "assets/foundation-model-team.png",
-        "assets/foundation-data-flow.png",
-        "assets/foundation-selection.png",
-        "assets/foundation-production.png",
-        "assets/foundation-principle.png"
+        "assets/foundation-cover-main-wechat-v2.png",
+        "assets/foundation-cover-interview-wechat-v2.png",
+        "assets/foundation-receipt-case.png",
+        "assets/foundation-role-boundary.png",
+        "assets/foundation-rag-case.png",
+        "assets/foundation-route-matrix.png",
+        "assets/foundation-release-checks.png",
+        "assets/foundation-answer-contract.png",
+        "assets/foundation-eval-board.png",
+        "assets/foundation-debug-trace.png"
       ],
       "articles": {
         "beginner": {
