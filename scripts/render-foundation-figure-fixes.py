@@ -441,9 +441,11 @@ def adaptation_qlora_comparison():
     box(d, (845, 406, 1420, 552), "冻结底座 W：低比特存放", TEAL_PALE, 34)
     box(d, (115, 675, 690, 795), "训练低秩增量 A、B", "#FFFFFF", 34)
     box(d, (845, 675, 1420, 795), "训练低秩增量 A、B", "#FFFFFF", 34)
-    arrow(d, (405, 563), (405, 664), PLUM)
-    arrow(d, (1120, 563), (1120, 664), TEAL)
-    label(d, (1120, 611), "计算时反量化", 28, TEAL, "mm")
+    label(d, (405, 610), "＋", 45, PLUM, "mm")
+    label(d, (1120, 610), "＋", 45, TEAL, "mm")
+    label(d, (1120, 525), "计算时反量化", 25, TEAL, "mm")
+    label(d, (405, 855), "共同参与前向计算", 29, PLUM, "mm")
+    label(d, (1120, 855), "共同参与前向计算", 29, TEAL, "mm")
     save(im, "submodules/05-adaptation/assets/adaptation-qlora-comparison.png")
 
 
