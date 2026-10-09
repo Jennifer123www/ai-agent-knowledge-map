@@ -127,9 +127,14 @@ for (const manifestPath of manifestPaths) {
     const declaredImages = new Set(imageNames);
     const principleImage = String(group.principleImage || "").trim();
     const beginnerImageAspectMin = group.beginnerImageAspectMin;
+    const interviewImageAspectMin = group.interviewImageAspectMin;
     if (beginnerImageAspectMin !== undefined &&
         (!Number.isFinite(beginnerImageAspectMin) || beginnerImageAspectMin < 1.35)) {
       fail(groupLabel, "beginnerImageAspectMin must be at least 1.35 when set");
+    }
+    if (interviewImageAspectMin !== undefined &&
+        (!Number.isFinite(interviewImageAspectMin) || interviewImageAspectMin < 1.35)) {
+      fail(groupLabel, "interviewImageAspectMin must be at least 1.35 when set");
     }
     groupImageUsage.set(groupLabel, { declaredImages, usedImages: new Set() });
     if (declaredImages.size < 6) {
@@ -198,6 +203,7 @@ for (const manifestPath of manifestPaths) {
         declaredImages,
         principleImage,
         beginnerImageAspectMin,
+        interviewImageAspectMin,
       });
     }
   }
@@ -258,11 +264,14 @@ for (const [articlePath, registration] of registeredArticles) {
     if (bodyImages.length < 5) {
       throw new Error(`At least 5 local body images are required; the cover does not count (${bodyImages.length}/5)`);
     }
-    if (registration.role === "beginner" && Number.isFinite(registration.beginnerImageAspectMin)) {
+    const imageAspectMin = registration.role === "beginner"
+      ? registration.beginnerImageAspectMin
+      : registration.interviewImageAspectMin;
+    if (Number.isFinite(imageAspectMin)) {
       for (const image of bodyImages) {
         const { width, height } = await readRasterDimensions(image.absolutePath);
-        if (width / height < registration.beginnerImageAspectMin) {
-          throw new Error(`beginner body image must be landscape (width/height >= ${registration.beginnerImageAspectMin}): ${image.source} is ${width}x${height}`);
+        if (width / height < imageAspectMin) {
+          throw new Error(`${registration.role} body image must be landscape (width/height >= ${imageAspectMin}): ${image.source} is ${width}x${height}`);
         }
       }
     }

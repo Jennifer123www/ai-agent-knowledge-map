@@ -10,12 +10,12 @@ const execFile = promisify(execFileCallback);
 const temp = await mkdtemp(path.join(tmpdir(), "multimodal-cover-"));
 const specs = [
   {
-    art: "multimodal-cover-main-art.png",
-    output: "multimodal-cover-main-wechat.png",
-    overlay: `<rect x="0" y="0" width="431" height="139" rx="0" fill="#fffaf2" opacity="0.82"/>
-      <text x="40" y="70" font-family="Songti SC,STSongti-SC-Black,PingFang SC,sans-serif" font-size="58" font-weight="900" fill="#26393b">多模态模型</text>
-      <text x="43" y="115" font-family="Songti SC,STSongti-SC-Black,PingFang SC,sans-serif" font-size="30" font-weight="800" fill="#42565a">发票读数为何填错栏</text>
-      <rect x="0" y="325" width="900" height="58" fill="#fbf8f2" opacity="0.7"/>`,
+    art: "multimodal-cover-main-art-v2.png",
+    output: "multimodal-cover-main-wechat-v2.png",
+    artY: 60,
+    artHeight: 320,
+    overlay: `<text x="450" y="66" text-anchor="middle" font-family="Songti SC,STSongti-SC-Black,PingFang SC,sans-serif" font-size="58" font-weight="900" fill="#26393b">多模态模型</text>
+      <text x="450" y="107" text-anchor="middle" font-family="Songti SC,STSongti-SC-Black,PingFang SC,sans-serif" font-size="30" font-weight="800" fill="#354a4c">它怎样从图片里读出答案</text>`,
   },
   {
     art: "multimodal-cover-interview-art.png",
@@ -31,7 +31,8 @@ try {
   for (const spec of specs) {
     const image = (await readFile(path.join(assets, spec.art))).toString("base64");
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="383" viewBox="0 0 900 383">
-      <image href="data:image/png;base64,${image}" x="0" y="0" width="900" height="383" preserveAspectRatio="xMidYMid slice"/>
+      <rect x="0" y="0" width="900" height="383" fill="#fbf8f2"/>
+      <image href="data:image/png;base64,${image}" x="0" y="${spec.artY ?? 0}" width="900" height="${spec.artHeight ?? 383}" preserveAspectRatio="xMidYMid slice"/>
       ${spec.overlay}
     </svg>`;
     const source = path.join(temp, spec.output.replace(/\.png$/, ".svg"));

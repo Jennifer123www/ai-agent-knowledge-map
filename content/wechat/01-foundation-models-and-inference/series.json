@@ -127,40 +127,41 @@
       "promptFile": "submodules/02-multimodal/prompts.md",
       "principleImage": "submodules/02-multimodal/assets/multimodal-principle.png",
       "beginnerImageAspectMin": 1.35,
+      "interviewImageAspectMin": 1.35,
       "images": [
-        "submodules/02-multimodal/assets/multimodal-cover-main-wechat.png",
+        "submodules/02-multimodal/assets/multimodal-cover-main-wechat-v2.png",
         "submodules/02-multimodal/assets/multimodal-cover-interview-wechat.png",
-        "submodules/02-multimodal/assets/multimodal-encoding.png",
-        "submodules/02-multimodal/assets/multimodal-alignment.png",
-        "submodules/02-multimodal/assets/multimodal-document.png",
-        "submodules/02-multimodal/assets/multimodal-validation.png",
+        "submodules/02-multimodal/assets/multimodal-scene-invoice.png",
         "submodules/02-multimodal/assets/multimodal-principle.png",
-        "submodules/02-multimodal/assets/multimodal-field-trace-main.png",
-        "submodules/02-multimodal/assets/multimodal-field-trace.png",
-        "submodules/02-multimodal/assets/multimodal-ocr-vlm.png",
-        "submodules/02-multimodal/assets/multimodal-document-diagnosis.png",
-        "submodules/02-multimodal/assets/multimodal-evaluation.png"
+        "submodules/02-multimodal/assets/multimodal-crop-contrast.png",
+        "submodules/02-multimodal/assets/multimodal-query-region.png",
+        "submodules/02-multimodal/assets/multimodal-grounding-v2.png",
+        "submodules/02-multimodal/assets/multimodal-visual-budget.png",
+        "submodules/02-multimodal/assets/multimodal-architecture-contrast.png",
+        "submodules/02-multimodal/assets/multimodal-ocr-vlm-contrast.png",
+        "submodules/02-multimodal/assets/multimodal-diagnosis-experiment.png",
+        "submodules/02-multimodal/assets/multimodal-coordinate-map.png",
+        "submodules/02-multimodal/assets/multimodal-evaluation-grid.png"
       ],
       "articles": {
         "beginner": {
           "path": "submodules/02-multimodal/beginner-main.md",
-          "focus": "以一张有反光、日期写作 9/3 的酒店发票为主案例，讲缩图与裁块、图文连接、字符与字段归属、坐标回映、缺项处理及分层评测；音频只作边界对照。",
+          "focus": "开篇用教学构造的酒店票据照片复现场景，沿读图、图文连接、裁图、找栏、证据定位与缺项处理建立解释主线；音频只作边界对照。",
           "outline": [
-            "示意发票的输入、缺项与可核对草稿目标",
-            "缩图、局部图与原图过曝分别怎样丢失信息",
-            "原始 LLaVA 图文连接机制与其他架构的区别",
-            "OCR、视觉语言模型和文档模型怎样给出字段",
-            "整页、局部图与原图坐标怎样保持关联",
-            "草稿字段怎样指回原图与照片版本",
-            "补拍图如何确认同票并保留冲突",
-            "日期缺项如何留空并记录补充证据",
-            "分层测试怎样拆开错字、错栏、错框与补猜",
-            "向量表示子模块的后续阅读问题"
+            "教学票据照片与字段草稿目标",
+            "原始 LLaVA 如何把视觉特征接入文字生成",
+            "照片过曝与整页缩图的信息损失",
+            "整页和带标签局部图如何配合",
+            "同图不同问题应指向不同证据区域",
+            "OCR、视觉语言模型与文档模型怎样读字归栏",
+            "候选字段如何定位到原图标签与数字",
+            "原图缺失年份怎样留空并另记补充来源",
+            "分层测试怎样区分读字、归栏、定位与补猜"
           ]
         },
         "interview": {
           "path": "submodules/02-multimodal/interview-side.md",
-          "focus": "沿用同一张反光发票，考察分辨率与裁块取舍、LLaVA/Flamingo/Donut 架构差异、OCR 与 VLM 选型、坐标回映、多图同票性、校准拒答和字段级评测；系统级权限与工具执行只交代边界。",
+          "focus": "沿用同一张教学票据，考察图像质量与裁块、三种图文连接架构、OCR/VLM 选型、故障定位、坐标回映、多图同票性、缺项校准与字段级评测。",
           "questionBoundary": {
             "include": ["视觉编码与裁块", "跨模态连接架构", "OCR 与 VLM 选型", "区域坐标回映", "多图同票性", "缺项拒答与校准", "字段级评测"],
             "exclude": ["纯文本注意力", "向量数据库", "重排序", "LoRA 训练细节"]
@@ -174,7 +175,7 @@
             "补拍图的同票性与冲突结果留存",
             "模型分数校准不能补足缺失事实",
             "字符、字段、区域和缺项各自怎样评测",
-            "视觉服务超时的处理顺序与单票总成本"
+            "各层错误如何形成可复核的面试答案"
           ]
         }
       }
