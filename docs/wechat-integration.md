@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.9` |
-| 阶段 | 支持文章改名后按已核实的草稿 ID 原位更新；公网回调仍待部署 |
-| Git 状态 | 基于 `4196abd`（`main`；修改前工作区干净） |
-| 修改时间 | `2026-10-09 17:50 CST` |
+| 版本 | `0.6.0` |
+| 阶段 | 正式公众号文章完成后同步草稿；公网回调仍待部署 |
+| Git 状态 | 基于 `de4fc4c`（`main`；修改前工作区干净） |
+| 修改时间 | `2026-10-09 17:54 CST` |
 
 ## 1. 已实现链路
 
@@ -105,14 +105,14 @@ order: 1
 
 基础模型系列位于 `content/wechat/01-foundation-models-and-inference/`，包含 1 组总概览和大语言模型、多模态模型、向量嵌入、重排序、模型适配 5 组子模块，共 12 篇 Markdown 与 30 张本地配图。各组文章路径、题目边界、提纲和配图以该目录的 `series.json` 为准。
 
-同组主文和副文默认写入**同一份双图文草稿**：`--file` 的主文排第一篇，`--side-file` 的副文排第二篇，两篇各用自己的封面。每组运行一次双图文 dry-run，通过后再创建：
+同组主文和副文默认写入**同一份双图文草稿**：`--file` 的主文排第一篇，`--side-file` 的副文排第二篇，两篇各用自己的封面。`series.json` 登记的正式文章 Markdown 创建或修改并通过检查后，同组只执行一次双图文 dry-run 和一次草稿同步；只改其中一篇也更新整组，不等待单独的“导入草稿”指令。仅改规则、提示词或网站文件不触发。命令示例：
 
 ```sh
 npm run wechat:draft -- --dry-run --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
-npm run wechat:draft -- --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
+npm run wechat:draft -- --upsert --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
 ```
 
-默认命令调用 `draft/add`，新建一份双图文草稿，原草稿不会被覆盖。用户明确要求“存在则覆盖，没有则新增”时，加 `--upsert`：脚本扫描草稿箱，按两篇**完整标题和顺序**精确匹配。恰好匹配一份时，通过 `draft/update` 分别更新主、副文，沿用原 `media_id`；没有匹配时调用 `draft/add` 新建；匹配多份或草稿结构异常时停止，不猜测目标。更新前后均用 `draft/get` 核对标题和内容开头。两篇更新是逐篇请求，若第二篇失败，草稿可能只更新了第一篇，需按报错中的 `media_id` 检查后重试。脚本不调用发布或群发接口。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
+裸命令调用 `draft/add`，会新建一份双图文草稿；正式文章交付流程不得用它制造重复草稿，应加 `--upsert`：脚本扫描草稿箱，按两篇**完整标题和顺序**精确匹配。恰好匹配一份时，通过 `draft/update` 分别更新主、副文，沿用原 `media_id`；没有匹配时调用 `draft/add` 新建；匹配多份或草稿结构异常时停止，不猜测目标。更新前后均用 `draft/get` 核对标题和内容开头。两篇更新是逐篇请求，若第二篇失败，草稿可能只更新了第一篇，需按报错中的 `media_id` 检查后重试。脚本不调用发布或群发接口。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
 
 若两篇标题在本轮修改中变更，普通 `--upsert` 会因新旧标题不同而新建草稿。应先只读列出草稿、核对旧标题顺序、作者、来源链接和正文开头，确认唯一目标后，使用 `--replace-media-id <已核实的 media_id>`，并按主副文顺序各传一次 `--expect-current-title <旧标题>`；脚本会在上传前和更新前再次核对目标身份，也会检查是否已有另一份新标题草稿。核对不符即停止，不按相似标题猜测。
 
