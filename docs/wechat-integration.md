@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.8` |
-| 阶段 | 支持按双图文标题精确匹配草稿并原位更新；公网回调仍待部署 |
-| Git 状态 | 基于 `7bf0b71`（`main`；修改前工作区干净） |
-| 修改时间 | `2026-10-09 10:16 CST` |
+| 版本 | `0.5.9` |
+| 阶段 | 支持文章改名后按已核实的草稿 ID 原位更新；公网回调仍待部署 |
+| Git 状态 | 基于 `4196abd`（`main`；修改前工作区干净） |
+| 修改时间 | `2026-10-09 17:50 CST` |
 
 ## 1. 已实现链路
 
@@ -113,6 +113,8 @@ npm run wechat:draft -- --theme orange --file content/wechat/01-foundation-model
 ```
 
 默认命令调用 `draft/add`，新建一份双图文草稿，原草稿不会被覆盖。用户明确要求“存在则覆盖，没有则新增”时，加 `--upsert`：脚本扫描草稿箱，按两篇**完整标题和顺序**精确匹配。恰好匹配一份时，通过 `draft/update` 分别更新主、副文，沿用原 `media_id`；没有匹配时调用 `draft/add` 新建；匹配多份或草稿结构异常时停止，不猜测目标。更新前后均用 `draft/get` 核对标题和内容开头。两篇更新是逐篇请求，若第二篇失败，草稿可能只更新了第一篇，需按报错中的 `media_id` 检查后重试。脚本不调用发布或群发接口。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
+
+若两篇标题在本轮修改中变更，普通 `--upsert` 会因新旧标题不同而新建草稿。应先只读列出草稿、核对旧标题顺序、作者、来源链接和正文开头，确认唯一目标后，使用 `--replace-media-id <已核实的 media_id>`，并按主副文顺序各传一次 `--expect-current-title <旧标题>`；脚本会在上传前和更新前再次核对目标身份，也会检查是否已有另一份新标题草稿。核对不符即停止，不按相似标题猜测。
 
 ```sh
 npm run wechat:draft -- --upsert --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/02-multimodal/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/02-multimodal/interview-side.md

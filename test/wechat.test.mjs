@@ -3,6 +3,7 @@ import test from "node:test";
 import path from "node:path";
 import { handleWechatCallback } from "../lib/wechat/callback.mjs";
 import { createWechatClient } from "../lib/wechat/client.mjs";
+import { assertReplacementDraft } from "../lib/wechat/draft-identity.mjs";
 import { validateChineseCharacterCount } from "../lib/wechat/article-policy.mjs";
 import { rasterDimensions } from "../lib/wechat/image-dimensions.mjs";
 import { createWechatSignature } from "../lib/wechat/signature.mjs";
@@ -148,6 +149,22 @@ test("lists, reads, and updates an existing draft without adding another", async
   assert.deepEqual(JSON.parse(requests[2].options.body), { media_id: "existing-id" });
   assert.deepEqual(JSON.parse(requests[3].options.body), { media_id: "existing-id", index: 0, articles: revised });
   assert.equal(requests.some(({ url }) => url.includes("/cgi-bin/draft/add")), false);
+});
+
+test("requires exact ordered identity before replacing a renamed draft", () => {
+  const draft = { news_item: [
+    { title: "Old main", author: "Author", content_source_url: "https://example.com" },
+    { title: "Old side", author: "Author", content_source_url: "https://example.com" },
+  ] };
+  const identity = {
+    titles: ["Old main", "Old side"],
+    authors: ["Author", "Author"],
+    contentSourceUrls: ["https://example.com", "https://example.com"],
+  };
+  assert.doesNotThrow(() => assertReplacementDraft(draft, identity));
+  assert.throws(() => assertReplacementDraft(draft, { ...identity, titles: ["Old side", "Old main"] }), /identity changed/);
+  assert.throws(() => assertReplacementDraft(draft, { ...identity, authors: ["Other", "Author"] }), /identity changed/);
+  assert.throws(() => assertReplacementDraft(draft, { ...identity, titles: ["Old main"] }), /article count changed/);
 });
 
 test("parses and renders a WeChat article", () => {

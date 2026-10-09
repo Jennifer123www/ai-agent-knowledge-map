@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getWechatConfig } from "../lib/wechat/config.mjs";
 import { createWechatClient, WechatApiError } from "../lib/wechat/client.mjs";
+import { assertReplacementDraft } from "../lib/wechat/draft-identity.mjs";
 import { prepareWechatArticleImage } from "../lib/wechat/image.mjs";
 import { parseWechatArticle, renderWechatHtml, validateWechatHtml } from "../lib/wechat/markdown.mjs";
 
@@ -11,7 +12,7 @@ const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 const defaultArticle = "content/wechat/05-tools-skills-and-protocols/beginner-main.md";
 
 function parseArguments(argv) {
-  const result = { file: defaultArticle, sideFile: null, theme: "orange", dryRun: false, upsert: false };
+  const result = { file: defaultArticle, sideFile: null, theme: "orange", dryRun: false, upsert: false, replaceMediaId: null, expectedCurrentTitles: [] };
   let hasExplicitMainFile = false;
   for (let index = 0; index < argv.length; index += 1) {
     if (argv[index] === "--file") {
@@ -21,6 +22,8 @@ function parseArguments(argv) {
     else if (argv[index] === "--theme") result.theme = argv[++index];
     else if (argv[index] === "--dry-run") result.dryRun = true;
     else if (argv[index] === "--upsert") result.upsert = true;
+    else if (argv[index] === "--replace-media-id") result.replaceMediaId = argv[++index];
+    else if (argv[index] === "--expect-current-title") result.expectedCurrentTitles.push(argv[++index]);
     else throw new Error(`Unknown argument: ${argv[index]}`);
   }
   if (!result.file) throw new Error("--file requires an article path");
@@ -31,6 +34,15 @@ function parseArguments(argv) {
   }
   if (!["green", "orange"].includes(result.theme)) {
     throw new Error("--theme must be green or orange");
+  }
+  if (result.replaceMediaId) {
+    if (!result.upsert) throw new Error("--replace-media-id requires --upsert");
+    if (result.expectedCurrentTitles.length !== (result.sideFile ? 2 : 1) ||
+        result.expectedCurrentTitles.some((title) => !title)) {
+      throw new Error("--replace-media-id requires one --expect-current-title per article, in draft order");
+    }
+  } else if (result.expectedCurrentTitles.length || argv.includes("--replace-media-id")) {
+    throw new Error("--expect-current-title requires a nonempty --replace-media-id");
   }
   return result;
 }
@@ -154,9 +166,22 @@ async function main() {
 
   const config = getWechatConfig({ requireCredentials: true });
   const client = createWechatClient(config);
-  const existingMediaId = options.upsert
-    ? await findMatchingDraft(client, articles.map((article) => article.title))
-    : null;
+  let existingMediaId = null;
+  if (options.replaceMediaId) {
+    const expectedIdentity = {
+      titles: options.expectedCurrentTitles,
+      authors: articles.map((article) => article.author),
+      contentSourceUrls: articles.map((article) => article.contentSourceUrl),
+    };
+    assertReplacementDraft(await client.getDraft(options.replaceMediaId), expectedIdentity);
+    const alreadyMatching = await findMatchingDraft(client, articles.map((article) => article.title));
+    if (alreadyMatching && alreadyMatching !== options.replaceMediaId) {
+      throw new Error(`Another draft already has the new ordered titles: ${alreadyMatching}; refusing to create a duplicate`);
+    }
+    existingMediaId = options.replaceMediaId;
+  } else if (options.upsert) {
+    existingMediaId = await findMatchingDraft(client, articles.map((article) => article.title));
+  }
   if (options.upsert) console.log(existingMediaId
     ? `Updating matching draft in place: ${existingMediaId}`
     : "No matching draft found; creating one new draft");
@@ -197,6 +222,13 @@ async function main() {
     }
     let mediaId = existingMediaId;
     if (mediaId) {
+      if (options.replaceMediaId) {
+        assertReplacementDraft(await client.getDraft(mediaId), {
+          titles: options.expectedCurrentTitles,
+          authors: articles.map((article) => article.author),
+          contentSourceUrls: articles.map((article) => article.contentSourceUrl),
+        });
+      }
       for (let index = 0; index < draftArticles.length; index += 1) {
         try {
           await client.updateDraft(mediaId, index, draftArticles[index]);
