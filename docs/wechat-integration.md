@@ -4,10 +4,10 @@
 
 | 项目 | 值 |
 | --- | --- |
-| 版本 | `0.5.7` |
-| 阶段 | 统一引用项目规范 5.3.4 的公众号封面规则；公网回调仍待部署 |
-| Git 状态 | 基于 `19420a6`（`main`；修改前工作区干净） |
-| 修改时间 | `2026-09-30 18:23 CST` |
+| 版本 | `0.5.8` |
+| 阶段 | 支持按双图文标题精确匹配草稿并原位更新；公网回调仍待部署 |
+| Git 状态 | 基于 `7bf0b71`（`main`；修改前工作区干净） |
+| 修改时间 | `2026-10-09 10:16 CST` |
 
 ## 1. 已实现链路
 
@@ -19,7 +19,9 @@
        ├─ stable_token         -> 获取并缓存 access_token
        ├─ material/add_material -> 上传永久封面素材
        ├─ media/uploadimg      -> 上传正文图片
-       └─ draft/add            -> 创建草稿，不发布、不群发
+       ├─ draft/add            -> 创建草稿
+       ├─ draft/batchget、get  -> 查找并复核已有草稿
+       └─ draft/update         -> 按篇原位更新草稿；不发布、不群发
 ```
 
 当前回调使用明文模式完成首次接入。安全模式需要增加消息体 XML 解析和 AES 解密后再启用，不能只在后台切换配置。
@@ -110,7 +112,11 @@ npm run wechat:draft -- --dry-run --theme orange --file content/wechat/01-founda
 npm run wechat:draft -- --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/01-llm/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/01-llm/interview-side.md
 ```
 
-脚本只调用草稿接口 `draft/add`，不会调用发布或群发接口。双图文只创建一份草稿、返回一个 `media_id`；脚本复用两篇共有的正文图片上传结果，原有草稿不会被覆盖。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
+默认命令调用 `draft/add`，新建一份双图文草稿，原草稿不会被覆盖。用户明确要求“存在则覆盖，没有则新增”时，加 `--upsert`：脚本扫描草稿箱，按两篇**完整标题和顺序**精确匹配。恰好匹配一份时，通过 `draft/update` 分别更新主、副文，沿用原 `media_id`；没有匹配时调用 `draft/add` 新建；匹配多份或草稿结构异常时停止，不猜测目标。更新前后均用 `draft/get` 核对标题和内容开头。两篇更新是逐篇请求，若第二篇失败，草稿可能只更新了第一篇，需按报错中的 `media_id` 检查后重试。脚本不调用发布或群发接口。单篇排查可只传 `--file`，不作为同组正式交付的默认形式。
+
+```sh
+npm run wechat:draft -- --upsert --theme orange --file content/wechat/01-foundation-models-and-inference/submodules/02-multimodal/beginner-main.md --side-file content/wechat/01-foundation-models-and-inference/submodules/02-multimodal/interview-side.md
+```
 
 排版以 [项目规范 5.3.7 节](./project-specification.md) 为准：两篇共用白／暖白底、深色正文和橙色强调；主文连续讲解，面试副文便于逐题扫读，独立专题的非面试副文按内容设小标题；代码块、行内代码、加粗、居中灰色图注和参考链接必须保留。封面处理遵循 [项目规范 5.3.4 节](./project-specification.md)。公众号可能清理部分 HTML 样式或正文外链，创建后必须在后台和手机端核对，尤其检查“阅读原文”是否指向 `content_source_url`。
 

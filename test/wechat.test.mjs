@@ -118,6 +118,38 @@ test("creates one draft with the main article followed by its side article", asy
   assert.deepEqual(JSON.parse(requests[1].options.body), { articles: [main, side] });
 });
 
+test("lists, reads, and updates an existing draft without adding another", async () => {
+  const requests = [];
+  const original = { title: "Main", author: "Author", content: "<p>Old</p>" };
+  const revised = { ...original, content: "<p>Revised</p>" };
+  const fetchImpl = async (url, options) => {
+    requests.push({ url, options });
+    if (url.endsWith("/cgi-bin/stable_token")) {
+      return new Response(JSON.stringify({ access_token: "token-value", expires_in: 7200 }));
+    }
+    if (url.includes("/cgi-bin/draft/batchget")) {
+      return new Response(JSON.stringify({ total_count: 1, item: [{ media_id: "existing-id", content: { news_item: [original] } }] }));
+    }
+    if (url.includes("/cgi-bin/draft/get")) {
+      return new Response(JSON.stringify({ news_item: [original] }));
+    }
+    if (url.includes("/cgi-bin/draft/update")) {
+      return new Response(JSON.stringify({ errcode: 0, errmsg: "ok" }));
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const client = createWechatClient({ appId: "test-app-for-update", appSecret: "test-secret", fetchImpl });
+
+  assert.equal((await client.batchGetDrafts()).item[0].media_id, "existing-id");
+  assert.equal((await client.getDraft("existing-id")).news_item[0].title, "Main");
+  assert.equal((await client.updateDraft("existing-id", 0, revised)).errcode, 0);
+  assert.equal(requests.length, 4);
+  assert.deepEqual(JSON.parse(requests[1].options.body), { offset: 0, count: 20, no_content: 1 });
+  assert.deepEqual(JSON.parse(requests[2].options.body), { media_id: "existing-id" });
+  assert.deepEqual(JSON.parse(requests[3].options.body), { media_id: "existing-id", index: 0, articles: revised });
+  assert.equal(requests.some(({ url }) => url.includes("/cgi-bin/draft/add")), false);
+});
+
 test("parses and renders a WeChat article", () => {
   const markdownPath = path.resolve("content/wechat/example/article.md");
   const markdown = `# Demo title

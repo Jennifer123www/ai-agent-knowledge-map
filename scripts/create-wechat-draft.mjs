@@ -11,7 +11,7 @@ const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 const defaultArticle = "content/wechat/05-tools-skills-and-protocols/beginner-main.md";
 
 function parseArguments(argv) {
-  const result = { file: defaultArticle, sideFile: null, theme: "orange", dryRun: false };
+  const result = { file: defaultArticle, sideFile: null, theme: "orange", dryRun: false, upsert: false };
   let hasExplicitMainFile = false;
   for (let index = 0; index < argv.length; index += 1) {
     if (argv[index] === "--file") {
@@ -20,6 +20,7 @@ function parseArguments(argv) {
     } else if (argv[index] === "--side-file") result.sideFile = argv[++index];
     else if (argv[index] === "--theme") result.theme = argv[++index];
     else if (argv[index] === "--dry-run") result.dryRun = true;
+    else if (argv[index] === "--upsert") result.upsert = true;
     else throw new Error(`Unknown argument: ${argv[index]}`);
   }
   if (!result.file) throw new Error("--file requires an article path");
@@ -81,6 +82,60 @@ function validatePair(mainArticle, sideArticle) {
   }
 }
 
+function draftTitles(item) {
+  const articles = item?.content?.news_item ?? item?.news_item;
+  if (!Array.isArray(articles)) throw new Error("WeChat returned a draft without news_item; refusing to guess its identity");
+  return articles.map((article) => article.title);
+}
+
+function sameTitles(actual, expected) {
+  return actual.length === expected.length && actual.every((title, index) => title === expected[index]);
+}
+
+async function findMatchingDraft(client, titles) {
+  const matches = [];
+  let offset = 0;
+  while (true) {
+    const page = await client.batchGetDrafts({ offset, count: 20 });
+    if (!Array.isArray(page.item)) throw new Error("WeChat draft list is missing item; refusing to create a duplicate");
+    if (!Number.isInteger(page.total_count) || page.total_count < 0) {
+      throw new Error("WeChat draft list is missing total_count; refusing to create a duplicate");
+    }
+    for (const item of page.item) {
+      if (sameTitles(draftTitles(item), titles)) matches.push(item.media_id);
+    }
+    offset += page.item.length;
+    if (offset >= page.total_count) break;
+    if (page.item.length === 0) throw new Error("WeChat draft list stopped before total_count; refusing to create a duplicate");
+  }
+  if (matches.length > 1) throw new Error(`Found ${matches.length} drafts with the same ordered titles; refusing ambiguous overwrite`);
+  if (!matches.length) return null;
+  const mediaId = matches[0];
+  const existing = await client.getDraft(mediaId);
+  if (!sameTitles(draftTitles(existing), titles)) throw new Error("Draft changed during lookup; refusing to overwrite it");
+  return mediaId;
+}
+
+function normalizedText(html) {
+  return html.replace(/<[^>]*>/g, "").replace(/&(?:nbsp|amp|lt|gt|quot|#39);/gi, "").replace(/\s+/g, "");
+}
+
+async function verifyDraft(client, mediaId, expectedArticles) {
+  const actual = (await client.getDraft(mediaId)).news_item;
+  if (!Array.isArray(actual) || actual.length !== expectedArticles.length) {
+    throw new Error(`Draft ${mediaId} has an unexpected article count after upload`);
+  }
+  for (let index = 0; index < expectedArticles.length; index += 1) {
+    const expected = expectedArticles[index];
+    const received = actual[index];
+    const leadingText = normalizedText(expected.content).slice(0, 50);
+    if (received.title !== expected.title || received.author !== expected.author ||
+        !normalizedText(received.content || "").includes(leadingText)) {
+      throw new Error(`Draft ${mediaId} article ${index + 1} does not match the submitted title, author, or opening text`);
+    }
+  }
+}
+
 async function main() {
   const options = parseArguments(process.argv.slice(2));
   const articles = [await loadArticle(options.file)];
@@ -99,6 +154,12 @@ async function main() {
 
   const config = getWechatConfig({ requireCredentials: true });
   const client = createWechatClient(config);
+  const existingMediaId = options.upsert
+    ? await findMatchingDraft(client, articles.map((article) => article.title))
+    : null;
+  if (options.upsert) console.log(existingMediaId
+    ? `Updating matching draft in place: ${existingMediaId}`
+    : "No matching draft found; creating one new draft");
   const temporaryDirectory = await mkdtemp(path.join(os.tmpdir(), "wechat-draft-"));
   try {
     const uploadedBodyImages = new Map();
@@ -134,8 +195,21 @@ async function main() {
         only_fans_can_comment: article.onlyFansCanComment,
       });
     }
-    const result = await client.addDraft(draftArticles);
-    console.log(`Draft created successfully. articles=${draftArticles.length} media_id=${result.media_id}`);
+    let mediaId = existingMediaId;
+    if (mediaId) {
+      for (let index = 0; index < draftArticles.length; index += 1) {
+        try {
+          await client.updateDraft(mediaId, index, draftArticles[index]);
+        } catch (error) {
+          throw new Error(`Draft ${mediaId} may be partially updated (failed at article ${index + 1}); inspect it before retrying`, { cause: error });
+        }
+      }
+    } else {
+      const result = await client.addDraft(draftArticles);
+      mediaId = result.media_id;
+    }
+    await verifyDraft(client, mediaId, draftArticles);
+    console.log(`Draft ${existingMediaId ? "updated" : "created"} and verified. articles=${draftArticles.length} media_id=${mediaId}`);
   } finally {
     await rm(temporaryDirectory, { recursive: true, force: true });
   }
