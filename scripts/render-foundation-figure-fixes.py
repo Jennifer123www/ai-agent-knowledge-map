@@ -428,6 +428,47 @@ def adaptation_lora():
     save(im, "submodules/05-adaptation/assets/adaptation-lora.png")
 
 
+def adaptation_qlora_comparison():
+    im, d = base(
+        "QLoRA 比 LoRA 多压缩了哪一块",
+        "两者都训练低秩增量；差别在冻结底座的存放与计算",
+        "参数适配",
+        "",
+    )
+    label(d, (405, 352), "LoRA", 43, PLUM, "mm")
+    label(d, (1120, 352), "QLoRA", 43, TEAL, "mm")
+    box(d, (115, 406, 690, 552), "冻结底座 W：常规精度", PLUM_PALE, 35)
+    box(d, (845, 406, 1420, 552), "冻结底座 W：低比特存放", TEAL_PALE, 34)
+    box(d, (115, 675, 690, 795), "训练低秩增量 A、B", "#FFFFFF", 34)
+    box(d, (845, 675, 1420, 795), "训练低秩增量 A、B", "#FFFFFF", 34)
+    arrow(d, (405, 563), (405, 664), PLUM)
+    arrow(d, (1120, 563), (1120, 664), TEAL)
+    label(d, (1120, 611), "计算时反量化", 28, TEAL, "mm")
+    save(im, "submodules/05-adaptation/assets/adaptation-qlora-comparison.png")
+
+
+def adaptation_version_bundle():
+    im, d = base(
+        "发布的不是一份适配器文件",
+        "底座变化后，即使沿用同一适配器，也要重新验证组合",
+        "版本验收",
+        "",
+    )
+    box(d, (98, 380, 655, 710), "", PLUM_PALE)
+    box(d, (880, 380, 1437, 710), "", TEAL_PALE)
+    label(d, (375, 435), "已验证的组合", 36, PLUM, "mm")
+    label(d, (375, 515), "底座 v1 + 分词器 v1", 31, INK, "mm")
+    label(d, (375, 583), "适配器 a1 + 提示 p1", 31, INK, "mm")
+    label(d, (375, 652), "配套回归结果", 31, INK, "mm")
+    label(d, (1158, 435), "更换底座之后", 36, TEAL, "mm")
+    label(d, (1158, 515), "底座 v2 + 分词器？", 31, INK, "mm")
+    label(d, (1158, 583), "旧适配器 a1 能否用？", 31, INK, "mm")
+    label(d, (1158, 652), "质量与兼容性待测", 31, INK, "mm")
+    arrow(d, (670, 548), (865, 548), ORANGE, 8)
+    label(d, (768, 736), "同名文件 ≠ 同一行为", 31, PLUM, "mm")
+    save(im, "submodules/05-adaptation/assets/adaptation-version-bundle.png")
+
+
 def multimodal_encoding():
     im, d = base(
         "不同输入先走各自的编码路径",
@@ -616,6 +657,8 @@ def main():
         adaptation_diagnosis_matrix,
         adaptation_distillation,
         adaptation_lora,
+        adaptation_qlora_comparison,
+        adaptation_version_bundle,
     ):
         if not selected or renderer.__name__ in selected:
             renderer()

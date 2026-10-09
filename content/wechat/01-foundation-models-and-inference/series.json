@@ -300,14 +300,16 @@
       "promptFile": "submodules/05-adaptation/prompts.md",
       "principleImage": "submodules/05-adaptation/assets/adaptation-principle.png",
       "images": [
-        "submodules/05-adaptation/assets/adaptation-cover-main-wechat.png",
-        "submodules/05-adaptation/assets/adaptation-cover-interview-wechat.png",
+        "submodules/05-adaptation/assets/adaptation-cover-main-wechat-v2.png",
+        "submodules/05-adaptation/assets/adaptation-cover-interview-wechat-v2.png",
         "submodules/05-adaptation/assets/adaptation-decision.png",
         "submodules/05-adaptation/assets/adaptation-lora.png",
         "submodules/05-adaptation/assets/adaptation-distillation.png",
         "submodules/05-adaptation/assets/adaptation-release.png",
         "submodules/05-adaptation/assets/adaptation-principle.png",
-        "submodules/05-adaptation/assets/adaptation-diagnosis-matrix.png"
+        "submodules/05-adaptation/assets/adaptation-diagnosis-matrix.png",
+        "submodules/05-adaptation/assets/adaptation-qlora-comparison.png",
+        "submodules/05-adaptation/assets/adaptation-version-bundle.png"
       ],
       "articles": {
         "beginner": {
