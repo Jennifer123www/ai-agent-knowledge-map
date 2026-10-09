@@ -246,17 +246,21 @@
       "contentLevel": "submodule",
       "submodule": "reranker",
       "seriesOrder": 4,
+      "beginnerImageAspectMin": 1.35,
+      "interviewImageAspectMin": 1.35,
       "promptFile": "submodules/04-reranker/prompts.md",
-      "principleImage": "submodules/04-reranker/assets/reranker-principle.png",
+      "principleImage": "submodules/04-reranker/assets/reranker-principle-v2.png",
       "images": [
-        "submodules/04-reranker/assets/reranker-cover-main-wechat.png",
-        "submodules/04-reranker/assets/reranker-cover-interview-wechat.png",
-        "submodules/04-reranker/assets/reranker-two-stage.png",
-        "submodules/04-reranker/assets/reranker-cross-encoder.png",
+        "submodules/04-reranker/assets/reranker-cover-main-wechat-v2.png",
+        "submodules/04-reranker/assets/reranker-cover-interview-wechat-v2.png",
+        "submodules/04-reranker/assets/reranker-two-stage-v2.png",
+        "submodules/04-reranker/assets/reranker-case-contrast.png",
         "submodules/04-reranker/assets/reranker-policy.png",
-        "submodules/04-reranker/assets/reranker-evaluation.png",
-        "submodules/04-reranker/assets/reranker-principle.png",
-        "submodules/04-reranker/assets/reranker-learning-objectives.png"
+        "submodules/04-reranker/assets/reranker-evaluation-v2.png",
+        "submodules/04-reranker/assets/reranker-principle-v2.png",
+        "submodules/04-reranker/assets/reranker-calibration.png",
+        "submodules/04-reranker/assets/reranker-metric-example.png",
+        "submodules/04-reranker/assets/reranker-learning-objectives-v2.png"
       ],
       "articles": {
         "beginner": {

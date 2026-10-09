@@ -376,6 +376,151 @@ def reranker_evaluation():
     save(im, "submodules/04-reranker/assets/reranker-evaluation.png")
 
 
+def reranker_two_stage_v2():
+    im, d = base(
+        "先找候选，再逐对比较",
+        "正确条款没有进入候选，重排序就不可能把它排到前面",
+        "两阶段检索",
+        "",
+    )
+    box(d, (95, 358, 460, 788), "", "#FFFFFF")
+    label(d, (277, 416), "召回候选", 37, PLUM, "mm")
+    for i, value in enumerate(("旧版北京条款", "现行北京条款", "上海住宿条款")):
+        label(d, (137, 500+i*92), value, 29)
+    box(d, (570, 478, 930, 664), "", PLUM_PALE)
+    label(d, (750, 530), "问题 + 每段候选", 31, INK, "mm")
+    label(d, (750, 610), "分别计算相关性", 31, INK, "mm")
+    box(d, (1040, 358, 1445, 788), "", TEAL_PALE)
+    label(d, (1242, 416), "重排后的顺序", 37, TEAL, "mm")
+    for i, value in enumerate(("1  现行北京条款", "2  旧版北京条款", "3  上海住宿条款")):
+        label(d, (1085, 500+i*92), value, 28)
+    arrow(d, (472, 573), (558, 573), ORANGE)
+    arrow(d, (942, 573), (1028, 573), ORANGE)
+    label(d, (750, 766), "候选顺序变化 ≠ 制度效力判定", 28, PLUM, "mm")
+    save(im, "submodules/04-reranker/assets/reranker-two-stage-v2.png")
+
+
+def reranker_case_contrast():
+    im, d = base(
+        "同样谈住宿，差在关键限定词",
+        "问题：北京四级员工，2026 年 9 月 15 日住宿上限是多少？",
+        "案例比较",
+        "",
+    )
+    rows = (
+        (364, "现行北京四级", "地区与职级都吻合", "日期仍要核实", TEAL_PALE),
+        (480, "北京三级", "职级不同", "降低相关排序", PLUM_PALE),
+        (596, "上海四级", "地区不同", "降低相关排序", ORANGE_PALE),
+        (712, "旧版北京四级", "文字可能很相近", "效期由规则拦截", PLUM_PALE),
+    )
+    for y, title, observation, action, fill in rows:
+        d.rounded_rectangle((105, y, 1435, y+94), radius=18, fill=fill, outline=OUTLINE, width=2)
+        label(d, (144, y+47), title, 31, INK, "lm")
+        label(d, (585, y+47), observation, 29, INK, "lm")
+        label(d, (1395, y+47), action, 28, TEAL if y == 364 else PLUM, "rm")
+    save(im, "submodules/04-reranker/assets/reranker-case-contrast.png")
+
+
+def reranker_principle_v2():
+    im, d = base(
+        "查询和候选段落一起读",
+        "参考 BERT 段落重排序：每个查询—候选对单独计算",
+        "原理示意",
+        "",
+    )
+    box(d, (95, 383, 528, 700), "", PLUM_PALE)
+    label(d, (311, 450), "联合输入", 38, PLUM, "mm")
+    label(d, (311, 530), "[CLS] 查询 [SEP]", 31, INK, "mm")
+    label(d, (311, 598), "段落 [SEP]", 31, INK, "mm")
+    box(d, (638, 445, 945, 640), "", TEAL_PALE)
+    label(d, (791, 505), "BERT 编码", 36, TEAL, "mm")
+    label(d, (791, 582), "词语相互关注", 27, INK, "mm")
+    box(d, (1055, 418, 1440, 668), "", ORANGE_PALE)
+    label(d, (1247, 482), "[CLS] → 分类头", 30, INK, "mm")
+    label(d, (1247, 558), "相关性得分", 36, ORANGE, "mm")
+    arrow(d, (540, 542), (626, 542), ORANGE)
+    arrow(d, (957, 542), (1043, 542), ORANGE)
+    label(d, (768, 790), "换一段候选，就重新计算这一对", 32, PLUM, "mm")
+    save(im, "submodules/04-reranker/assets/reranker-principle-v2.png")
+
+
+def reranker_evaluation_v2():
+    im, d = base(
+        "重排序值得增加这一站吗",
+        "固定同一批查询与召回候选，对照有无重排序的结果",
+        "质量与代价",
+        "",
+    )
+    box(d, (102, 386, 560, 565), "同一批标注问题", "#FFFFFF", 32)
+    box(d, (688, 368, 1110, 490), "原召回顺序", PLUM_PALE, 32)
+    box(d, (688, 565, 1110, 687), "加入重排序", TEAL_PALE, 32)
+    arrow(d, (572, 475), (675, 430), ORANGE)
+    arrow(d, (572, 475), (675, 625), ORANGE)
+    d.rounded_rectangle((130, 740, 1405, 850), radius=22, fill=ORANGE_PALE, outline=OUTLINE, width=3)
+    label(d, (768, 795), "质量：MRR、NDCG、答案引用  ｜  代价：p95 时延、调用成本", 30, INK, "mm")
+    save(im, "submodules/04-reranker/assets/reranker-evaluation-v2.png")
+
+
+def reranker_calibration():
+    im, d = base(
+        "分数能排序，不等于业务可信度",
+        "二分类头可给相关概率，但跨领域或换模型后仍须验证阈值",
+        "分数校准",
+        "",
+    )
+    box(d, (115, 390, 682, 705), "", PLUM_PALE)
+    label(d, (398, 455), "模型给出的次序", 35, PLUM, "mm")
+    label(d, (398, 550), "候选甲  ＞  候选乙", 33, INK, "mm")
+    label(d, (398, 630), "同一问题内可比较", 29, INK, "mm")
+    box(d, (850, 390, 1418, 705), "", TEAL_PALE)
+    label(d, (1134, 455), "能否自动采用", 35, TEAL, "mm")
+    label(d, (1134, 550), "标注集 + 错误代价", 32, INK, "mm")
+    label(d, (1134, 630), "分领域重新校准", 29, INK, "mm")
+    arrow(d, (694, 545), (838, 545), ORANGE)
+    save(im, "submodules/04-reranker/assets/reranker-calibration.png")
+
+
+def reranker_metric_example():
+    im, d = base(
+        "同一问题，排序位置一变，指标就变",
+        "示例只有一个相关条款：原顺序排第二，重排后排第一",
+        "指标算例",
+        "",
+    )
+    box(d, (95, 360, 716, 722), "", PLUM_PALE)
+    label(d, (405, 420), "原召回顺序", 35, PLUM, "mm")
+    label(d, (405, 510), "1  异地条款  无关", 31, INK, "mm")
+    label(d, (405, 588), "2  北京四级  相关", 31, INK, "mm")
+    label(d, (405, 665), "单题 RR = 1 / 2", 29, PLUM, "mm")
+    box(d, (820, 360, 1440, 722), "", TEAL_PALE)
+    label(d, (1130, 420), "重排序后", 35, TEAL, "mm")
+    label(d, (1130, 510), "1  北京四级  相关", 31, INK, "mm")
+    label(d, (1130, 588), "2  异地条款  无关", 31, INK, "mm")
+    label(d, (1130, 665), "单题 RR = 1 / 1", 29, TEAL, "mm")
+    label(d, (768, 802), "多题 RR 取平均才是 MRR；多级相关可看 NDCG", 29, INK, "mm")
+    save(im, "submodules/04-reranker/assets/reranker-metric-example.png")
+
+
+def reranker_learning_objectives_v2():
+    im, d = base(
+        "点式、成对与列表式，监督信号不同",
+        "模型结构是“怎么读”，排序损失是“怎么学”，两者别混在一起",
+        "排序学习",
+        "",
+    )
+    columns = (
+        (95, "Pointwise 点式", "一个候选", "预测相关等级", PLUM_PALE),
+        (575, "Pairwise 成对", "两个候选", "学习谁靠前", TEAL_PALE),
+        (1055, "Listwise 列表", "一整组候选", "优化整体顺序", ORANGE_PALE),
+    )
+    for x, title, unit, goal, fill in columns:
+        d.rounded_rectangle((x, 390, x+385, 735), radius=24, fill=fill, outline=OUTLINE, width=3)
+        label(d, (x+193, 465), title, 30, INK, "mm")
+        label(d, (x+193, 570), unit, 33, PLUM, "mm")
+        label(d, (x+193, 662), goal, 29, INK, "mm")
+    save(im, "submodules/04-reranker/assets/reranker-learning-objectives-v2.png")
+
+
 def llm_sampling():
     im, d = base(
         "下一个 token 怎样被选出",
@@ -857,6 +1002,13 @@ def main():
         embedding_evaluation,
         reranker_two_stage,
         reranker_evaluation,
+        reranker_two_stage_v2,
+        reranker_case_contrast,
+        reranker_principle_v2,
+        reranker_evaluation_v2,
+        reranker_calibration,
+        reranker_metric_example,
+        reranker_learning_objectives_v2,
         embedding_metric_comparison,
         reranker_learning_objectives,
         adaptation_diagnosis_matrix,
