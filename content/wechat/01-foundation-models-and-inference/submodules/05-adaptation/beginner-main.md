@@ -2,7 +2,7 @@
 title: "大话模型适配：旧政策答错了要微调吗"
 author: "三色堇絮絮念"
 digest: "客服把每周更新的退款政策答错。先辨别缺事实还是缺稳定话术，再看微调、LoRA 和蒸馏值不值得做。"
-cover: "./assets/adaptation-cover-main-wechat-v2.png"
+cover: "./assets/adaptation-cover-main-wechat-v3.png"
 content_source_url: ""
 article_type: "news"
 need_open_comment: 0
@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "adaptation"
 series_order: 5
-version: "0.2.3"
-stage: "重做封面并收紧退款案例的故障归因"
-git_state: "基于 1a19ad0（main；修改前工作区干净）"
-modified_at: "2026-10-09 20:40 CST"
+version: "0.2.4"
+stage: "主文封面与 1.1—1.3 统一视觉风格"
+git_state: "基于 226782f（main；修改前另有未提交的 1.4 配图工作）"
+modified_at: "2026-10-09 21:41 CST"
 ---
 
 # 大话模型适配：旧政策答错了要微调吗
