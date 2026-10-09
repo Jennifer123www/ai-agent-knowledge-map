@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="383" viewBox="0 0 900 383">
+  <rect width="900" height="383" fill="#fffaf3"/>
+  <g opacity=".25" fill="#c8ddd9">
+    <circle cx="134" cy="90" r="3"/><circle cx="203" cy="285" r="4"/><circle cx="750" cy="88" r="3"/><circle cx="802" cy="275" r="4"/>
+    <circle cx="161" cy="174" r="2"/><circle cx="741" cy="215" r="2"/>
+  </g>
+  <g font-family="'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <circle cx="450" cy="172" r="139" fill="none" stroke="#d9e9e6" stroke-width="4"/>
+    <circle cx="450" cy="172" r="118" fill="#ffffff" stroke="#297a79" stroke-width="8"/>
+    <rect x="297" y="91" width="139" height="169" rx="14" fill="#f2f2ee" stroke="#9daeb0" stroke-width="3"/>
+    <path d="M319 120H414M319 137H397M319 204H414" stroke="#bbc6c3" stroke-width="5" stroke-linecap="round"/>
+    <text x="366" y="175" fill="#59646a" font-size="33" font-weight="700" text-anchor="middle">旧版</text>
+    <text x="366" y="236" fill="#59646a" font-size="35" font-weight="750" text-anchor="middle">450</text>
+    <rect x="464" y="76" width="146" height="184" rx="14" fill="#e6f4f0" stroke="#247b72" stroke-width="4"/>
+    <path d="M484 104H588M484 122H571M484 206H588" stroke="#a9d5c8" stroke-width="5" stroke-linecap="round"/>
+    <text x="537" y="161" fill="#1f6661" font-size="33" font-weight="700" text-anchor="middle">现行</text>
+    <text x="537" y="232" fill="#1f6661" font-size="38" font-weight="750" text-anchor="middle">500</text>
+    <circle cx="368" cy="274" r="25" fill="#fff1eb" stroke="#c47562" stroke-width="3"/>
+    <path d="M357 263L379 285M379 263L357 285" stroke="#ba624f" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="539" cy="274" r="25" fill="#e8f5ef" stroke="#388a6c" stroke-width="3"/>
+    <path d="M527 274L535 282L552 264" fill="none" stroke="#2c8a66" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M544 275L651 327" stroke="#297a79" stroke-width="17" stroke-linecap="round"/>
+    <path d="M646 325L664 334" stroke="#194f55" stroke-width="22" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -186,6 +186,7 @@
       "seriesOrder": 3,
       "promptFile": "submodules/03-embedding/prompts.md",
       "principleImage": "submodules/03-embedding/assets/embedding-principle.png",
+      "beginnerImageAspectMin": 1.35,
       "images": [
         "submodules/03-embedding/assets/embedding-cover-main-wechat.png",
         "submodules/03-embedding/assets/embedding-cover-interview-wechat.png",
@@ -194,22 +195,25 @@
         "submodules/03-embedding/assets/embedding-chunking.png",
         "submodules/03-embedding/assets/embedding-evaluation.png",
         "submodules/03-embedding/assets/embedding-principle.png",
-        "submodules/03-embedding/assets/embedding-metric-comparison.png"
+        "submodules/03-embedding/assets/embedding-metric-comparison.png",
+        "submodules/03-embedding/assets/embedding-pooling.png",
+        "submodules/03-embedding/assets/embedding-encoder-variants.png",
+        "submodules/03-embedding/assets/embedding-fragment-loss.png"
       ],
       "articles": {
         "beginner": {
           "path": "submodules/03-embedding/beginner-main.md",
           "focus": "以‘酒店最多报多少’和《差旅住宿费限额》的表达差异为主案例，解释嵌入的训练目标、双塔、相似度及表示失真；索引和切分只讲它们如何改变模型输入与评测。",
           "outline": [
-            "口语提问和正式制度标题为何对不上",
-            "训练目标怎样塑造向量空间",
-            "查询与文档怎样分别编码并比较",
-            "余弦、点积和近邻近似各改变什么",
-            "切分怎样改变被编码的对象",
-            "精确编号为何不能只靠语义相似",
-            "更换编码模型为何要重算文档向量",
-            "用难例检验候选覆盖与条件混淆",
-            "难负样本和跨语言表示的边界"
+            "口语提问怎样变成可比较的向量",
+            "对比训练与难负样本怎样改变远近",
+            "查询和制度片段怎样分别编码",
+            "相似度分数及归一化能说明什么",
+            "切分怎样改变模型实际读到的条件",
+            "编号、日期和否定词为什么易失手",
+            "近似索引在哪一步可能漏掉正确条款",
+            "更换模型为何要重算文档向量",
+            "用版本难例检验候选覆盖与错误归因"
           ]
         },
         "interview": {
@@ -220,15 +224,15 @@
             "exclude": ["生成采样", "混合检索结果融合", "文档分段策略设计", "交叉编码器排序", "微调生成模型"]
           },
           "outline": [
-            "向量嵌入的本质",
-            "余弦点积与归一化",
-            "维度和存储成本",
-            "近似最近邻索引",
-            "查询与文档的非对称编码",
-            "模型升级和索引迁移",
-            "召回指标与难负样本",
-            "嵌入模型退化的对照实验",
-            "难负样本训练与长片段表示失真"
+            "句向量汇总与检索训练目标",
+            "难负样本与假负样本",
+            "Sentence-BERT、DPR 和 E5 的双塔差异",
+            "余弦、点积和欧氏距离的等价条件",
+            "向量维度与原始存储成本",
+            "片段截断或丢失条件的诊断",
+            "精确搜索与近似索引的对照",
+            "模型升级时的双索引和缓存版本",
+            "按适用条件标注正例并计算召回"
           ]
         }
       }

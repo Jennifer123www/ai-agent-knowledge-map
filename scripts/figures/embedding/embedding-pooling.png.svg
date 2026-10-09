@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#71858a"/></marker>
+  </defs>
+  <rect width="1536" height="1024" fill="#fffaf4"/>
+  <g font-family="'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="84" y="120" fill="#263039" font-size="58" font-weight="700">一句问话怎样变成一个向量</text>
+    <text x="88" y="207" fill="#59717a" font-size="34">不同汇总方法是可选路径，检索质量还取决于训练</text>
+    <g fill="#edf4f3" stroke="#a9cbc6" stroke-width="3">
+      <rect x="84" y="374" width="147" height="102" rx="18"/>
+      <rect x="248" y="374" width="147" height="102" rx="18"/>
+      <rect x="412" y="374" width="147" height="102" rx="18"/>
+    </g>
+    <g fill="#245e62" font-size="42" font-weight="650" text-anchor="middle">
+      <text x="157" y="441">北京</text><text x="321" y="441">酒店</text><text x="485" y="441">上限</text>
+    </g>
+    <text x="323" y="542" fill="#66777a" font-size="32" text-anchor="middle">输入片段</text>
+    <path d="M581 425H657" stroke="#71858a" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="685" y="340" width="256" height="179" rx="22" fill="#e9f1f7" stroke="#7ca6bd" stroke-width="4"/>
+    <text x="813" y="415" fill="#2b5d78" font-size="48" font-weight="700" text-anchor="middle">编码器</text>
+    <text x="813" y="473" fill="#5e7480" font-size="33" text-anchor="middle">逐位置表示</text>
+    <path d="M968 427H1023V322H1087" stroke="#71858a" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+    <path d="M968 427H1023V653H1087" stroke="#71858a" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="1113" y="260" width="326" height="150" rx="20" fill="#f4edf2" stroke="#bc97ae" stroke-width="4"/>
+    <text x="1276" y="324" fill="#75526b" font-size="43" font-weight="700" text-anchor="middle">取特殊位置</text>
+    <text x="1276" y="375" fill="#75526b" font-size="35" text-anchor="middle">得到向量 v₁</text>
+    <rect x="1113" y="587" width="326" height="150" rx="20" fill="#fff0e4" stroke="#d6a077" stroke-width="4"/>
+    <text x="1276" y="651" fill="#9b603d" font-size="43" font-weight="700" text-anchor="middle">平均汇总</text>
+    <text x="1276" y="702" fill="#9b603d" font-size="35" text-anchor="middle">得到向量 v₂</text>
+    <circle cx="751" cy="626" r="28" fill="#dcefeb" stroke="#81b4aa" stroke-width="3"/>
+    <circle cx="814" cy="626" r="28" fill="#dcefeb" stroke="#81b4aa" stroke-width="3"/>
+    <circle cx="877" cy="626" r="28" fill="#dcefeb" stroke="#81b4aa" stroke-width="3"/>
+    <text x="813" y="725" fill="#66777a" font-size="32" text-anchor="middle">编码后各位置的表示</text>
+  </g>
+</svg>

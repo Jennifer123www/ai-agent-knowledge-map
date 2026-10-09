@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#71858a"/></marker></defs>
+  <rect width="1536" height="1024" fill="#fffaf4"/>
+  <g font-family="'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="82" y="120" fill="#263039" font-size="56" font-weight="700">同一条款，模型实际读到哪几个条件</text>
+    <text x="88" y="220" fill="#5b7278" font-size="35">制度原文</text>
+    <rect x="360" y="156" width="1100" height="120" rx="19" fill="#e9f3f0" stroke="#97c4b9" stroke-width="4"/>
+    <g fill="#285f62" font-size="43" font-weight="680" text-anchor="middle">
+      <text x="496" y="232">北京</text><text x="757" y="232">A 职级</text><text x="1032" y="232">9 月 1 日起</text><text x="1320" y="232">500 元</text>
+    </g>
+    <g fill="none" stroke="#b1cfc9" stroke-width="3"><path d="M620 180V252"/><path d="M893 180V252"/><path d="M1175 180V252"/></g>
+    <path d="M890 279V340H322V820" fill="none" stroke="#8a9a9c" stroke-width="5"/>
+    <g font-size="40" font-weight="700">
+      <text x="82" y="431" fill="#a05e57">输入截断</text>
+      <text x="82" y="632" fill="#a27647">片段太短</text>
+      <text x="82" y="833" fill="#247768">保留条款</text>
+    </g>
+    <g fill="none" stroke="#71858a" stroke-width="5" marker-end="url(#a)">
+      <path d="M322 400H370"/><path d="M322 600H370"/><path d="M322 800H370"/>
+    </g>
+    <rect x="400" y="348" width="1060" height="112" rx="18" fill="#fff4f0" stroke="#d1a29a" stroke-width="3"/>
+    <rect x="400" y="548" width="1060" height="112" rx="18" fill="#fff6e9" stroke="#d6b78a" stroke-width="3"/>
+    <rect x="400" y="748" width="1060" height="112" rx="18" fill="#e9f4f0" stroke="#96c5b6" stroke-width="3"/>
+    <g font-size="43" font-weight="600">
+      <text x="455" y="420" fill="#7b6261">北京　·　A 职级　·　9 月 1 日起</text>
+      <text x="1175" y="420" fill="#b8584e">500 元丢失</text>
+      <text x="455" y="620" fill="#7b6a54">只剩“上限 500 元”</text>
+      <text x="1075" y="620" fill="#b08047">地区职级丢失</text>
+      <text x="455" y="820" fill="#236a60">北京　·　A 职级　·　9 月 1 日起　·　500 元</text>
+    </g>
+  </g>
+</svg>
