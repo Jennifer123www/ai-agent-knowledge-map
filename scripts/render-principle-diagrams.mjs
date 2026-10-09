@@ -60,6 +60,10 @@ const box = (x, y, w, h, label, sub = "", color = teal) =>
   rect(x, y, w, h, "#fff", color) + `<rect x="${x}" y="${y}" width="8" height="${h}" rx="4" fill="${color}"/>` +
   text(x + w / 2, y + (sub ? h / 2 - 6 : h / 2 + 11), label, 30, ink, "middle", 650) +
   (sub ? text(x + w / 2, y + h / 2 + 39, sub, 22, muted) : "");
+const plainBox = (x, y, w, h, label, sub = "", color = teal) =>
+  rect(x, y, w, h, "#fff", color, 18, 2.5) +
+  text(x + w / 2, y + (sub ? h / 2 - 8 : h / 2 + 13), label, 39, ink, "middle", 650) +
+  (sub ? text(x + w / 2, y + h / 2 + 43, sub, 29, muted) : "");
 const note = (x, y, label, color = muted) => text(x, y, label, 23, color);
 const badge = (x, y, n, color = teal) => `<circle cx="${x}" cy="${y}" r="25" fill="${color}"/>` + text(x, y + 9, n, 25, "white", "middle", 700);
 const eq = (x, y, label, color = ink) => text(x, y, label, 31, color, "middle", 600);
@@ -71,8 +75,7 @@ function canvas(title, eyebrow, body, source) {
     ${text(76, 76, eyebrow, 22, teal, "start", 650)}
     ${text(76, 139, title, 48, ink, "start", 700)}
     ${body}
-    <path d="M76 920H1460" stroke="#cbd7d7" stroke-width="2"/>
-    ${text(76, 955, source, 18, muted, "start")}
+    ${source ? `<path d="M76 920H1460" stroke="#cbd7d7" stroke-width="2"/>${text(76, 955, source, 18, muted, "start")}` : ""}
   </svg>`;
 }
 
@@ -174,17 +177,23 @@ const diagrams = [
   },
   {
     file: "01-foundation-models-and-inference/submodules/03-embedding/assets/embedding-principle.png",
-    source: "Reimers & Gurevych, Sentence-BERT (2019), Figure 2；双塔推理简化",
-    title: "双塔编码：查询和文档在同一空间比较",
+    source: "",
+    eyebrow: "Sentence-BERT 原理",
+    title: "两段文字先各自编码，再比较向量",
     draw: () => {
-      let s = box(115, 260, 325, 105, "查询", "酒店费用能报多少？", blue);
-      s += box(115, 600, 325, 105, "文档段落", "住宿报销限额", orange);
-      s += box(570, 250, 260, 125, "查询编码器", "产生向量 q", teal);
-      s += box(570, 590, 260, 125, "文档编码器", "产生向量 d", teal);
-      s += box(1010, 390, 365, 170, "相似度计算", "余弦 / 点积等", plum);
-      s += line(440, 313, 570, 313) + line(440, 653, 570, 653);
-      s += pathLine("M830 313H930V435H1010", teal) + pathLine("M830 653H930V525H1010", teal);
-      s += rect(380, 765, 780, 78, "#f1f7f4", teal) + note(770, 812, "文档向量可以预先计算；相似度只是召回依据，不是事实证明。", ink);
+      let s = plainBox(90, 245, 285, 140, "查询", "酒店最多报多少？", blue);
+      s += plainBox(90, 600, 285, 140, "制度片段", "北京 · A 职级", orange);
+      s += plainBox(485, 245, 290, 140, "编码器", "产生查询表示", teal);
+      s += plainBox(485, 600, 290, 140, "编码器", "产生文档表示", teal);
+      s += plainBox(840, 260, 145, 110, "q", "查询向量", blue);
+      s += plainBox(840, 615, 145, 110, "d", "文档向量", orange);
+      s += plainBox(1090, 400, 355, 165, "相似度计算", "选择相关候选", plum);
+      s += line(375, 315, 485, 315) + line(375, 670, 485, 670);
+      s += line(775, 315, 840, 315, blue) + line(775, 670, 840, 670, orange);
+      s += pathLine("M985 315H1035V445H1090", blue) + pathLine("M985 670H1035V520H1090", orange);
+      s += `<path d="M630 395V590" fill="none" stroke="${teal}" stroke-width="3" stroke-dasharray="8 8"/>`;
+      s += text(630, 500, "共享参数", 31, teal, "middle", 600);
+      s += text(913, 780, "文档向量可提前计算", 30, orange, "middle", 600);
       return s;
     },
   },
@@ -356,7 +365,7 @@ for (const item of diagrams) {
   if (requested.size && !requested.has(item.file)) continue;
   const output = path.join(outRoot, item.file);
   await mkdir(path.dirname(output), { recursive: true });
-  const svg = canvas(item.title, "原理示意图", item.draw(), item.source);
+  const svg = canvas(item.title, item.eyebrow || "原理示意图", item.draw(), item.source);
   const svgFile = path.join(tempRoot, path.basename(output, ".png") + ".svg");
   await writeFile(svgFile, svg);
   await execFile("sips", ["-s", "format", "png", svgFile, "--out", output]);

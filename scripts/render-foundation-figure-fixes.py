@@ -6,6 +6,7 @@ future edit cannot silently reintroduce a misleading model relationship.
 
 from math import atan2, cos, sin
 from pathlib import Path
+import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -65,8 +66,9 @@ def base(title, subtitle, category, footnote):
     label(d, (88, 131), title, 59)
     label(d, (90, 228), subtitle, 30, MUTED)
     d.line((88, 282, 1450, 282), fill=OUTLINE, width=3)
-    d.line((88, 894, 1450, 894), fill=OUTLINE, width=2)
-    label(d, (91, 925), footnote, 27, MUTED)
+    if footnote:
+        d.line((88, 894, 1450, 894), fill=OUTLINE, width=2)
+        label(d, (91, 925), footnote, 27, MUTED)
     return im, d
 
 
@@ -82,53 +84,57 @@ def save(im, relative):
 
 def embedding_chunking():
     im, d = base(
-        "切好的片段怎样进入向量索引",
-        "先保留条款条件，再编码；权限在查询时还要重新判断",
-        "建索引与查询",
-        "一个片段既要有向量，也要能回到原文和适用条件",
+        "版本条件也得跟着条款入库",
+        "只存“上限 500 元”，会丢掉地区、职级和生效日期",
+        "建索引",
+        "",
     )
-    steps = [
-        ((89, 384, 338, 534), "制度原文", "#FFFFFF"),
-        ((414, 384, 687, 534), "按条款切片", PLUM_PALE),
-        ((765, 384, 1026, 534), "嵌入模型", TEAL_PALE),
-        ((1100, 384, 1444, 534), "向量 + 片段 ID", ORANGE_PALE),
-    ]
-    for bounds, name, fill in steps:
-        box(d, bounds, name, fill)
-    for a, b in [((348, 459), (403, 459)), ((697, 459), (754, 459)),
-                 ((1036, 459), (1089, 459))]:
-        arrow(d, a, b, ORANGE)
-    box(d, (215, 674, 690, 795), "随片段保存：来源、版本、适用范围", "#FFFFFF", 27)
-    box(d, (840, 674, 1320, 795), "查询时：按身份与日期过滤", "#FFFFFF", 28)
-    arrow(d, (702, 735), (828, 735), TEAL)
+    d.rounded_rectangle((90, 365, 475, 670), radius=22, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (122, 423), "制度原文", 37, PLUM)
+    label(d, (122, 485), "北京 · A 职级", 38)
+    label(d, (122, 545), "9 月 1 日起", 38)
+    label(d, (122, 605), "上限 500 元", 38)
+    d.rounded_rectangle((570, 400, 955, 635), radius=22, fill=TEAL_PALE, outline=OUTLINE, width=3)
+    label(d, (602, 468), "按条款切片", 39, TEAL)
+    label(d, (602, 536), "四项条件保留完整", 34)
+    d.rounded_rectangle((1050, 400, 1445, 635), radius=22, fill=ORANGE_PALE, outline=OUTLINE, width=3)
+    label(d, (1082, 468), "嵌入模型", 39, ORANGE)
+    label(d, (1082, 536), "向量 + 片段 ID", 34)
+    arrow(d, (486, 518), (559, 518), ORANGE)
+    arrow(d, (966, 518), (1039, 518), ORANGE)
+    d.rounded_rectangle((310, 730, 1230, 845), radius=22, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (345, 790), "片段 ID 还能找到原文、版本和适用范围", 37, INK, "lm")
+    arrow(d, (1200, 640), (1200, 716), TEAL)
     save(im, "submodules/03-embedding/assets/embedding-chunking.png")
 
 
 def embedding_evaluation():
     im, d = base(
-        "召回结果怎样算对",
-        "模型先给候选；人工标注的相关资料只用于对照评测",
-        "召回评测",
-        "Recall@K：前 K 个结果覆盖了多少应找出的相关资料",
+        "旧版排第一，召回率仍可能是满分",
+        "同一道题：前三名里有新版，但旧版在它前面",
+        "案例评测",
+        "",
     )
-    for bounds, name, fill in [
-        ((90, 383, 336, 505), "测试问题", "#FFFFFF"),
-        ((430, 383, 728, 505), "嵌入检索", TEAL_PALE),
-        ((822, 383, 1100, 505), "前 K 个结果", "#FFFFFF"),
-        ((430, 643, 1100, 765), "人工标注的相关资料（标准答案）", PLUM_PALE),
-        ((1190, 500, 1445, 658), "比较集合\nRecall@K", ORANGE_PALE),
-    ]:
-        if "\n" in name:
-            d.rounded_rectangle(bounds, radius=22, fill=fill, outline=OUTLINE, width=3)
-            x0, y0, x1, y1 = bounds
-            label(d, ((x0+x1)//2, y0+54), "比较集合", 28, INK, "mm")
-            label(d, ((x0+x1)//2, y0+110), "Recall@K", 30, TEAL, "mm")
-        else:
-            box(d, bounds, name, fill, 29)
-    for a, b in [((347, 444), (419, 444)), ((739, 444), (811, 444)),
-                 ((1111, 444), (1179, 548)), ((1111, 704), (1179, 614))]:
-        arrow(d, a, b, ORANGE)
-    label(d, (484, 790), "标注资料不会“生成”召回结果", 28, PLUM)
+    d.rounded_rectangle((90, 340, 735, 475), radius=22, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (122, 386), "测试问题", 31, PLUM)
+    label(d, (122, 438), "北京 · A 职级 · 2026 年 9 月 15 日", 31)
+    label(d, (90, 535), "检索前 3 名", 38, INK)
+    ranked = [
+        (570, "1  旧版 450 元", "日期不适用", PLUM_PALE, PLUM),
+        (690, "2  新版 500 元", "本题正例", TEAL_PALE, TEAL),
+        (810, "3  异地住宿条款", "地区不适用", ORANGE_PALE, ORANGE),
+    ]
+    for y, result, status, fill, color in ranked:
+        d.rounded_rectangle((90, y, 735, y+94), radius=18, fill=fill, outline=OUTLINE, width=2)
+        label(d, (120, y+47), result, 38, INK, "lm")
+        label(d, (705, y+47), status, 28, color, "rm")
+    d.rounded_rectangle((850, 370, 1445, 545), radius=24, fill="#FFFFFF", outline=OUTLINE, width=3)
+    label(d, (885, 420), "人工标注的正例", 31, PLUM)
+    label(d, (885, 492), "新版 500 元", 46, TEAL)
+    d.rounded_rectangle((850, 615, 1445, 850), radius=24, fill=ORANGE_PALE, outline=OUTLINE, width=3)
+    label(d, (885, 682), "Recall@3 = 1 / 1", 46, TEAL)
+    label(d, (885, 746), "正确条款进了前三名", 31, INK)
+    label(d, (885, 805), "但第一名仍是旧版", 31, PLUM)
     save(im, "submodules/03-embedding/assets/embedding-evaluation.png")
 
 
@@ -311,23 +317,32 @@ def multimodal_field_trace():
 
 def embedding_metric_comparison():
     im, d = base(
-        "三种距离比较的对象不同",
-        "先确认模型怎样训练、向量是否归一化，再选择相似度计算",
+        "单位向量：三种度量怎样连起来",
+        "看同一个查询与两份候选；先确认向量是否归一化",
         "距离度量",
-        "距离公式不能脱离模型训练目标和索引配置单独决定",
+        "",
     )
-    cards = [
-        ((90, 370, 475, 740), "余弦相似度", "比较方向\n弱化向量长度\n常配合归一化", TEAL_PALE),
-        ((575, 370, 960, 740), "点积", "方向与长度都参与\n可直接用于最大内积检索\n分值受尺度影响", PLUM_PALE),
-        ((1060, 370, 1445, 740), "欧氏距离", "比较空间距离\n对尺度敏感\n归一化后与余弦相关", ORANGE_PALE),
+    center = (340, 670)
+    radius = 240
+    d.ellipse((center[0]-radius, center[1]-radius, center[0]+radius, center[1]+radius),
+              outline=OUTLINE, width=3)
+    label(d, (106, 359), "同一单位圆上的 q、d1、d2", 34, PLUM)
+    endpoints = [((530, 525), "q", TEAL), ((462, 462), "d1", ORANGE), ((568, 745), "d2", PLUM)]
+    for endpoint, name, color in endpoints:
+        arrow(d, center, endpoint, color, 8)
+        label(d, (endpoint[0]+10, endpoint[1]-28), name, 41, color)
+    d.line((462, 462, 530, 525), fill=ORANGE, width=4)
+    label(d, (110, 850), "圆周上每个向量的长度都等于 1", 31, MUTED)
+    facts = [
+        (390, "余弦", "比较夹角", TEAL_PALE, TEAL),
+        (520, "点积", "此时数值等于余弦", PLUM_PALE, PLUM),
+        (650, "欧氏距离", "比较向量端点的距离", ORANGE_PALE, ORANGE),
     ]
-    for bounds, head, detail, fill in cards:
-        d.rounded_rectangle(bounds, radius=22, fill=fill, outline=OUTLINE, width=3)
-        x0, y0, x1, y1 = bounds
-        label(d, ((x0+x1)//2, y0+76), head, 35, INK, "mm")
-        for idx, line in enumerate(detail.split("\n")):
-            label(d, ((x0+x1)//2, y0+168+idx*62), line, 27, MUTED, "mm")
-    box(d, (350, 790, 1185, 865), "同一批候选必须使用同一套编码、归一化与距离配置", "#FFFFFF", 26)
+    for y, term, meaning, fill, color in facts:
+        d.rounded_rectangle((730, y, 1445, y+105), radius=20, fill=fill, outline=OUTLINE, width=2)
+        label(d, (765, y+52), term, 37, color, "lm")
+        label(d, (1420, y+52), meaning, 31, INK, "rm")
+    label(d, (758, 839), "长度均为 1：距离平方 = 2 - 2 × 点积", 34, INK)
     save(im, "submodules/03-embedding/assets/embedding-metric-comparison.png")
 
 
@@ -590,6 +605,7 @@ def multimodal_evaluation():
 def main():
     # LLM assets and the mobile-first multimodal assets are curated separately.
     # Keep old renderers for history; do not overwrite the 1000×1450 mobile figures.
+    selected = set(sys.argv[1:])
     for renderer in (
         embedding_chunking,
         embedding_evaluation,
@@ -601,7 +617,8 @@ def main():
         adaptation_distillation,
         adaptation_lora,
     ):
-        renderer()
+        if not selected or renderer.__name__ in selected:
+            renderer()
 
 
 if __name__ == "__main__":
