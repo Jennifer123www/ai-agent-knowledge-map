@@ -1,14 +1,15 @@
 # 重排序模型子模块配图设计记录
 
-版本：0.5.0；修订时间：2026-10-10 12:01 CST；基线：`5a7a15e`（`main`；修改前工作区干净）。
+版本：0.6.0；修订时间：2026-10-10 13:36 CST；基线：`ddf1e32`（`main`；修改前工作区已有未提交的其他文章改动）。
 
-本组封面沿用 `reranker-cover-main-wechat-v2.png` 与 `reranker-cover-interview-wechat-v2.png`。正文图改为 1536×1024 横版 PNG，由 [`render-reranker-figures.py`](../../../../../scripts/render-reranker-figures.py) 确定性绘制：准确的中文、名次、箭头与日期不交给生成式模型猜。两篇各五张正文图，仅共享一张 BERT 原理图；没有把封面重复充作首图。
+本组封面沿用 `reranker-cover-main-wechat-v2.png` 与 `reranker-cover-interview-wechat-v2.png`。正文图为 1536×1024 横版 PNG，由 [`render-reranker-figures.py`](../../../../../scripts/render-reranker-figures.py) 确定性绘制。两篇各五张正文图，面试副文不再复用主文图：主文解释重排机制，副文检查条件敏感性与真实输入范围；封面不充作正文首图。
 
 ## 资料与机制边界
 
 - [Nogueira、Cho，Passage Re-ranking with BERT](https://arxiv.org/pdf/1901.04085)，第 2 节：先检索候选；每个查询—段落对独立输入 BERT；取 `[CLS]` 表示，经单层分类头估计文本相关性，再按得分排序。论文用二分类交叉熵训练。此机制不判断制度有效、权限或答案正确。
 - [Sentence Transformers，Retrieve & Re-Rank](https://www.sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html)：双塔分别编码以检索，交叉编码器联合输入查询和候选，对前 K 条逐对打分；文档向量可预计算，但完整的查询—候选交叉表示不能预存复用。
 - [Liu，Learning to Rank for Information Retrieval](https://www.microsoft.com/en-us/research/publication/learning-to-rank-for-information-retrieval/)：点式、成对和列表式监督信号的区分。图只讲训练单元，不暗示某一种编码器只能采用某一种损失。
+- [Jiang 等，How Does BERT Rerank Passages?](https://aclanthology.org/2021.blackboxnlp-1.39/)：BERT 重排序器的词级归因和开头位置偏差分析。面试文据此设计“只替换一项条件”的输入扰动检查；图不声称注意力高亮就是因果证明。
 
 ## 主文图序
 
@@ -25,10 +26,10 @@
 | 文件 | 追问与图型 | 来源、数值与图注口径 |
 | --- | --- | --- |
 | `reranker-encoder-comparison-v3.png` | 双塔与交叉编码器的输入结构、文档向量复用和逐对重算 | 依据 Sentence Transformers 官方 Retrieve & Re-Rank 文档；三个候选是计算方式示例，不是耗时测量。 |
-| `reranker-cross-encoder-v3.png` | 追问联合输入与 `[CLS]` 分类头时复用主文已核实原理图 | 依据 Nogueira、Cho 第 2 节；图注说明交互格非实测注意力权重。 |
+| `reranker-condition-perturbation.png` | 固定候选，单独替换地区，再用等义问法对照，检验排序器是否真正对条件敏感 | 依据 Jiang 等人的词级归因研究设计教学测试；“标注：吻合/不符”是人工预期，不是模型实测。与主文交叉编码器结构图回答不同问题。 |
 | `reranker-threshold-shift-v3.png` | 同一组标注样本从模型 A 换到 B，旧阈值为何失灵 | 0.83/0.75/0.36/0.28 与 0.61/0.55/0.30/0.22 均为教学算例；橙线 0.70。与正文相邻图注明确非实测，不把相关性阈值解释成业务批准率。 |
 | `reranker-metric-lanes-v3.png` | 同一组有分级标签的候选前后移动；RR 与 NDCG 分别看什么 | 教学标注 3=能直接回答、2=例外条款、0=不相关；本题 RR 约定只认等级 3，故 1/2→1。多题平均才称 MRR；NDCG 才纳入等级 2 的位置。 |
-| `reranker-learning-signals-v3.png` | 同一查询与候选，在点式、成对、列表式训练里分别交给模型什么标签 | 依据 Liu 的排序学习体系；没有把分类头、模型结构与训练损失混作一回事。 |
+| `reranker-input-window.png` | 同一查询、同一输入长度上限，开头截断与按条件选窗口分别让模型读到条款的哪一段 | 依据 Nogueira、Cho 第 2 节的查询—段落联合输入形式，结合 Jiang 等人的开头位置偏差分析。画面不设某模型的实际长度，正文 `L=512` 是明确假设下的可复算教学例子；模型上限和截断方向须查具体部署。 |
 
 ## 出图约束与复核
 

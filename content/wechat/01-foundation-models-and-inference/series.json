@@ -23,8 +23,10 @@
         "assets/foundation-route-matrix.png",
         "assets/foundation-release-checks.png",
         "assets/foundation-answer-contract.png",
-        "assets/foundation-eval-board.png",
-        "assets/foundation-debug-trace.png"
+        "assets/foundation-debug-trace.png",
+        "assets/foundation-architecture-ablation.png",
+        "assets/foundation-oracle-replay.png",
+        "assets/foundation-release-bundle.png"
       ],
       "articles": {
         "beginner": {
@@ -44,21 +46,21 @@
         },
         "interview": {
           "path": "interview-side.md",
-          "focus": "围绕同一张示意住宿票据，回答跨模型分工、证据效力、整体选型、评测、发布、故障定位和安全降级。",
+          "focus": "围绕同一张示意住宿票据，考察单模型与组合方案的公平对照、跨组件字段契约、断言状态、误路由、整单成本、单点替换回放、相容版本发布和安全降级；不复述总览主文或子模块内部机制。",
           "questionBoundary": {
             "include": ["模型组合", "端到端数据流", "证据与业务规则", "按需路由", "总体选型", "统一评测", "组合版本发布", "跨组件排障", "安全降级"],
             "exclude": ["注意力公式", "视觉连接层细节", "向量距离公式", "交叉编码器训练", "LoRA 参数设置"]
           },
           "outline": [
-            "单模型与能力组合的取舍",
-            "从发票图片到未提交草稿的完整链路",
-            "候选结论的事实前提与制度证据核验",
-            "按需路由与组件消融",
-            "质量时延成本和任务风险的取舍",
-            "组件指标与端到端评测",
-            "制度更新后的组合版本发布",
-            "旧版制度被误用时的跨组件排障",
-            "服务失效时的安全降级与停止条件"
+            "单模型与组合方案的受控对照",
+            "跨组件字段、来源与状态契约",
+            "候选结论拆成可核验断言",
+            "误路由与组件消融验收",
+            "质量门槛、尾部时延与合格草稿成本",
+            "单点替换回放与误差传播",
+            "制度与技术组件的相容版本发布",
+            "旧版错答的首个错误节点定位",
+            "故障状态与允许动作的降级映射"
           ]
         }
       }
@@ -82,7 +84,7 @@
         "submodules/01-llm/assets/llm-token-cost.png",
         "submodules/01-llm/assets/llm-structured-truth.png",
         "submodules/01-llm/assets/llm-cache-comparison.png",
-        "submodules/01-llm/assets/llm-evaluation-matrix.png"
+        "submodules/01-llm/assets/llm-paired-invariance.png"
       ],
       "articles": {
         "beginner": {
@@ -263,7 +265,8 @@
         "submodules/04-reranker/assets/reranker-encoder-comparison-v3.png",
         "submodules/04-reranker/assets/reranker-threshold-shift-v3.png",
         "submodules/04-reranker/assets/reranker-metric-lanes-v3.png",
-        "submodules/04-reranker/assets/reranker-learning-signals-v3.png"
+        "submodules/04-reranker/assets/reranker-condition-perturbation.png",
+        "submodules/04-reranker/assets/reranker-input-window.png"
       ],
       "articles": {
         "beginner": {
@@ -283,21 +286,21 @@
         },
         "interview": {
           "path": "submodules/04-reranker/interview-side.md",
-          "focus": "聚焦交叉编码器、逐对打分、候选截断、阈值校准、延迟优化和排序训练；权限、版本过滤及生成验证只说明模型输出不能替代它们。",
+          "focus": "在主文机制之外，聚焦条件扰动归因、真实输入截断、阈值迁移、指标计算和线上诊断；权限、版本过滤及生成验证只说明模型输出不能替代它们。",
           "questionBoundary": {
             "include": ["交叉编码器", "候选规模", "排序分数", "规则融合", "延迟优化", "排序指标", "回退"],
             "exclude": ["向量索引构建", "语言模型采样", "模型微调总体选型"]
           },
           "outline": [
             "召回与重排序的差异",
-            "交叉编码器精度来源",
+            "条件扰动与注意力归因的证据边界",
             "候选规模选择",
             "分数阈值和校准",
             "业务规则融合",
             "批处理缓存与蒸馏",
             "排序指标与标注",
             "线上退化和降级",
-            "排序损失与训练数据"
+            "长条款的实际输入范围与训练数据"
           ]
         }
       }
@@ -344,21 +347,21 @@
         },
         "interview": {
           "path": "submodules/05-adaptation/interview-side.md",
-          "focus": "沿用客服退款案例，聚焦适配病因、SFT、LoRA/QLoRA、蒸馏、训练数据与遗忘；只在必要处解释动态知识应外置。",
+          "focus": "沿用客服退款案例，但不复述主文机制顺序；面试题追问受控病因诊断、目标掩码、数据泄漏、蒸馏软目标、适配器回归、组合兼容和成本临界点。",
           "questionBoundary": {
             "include": ["适配路径", "监督微调", "LoRA", "QLoRA", "蒸馏", "训练数据", "灾难性遗忘", "发布治理"],
             "exclude": ["向量检索索引", "重排序架构", "多模态连接层"]
           },
           "outline": [
-            "RAG 提示和微调怎么选",
-            "监督微调的能力边界",
-            "LoRA 与 QLoRA 原理",
-            "训练数据治理",
-            "蒸馏的目标和风险",
-            "灾难性遗忘与回归",
-            "适配器版本和多租户",
-            "灰度发布与回滚",
-            "多租户适配器和项目收益判断"
+            "受控实验怎样区分证据错误与行为缺口",
+            "指令微调的目标掩码与损失位置",
+            "LoRA 与 QLoRA 的参数契约",
+            "同源工单与政策版本怎样避免数据泄漏",
+            "蒸馏温度与软目标怎样使用",
+            "底座冻结后适配器为何仍需回归",
+            "旧适配器与新底座的兼容检查",
+            "适配项目的质量门槛与回本临界点",
+            "整套组合的灰度与回滚"
           ]
         }
       }

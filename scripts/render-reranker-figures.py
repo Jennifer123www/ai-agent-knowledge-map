@@ -302,8 +302,49 @@ def learning_signals():
     save(im, "reranker-learning-signals-v3.png")
 
 
+def condition_perturbation():
+    im, d = canvas("一次只换一项，检验排序器读没读到条件", "面试诊断 / 输入扰动")
+    rect(d, (91, 233, 1445, 372), "white", LINE, 19)
+    txt(d, 125, 270, "固定候选", 33, PLUM)
+    txt(d, 399, 269, "北京 · 四级员工 · 住宿上限", 39, INK)
+    d.line((93, 420, 1442, 420), fill=LINE, width=2)
+    rows = [
+        (473, "基准", "北京四级，住宿上限？", "标注：条件吻合", TEAL_L, TEAL),
+        (624, "只换地区", "上海四级，住宿上限？", "标注：地区不符", PLUM_L, PLUM),
+        (775, "只改写问法", "北京四级，每晚限额？", "标注：仍应吻合", ORANGE_L, ORANGE),
+    ]
+    for y, tag, query, expected, fill, accent in rows:
+        rect(d, (93, y, 1443, y+116), "white", LINE, 16)
+        rect(d, (110, y+18, 342, y+98), fill, None, 11, 0)
+        txt(d, 226, y+58, tag, 34, accent, "mm")
+        txt(d, 376, y+58, query, 36, INK, "lm")
+        txt(d, 1387, y+58, expected, 32, accent, "rm")
+    save(im, "reranker-condition-perturbation.png")
+
+
+def input_window():
+    im, d = canvas("条款后半段被截掉，分数就只评价前半段", "面试诊断 / 输入范围")
+    txt(d, 91, 239, "完整制度的四个位置", 34, MUTED)
+    parts = [(93, "标题", PLUM_L, PLUM), (432, "适用条件", TEAL_L, TEAL),
+             (771, "基础标准", ORANGE_L, ORANGE), (1110, "例外审批", PLUM_L, PLUM)]
+    for x, name, fill, accent in parts:
+        rect(d, (x, 307, x+303, 414), fill, accent, 15)
+        txt(d, x+151, 360, name, 37, accent, "mm")
+    txt(d, 93, 483, "同一查询 + 同一输入长度上限", 33, INK)
+    rect(d, (93, 555, 1443, 694), "white", LINE, 17)
+    txt(d, 124, 598, "只保留开头", 35, PLUM)
+    txt(d, 476, 598, "标题 · 条件 · 基础标准", 36, INK)
+    txt(d, 1399, 599, "例外没进入模型", 32, RED, "rm")
+    rect(d, (93, 741, 1443, 880), "white", LINE, 17)
+    txt(d, 124, 784, "按条件选窗口", 35, TEAL)
+    txt(d, 476, 784, "条件 · 基础标准 · 例外审批", 36, INK)
+    txt(d, 1399, 785, "保留限制条件", 32, TEAL, "rm")
+    save(im, "reranker-input-window.png")
+
+
 if __name__ == "__main__":
     for renderer in (case_evidence, two_stage, cross_encoder, validity_timeline,
                      k_cutoff, encoder_comparison, threshold_shift,
-                     metric_lanes, learning_signals):
+                     metric_lanes, learning_signals, condition_perturbation,
+                     input_window):
         renderer()
