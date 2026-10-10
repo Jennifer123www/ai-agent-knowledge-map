@@ -249,18 +249,19 @@
       "beginnerImageAspectMin": 1.35,
       "interviewImageAspectMin": 1.35,
       "promptFile": "submodules/04-reranker/prompts.md",
-      "principleImage": "submodules/04-reranker/assets/reranker-principle-v2.png",
+      "principleImage": "submodules/04-reranker/assets/reranker-cross-encoder-v3.png",
       "images": [
         "submodules/04-reranker/assets/reranker-cover-main-wechat-v2.png",
         "submodules/04-reranker/assets/reranker-cover-interview-wechat-v2.png",
-        "submodules/04-reranker/assets/reranker-two-stage-v2.png",
-        "submodules/04-reranker/assets/reranker-case-contrast.png",
-        "submodules/04-reranker/assets/reranker-policy.png",
-        "submodules/04-reranker/assets/reranker-evaluation-v2.png",
-        "submodules/04-reranker/assets/reranker-principle-v2.png",
-        "submodules/04-reranker/assets/reranker-calibration.png",
-        "submodules/04-reranker/assets/reranker-metric-example.png",
-        "submodules/04-reranker/assets/reranker-learning-objectives-v2.png"
+        "submodules/04-reranker/assets/reranker-two-stage-v3.png",
+        "submodules/04-reranker/assets/reranker-case-evidence-v3.png",
+        "submodules/04-reranker/assets/reranker-cross-encoder-v3.png",
+        "submodules/04-reranker/assets/reranker-k-cutoff-v3.png",
+        "submodules/04-reranker/assets/reranker-validity-timeline-v3.png",
+        "submodules/04-reranker/assets/reranker-encoder-comparison-v3.png",
+        "submodules/04-reranker/assets/reranker-threshold-shift-v3.png",
+        "submodules/04-reranker/assets/reranker-metric-lanes-v3.png",
+        "submodules/04-reranker/assets/reranker-learning-signals-v3.png"
       ],
       "articles": {
         "beginner": {
