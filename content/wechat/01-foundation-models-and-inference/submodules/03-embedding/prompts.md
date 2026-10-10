@@ -1,20 +1,26 @@
-# 向量嵌入子模块配图提示词
+# 向量嵌入子模块配图记录
 
-版本：0.5.0；修订时间：2026-10-09 18:40 CST；依据提交：`ea8f4f5`（`main`；修订前工作区干净）。
+版本：0.6.0；修订时间：2026-10-10 12:16 CST；Git 状态：基于 `84e33df`（`main`；本轮插图与文章修改尚未提交）。
 
-正文配图统一为 1536×1024 PNG；公众号封面图统一为 900×383 PNG。暖白背景，青绿、蓝色和橙色点缀，中文清晰，无水印、无 Logo。主封面是已有生成图；副封面和部分原理、诊断图保留可维护的 SVG／绘图脚本，成片仍为 PNG。`embedding-principle.png` 由 `scripts/render-principle-diagrams.mjs` 绘制；`embedding-chunking.png`、`embedding-evaluation.png` 与 `embedding-metric-comparison.png` 由 `scripts/render-foundation-figure-fixes.py` 确定性绘制。论文出处与教学示意边界放在图注，不放图底白条。
+本轮按 1.4 的配图标准重绘正文图：画面必须说明一个具体机制、差别或排障步骤，不能仅把正文口号放大。技术图的文字、箭头、数值要准确，所以使用 `scripts/render-embedding-figures.py` 以确定性绘图生成 1536×1024 横版 PNG。论文来源和教学算例边界写在紧邻图注，不放在图底白条；保留既有的主、副封面，不把封面计入正文图片数。
 
-1. `embedding-cover-main-wechat.png`：主文封面图。标题“大话向量嵌入”“同一个意思为何找不到”；将“酒店最多报多少”和“差旅住宿费限额”放在向量空间两侧，说明不同说法需要语义连接。日期、地区、职级的适用性留到正文讲解，不在封面伪装成相似度已解决的问题。
-2. `embedding-cover-interview-wechat.png`：面试副文封面图。中央放大镜里只保留旧版与现行版两张条款卡、450 与 500 两个示意金额，以及叉号与勾号；不重复完整文章标题。关键内容落在中央正方形缩略图安全区。源图：`scripts/figures/embedding/embedding-cover-interview-wechat.svg`。
-3. `embedding-space.png`：二维语义地图，标签“差旅报销”“住宿标准”“产品故障”“账号登录”，相近主题成簇。
-4. `embedding-retrieval.png`：双塔检索，标签“查询向量”“文档向量”“近邻搜索”“候选资料”。
-5. `embedding-chunking.png`：示意制度原文完整保留“北京、A 职级、9 月 1 日起、上限 500 元”，按条款切片后经过嵌入模型，形成“向量 + 片段 ID”；片段 ID 仍能回到原文、版本和适用范围。图中不把查询过滤画成建索引时已经完成的动作。文末不加空泛总结白条。
-6. `embedding-evaluation.png`：教学示意“旧版 450 元排第 1，新版 500 元排第 2，异地条款排第 3”；按 2026 年 9 月 15 日、北京、A 职级独立标注新版为唯一正例，因此 `Recall@3 = 1/1`，但旧版仍排在前面。排名不是实测，图注须写明。图形展示召回覆盖与排序质量不同，不能把标注画成检索结果的来源。
-7. `embedding-metric-comparison.png`：在同一单位圆上绘制查询向量 `q` 和候选 `d1/d2`，画出方向与端点距离；图中只在单位向量条件下给出点积等于余弦、距离平方等于 `2 - 2 × 点积` 的关系，不把这组等价推广到未归一化向量。文字只留读图所需的短标签，无独立免责声明。
-8. `embedding-principle.png`：原理图。依据 [Sentence-BERT](https://arxiv.org/html/1908.10084) Figure 2（推理阶段）改绘，不能错标为 Figure 1（分类训练结构）。保留查询与文档两条编码路径、共享参数、向量 `q/d`、相似度计算，以及文档向量可预计算。图内不放论文出处或“相似度不是事实证明”等图底总结；出处和边界在紧邻图注及正文说明。
+## 主文配图
 
-9. `embedding-pooling.png`：面试题 1 的句向量汇总图。依据 [Sentence-BERT 第 3 节](https://arxiv.org/html/1908.10084) 说明输入位置经过编码后，可选择特殊位置或平均汇总得到固定长度表示；两条路径是备选，不画成先后两步。源图：`scripts/figures/embedding/embedding-pooling.png.svg`。
-10. `embedding-encoder-variants.png`：面试题 3 的架构比较图。依据 [Sentence-BERT](https://arxiv.org/html/1908.10084)、[DPR](https://arxiv.org/html/2004.04906) 与 [E5](https://arxiv.org/html/2212.03533) 的编码约定，分别画共享参数、独立参数、共享参数加查询／段落前缀。只比较结构，不暗示效果排名。源图：`scripts/figures/embedding/embedding-encoder-variants.png.svg`。
-11. `embedding-fragment-loss.png`：面试题 6 的输入诊断图。同一示意条款“北京、A 职级、9 月 1 日起、500 元”，并排展示截断丢金额、片段过短丢适用条件、保留完整条件三种送入模型的文字。图中数字是教学设定，不是制度实测。源图：`scripts/figures/embedding/embedding-fragment-loss.png.svg`。
+1. `embedding-neighborhood-v2.png`：教学用二维向量空间。问句靠近旧版和新版制度，远离打印机维修；它说明主题相近不等于版本适用。点位不是模型实测，不给轴赋予“日期”“职级”等固定含义。
+2. `embedding-training-pairs-v2.png`：同一条含住宿日期的查询，对应新版正例、旧版难负例、打印机流程易负例；用相对得分关系表达对比训练，不杜撰分数。日期改变，正负标签也要复核。训练思想参照 [Sentence-BERT 第 3 节](https://arxiv.org/pdf/1908.10084) 与 [E5 第 4 节](https://arxiv.org/pdf/2212.03533)。
+3. `embedding-dual-encoder-v2.png`：主文原理图。参照 [Sentence-BERT Figure 2](https://arxiv.org/pdf/1908.10084)，问句、条款分路编码与 pooling、共享参数、得到 `q/d` 再比较相似度；文档向量可预先计算。不把 DPR 的独立参数结构画成 Sentence-BERT。
+4. `embedding-chunk-evidence-v2.png`：左侧制度原文含地区、职级、生效日、金额；右侧对照过短片段和完整条款片段，突出输入缺字段与来源追溯的差别。
+5. `embedding-recall-audit-v2.png`：按当前住宿日期标注新版为唯一正例，示意旧版第 1、新版第 2、异地第 3，因此 `Recall@1=0/1`、`Recall@3=1/1`、单题倒数名次 `1/2`。排序为教学构造，不是检索实测。
 
-本轮复核：已检查改绘图的中文、金额、箭头、共享参数、单位向量条件和底部无独立免责声明；副文专属图解释汇总方式、编码约定、距离度量和输入丢失，与主文只共用召回评测图。仍需在公众号真实卡片和手机端复核封面裁切与正文缩图。
+## 副文配图
+
+1. `embedding-pooling-choice-v2.png`：参照 [Sentence-BERT 第 3 节](https://arxiv.org/pdf/1908.10084)，表示每个输入位置编码后可取 `[CLS]` 位置或平均汇总；两条路是可选方法，不是串行步骤。
+2. `embedding-encoder-variants-v2.png`：对照 [Sentence-BERT](https://arxiv.org/pdf/1908.10084)、[DPR 第 3.1 节](https://arxiv.org/pdf/2004.04906)、[E5 第 4.1 节](https://arxiv.org/pdf/2212.03533)：共享参数、独立参数、共享参数但使用 `query:`/`passage:` 前缀。左右输入互相对照，不能用指向箭头误画为问句流入文档。
+3. `embedding-metric-geometry-v2.png`：精确教学算例 `q=(1,0)`、`A=(0.8,0.6)`、`B=(1.5,1.5)`；余弦为 `A=0.8 > B≈0.707`，未归一化点积为 `B=1.5 > A=0.8`，展示候选长度可使排名反转。三者均归一化后，余弦、点积与欧氏距离对同一查询的排序等价。
+4. `embedding-fragment-input-v2.png`：把同一制度原文、截断输入、过短片段、完整条款并列，指出各自丢失金额或适用条件；“知识库里有文件”和“编码器见到完整条件”是两回事。
+5. `embedding-index-diagnostic-v2.png`：依据 [Faiss 官方索引说明](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes) 区分 Flat 精确搜索与 ANN 近似索引。固定同一批向量、查询与过滤条件，教学设定中精确搜索第 3 名有新版而线上索引缺失，用于引导核查索引新鲜度、搜索参数和过滤顺序，不指称任何具体索引一定如此。
+6. `embedding-recall-audit-v2.png`：与主文共用同一排序，副文着重解释正例标注、`Recall@K`、首个正例名次。两篇只共用这一张评测证据图，其余图承担不同讲解任务。
+
+## 视觉复核
+
+全部正文图为横版、暖白底、低饱和青绿／橙色点缀；逐张检查中文、数字、箭头、溢出和下方独立免责声明。旧版图片保留作历史素材，不再由当前文章和 `series.json` 引用。公众号草稿更新后仍需在手机端检查缩图可读性与封面裁切。

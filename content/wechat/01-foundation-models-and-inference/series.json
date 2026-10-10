@@ -189,20 +189,22 @@
       "submodule": "embedding",
       "seriesOrder": 3,
       "promptFile": "submodules/03-embedding/prompts.md",
-      "principleImage": "submodules/03-embedding/assets/embedding-principle.png",
+      "principleImage": "submodules/03-embedding/assets/embedding-dual-encoder-v2.png",
       "beginnerImageAspectMin": 1.35,
+      "interviewImageAspectMin": 1.35,
       "images": [
         "submodules/03-embedding/assets/embedding-cover-main-wechat.png",
         "submodules/03-embedding/assets/embedding-cover-interview-wechat.png",
-        "submodules/03-embedding/assets/embedding-space.png",
-        "submodules/03-embedding/assets/embedding-retrieval.png",
-        "submodules/03-embedding/assets/embedding-chunking.png",
-        "submodules/03-embedding/assets/embedding-evaluation.png",
-        "submodules/03-embedding/assets/embedding-principle.png",
-        "submodules/03-embedding/assets/embedding-metric-comparison.png",
-        "submodules/03-embedding/assets/embedding-pooling.png",
-        "submodules/03-embedding/assets/embedding-encoder-variants.png",
-        "submodules/03-embedding/assets/embedding-fragment-loss.png"
+        "submodules/03-embedding/assets/embedding-neighborhood-v2.png",
+        "submodules/03-embedding/assets/embedding-training-pairs-v2.png",
+        "submodules/03-embedding/assets/embedding-dual-encoder-v2.png",
+        "submodules/03-embedding/assets/embedding-chunk-evidence-v2.png",
+        "submodules/03-embedding/assets/embedding-recall-audit-v2.png",
+        "submodules/03-embedding/assets/embedding-pooling-choice-v2.png",
+        "submodules/03-embedding/assets/embedding-encoder-variants-v2.png",
+        "submodules/03-embedding/assets/embedding-metric-geometry-v2.png",
+        "submodules/03-embedding/assets/embedding-fragment-input-v2.png",
+        "submodules/03-embedding/assets/embedding-index-diagnostic-v2.png"
       ],
       "articles": {
         "beginner": {
