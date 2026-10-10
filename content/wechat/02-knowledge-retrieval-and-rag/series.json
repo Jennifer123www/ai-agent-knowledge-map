@@ -31,21 +31,21 @@
     {
       "id": "knowledgebase", "contentLevel": "submodule", "submodule": "knowledgebase", "seriesOrder": 1,
       "promptFile": "submodules/01-knowledgebase/prompts.md", "principleImage": "submodules/01-knowledgebase/assets/kb-principle.png",
-      "images": ["submodules/01-knowledgebase/assets/kb-cover-main-wechat.png", "submodules/01-knowledgebase/assets/kb-cover-interview-wechat.png", "submodules/01-knowledgebase/assets/kb-source.png", "submodules/01-knowledgebase/assets/kb-principle.png", "submodules/01-knowledgebase/assets/kb-version.png", "submodules/01-knowledgebase/assets/kb-access.png", "submodules/01-knowledgebase/assets/kb-refresh.png"],
+      "images": ["submodules/01-knowledgebase/assets/kb-cover-main-wechat.png", "submodules/01-knowledgebase/assets/kb-cover-interview-wechat.png", "submodules/01-knowledgebase/assets/kb-case-scene.png", "submodules/01-knowledgebase/assets/kb-principle.png", "submodules/01-knowledgebase/assets/kb-version.png", "submodules/01-knowledgebase/assets/kb-access.png", "submodules/01-knowledgebase/assets/kb-refresh.png", "submodules/01-knowledgebase/assets/kb-interview-provenance.png", "submodules/01-knowledgebase/assets/kb-interview-parser-test.png", "submodules/01-knowledgebase/assets/kb-interview-bitemporal.png", "submodules/01-knowledgebase/assets/kb-interview-acl-cache.png", "submodules/01-knowledgebase/assets/kb-interview-sync.png", "submodules/01-knowledgebase/assets/kb-interview-release.png", "submodules/01-knowledgebase/assets/kb-interview-deletion.png"],
       "articles": {
         "beginner": {
           "path": "submodules/01-knowledgebase/beginner-main.md",
           "focus": "只讲知识库的资料接入、解析质量、版本、权限、索引更新与来源追踪；不代替分段或检索算法文章。",
-          "outline": ["文件夹与知识库的差别", "权威来源和资料责任人", "解析后的可检查记录", "可检索资产的索引原理", "版本与生效日期", "访问控制和删除", "更新、失败与回滚", "质量抽检与验收", "知识库向检索层交付什么"]
+          "outline": ["两版制度都已上传，为何仍不能直接回答", "登记权威来源与维护责任", "对照原件验收解析内容和字段关系", "解释原件、解析记录、索引如何保持追溯", "区分发布时间、业务生效时间和入库时间", "让权限传到解析结果、索引与缓存", "更新、失败重试与撤回怎样闭环", "按资料状态、解析、权限和时效分层验收", "明确知识库交给后续查询环节什么记录"]
         },
         "interview": {
           "path": "submodules/01-knowledgebase/interview-side.md",
-          "focus": "聚焦知识资产生命周期、解析、权限、版本、增量同步和审计。",
+          "focus": "聚焦来源登记、解析质量指标、双时态、权限缓存、幂等同步、隔离构建与撤回传播；每题补充可验证的工程增量。",
           "questionBoundary": {
-            "include": ["知识库与文件夹", "来源管理", "解析验收", "版本模型", "访问控制", "增量更新", "删除传播", "知识资产评测"],
+            "include": ["知识资产数据模型", "来源冲突与发布身份", "字段及字段关系评测", "双时态版本", "派生记录权限与缓存隔离", "增量同步幂等", "索引隔离构建与切换", "撤回传播和反向查询验收"],
             "exclude": ["分段长度策略", "图谱关系抽取", "向量距离", "重排序模型", "生成提示模板"]
           },
-          "outline": ["知识库最小要素", "权威来源识别", "解析质量验收", "版本与生效时间", "权限随数据流转", "增量同步和幂等", "删除与撤回传播", "资产质量监测"]
+          "outline": ["用稳定标识关联来源、版本和派生构建", "用发布规则解决来源冲突，不让模型打可信分", "分别衡量字段值准确率与字段关系准确率", "用双时态回答业务日期与系统认知两个问题", "把身份与策略版本带入授权和缓存键", "用校验和、幂等键和检查点安全重试", "隔离构建并在验收后切换线上索引", "沿依赖关系撤回派生数据并验证不可再查"]
         }
       }
     },
