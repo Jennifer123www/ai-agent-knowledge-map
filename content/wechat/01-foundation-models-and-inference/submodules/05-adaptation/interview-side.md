@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "adaptation"
 series_order: 5
-version: "0.2.3"
-stage: "重做面试缩略图，补充 QLoRA 与版本组合图并整理答题层级"
-git_state: "基于 1a19ad0（main；修改前工作区干净）"
-modified_at: "2026-10-09 20:40 CST"
+version: "0.3.0"
+stage: "按 1.3、1.4 标准重绘适配诊断、LoRA 算例、QLoRA、软目标、遗忘和版本配图"
+git_state: "基于 06227eb（main；修改前工作区干净）"
+modified_at: "2026-10-10 12:35 CST"
 ---
 
 # 面试题：旧政策答错了该不该微调
@@ -28,7 +28,9 @@ modified_at: "2026-10-09 20:40 CST"
 
 提示改变当前请求的任务说明，`RAG` 从外部资料补入可更新证据，微调则通过训练改变模型参数或适配器。七天变三天，应先保证新政策被正确引用；漏掉固定提醒，先试提示、模板或结构化约束。若有足够标注样本，且简单方案反复失稳，再考虑监督微调。**微调不是政策版本管理器。**
 
-![从故障类型选择模型适配办法](./assets/adaptation-diagnosis-matrix.png)
+![固定证据和模板逐步对照退款客服故障](./assets/adaptation-diagnosis-ablation-v2.png)
+
+*同一批退款问题先只更新政策证据，再只加固定提醒模板；两者都固定后仍反复漏答，才评估是否值得做 SFT 或 LoRA。*
 
 ### 答题点
 
@@ -72,7 +74,9 @@ modified_at: "2026-10-09 20:40 CST"
 
 LoRA 冻结原权重，在指定线性层旁学习两个低秩矩阵，其乘积形成权重增量。假设任务所需更新具有较低内在秩，就能用远少于全量参数的增量近似有效变化。
 
-![LoRA 的基础权重与适配器](./assets/adaptation-lora.png)
+![单层矩阵全量更新与 LoRA 可训练参数的数量对照](./assets/adaptation-lora-count-v2.png)
+
+*教学算例：若某一线性层 `d=k=4096`、秩 `r=8`，原矩阵有 `4096×4096=16,777,216` 个参数，LoRA 的 `A+B` 共 `65,536` 个，约为这一层的 `0.39%`；不是整个模型的实际训练占比。依据 [LoRA 第 4.1 节](https://arxiv.org/pdf/2106.09685)。*
 
 ### 答题点
 
@@ -95,9 +99,9 @@ LoRA 冻结原权重，在指定线性层旁学习两个低秩矩阵，其乘积
 
 QLoRA 通常以低比特形式存放冻结的基础模型，并在计算过程中配合反量化，同时训练 LoRA 适配器。它进一步降低基础权重的显存占用，使较大模型能在有限硬件上适配。
 
-![LoRA 与 QLoRA 的冻结底座和低秩增量对比](./assets/adaptation-qlora-comparison.png)
+![QLoRA 的低比特存储、前向计算与参数更新路径](./assets/adaptation-qlora-path-v2.png)
 
-*图中只比较底座存放方式与可训练增量，不把方框大小当作精确显存比例。*
+*依据 [QLoRA 原论文第 3 节](https://arxiv.org/pdf/2305.14314)：冻结底座以 NF4 等低比特格式存放，计算时反量化，前向还要加上 LoRA 支路；训练更新 `A、B`，不更新底座。图中框面积不代表显存比例。*
 
 ### 答题点
 
@@ -141,7 +145,9 @@ QLoRA 通常以低比特形式存放冻结的基础模型，并在计算过程�
 
 蒸馏用教师模型输出或中间信号训练更小的学生模型，让学生在目标任务上模仿教师。它适合高频、边界清楚、可评测的任务，以较低推理成本换取部分能力保留。
 
-![教师模型与学生模型的蒸馏](./assets/adaptation-distillation.png)
+![硬标签与教师软目标对同一退款期限判断的不同信息量](./assets/adaptation-distill-soft-targets-v2.png)
+
+*把退款期限简化成三类教学判断：硬标签只标“三天”，教师软目标还给“七天”“需核对”保留概率。数字为教学构造，不是客服模型实测；参照 [Hinton 等人的蒸馏论文第 2 节](https://arxiv.org/pdf/1503.02531)。*
 
 ### 答题点
 
@@ -164,6 +170,10 @@ QLoRA 通常以低比特形式存放冻结的基础模型，并在计算过程�
 
 模型对新数据继续训练时，参数变化可能损害旧任务和通用能力。数据过窄、训练强度过高或目标冲突都会加重遗忘。必须用新任务集与原能力回归集共同评价。
 
+![固定提醒目标任务与旧能力回归题须同时验收](./assets/adaptation-forgetting-regression-v2.png)
+
+*训练只针对“退回原支付渠道”时，除了检查漏答率，还要单独回归普通问答与拒答边界；即使底座冻结，加载适配器后的行为也可能变化。*
+
 ### 答题点
 
 1. 建立基础能力、旧业务和安全行为的固定回归集；
@@ -185,9 +195,9 @@ QLoRA 通常以低比特形式存放冻结的基础模型，并在计算过程�
 
 适配结果依赖基础模型、数据、代码、超参数、适配器、提示和推理配置。发布要绑定完整清单，先离线回归，再影子或小流量灰度，按预设阈值放量或回滚。
 
-![底座与适配器组成的可验证版本组合](./assets/adaptation-version-bundle.png)
+![底座更新后旧适配器组合进入待验证状态](./assets/adaptation-version-gate-v2.png)
 
-*底座、分词器、适配器和提示版本需要一起核对；图中的 v1、v2 是组合示意，不是某个产品的发布记录。*
+*左侧的底座、分词器、适配器与提示是已验证组合；右侧更换底座后，即使适配器文件未变，也须重测接口兼容和回答质量。版本号是教学示意。*
 
 ### 答题点
 
@@ -260,6 +270,8 @@ QLoRA 通常以低比特形式存放冻结的基础模型，并在计算过程�
 
 - [LoRA：Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
 - [QLoRA：Efficient Finetuning of Quantized LLMs](https://arxiv.org/abs/2305.14314)
+- [Hinton 等：知识蒸馏与软目标](https://arxiv.org/abs/1503.02531)
+- [InstructGPT：监督微调与能力回归](https://arxiv.org/abs/2203.02155)
 - [DistilBERT](https://arxiv.org/abs/1910.01108)
 - [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)
 

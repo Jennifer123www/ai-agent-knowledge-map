@@ -12,10 +12,10 @@ topic: "foundation"
 content_level: "submodule"
 submodule: "adaptation"
 series_order: 5
-version: "0.2.4"
-stage: "主文封面与 1.1—1.3 统一视觉风格"
-git_state: "基于 226782f（main；修改前另有未提交的 1.4 配图工作）"
-modified_at: "2026-10-09 21:41 CST"
+version: "0.3.0"
+stage: "按 1.3、1.4 标准重绘故障诊断、SFT、LoRA、蒸馏和受控验收图"
+git_state: "基于 06227eb（main；修改前工作区干净）"
+modified_at: "2026-10-10 12:35 CST"
 ---
 
 # 大话模型适配：旧政策答错了要微调吗
@@ -26,7 +26,9 @@ modified_at: "2026-10-09 21:41 CST"
 
 ## 答错旧政策与漏掉提醒，是同一种故障吗
 
-![模型适配方法选择树](./assets/adaptation-decision.png)
+![旧政策答错与固定提醒漏答的排查路径](./assets/adaptation-case-split-v2.png)
+
+*同是退款客服“答错”：旧政策被引用时，先查政策版本与检索证据；期限答对却漏提醒时，先查提示、模板和输出约束。两种情况都还没到直接训练这一步。*
 
 这次退款案例里，旧政策仍被引用，应先查现行政策是否进入上下文、版本过滤是否生效。公司政策、库存和订单状态不断变化，把每次更新都训练进参数既慢又难追溯。至于回答漏掉固定提醒，先试示例、模板或结构化输出约束；若仍大批量反复失稳，再考虑训练。金额范围、权限等确定条件仍由程序校验。
 
@@ -46,17 +48,19 @@ modified_at: "2026-10-09 21:41 CST"
 
 监督微调，Supervised Fine-Tuning，简称 SFT，使用“输入—理想输出”样本继续训练模型，让它更倾向于产生目标行为。它可用于领域分类、专业格式、固定语气、特定工具选择方式和任务步骤。
 
+![给模型政策证据与人工核对的目标答复，逐位置计算训练误差](./assets/adaptation-sft-objective-v2.png)
+
+*图示一种常见的指令微调做法：现行政策作为输入证据，目标答复既写期限也写退款去向；训练时对答复位置计算预测损失。图中的两段文字不是实际的 token 切分。参照 [InstructGPT 的监督示范训练](https://arxiv.org/pdf/2203.02155) 与 [LoRA 论文中的条件语言建模目标](https://arxiv.org/pdf/2106.09685)。*
+
 训练样本必须代表真实任务，包含正常、边界、拒答和容易混淆的情况。若数据全是完美短问题，模型上线面对含糊输入就没有学过如何追问。若理想输出本身有错误或风格混乱，模型会认真继承这些毛病。
 
 微调不是给模型装一个可靠数据库。模型可能记住训练事实，却不保证精确提取、及时更新或说明来源。需要频繁变化的知识仍应外置，训练更适合塑造稳定行为。两者边界分清，模型更新和知识更新才能各走各的发布节奏。
 
 ## `LoRA` 与 `QLoRA` 各省下什么
 
-![LoRA 的基础权重与适配器](./assets/adaptation-lora.png)
+![LoRA 的冻结原权重与可训练低秩支路](./assets/adaptation-lora-branches-v2.png)
 
-![LoRA 冻结底座并训练低秩增量](./assets/adaptation-principle.png)
-
-*依据 Hu 等人的 LoRA 论文第 4 节与 Figure 1 改绘。*
+*依据 [LoRA 原论文 Figure 1 与第 4.1 节](https://arxiv.org/pdf/2106.09685) 改绘：同一输入分别经过冻结的 `W0` 和可训练的 `A、B`，两路输出相加，得到 `h = W0x + BAx`。*
 
 全量微调会更新大量模型参数，训练和存储成本高。LoRA，Low-Rank Adaptation，中文常译作低秩适配，会冻结基础权重，只在指定层训练较小的低秩矩阵，形成一个增量适配器。部署时可加载适配器，也可在某些场景合并到基础模型。
 
@@ -74,7 +78,9 @@ QLoRA 进一步以低比特量化形式保存冻结的基础模型，同时训�
 
 ## 什么时候值得把任务交给小模型
 
-![教师模型与学生模型的蒸馏](./assets/adaptation-distillation.png)
+![教师模型和学生模型对同一退款期限问题给出的分布](./assets/adaptation-distill-distribution-v2.png)
+
+*为看清软目标，图把任务简化为“三天／七天／需核对”三类判断，数值均为教学构造。经典蒸馏让学生学习教师对各类的分布，而不只抄一个答案；参照 [Hinton 等人的蒸馏论文](https://arxiv.org/pdf/1503.02531)。*
 
 知识蒸馏让较强的教师模型为较小的学生模型提供训练信号。信号可以是标签、答案、概率分布、偏好或经过筛选的过程示例。目标是让学生在特定任务上保留足够能力，同时降低推理成本和延迟。
 
@@ -104,7 +110,9 @@ QLoRA 进一步以低比特量化形式保存冻结的基础模型，同时训�
 
 ## 新适配版本怎样与旧版公平比较
 
-![模型适配版本的发布闭环](./assets/adaptation-release.png)
+![只增加适配器的受控对照与独立测试题](./assets/adaptation-release-control-v2.png)
+
+*两组方案固定底座、政策证据与提示，只让候选方案增加适配器；再用同一批独立问题分开验收现行政策、固定提醒、旧任务和拒答边界。*
 
 每个适配版本应绑定基础模型、数据集、训练代码、超参数、适配器文件、提示词和评测报告。没有这张清单，线上发现问题时很难判断是数据、训练、部署还是上下文变化。
 
@@ -120,6 +128,8 @@ QLoRA 进一步以低比特量化形式保存冻结的基础模型，同时训�
 
 - [LoRA：Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
 - [QLoRA：Efficient Finetuning of Quantized LLMs](https://arxiv.org/abs/2305.14314)
+- [InstructGPT：监督示范训练](https://arxiv.org/abs/2203.02155)
+- [Hinton 等：知识蒸馏与软目标](https://arxiv.org/abs/1503.02531)
 - [DistilBERT](https://arxiv.org/abs/1910.01108)
 - [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)
 

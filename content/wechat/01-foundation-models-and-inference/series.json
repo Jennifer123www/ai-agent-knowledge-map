@@ -308,18 +308,23 @@
       "submodule": "adaptation",
       "seriesOrder": 5,
       "promptFile": "submodules/05-adaptation/prompts.md",
-      "principleImage": "submodules/05-adaptation/assets/adaptation-principle.png",
+      "principleImage": "submodules/05-adaptation/assets/adaptation-lora-branches-v2.png",
+      "beginnerImageAspectMin": 1.35,
+      "interviewImageAspectMin": 1.35,
       "images": [
         "submodules/05-adaptation/assets/adaptation-cover-main-wechat-v3.png",
         "submodules/05-adaptation/assets/adaptation-cover-interview-wechat-v2.png",
-        "submodules/05-adaptation/assets/adaptation-decision.png",
-        "submodules/05-adaptation/assets/adaptation-lora.png",
-        "submodules/05-adaptation/assets/adaptation-distillation.png",
-        "submodules/05-adaptation/assets/adaptation-release.png",
-        "submodules/05-adaptation/assets/adaptation-principle.png",
-        "submodules/05-adaptation/assets/adaptation-diagnosis-matrix.png",
-        "submodules/05-adaptation/assets/adaptation-qlora-comparison.png",
-        "submodules/05-adaptation/assets/adaptation-version-bundle.png"
+        "submodules/05-adaptation/assets/adaptation-case-split-v2.png",
+        "submodules/05-adaptation/assets/adaptation-sft-objective-v2.png",
+        "submodules/05-adaptation/assets/adaptation-lora-branches-v2.png",
+        "submodules/05-adaptation/assets/adaptation-distill-distribution-v2.png",
+        "submodules/05-adaptation/assets/adaptation-release-control-v2.png",
+        "submodules/05-adaptation/assets/adaptation-diagnosis-ablation-v2.png",
+        "submodules/05-adaptation/assets/adaptation-lora-count-v2.png",
+        "submodules/05-adaptation/assets/adaptation-qlora-path-v2.png",
+        "submodules/05-adaptation/assets/adaptation-distill-soft-targets-v2.png",
+        "submodules/05-adaptation/assets/adaptation-forgetting-regression-v2.png",
+        "submodules/05-adaptation/assets/adaptation-version-gate-v2.png"
       ],
       "articles": {
         "beginner": {

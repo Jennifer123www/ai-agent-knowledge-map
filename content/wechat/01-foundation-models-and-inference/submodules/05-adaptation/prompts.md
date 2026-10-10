@@ -1,22 +1,29 @@
-# 模型适配子模块配图提示词
+# 模型适配子模块配图记录
 
-版本：0.4.1；修订时间：2026-10-09 21:41 CST；依据提交：`226782f`（`main`；修订前另有未提交的 1.4 配图工作）。
+版本：0.5.0；修订时间：2026-10-10 12:35 CST；Git 状态：基于 `06227eb`（`main`；本轮插图与文章修改尚未提交）。
 
-正文配图统一为 1536×1024 PNG；公众号封面图统一为 900×383 PNG。暖白背景，梅红、橙色和青绿色点缀，中文清晰，无水印、无 Logo。封面图使用内置图像生成工具；结构图 `adaptation-lora.png`、`adaptation-distillation.png`、`adaptation-diagnosis-matrix.png`、`adaptation-qlora-comparison.png` 与 `adaptation-version-bundle.png` 由 `scripts/render-foundation-figure-fixes.py` 确定性绘制。
+本轮沿用 1.3、1.4 的配图标准：每张正文图解释一个具体机制、诊断或验收变量。正文图由 `scripts/render-adaptation-figures.py` 确定性绘制为 1536×1024 横版 PNG；暖白底、低饱和青绿／橙色／梅色，保留可读的中文标签，不用左侧装饰竖条、图底免责声明或孤立口号。论文出处、教学算例边界写在紧邻图注。封面继续使用既有 900×383 PNG，不计入正文配图数量。
 
-1. `adaptation-cover-main-wechat-v3.png`：主文封面图。使用内置 imagegen 重新生成，以 1.1、1.2、1.3 主文封面作为**风格参考**：暖白纸张、轻水彩、细线连线、顶部居中宋体双行标题，横向教学场景铺满中部。标题逐字为“大话模型适配”“旧政策答错了要微调吗”；画面从“旧版 7 天”转到“现行 3 天”，中部答复仍写“7 天”，再分出“更新资料”“调整行为”两条处理路径。底部 15% 仅留可遮挡纸纹；不要左侧大标题、巨型放大镜、悬浮 3D 卡片、厚重阴影、口号、免责声明和水印。成片等比例整理为 900×383，核对标题、四处标签、数字、箭头、底部遮罩区。这张图只表示旧事实与固定行为应先分开诊断，不表示训练能自动更新政策。完整生成提示词见文末。
-2. `adaptation-cover-interview-wechat-v2.png`：面试副文封面图。沿用 1.1—1.3 副文封面轻水彩纸张质感，中央正方形安全区以一枚放大镜并置两张纸：短标签“旧资料”与“漏提醒”，前者有时钟和叉号，后者有空复选框。没有文章全标题和周边小卡片；两处标签在约 128×128 居中裁切中仍须可辨。使用内置 imagegen 生成，再整理为 900×383；逐字检查标签、图标和中心裁切。
-3. `adaptation-decision.png`：选择树，标签“缺最新知识”“缺稳定格式”“缺领域行为”“缺低成本部署”，分支对应“检索”“规则”“微调”“蒸馏”。
-4. `adaptation-lora.png`：冻结基础权重 `W`，训练低秩参数 `BA`，组合计算后得到任务输出；另标独立题集评测，不能用一条无数据的上升曲线暗示适配后必然改善。
-5. `adaptation-distillation.png`：沿本文退款政策案例，教师模型生成示例、人工抽检后训练学生模型；独立评测新版、旧版与缺条件问题。原图猫狗车样例与本文案例无关，已撤换。
-6. `adaptation-release.png`：发布闭环，标签“数据版本”“训练实验”“离线评测”“灰度发布”“回滚”。
-7. `adaptation-diagnosis-matrix.png`：故障诊断图。把“最新事实缺失、固定格式不稳、领域行为不稳、部署成本过高”分别映射到“RAG、模板或规则、SFT/LoRA、蒸馏”，强调先判断病因。
-8. `adaptation-principle.png`：原理图。依据 [LoRA](https://arxiv.org/abs/2106.09685) 第 4 节与 Figure 1 改绘。保留冻结基础权重 `W`、可训练低秩矩阵 `A/B`、增量 `BA` 与输出相加；说明 QLoRA 还会量化冻结底座。图注：“依据 Hu 等，第 4 节与 Figure 1 改绘。”
-9. `adaptation-qlora-comparison.png`：面试副文专用横版对照图。依据 [QLoRA 原论文](https://arxiv.org/abs/2305.14314) 的方法说明：左右对照 LoRA 与 QLoRA，共同保留可训练低秩增量；QLoRA 一侧明确标注冻结底座低比特存放、计算时反量化。不把框面积画成实测显存占比，也不声称性能必然更好。
-10. `adaptation-version-bundle.png`：面试副文专用横版版本图。对照已验证组合“底座 v1＋分词器 v1＋适配器 a1＋提示 p1”和更换底座后的待验证组合；箭头表示版本变更导致兼容性与质量需要重新验收，不是已测结果。
+## 封面
 
-复核：已目视检查新版主封面 900×383 原图、标题与标签、底部遮罩区；副文封面保持原版。正文不重复插入封面图。后台真实卡片及手机预览仍需确认。
+- `adaptation-cover-main-wechat-v3.png`：主文封面，暖白水彩、顶部居中标题、退款政策新旧版教学场景，底部 15% 为微信标题遮罩安全区；原图与完整生成提示词保留在 Git 历史的 `prompts.md` 0.4.1 版。
+- `adaptation-cover-interview-wechat-v2.png`：副文封面，中央缩略图安全区仅保留“旧资料”与“漏提醒”两种问题，适合微信小图裁切。本轮不改封面。
 
-### 本轮主文封面完整提示词
+## 主文配图
 
-> Use case: infographic-diagram. Asset type: WeChat Official Account lead-story horizontal cover, about 2.35:1 aspect ratio. Generate a NEW image; the three input images are STYLE REFERENCES ONLY, not content or edit targets. Match their shared visual language closely: warm ivory handmade paper, restrained low-saturation watercolor illustration, fine hand-drawn connectors, delicate translucent color washes, crisp dark Chinese Song/Ming serif centered title across the top, explanatory subtitle centered just beneath, a single coherent horizontal teaching scene across the middle. The 1.1 and 1.2 references are especially important for typography scale and composition. Subject: the article's customer-service case about model adaptation. At left show an old refund-policy paper labeled '旧版 7 天' beside a newer paper labeled '现行 3 天'; at center show a small customer-service reply paper that wrongly cites 7 days and misses a required reminder; from it two delicate distinct arrows branch to '更新资料' (small current-policy document) and '调整行为' (small reply checklist). Make it visually understandable at a glance; use fewer objects than the previous cover. Text exact, verbatim, no other text: top line '大话模型适配'; second line '旧政策答错了要微调吗'; four small labels '旧版 7 天', '现行 3 天', '更新资料', '调整行为'. If exact small labels cannot be rendered confidently, favor clear symbols and omit those small labels rather than invent characters. Preserve adequate dark ink contrast. Main illustration occupies most of the canvas below the title; bottom 15% contains only unobtrusive paper texture because WeChat overlays the title there. No left-aligned title, giant magnifying glass, 3D floating cards, giant shadows, saturated color blocks, vertical left-side decorative bar, watermark, logo, extra slogans, or disclaimer strip. Output a polished, readable 2.35:1 cover image.
+1. `adaptation-case-split-v2.png`：同一个退款客服案例，旧期限被引用与固定提醒漏答分成两条核查路径。前者先查现行政策证据，后者先查提示、模板和输出约束，不直接指向训练。
+2. `adaptation-sft-objective-v2.png`：带现行政策证据的输入，对应经人工核对的目标答复；示意按答复位置预测、计算损失并更新可训练参数。依据 [InstructGPT 监督示范训练](https://arxiv.org/pdf/2203.02155) 和 [LoRA 第 2 节的条件语言建模目标](https://arxiv.org/pdf/2106.09685)。图内两个短语只代表答复片段，不表示实际 token 切分，也不把新政策本身当成稳定知识训练进去。
+3. `adaptation-lora-branches-v2.png`：主文原理图，依据 [LoRA Figure 1 与第 4.1 节](https://arxiv.org/pdf/2106.09685)；同一输入 `x` 经过冻结的 `W0` 支路和可训练的 `A、B` 低秩支路，输出相加为 `h=W0x+BAx`，标出 `A` 与 `B` 的维度关系。原来的泛化 LoRA 图和底部论文条不再引用。
+4. `adaptation-distill-distribution-v2.png`：把退款期限判断教学化为“三天／七天／需核对”三类，在同一输入上对照教师与学生的输出分布，说明蒸馏不是只复制最终答案。概率是构造值，不是实际模型测量；经典软目标思路参照 [Hinton 等第 2 节](https://arxiv.org/pdf/1503.02531)。
+5. `adaptation-release-control-v2.png`：原方案与候选方案固定底座、证据、提示与测试集，仅增加适配器；分开检验现行政策、固定提醒、旧任务和拒答边界，避免把检索改进误算成训练收益。
+
+## 面试副文配图
+
+1. `adaptation-diagnosis-ablation-v2.png`：三次单变量对照：只换政策证据、只加提醒模板、二者固定后再看漏答是否反复发生。图解面试诊断顺序，不画万能适配方法列表。
+2. `adaptation-lora-count-v2.png`：单层教学算例 `d=k=4096, r=8`，全量原矩阵 16,777,216 参数，`A+B` 共 65,536，约为这一层的 0.39%。这个比例不能推广为整个模型实际节省；矩阵维度依据 [LoRA 第 4.1 节](https://arxiv.org/pdf/2106.09685)。
+3. `adaptation-qlora-path-v2.png`：依据 [QLoRA 第 3 节](https://arxiv.org/pdf/2305.14314)，冻结底座以 NF4 等低比特形式存放，计算时反量化，前向叠加 LoRA 支路；参数只更新 `A、B`。框面积不表示实测显存比例，图不声称量化质量必然不变。
+4. `adaptation-distill-soft-targets-v2.png`：与主文同一退款期限案例，比较只给“三天”的硬标签与教师软目标 `[0.70,0.20,0.10]`。`T>1` 表示温度平滑；教学概率不是运行结果。依据 [Hinton 等第 2 节](https://arxiv.org/pdf/1503.02531)。
+5. `adaptation-forgetting-regression-v2.png`：训练信号仅针对固定提醒，验收同时需要目标任务漏答率和旧能力／拒答回归；底座冻结不能替代加载适配器后的行为测试。能力回归的必要性亦见 [InstructGPT 论文的基准退化讨论](https://arxiv.org/pdf/2203.02155)。
+6. `adaptation-version-gate-v2.png`：已验证的底座／分词器／适配器／提示组合，与更换底座后沿用旧适配器的待验证组合对照；箭头表示变更触发兼容性和质量验收，不表示新组合必然失败。
+
+全部新图已目视复核中文、公式、数值、箭头和裁切边界。旧正文图片保留为历史素材，但当前文章和 `series.json` 不再引用。公众号草稿更新后，仍要在手机端检查缩图可读性。
